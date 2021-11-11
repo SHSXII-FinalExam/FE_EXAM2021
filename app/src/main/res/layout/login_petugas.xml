@@ -20,13 +20,13 @@
             android:layout_height="wrap_content"
             android:text="Login Petugas"
             android:textSize="24sp"
-            android:textColor="#C62828"
+            android:textColor="#222222"
             android:textStyle="bold"
             />
 
     </LinearLayout>
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:paddingStart="16dp"
         android:background="@drawable/custom_input"
         android:layout_marginTop="40dp"
@@ -42,7 +42,7 @@
         android:layout_height="60dp"
         android:inputType="text" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:paddingStart="16dp"
         android:background="@drawable/custom_input"
         android:layout_marginTop="32px"
@@ -59,20 +59,21 @@
         android:inputType="textPassword" />
 
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_petugas"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_gravity="center"
+        android:layout_marginTop="24dp"
         android:paddingLeft="24dp"
         android:paddingTop="8dp"
-        android:paddingBottom="8dp"
         android:paddingRight="24dp"
-        android:textSize="14sp"
-        android:background="@drawable/custom_button"
+        android:paddingBottom="8dp"
         android:text="Login"
-        android:layout_marginTop="24dp"
-        />
+        app:cornerRadius="15dp"
+        android:textSize="14sp" />
 
 
 
