@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ModulSPP_UKK2021">
-        <activity android:name=".MainActivity"
+        <activity android:name=".BottomNavigation"
             android:theme="@style/AppFullScreenTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
