@@ -10,17 +10,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ModulSPP_UKK2021">
-        <activity android:name=".BottomNavigation"
-            android:theme="@style/AppFullScreenTheme" >
+
+        <activity android:name=".UI.Splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".UI.Home.BottomNavigation" />
+
+        <activity android:name=".UI.Splash.LoginChoiceActivity" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-
 </manifest>
