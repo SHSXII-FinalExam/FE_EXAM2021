@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Fragment implements AdapterSPP.ItemClickListener {
+public class layout extends Fragment implements AdapterSPP.ItemClickListener {
 
     AdapterSPP adapter;
 
