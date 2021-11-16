@@ -1,7 +1,6 @@
 package com.example.modul_spp_ukk2021;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +20,7 @@ public class MainActivity extends Fragment implements AdapterSPP.ItemClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View v = inflater.inflate(R.layout.activity_main, container, false);
+        View v = inflater.inflate(R.layout.layout, container, false);
 
         // data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();
