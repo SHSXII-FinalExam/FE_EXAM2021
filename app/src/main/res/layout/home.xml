@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:overScrollMode="never"
-    tools:context=".MainActivity">
+    tools:context=".home">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

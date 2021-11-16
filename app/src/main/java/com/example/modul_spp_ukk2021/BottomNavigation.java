@@ -25,7 +25,7 @@ public class BottomNavigation extends AppCompatActivity {
 
     private void BottomNavLogic() {
         fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, new MainActivity()).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, new home()).commit();
 
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -34,11 +34,11 @@ public class BottomNavigation extends AppCompatActivity {
                 int id = item.getItemId();
                 switch (id) {
                     case R.id.navigation_home:
-                        fragment = new MainActivity();
+                        fragment = new home();
                         break;
 
                     case R.id.navigation_dashboard:
-                        fragment = new MainActivity();
+                        fragment = new home();
                         break;
                 }
                 final FragmentTransaction transaction = fragmentManager.beginTransaction();

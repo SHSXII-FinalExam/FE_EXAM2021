@@ -1,7 +1,6 @@
 package com.example.modul_spp_ukk2021;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,14 +13,14 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Fragment implements TestingAdapter.ItemClickListener {
+public class home extends Fragment implements TestingAdapter.ItemClickListener {
 
     TestingAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View v = inflater.inflate(R.layout.activity_main, container, false);
+        View v = inflater.inflate(R.layout.home, container, false);
 
         // data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();
