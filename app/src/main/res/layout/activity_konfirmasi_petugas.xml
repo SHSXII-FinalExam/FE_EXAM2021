@@ -23,7 +23,7 @@
         android:fontFamily="@font/poppins_semibold"
         android:text="Konfirmasi Pembayaran"
         android:textColor="@color/black"
-        android:textSize="16dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,17 +33,18 @@
         android:layout_width="match_parent"
         android:layout_height="262dp"
         android:layout_marginStart="32dp"
-        app:cardCornerRadius="20dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:backgroundTint="#C62828"
+        app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_card2">
 
             <TextView
                 android:id="@+id/textView5"
@@ -68,6 +69,59 @@
                 android:textSize="18dp"
                 app:layout_constraintStart_toStartOf="@+id/textView5"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/materialButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Sudah"
+                android:textAllCaps="false"
+                android:textColor="#C62828"
+                app:cornerRadius="9dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/materialButton2"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:rippleColor="#FF6565"
+                app:strokeColor="#C62828" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/materialButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Kurang"
+                android:textAllCaps="false"
+                android:textColor="#C62828"
+                app:cornerRadius="9dp"
+                app:layout_constraintBottom_toBottomOf="@+id/materialButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/materialButton2"
+                app:rippleColor="#FF6565"
+                app:strokeColor="#C62828" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/materialButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Belum"
+                android:textAllCaps="false"
+                android:textColor="#C62828"
+                app:cornerRadius="9dp"
+                app:layout_constraintBottom_toBottomOf="@+id/materialButton"
+                app:layout_constraintEnd_toStartOf="@+id/materialButton3"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/materialButton"
+                app:rippleColor="#FF6565"
+                app:strokeColor="#C62828" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
