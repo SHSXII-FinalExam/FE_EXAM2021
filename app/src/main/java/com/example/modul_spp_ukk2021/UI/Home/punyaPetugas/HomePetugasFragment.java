@@ -19,9 +19,8 @@ import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 
-public class HomeSiswaFragment extends Fragment implements HomeSiswaAdapter.ItemClickListener {
-
-    HomeSiswaAdapter adapter;
+public class HomePetugasFragment extends Fragment implements HomePetugasAdapter.ItemClickListener {
+    HomePetugasAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,30 +29,21 @@ public class HomeSiswaFragment extends Fragment implements HomeSiswaAdapter.Item
 
         // data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();
-        animalNames.add("Horse");
-        animalNames.add("Cow");
-        animalNames.add("Camel");
-        animalNames.add("Sheep");
-        animalNames.add("Goat");
-        animalNames.add("Horse");
-        animalNames.add("Cow");
-        animalNames.add("Camel");
-        animalNames.add("Sheep");
-        animalNames.add("Goat");
-        animalNames.add("Horse");
-        animalNames.add("Cow");
-        animalNames.add("Camel");
-        animalNames.add("Sheep");
-        animalNames.add("Goat");
+        animalNames.add("Gregorius Devon");
+        animalNames.add("Fadlillah Bashir");
+        animalNames.add("Ruqul Adam");
+        animalNames.add("Christiany Kikyo");
+        animalNames.add("Manggala Kagendra");
+        animalNames.add("Kresna Mukti");
 
         // set up the RecyclerView
-        RecyclerView recyclerView = v.findViewById(R.id.recycler);
+        RecyclerView recyclerView = v.findViewById(R.id.recyclerHomePetugas);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new HomeSiswaAdapter(getContext(), animalNames);
+        adapter = new HomePetugasAdapter(getContext(), animalNames);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
-        ScrollView scrollView = v.findViewById(R.id.scroll_homesiswa);
+        ScrollView scrollView = v.findViewById(R.id.scroll_homepetugas);
         scrollView.post(new Runnable() {
             @Override
             public void run() {
@@ -61,8 +51,8 @@ public class HomeSiswaFragment extends Fragment implements HomeSiswaAdapter.Item
             }
         });
 
-        MaterialButton logoutSiswa = v.findViewById(R.id.logoutSiswa);
-        logoutSiswa.setOnClickListener(new View.OnClickListener() {
+        MaterialButton logoutPetugas = v.findViewById(R.id.logoutPetugas);
+        logoutPetugas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(requireContext(), LoginChoiceActivity.class);

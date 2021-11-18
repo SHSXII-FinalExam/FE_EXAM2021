@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ModulSPP_UKK2021">
 
+        <!--Splash & Onboarding-->
         <activity android:name=".UI.Splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,10 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".UI.Home.BottomNavigation" />
-
         <activity android:name=".UI.Splash.LoginChoiceActivity" />
+
+        <!--Home-->
+        <activity android:name=".UI.Home.punyaSiswa.HomeSiswaActivity" />
+        <activity android:name=".UI.Home.BottomNavigation" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:text="Masuk sebagai Petugas"
+        android:text="Masuk sebagai Admin"
         android:textAllCaps="false"
         android:textSize="12sp"
         app:cornerRadius="15dp"

@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.HomeSiswaFragment;
+import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.HomePetugasFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BottomNavigation extends AppCompatActivity {
@@ -27,7 +27,7 @@ public class BottomNavigation extends AppCompatActivity {
 
     private void BottomNavLogic() {
         fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, new HomeSiswaFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, new HomePetugasFragment()).commit();
 
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -36,11 +36,11 @@ public class BottomNavigation extends AppCompatActivity {
                 int id = item.getItemId();
                 switch (id) {
                     case R.id.navigation_home:
-                        fragment = new HomeSiswaFragment();
+                        fragment = new HomePetugasFragment();
                         break;
 
                     case R.id.navigation_dashboard:
-                        fragment = new HomeSiswaFragment();
+                        fragment = new HomePetugasFragment();
                         break;
                 }
                 final FragmentTransaction transaction = fragmentManager.beginTransaction();
