@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/user/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.403125" />
+        <entry key="..\:/Users/user/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/ic_round_arrow_back_ios_24.xml" value="0.403125" />
+        <entry key="..\:/Users/user/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_main.xml" value="0.5" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/home.xml" value="0.19635416666666666" />
         <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/custom_button.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/custom_button_line.xml" value="0.10989583333333333" />
         <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/custom_button_white.xml" value="0.21614583333333334" />
@@ -31,5 +35,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.12" />
+      </ProjectState>
+    </option>
   </component>
 </project>
