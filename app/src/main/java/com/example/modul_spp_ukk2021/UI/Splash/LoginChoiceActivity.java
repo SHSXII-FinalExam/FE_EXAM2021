@@ -9,7 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Home.BottomNavigation;
+import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.LoginPetugasActivity;
 import com.example.modul_spp_ukk2021.UI.Home.punyaSiswa.HomeSiswaActivity;
+import com.example.modul_spp_ukk2021.UI.Home.punyaSiswa.LoginSiswaActivity;
 import com.google.android.material.button.MaterialButton;
 
 public class LoginChoiceActivity extends AppCompatActivity {
@@ -22,19 +24,19 @@ public class LoginChoiceActivity extends AppCompatActivity {
         MaterialButton btnLoginPetugas = findViewById(R.id.btn_petugas);
         MaterialButton btnLoginSiswa = findViewById(R.id.btn_siswa);
 
-        btnLoginPetugas.setOnClickListener(new View.OnClickListener() {
+        btnLoginSiswa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginChoiceActivity.this, BottomNavigation.class);
+                Intent intent = new Intent(LoginChoiceActivity.this, LoginSiswaActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
 
-        btnLoginSiswa.setOnClickListener(new View.OnClickListener() {
+        btnLoginPetugas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginChoiceActivity.this, HomeSiswaActivity.class);
+                Intent intent = new Intent(LoginChoiceActivity.this, LoginPetugasActivity.class);
                 startActivity(intent);
                 finish();
             }

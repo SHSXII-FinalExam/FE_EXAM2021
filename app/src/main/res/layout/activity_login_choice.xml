@@ -49,23 +49,25 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_siswa"
-        android:layout_width="260dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="40dp"
+        android:layout_marginEnd="32dp"
         android:elevation="0dp"
         android:text="Masuk sebagai Siswa"
         android:textAllCaps="false"
         android:textSize="12sp"
-        app:cornerRadius="15dp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
         app:rippleColor="#FF6565" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_petugas"
-        android:layout_width="260dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
@@ -73,7 +75,7 @@
         android:text="Masuk sebagai Petugas"
         android:textAllCaps="false"
         android:textSize="12sp"
-        app:cornerRadius="15dp"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="@+id/btn_siswa"
         app:layout_constraintStart_toStartOf="@+id/btn_siswa"
         app:layout_constraintTop_toBottomOf="@+id/btn_siswa"
@@ -81,7 +83,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_admin"
-        android:layout_width="260dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
@@ -89,7 +91,7 @@
         android:text="Masuk sebagai Admin"
         android:textAllCaps="false"
         android:textSize="12sp"
-        app:cornerRadius="15dp"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="@+id/btn_siswa"
         app:layout_constraintStart_toStartOf="@+id/btn_siswa"
         app:layout_constraintTop_toBottomOf="@+id/btn_petugas"

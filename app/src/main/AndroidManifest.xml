@@ -6,7 +6,7 @@
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="espepe"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ModulSPP_UKK2021">
@@ -21,8 +21,12 @@
         </activity>
         <activity android:name=".UI.Splash.LoginChoiceActivity" />
 
-        <!--Home-->
+        <!--Activity Siswa-->
+        <activity android:name=".UI.Home.punyaSiswa.LoginSiswaActivity" />
         <activity android:name=".UI.Home.punyaSiswa.HomeSiswaActivity" />
+
+        <!--Activity Petugas-->
+        <activity android:name=".UI.Home.punyaPetugas.LoginPetugasActivity" />
         <activity android:name=".UI.Home.BottomNavigation" />
 
         <meta-data
