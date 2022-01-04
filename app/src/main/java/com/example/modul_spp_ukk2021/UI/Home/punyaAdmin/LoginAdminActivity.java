@@ -1,4 +1,4 @@
-package com.example.modul_spp_ukk2021.UI.Home.punyaPetugas;
+package com.example.modul_spp_ukk2021.UI.Home.punyaAdmin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,11 +11,12 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.BottomNavigationPetugas;
 import com.example.modul_spp_ukk2021.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class LoginPetugasActivity extends AppCompatActivity {
+public class LoginAdminActivity extends AppCompatActivity {
     private EditText edtUsername, edtPassword;
     TextInputLayout textInputLayout2;
 
@@ -44,7 +45,7 @@ public class LoginPetugasActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginPetugasActivity.this, LoginChoiceActivity.class);
+                Intent intent = new Intent(LoginAdminActivity.this, LoginChoiceActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -77,7 +78,7 @@ public class LoginPetugasActivity extends AppCompatActivity {
             });
 
         } else {
-            Intent intent = new Intent(LoginPetugasActivity.this, BottomNavigationPetugas.class);
+            Intent intent = new Intent(LoginAdminActivity.this, BottomNavigationAdmin.class);
             startActivity(intent);
             finish();
         }

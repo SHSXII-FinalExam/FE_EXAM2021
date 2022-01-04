@@ -1,5 +1,6 @@
 package com.example.modul_spp_ukk2021.UI.Home.punyaPetugas;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,5 +55,7 @@ public class DataSiswaFragment extends Fragment implements DataSiswaAdapter.Item
     @Override
     public void onItemClick(View view, int position) {
         Toast.makeText(getContext(), "You clicked " + adapter.getItem(position), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(requireContext(), KonfirmasiPetugasActivity.class);
+        startActivity(intent);
     }
 }
