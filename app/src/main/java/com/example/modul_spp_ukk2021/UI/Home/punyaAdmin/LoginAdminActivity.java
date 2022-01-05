@@ -78,7 +78,7 @@ public class LoginAdminActivity extends AppCompatActivity {
             });
 
         } else {
-            Intent intent = new Intent(LoginAdminActivity.this, BottomNavigationAdmin.class);
+            Intent intent = new Intent(LoginAdminActivity.this, HomeAdminFragment.class);
             startActivity(intent);
             finish();
         }

@@ -31,8 +31,8 @@
         <activity android:name=".UI.Home.punyaPetugas.KonfirmasiPetugasActivity" />
 
         <!--Activity Admin-->
+        <activity android:name=".UI.Home.punyaAdmin.HomeAdminFragment" />
         <activity android:name=".UI.Home.punyaAdmin.LoginAdminActivity" />
-        <activity android:name=".UI.Home.punyaAdmin.BottomNavigationAdmin" />
         <activity android:name=".UI.Home.punyaAdmin.DataPetugasActivity" />
         <activity android:name=".UI.Home.punyaAdmin.DataKelasActivity" />
         <activity android:name=".UI.Home.punyaAdmin.DataSPPActivity" />
