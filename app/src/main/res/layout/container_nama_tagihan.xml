@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
+    android:layout_marginBottom="10dp"
     app:cardBackgroundColor="#F7F7F7"
     app:cardCornerRadius="15dp"
     app:cardElevation="0dp"
@@ -14,7 +15,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/namaSiswa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -23,12 +24,13 @@
             android:fontFamily="@font/poppins_medium"
             android:text="Gregorius Devon"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/nominal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -36,23 +38,23 @@
             android:fontFamily="@font/poppins"
             android:text="Rp 500.000,00"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintStart_toStartOf="@+id/namaSiswa"
+            app:layout_constraintTop_toBottomOf="@+id/namaSiswa" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tahun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/poppins"
             android:text="21 Februari 2012"
             android:textColor="#C62828"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView2"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/nominal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView" />
+            app:layout_constraintTop_toTopOf="@+id/namaSiswa" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

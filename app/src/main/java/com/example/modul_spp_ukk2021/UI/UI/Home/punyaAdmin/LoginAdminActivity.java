@@ -1,4 +1,4 @@
-package com.example.modul_spp_ukk2021.UI.Home.punyaAdmin;
+package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.BottomNavigationPetugas;
-import com.example.modul_spp_ukk2021.UI.Splash.LoginChoiceActivity;
+import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 

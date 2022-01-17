@@ -1,4 +1,4 @@
-package com.example.modul_spp_ukk2021.UI.Home.punyaPetugas;
+package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,11 +10,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.DataSiswaFragment;
-import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.HomePetugasFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class BottomNavigationPetugas extends AppCompatActivity {
+public class PetugasBottomNavigation extends AppCompatActivity {
     private Fragment fragment;
     private FragmentManager fragmentManager;
 

@@ -1,4 +1,4 @@
-package com.example.modul_spp_ukk2021.UI.Home.punyaPetugas;
+package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Splash.LoginChoiceActivity;
+import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -77,7 +77,7 @@ public class LoginPetugasActivity extends AppCompatActivity {
             });
 
         } else {
-            Intent intent = new Intent(LoginPetugasActivity.this, BottomNavigationPetugas.class);
+            Intent intent = new Intent(LoginPetugasActivity.this, PetugasBottomNavigation.class);
             startActivity(intent);
             finish();
         }

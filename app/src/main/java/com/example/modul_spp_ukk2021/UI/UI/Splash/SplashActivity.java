@@ -1,4 +1,4 @@
-package com.example.modul_spp_ukk2021.UI.Splash;
+package com.example.modul_spp_ukk2021.UI.UI.Splash;
 
 import android.content.Context;
 import android.content.Intent;

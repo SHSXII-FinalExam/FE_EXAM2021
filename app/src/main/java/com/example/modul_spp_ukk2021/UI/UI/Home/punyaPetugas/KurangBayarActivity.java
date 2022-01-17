@@ -1,4 +1,4 @@
-package com.example.modul_spp_ukk2021.UI.Home.punyaAdmin;
+package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
 
 import android.os.Bundle;
 
@@ -6,12 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.modul_spp_ukk2021.R;
 
-public class DataSPPActivity extends AppCompatActivity {
+public class KurangBayarActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_spp);
+        setContentView(R.layout.activity_kurang_bayar);
 
     }
 }
+

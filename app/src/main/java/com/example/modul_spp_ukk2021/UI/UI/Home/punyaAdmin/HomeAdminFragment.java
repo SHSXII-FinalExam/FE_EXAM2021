@@ -1,25 +1,23 @@
-package com.example.modul_spp_ukk2021.UI.Home.punyaAdmin;
+package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.DataSiswaFragment;
-import com.example.modul_spp_ukk2021.UI.Splash.LoginChoiceActivity;
+import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.DataSiswaFragment;
+import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
 public class HomeAdminFragment extends AppCompatActivity {
     private Fragment fragment;
     private FragmentManager fragmentManager;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
