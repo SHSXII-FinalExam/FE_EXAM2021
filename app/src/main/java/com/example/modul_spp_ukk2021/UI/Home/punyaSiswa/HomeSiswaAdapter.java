@@ -1,4 +1,4 @@
-package com.example.modul_spp_ukk2021;
+package com.example.modul_spp_ukk2021.UI.Home.punyaSiswa;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,15 +8,17 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.modul_spp_ukk2021.R;
+
 import java.util.List;
 
-public class TestingAdapter extends RecyclerView.Adapter<TestingAdapter.ViewHolder> {
+public class HomeSiswaAdapter extends RecyclerView.Adapter<HomeSiswaAdapter.ViewHolder> {
     private List<String> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    TestingAdapter(Context context, List<String> data) {
+    HomeSiswaAdapter(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -24,7 +26,7 @@ public class TestingAdapter extends RecyclerView.Adapter<TestingAdapter.ViewHold
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.container_history, parent, false);
+        View view = mInflater.inflate(R.layout.container_nama_tagihan, parent, false);
         return new ViewHolder(view);
     }
 

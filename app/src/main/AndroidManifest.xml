@@ -6,21 +6,39 @@
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="espepe"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ModulSPP_UKK2021">
-        <activity android:name=".BottomNavigation"
-            android:theme="@style/AppFullScreenTheme" >
+
+        <!--Splash & Onboarding-->
+        <activity android:name=".UI.Splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".UI.Splash.LoginChoiceActivity" />
+
+        <!--Activity Siswa-->
+        <activity android:name=".UI.Home.punyaSiswa.LoginSiswaActivity" />
+        <activity android:name=".UI.Home.punyaSiswa.HomeSiswaActivity" />
+
+        <!--Activity Petugas-->
+        <activity android:name=".UI.Home.punyaPetugas.LoginPetugasActivity" />
+        <activity android:name=".UI.Home.punyaPetugas.BottomNavigationPetugas" />
+        <activity android:name=".UI.Home.punyaPetugas.KonfirmasiPetugasActivity" />
+
+        <!--Activity Admin-->
+        <activity android:name=".UI.Home.punyaAdmin.HomeAdminFragment" />
+        <activity android:name=".UI.Home.punyaAdmin.LoginAdminActivity" />
+        <activity android:name=".UI.Home.punyaAdmin.DataPetugasActivity" />
+        <activity android:name=".UI.Home.punyaAdmin.DataKelasActivity" />
+        <activity android:name=".UI.Home.punyaAdmin.DataSPPActivity" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-
 </manifest>

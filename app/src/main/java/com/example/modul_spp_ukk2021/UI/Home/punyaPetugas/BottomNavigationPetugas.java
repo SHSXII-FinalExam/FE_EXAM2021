@@ -1,4 +1,4 @@
-package com.example.modul_spp_ukk2021;
+package com.example.modul_spp_ukk2021.UI.Home.punyaPetugas;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -9,23 +9,26 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.DataSiswaFragment;
+import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.HomePetugasFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class BottomNavigation extends AppCompatActivity {
+public class BottomNavigationPetugas extends AppCompatActivity {
     private Fragment fragment;
     private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bottom_navigation);
+        setContentView(R.layout.activity_bottom_navigation);
 
         BottomNavLogic();
     }
 
     private void BottomNavLogic() {
         fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, new MainActivity()).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, new HomePetugasFragment()).commit();
 
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -34,11 +37,11 @@ public class BottomNavigation extends AppCompatActivity {
                 int id = item.getItemId();
                 switch (id) {
                     case R.id.navigation_home:
-                        fragment = new MainActivity();
+                        fragment = new HomePetugasFragment();
                         break;
 
                     case R.id.navigation_dashboard:
-                        fragment = new MainActivity();
+                        fragment = new DataSiswaFragment();
                         break;
                 }
                 final FragmentTransaction transaction = fragmentManager.beginTransaction();
