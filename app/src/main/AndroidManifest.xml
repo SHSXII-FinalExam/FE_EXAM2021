@@ -11,8 +11,7 @@
         android:label="espepe"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ModulSPP_UKK2021"
-        android:usesCleartextTraffic="true">
+        android:theme="@style/Theme.ModulSPP_UKK2021">
 
         <!--Splash & Onboarding-->
         <activity android:name=".UI.UI.Splash.SplashActivity">
@@ -32,6 +31,7 @@
         <activity android:name=".UI.UI.Home.punyaPetugas.LoginPetugasActivity" />
         <activity android:name=".UI.UI.Home.punyaPetugas.PetugasBottomNavigation" />
         <activity android:name=".UI.UI.Home.punyaPetugas.KonfirmasiPetugasActivity" />
+        <activity android:name=".UI.UI.Home.punyaPetugas.KurangBayarActivity" />
 
         <!--Activity Admin-->
         <activity android:name=".UI.UI.Home.punyaAdmin.HomeAdminFragment" />

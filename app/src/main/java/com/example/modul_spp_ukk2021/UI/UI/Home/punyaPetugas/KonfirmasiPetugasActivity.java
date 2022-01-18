@@ -29,8 +29,8 @@ public class KonfirmasiPetugasActivity extends AppCompatActivity {
         textViewNama = findViewById(R.id.textView5);
         textViewNama.setText(getIntent().getStringExtra("siswaNama"));
 
-        SharedPreferences settings = getApplicationContext().getSharedPreferences("espepe", 0);
-        int totalTagihan = settings.getInt("totalTagihan", 0);
+        SharedPreferences settings = getApplicationContext().getSharedPreferences("totalTagihan", 0);
+        int totalTagihan = settings.getInt("tagihanSiswa", 0);
 
         textViewTagihan = findViewById(R.id.textView6);
         Locale localeID = new Locale("in", "ID");

@@ -43,6 +43,8 @@ public class HomeSiswaActivity extends AppCompatActivity {
     @BindView(R.id.recyclerHomeSiswa)
     RecyclerView recyclerView;
 
+    String nisnSiswa = "0040594843";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,9 +97,9 @@ public class HomeSiswaActivity extends AppCompatActivity {
         format.setMaximumFractionDigits(0);
         nominal.setText(format.format(total_sum));
 
-        SharedPreferences settings = getApplicationContext().getSharedPreferences("espepe", 0);
+        SharedPreferences settings = getApplicationContext().getSharedPreferences("totalTagihan", 0);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putInt("totalTagihan", total_sum);
+        editor.putInt("tagihanSiswa", total_sum);
         editor.apply();
 
         TextView Nama = findViewById(R.id.textView);
@@ -114,7 +116,7 @@ public class HomeSiswaActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-        Call<PembayaranRepository> call = api.viewPembayaran();
+        Call<PembayaranRepository> call = api.viewPembayaran(nisnSiswa);
         call.enqueue(new Callback<PembayaranRepository>() {
             @Override
             public void onResponse(Call<PembayaranRepository> call, Response<PembayaranRepository> response) {
