@@ -1,4 +1,4 @@
-package com.example.modul_spp_ukk2021;
+package com.example.modul_spp_ukk2021.UI.Home.punyaSiswa;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,15 +8,17 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.modul_spp_ukk2021.R;
+
 import java.util.List;
 
-public class AdapterSPP extends RecyclerView.Adapter<AdapterSPP.ViewHolder> {
+public class HomeSiswaAdapter extends RecyclerView.Adapter<HomeSiswaAdapter.ViewHolder> {
     private List<String> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    AdapterSPP(Context context, List<String> data) {
+    HomeSiswaAdapter(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -24,7 +26,7 @@ public class AdapterSPP extends RecyclerView.Adapter<AdapterSPP.ViewHolder> {
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.container_spp, parent, false);
+        View view = mInflater.inflate(R.layout.container_nama_tagihan, parent, false);
         return new ViewHolder(view);
     }
 
@@ -48,7 +50,7 @@ public class AdapterSPP extends RecyclerView.Adapter<AdapterSPP.ViewHolder> {
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.nominal);
+            myTextView = itemView.findViewById(R.id.textView);
             itemView.setOnClickListener(this);
         }
 
