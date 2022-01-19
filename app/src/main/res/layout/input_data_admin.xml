@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="20dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="328dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="137dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="44dp"
+        android:text="Input Data Siswa"
+        android:textColor="#121212"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="34dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="308dp"
+        android:text="NISN"
+        android:textColor="#121212"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.083"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="41dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="308dp"
+        android:text="Kelas"
+        android:textColor="#121212"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="111dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="204dp"
+        android:layout_marginEnd="258dp"
+        android:text="ID Pembayaran"
+        android:textColor="#121212"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="135dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="408dp"
+        android:layout_marginEnd="228dp"
+        android:text="Jumlah Pembayaran"
+        android:textColor="#121212"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="135dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="304dp"
+        android:layout_marginEnd="228dp"
+        android:text="Tanggal Pembayaran"
+        android:textColor="#121212"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="347dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/shape2"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="  Masukkan NISN"
+        android:textColor="#86000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName3"
+        android:layout_width="347dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="244dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/shape2"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="  Masukkan ID Pembayaran"
+        android:textColor="#86000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName4"
+        android:layout_width="347dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="148dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/shape2"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="   Masukkan Kelas"
+        android:textColor="#86000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/editTextDate"
+        android:layout_width="347dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="348dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/shape2"
+        android:ems="10"
+        android:inputType="date"
+        android:text="  Masukkan Tanggal Pembayaran"
+        android:textColor="#86000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/editTextNumber"
+        android:layout_width="347dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="448dp"
+        android:background="@drawable/shape2"
+        android:ems="10"
+        android:inputType="number"
+        android:text="  Masukkan Jumlah Pembayaran"
+        android:textColor="#86000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:layout_width="311dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/shape"
+        android:text="Data SPP"
+        android:textColor="#FFFFFF"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.862" />
+</androidx.constraintlayout.widget.ConstraintLayout>
