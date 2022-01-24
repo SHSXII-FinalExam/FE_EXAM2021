@@ -43,7 +43,6 @@ public class HomeSiswaActivity extends AppCompatActivity {
     @BindView(R.id.recyclerHomeSiswa)
     RecyclerView recyclerView;
 
-    String nisnSiswa = "0040594843";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,12 +110,14 @@ public class HomeSiswaActivity extends AppCompatActivity {
     }
 
     private void loadDataPembayaran() {
+        String nisnSiswa = getIntent().getStringExtra("nisnSiswa");
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-        Call<PembayaranRepository> call = api.viewPembayaran(nisnSiswa);
+        Call<PembayaranRepository> call = api.viewHistoryNISN(nisnSiswa);
         call.enqueue(new Callback<PembayaranRepository>() {
             @Override
             public void onResponse(Call<PembayaranRepository> call, Response<PembayaranRepository> response) {

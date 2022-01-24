@@ -35,7 +35,6 @@
 
         <!--Activity Admin-->
         <activity android:name=".UI.UI.Home.punyaAdmin.HomeAdminFragment" />
-        <activity android:name=".UI.UI.Home.punyaAdmin.LoginAdminActivity" />
         <activity android:name=".UI.UI.Home.punyaAdmin.DataPetugasActivity" />
         <activity android:name=".UI.UI.Home.punyaAdmin.DataKelasActivity" />
         <activity android:name=".UI.UI.Home.punyaAdmin.DataSPPActivity" />

@@ -47,10 +47,8 @@ public class HomePetugasFragment extends Fragment {
     private HomePetugasAdapter adapter;
     private List<Pembayaran> pembayaran = new ArrayList<>();
 
-    @BindView(R.id.recyclerHomePetugas) RecyclerView recyclerView;
-
-    SharedPreferences prefs = this.getActivity().getSharedPreferences("loginSiswa", Context.MODE_PRIVATE);
-    String namaSiswa = prefs.getString("nisnSiswa", "No NISN defined");
+    @BindView(R.id.recyclerHomePetugas)
+    RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -109,7 +107,7 @@ public class HomePetugasFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-        Call<PembayaranRepository> call = api.viewPembayaran(namaSiswa);
+        Call<PembayaranRepository> call = api.viewHistorySiswa();
         call.enqueue(new Callback<PembayaranRepository>() {
             @Override
             public void onResponse(Call<PembayaranRepository> call, Response<PembayaranRepository> response) {
