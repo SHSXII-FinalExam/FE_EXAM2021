@@ -30,7 +30,8 @@ public class HomePetugasFragment extends Fragment implements HomePetugasAdapter.
         // data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();
         animalNames.add("Gregorius Devon");
-        animalNames.add("Fadlillah Bashir");
+        animalNames.
+                add("Fadlillah Bashir");
         animalNames.add("Ruqul Adam");
         animalNames.add("Christiany Kikyo");
         animalNames.add("Manggala Kagendra");
