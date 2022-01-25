@@ -1,18 +1,16 @@
-package com.example.modul_spp_ukk2021.UI.Home.punyaSiswa;
+package com.example.modul_spp_ukk2021.UI.Home.punyaAdmin;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Layout;
 import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.ScrollView;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,8 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Database.DbContract;
-import com.example.modul_spp_ukk2021.UI.Splash.LoginChoiceActivity;
-import com.google.android.material.button.MaterialButton;
+import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.KonfirmasiPetugasActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,18 +31,14 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-public class HomeSiswaActivity extends AppCompatActivity {
-
+public class DataSPPActivity extends AppCompatActivity {
+    ImageView btnBack;
     RecyclerView recyclerView;
-    MaterialButton btnLogoutSiswa;
     RecyclerView.LayoutManager layoutManager;
-    HomeSiswaAdapter adapter;
-    ArrayList<DataSiswa> arrayList = new ArrayList<>();
+    DataSppAdapter adapter;
+    ArrayList<DataSpp> arrayList = new ArrayList<>();
     String DATA_JSON_STRING, data_json_string;
     ProgressDialog progressDialog;
     int countData = 0;
@@ -53,26 +46,26 @@ public class HomeSiswaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_siswa);
+        setContentView(R.layout.activity_data_spp);
 
-        btnLogoutSiswa = findViewById(R.id.logoutSiswa);
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerHomeSiswa);
-        layoutManager= new LinearLayoutManager(this);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_spp);
+        layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        adapter = new HomeSiswaAdapter(arrayList);
+        adapter = new DataSppAdapter(arrayList);
         recyclerView.setAdapter(adapter);
-        progressDialog = new ProgressDialog(HomeSiswaActivity.this);
+        progressDialog = new ProgressDialog(DataSPPActivity.this);
 
-        btnLogoutSiswa.setOnClickListener(new View.OnClickListener() {
+        btnBack = findViewById(R.id.imageView);
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeSiswaActivity.this, LoginChoiceActivity.class);
+                Intent intent = new Intent(DataSPPActivity.this, BottomNavigationAdmin.class);
                 startActivity(intent);
+                finish();
             }
         });
 
-        // Read Data
         getJSON();
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -80,35 +73,29 @@ public class HomeSiswaActivity extends AppCompatActivity {
                 readDataFromServer();
             }
         }, 1000);
+
     }
 
-
-    public void readDataFromServer(){
-        if (checkNetworkConnection()){
+    public void readDataFromServer() {
+        if (checkNetworkConnection()) {
             arrayList.clear();
             try {
                 JSONObject object = new JSONObject(data_json_string);
-                JSONArray serverResponse = object.getJSONArray("result");
-                String nama ;
-                Integer nominal;
-                Date tgl_bayar;
+                JSONArray serverResponse = object.getJSONArray("server_response");
+                String tahun, nominal;
 
                 while (countData < serverResponse.length()) {
                     JSONObject jsonObject = serverResponse.getJSONObject(countData);
-                    nama = jsonObject.getString("nama");
-                    nominal = jsonObject.getInt("nominal");
+                    tahun = jsonObject.getString("tahun");
+                    nominal = jsonObject.getString("nominal");
 
-                    String dateStr = jsonObject.getString("tgl_bayar");
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    tgl_bayar = sdf.parse(dateStr);
-
-                    arrayList.add(new DataSiswa(nama, nominal, tgl_bayar));
+                    arrayList.add(new DataSpp(tahun, nominal));
                     countData++;
                 }
                 countData = 0;
 
                 adapter.notifyDataSetChanged();
-            } catch (JSONException | ParseException e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
@@ -120,7 +107,7 @@ public class HomeSiswaActivity extends AppCompatActivity {
         return (networkInfo != null && networkInfo.isConnected());
     }
 
-    public void getJSON(){
+    public void getJSON() {
         new BackgroundTask().execute();
     }
 
@@ -130,8 +117,9 @@ public class HomeSiswaActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            json_url = DbContract.SERVER_READ_RECYCLER_HOME_SISWA_URL;
+            json_url = DbContract.SERVER_READ_DATA_SPP;
         }
+
         @Override
         protected String doInBackground(Void... voids) {
             try {
@@ -141,7 +129,7 @@ public class HomeSiswaActivity extends AppCompatActivity {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                 StringBuilder stringBuilder = new StringBuilder();
 
-                while ((DATA_JSON_STRING = bufferedReader.readLine()) != null){
+                while ((DATA_JSON_STRING = bufferedReader.readLine()) != null) {
                     stringBuilder.append(DATA_JSON_STRING + "\n");
                 }
                 bufferedReader.close();
@@ -165,7 +153,7 @@ public class HomeSiswaActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-                data_json_string = result;
+            data_json_string = result;
         }
     }
 

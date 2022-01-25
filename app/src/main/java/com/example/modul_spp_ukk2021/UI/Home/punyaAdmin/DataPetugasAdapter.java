@@ -1,4 +1,4 @@
-package com.example.modul_spp_ukk2021.UI.Home.punyaPetugas;
+package com.example.modul_spp_ukk2021.UI.Home.punyaAdmin;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,29 +9,30 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Home.punyaSiswa.DataSiswa;
 import com.example.modul_spp_ukk2021.UI.Home.punyaSiswa.HomeSiswaAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.ViewhHolder> {
-    private ArrayList<DataSiswa> arrayList = new ArrayList<>();
+public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.ViewhHolder> {
 
-    public HomePetugasAdapter(ArrayList<DataSiswa> arrayList){
+    private ArrayList<DataPetugas> arrayList = new ArrayList<>();
+
+    public DataPetugasAdapter(ArrayList<DataPetugas> arrayList){
         this.arrayList = arrayList;
     }
 
     @Override
     public ViewhHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.container_nama_tagihan, parent, false);
-        return new HomePetugasAdapter.ViewhHolder(view);
+        return new ViewhHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewhHolder holder, int position) {
-        holder.nama.setText(arrayList.get(position).getNama());
-        holder.nominal.setText(arrayList.get(position).getNominal());
-        holder.tgl_bayar.setText((CharSequence) arrayList.get(position).getTgl_bayar());
+        holder.nama_petugas.setText(arrayList.get(position).getNama_petugas());
+        holder.level.setText(arrayList.get(position).getLevel());
+        holder.jam_kerja.setText(arrayList.get(position).getJam_kerja());
     }
 
     @Override
@@ -41,14 +42,13 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
 
     public static class ViewhHolder extends RecyclerView.ViewHolder {
 
-        TextView nama, nominal, tgl_bayar;
+        TextView nama_petugas, level, jam_kerja;
 
         public ViewhHolder(View itemView) {
             super(itemView);
-            nama = (TextView) itemView.findViewById(R.id.textView);
-            nominal = (TextView) itemView.findViewById(R.id.textView2);
-            tgl_bayar = (TextView) itemView.findViewById(R.id.textView3);
+            nama_petugas = (TextView) itemView.findViewById(R.id.textView);
+            level = (TextView) itemView.findViewById(R.id.textView2);
+            jam_kerja = (TextView) itemView.findViewById(R.id.textView3);
         }
     }
-
 }

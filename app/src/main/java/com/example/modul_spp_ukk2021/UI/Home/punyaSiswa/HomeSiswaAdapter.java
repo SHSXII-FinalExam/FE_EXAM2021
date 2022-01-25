@@ -6,72 +6,62 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.modul_spp_ukk2021.R;
-
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
-public class HomeSiswaAdapter extends RecyclerView.Adapter<HomeSiswaAdapter.ViewHolder> {
-    private List<String> mData;
-    private LayoutInflater mInflater;
-    private ItemClickListener mClickListener;
+import com.example.modul_spp_ukk2021.R;
+import java.util.ArrayList;
 
-    // data is passed into the constructor
-    HomeSiswaAdapter(Context context, List<String> data) {
-        this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+public class HomeSiswaAdapter extends RecyclerView.Adapter<HomeSiswaAdapter.ViewhHolder>{
+
+    private ArrayList<DataSiswa> arrayList = new ArrayList<>();
+
+    public HomeSiswaAdapter(ArrayList<DataSiswa> arrayList){
+        this.arrayList = arrayList;
     }
 
-    // inflates the row layout from xml when needed
+
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.container_nama_tagihan, parent, false);
-        return new ViewHolder(view);
+    public ViewhHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.container_nama_tagihan, parent, false);
+        return new ViewhHolder(view);
+
     }
 
-    // binds the data to the TextView in each row
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        String animal = mData.get(position);
-        holder.myTextView.setText(animal);
+    public void onBindViewHolder(ViewhHolder holder, int position) {
+        holder.nama.setText(arrayList.get(position).getNama());
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
+        format.setMaximumFractionDigits(0);
+
+        SimpleDateFormat simpleDate = new SimpleDateFormat("dd MMMM yyyy", localeID);
+        holder.tgl_bayar.setText(simpleDate.format(arrayList.get(position).getTgl_bayar()));
+
+        holder.nominal.setText(format.format(arrayList.get(position).getNominal()));
+
     }
 
-    // total number of rows
     @Override
     public int getItemCount() {
-        return mData.size();
+        return arrayList.size();
     }
 
+    public static class ViewhHolder extends RecyclerView.ViewHolder {
 
-    // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView;
+        TextView nama, nominal, tgl_bayar;
 
-        ViewHolder(View itemView) {
+        public ViewhHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.textView);
-            itemView.setOnClickListener(this);
+            nama = (TextView) itemView.findViewById(R.id.textView);
+            nominal = (TextView) itemView.findViewById(R.id.textView2);
+            tgl_bayar = (TextView) itemView.findViewById(R.id.textView3);
         }
-
-        @Override
-        public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
-        }
-    }
-
-    // convenience method for getting data at click position
-    String getItem(int id) {
-        return mData.get(id);
-    }
-
-    // allows clicks events to be caught
-    void setClickListener(ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
-
-    // parent activity will implement this method to respond to click events
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
     }
 }

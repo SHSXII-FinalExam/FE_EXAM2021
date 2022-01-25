@@ -1,6 +1,7 @@
 package com.example.modul_spp_ukk2021.UI.Home.punyaPetugas;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,69 +10,45 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.Home.punyaSiswa.DataSiswa2;
 
-import java.util.List;
 
-public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.ViewHolder> {
-    private List<String> mData;
-    private LayoutInflater mInflater;
-    private ItemClickListener mClickListener;
+import java.util.ArrayList;
 
-    // data is passed into the constructor
-    DataSiswaAdapter(Context context, List<String> data) {
-        this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.ViewhHolder> {
+    private ArrayList<DataSiswa2> arrayList = new ArrayList<>();
+
+    public DataSiswaAdapter(ArrayList<DataSiswa2> arrayList){
+        this.arrayList = arrayList;
     }
 
-    // inflates the row layout from xml when needed
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.container_data_siswa, parent, false);
-        return new ViewHolder(view);
+    public ViewhHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.container_data_siswa, parent, false);
+        return new DataSiswaAdapter.ViewhHolder(view);
     }
 
-    // binds the data to the TextView in each row
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        String animal = mData.get(position);
-        holder.myTextView.setText(animal);
+    public void onBindViewHolder(ViewhHolder holder, int position) {
+        holder.nama.setText(arrayList.get(position).getNama());
+        holder.nama_kelas.setText(arrayList.get(position).getNama_kelas());
+
     }
 
-    // total number of rows
     @Override
     public int getItemCount() {
-        return mData.size();
+        return arrayList.size();
     }
 
+    public static class ViewhHolder extends RecyclerView.ViewHolder {
 
-    // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView;
+        TextView nama, nama_kelas;
 
-        ViewHolder(View itemView) {
+        public ViewhHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.textView);
-            itemView.setOnClickListener(this);
+            nama = (TextView) itemView.findViewById(R.id.textView);
+            nama_kelas = (TextView) itemView.findViewById(R.id.textView3);
+
         }
-
-        @Override
-        public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
-        }
-    }
-
-    // convenience method for getting data at click position
-    String getItem(int id) {
-        return mData.get(id);
-    }
-
-    // allows clicks events to be caught
-    void setClickListener(ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
-
-    // parent activity will implement this method to respond to click events
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
     }
 }

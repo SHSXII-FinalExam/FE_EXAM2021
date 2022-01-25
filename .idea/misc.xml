@@ -3,9 +3,34 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/custom_input.xml" value="0.21614583333333334" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/ic_arrow.xml" value="0.21614583333333334" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/ic_launcher_background.xml" value="0.21614583333333334" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_bottom_navigation_admin.xml" value="0.1" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_bottom_navigation_petugas.xml" value="0.1" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_data_kelas.xml" value="0.12635869565217392" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_data_petugas.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_data_spp.xml" value="0.20476190476190476" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_home_siswa.xml" value="0.1" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_input_data_admin.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_konfirmasi_admin.xml" value="0.22" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_login_admin.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_login_petugas.xml" value="0.1" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_login_petugasadmin.xml" value="0.19157608695652173" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_login_siswa.xml" value="0.31960461285008235" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/container_data_siswa.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/container_nama_tagihan.xml" value="0.22" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/container_tahun.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/fragment_home_admin.xml" value="0.1" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/fragment_home_petugas.xml" value="0.10054347826086957" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/home.xml" value="0.19635416666666666" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/menu/bottom_menu.xml" value="0.1" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/menu/bottom_menu_admin.xml" value="0.2" />
+        <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/menu/bottom_menu_petugas.xml" value="0.1" />
         <entry key="..\:/Users/user/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.403125" />
         <entry key="..\:/Users/user/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/ic_round_arrow_back_ios_24.xml" value="0.403125" />
         <entry key="..\:/Users/user/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_main.xml" value="0.5" />
+<<<<<<< Updated upstream
         <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/home.xml" value="0.19635416666666666" />
         <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/custom_button.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/custom_button_line.xml" value="0.10989583333333333" />
@@ -27,6 +52,8 @@
         <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/login_petugas.xml" value="0.22" />
         <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/login_siswa.xml" value="0.45304777594728174" />
         <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
+=======
+>>>>>>> Stashed changes
       </map>
     </option>
   </component>

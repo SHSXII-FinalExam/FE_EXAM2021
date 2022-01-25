@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <FrameLayout
-        android:id="@+id/fragment_container"
+        android:id="@+id/fragment_container_admin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="81dp"
@@ -14,12 +14,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
+        android:id="@+id/bottomNavigationViewAdmin"
         android:layout_width="match_parent"
         android:layout_height="81dp"
         android:theme="@style/Widget.BottomNavigationView"
         app:backgroundTint="#F7F7F7"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_menu" />
+        app:menu="@menu/bottom_menu_admin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
