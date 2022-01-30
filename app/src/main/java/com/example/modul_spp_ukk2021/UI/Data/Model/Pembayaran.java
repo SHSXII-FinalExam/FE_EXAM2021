@@ -2,7 +2,9 @@ package com.example.modul_spp_ukk2021.UI.Data.Model;
 
 import java.util.Date;
 
-public class Pembayaran {
+public class
+
+Pembayaran {
     String id_pembayaran;
     String nama_petugas;
     String nisn;

@@ -1,10 +1,13 @@
 package com.example.modul_spp_ukk2021.UI.Network;
 
 import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
+import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.KelasRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStaffRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
 
 import retrofit2.Call;
@@ -44,12 +47,25 @@ public interface ApiEndPoints {
             @Field("level") String level);
 
     @FormUrlEncoded
+    @POST("dbCreateSPP.php")
+    Call<SPPRepository> createSPP(
+            @Field("angkatan") String angkatan,
+            @Field("tahun") String tahun,
+            @Field("nominal") String nominal);
+
+    @FormUrlEncoded
     @POST("dbSearchSiswa.php")
     Call<SiswaRepository> searchDataSiswa(
             @Field("search") String search);
 
     @GET("dbReadSiswa.php")
     Call<SiswaRepository> viewDataSiswa();
+
+    @GET("dbReadSPP.php")
+    Call<SPPRepository> viewDataSPP();
+
+    @GET("dbReadKelas.php")
+    Call<KelasRepository> viewDataKelas();
 
     @GET("dbReadPetugas.php")
     Call<PetugasRepository> viewDataPetugas();

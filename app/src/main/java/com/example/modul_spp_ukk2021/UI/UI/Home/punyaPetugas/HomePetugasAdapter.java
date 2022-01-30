@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.HomeSiswaActivity;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.HomeSiswaAdapter;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -34,7 +32,7 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.container_nama_tagihan, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.container_data_history, parent, false);
 
         return new ViewHolder(view);
     }

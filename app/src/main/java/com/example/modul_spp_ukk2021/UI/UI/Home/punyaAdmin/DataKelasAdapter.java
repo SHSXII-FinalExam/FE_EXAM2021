@@ -9,27 +9,30 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
+import com.example.modul_spp_ukk2021.UI.Data.Model.Kelas;
+import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.ViewHolder> {
+public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.ViewHolder> {
     private Context context;
-    private List<Petugas> petugas;
+    private List<Kelas> kelas;
 
     // data is passed into the constructor
-    public DataPetugasAdapter(Context context, List<Petugas> petugas) {
+    public DataKelasAdapter(Context context, List<Kelas> kelas) {
         this.context = context;
-        this.petugas = petugas;
+        this.kelas = kelas;
     }
 
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.container_data_petugas, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.container_data_kelas, parent, false);
 
         return new ViewHolder(view);
     }
@@ -37,23 +40,23 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Petugas petugas = this.petugas.get(position);
+        Kelas kelas = this.kelas.get(position);
 
-        holder.textViewNama.setText(petugas.getNama_petugas());
+        holder.textViewKelas.setText(kelas.getNama_kelas());
 
     }
 
     // total number of rows
     @Override
     public int getItemCount() {
-        return petugas.size();
+        return kelas.size();
     }
 
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.namaPetugas)
-        TextView textViewNama;
+        @BindView(R.id.textView6)
+        TextView textViewKelas;
 
         public ViewHolder(View itemView) {
             super(itemView);

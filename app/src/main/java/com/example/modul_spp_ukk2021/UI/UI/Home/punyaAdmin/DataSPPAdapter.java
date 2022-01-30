@@ -1,4 +1,4 @@
-package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
+package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,30 +9,30 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
+import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
+import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
 
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeSiswaAdapter extends RecyclerView.Adapter<HomeSiswaAdapter.ViewHolder> {
+public class DataSPPAdapter extends RecyclerView.Adapter<DataSPPAdapter.ViewHolder> {
     private Context context;
-    private List<Pembayaran> pembayaran;
+    private List<SPP> spp;
 
     // data is passed into the constructor
-    public HomeSiswaAdapter(Context context, List<Pembayaran> pembayaran) {
+    public DataSPPAdapter(Context context, List<SPP> spp) {
         this.context = context;
-        this.pembayaran = pembayaran;
+        this.spp = spp;
     }
 
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.container_data_history, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.container_data_spp, parent, false);
 
         return new ViewHolder(view);
     }
@@ -40,41 +40,34 @@ public class HomeSiswaAdapter extends RecyclerView.Adapter<HomeSiswaAdapter.View
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Pembayaran pembayaran = this.pembayaran.get(position);
+        SPP spp = this.spp.get(position);
 
-        holder.textViewNama.setText(pembayaran.getNama());
+        holder.textViewTahun.setText("Tahun "+spp.getTahun());
 
         Locale localeID = new Locale("in", "ID");
         NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
         format.setMaximumFractionDigits(0);
-        holder.textViewNominal.setText(format.format(pembayaran.getNominal()));
+        holder.textViewNominal.setText(format.format(spp.getNominal()));
 
-        SimpleDateFormat simpleDate = new SimpleDateFormat("dd MMMM yyyy", localeID);
-        String strDt = simpleDate.format(pembayaran.getTgl_bayar());
-        holder.textViewTahun.setText(strDt);
-
-
-        if (position == this.pembayaran.size() - 1) {
-            ((HomeSiswaActivity) context).getVariable();
-        }
+        holder.textViewAngkatan.setText("Angkatan "+spp.getAngkatan());
 
     }
 
     // total number of rows
     @Override
     public int getItemCount() {
-        return pembayaran.size();
+        return spp.size();
     }
 
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.namaSiswa)
-        TextView textViewNama;
-        @BindView(R.id.tahun)
+        @BindView(R.id.textView)
         TextView textViewTahun;
         @BindView(R.id.nominal)
         TextView textViewNominal;
+        @BindView(R.id.textView3)
+        TextView textViewAngkatan;
 
         public ViewHolder(View itemView) {
             super(itemView);

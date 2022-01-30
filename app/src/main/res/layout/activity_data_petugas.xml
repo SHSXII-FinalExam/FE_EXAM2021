@@ -85,7 +85,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/container_nama_petugas" />
+                tools:listitem="@layout/container_data_petugas" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
