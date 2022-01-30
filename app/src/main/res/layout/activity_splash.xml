@@ -7,6 +7,7 @@
     android:background="@drawable/logo_backgroundsplash">
 
     <ImageView
+        android:id="@+id/logo_ts"
         android:layout_width="@dimen/_248sdp"
         android:layout_height="@dimen/_80sdp"
         android:layout_centerInParent="true"

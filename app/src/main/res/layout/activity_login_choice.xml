@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/logo_backgroundlogin"
@@ -9,11 +8,11 @@
 
     <ImageView
         android:id="@+id/logo_ts"
-        android:transitionName="fade"
         android:layout_width="@dimen/_124sdp"
         android:layout_height="@dimen/_40sdp"
         android:layout_marginTop="40dp"
         android:background="@drawable/logo_ts"
+        android:transitionName="fade"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -21,8 +20,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:transitionName="card_Siswa"
         app:cardBackgroundColor="#F7F7F7"
         app:cardCornerRadius="15dp"
         app:cardElevation="0dp"

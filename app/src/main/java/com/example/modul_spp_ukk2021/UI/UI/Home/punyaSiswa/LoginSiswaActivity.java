@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -35,19 +36,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
 
 public class LoginSiswaActivity extends AppCompatActivity {
-    private EditText edtNISN, edtPassword;
-    TextInputLayout textInputLayout2;
+    private EditText editNISN, editPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_siswa);
 
-        edtNISN = findViewById(R.id.login_SiswaNISN);
-        edtPassword = findViewById(R.id.login_siswaPass);
+        Fade fade = new Fade();
+        getWindow().setEnterTransition(fade);
+        getWindow().setExitTransition(fade);
+
+        editNISN = findViewById(R.id.nisn);
+        editPassword = findViewById(R.id.password);
         MaterialButton btnSignInSiswa = findViewById(R.id.signin_siswa);
-        ImageView btnBack = findViewById(R.id.imageView);
-        textInputLayout2 = findViewById(R.id.textInputLayout2);
 
         btnSignInSiswa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,35 +57,24 @@ public class LoginSiswaActivity extends AppCompatActivity {
                 validateForm();
             }
         });
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginSiswaActivity.this, LoginChoiceActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
     }
 
     private void validateForm() {
-        String nisn = edtNISN.getText().toString().trim();
-        String password = edtPassword.getText().toString().trim();
+        String nisn = editNISN.getText().toString().trim();
+        String password = editPassword.getText().toString().trim();
 
         if (nisn.length() < 10) {
-            edtNISN.setError("NISN kosong/salah");
+            editNISN.setError("NISN kosong/salah");
         } else if (password.isEmpty()) {
-            edtPassword.setError("Password kosong/salah");
-            textInputLayout2.setEndIconVisible(false);
+            editPassword.setError("Password kosong/salah");
 
-            edtPassword.addTextChangedListener(new TextWatcher() {
+            editPassword.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 }
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    textInputLayout2.setEndIconVisible(true);
                 }
 
                 @Override
