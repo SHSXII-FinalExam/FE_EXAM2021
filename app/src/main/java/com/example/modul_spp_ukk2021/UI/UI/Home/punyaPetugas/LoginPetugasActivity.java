@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -36,8 +37,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
 
 public class LoginPetugasActivity extends AppCompatActivity {
-    private EditText edtUsername, edtPassword;
-    TextInputLayout textInputLayout2;
+    private EditText editUsername, editPassword;
+    private TextInputLayout textInputLayout, textInputLayout2;
+    private MaterialButton kembali, masuk;
     private List<LoginStaff> loginStaff = new ArrayList<>();
 
     @Override
@@ -45,59 +47,75 @@ public class LoginPetugasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_petugasadmin);
 
-        LoginForm();
-    }
+        Fade fade = new Fade();
+        getWindow().setEnterTransition(fade);
+        getWindow().setExitTransition(fade);
 
-    private void LoginForm() {
-        edtUsername = findViewById(R.id.login_PetugasUsername);
-        edtPassword = findViewById(R.id.login_PetugasPass);
-        MaterialButton btnSignInSiswa = findViewById(R.id.signin_petugas);
-        ImageView btnBack = findViewById(R.id.imageView);
+        editUsername = findViewById(R.id.username);
+        editPassword = findViewById(R.id.password);
+        textInputLayout = findViewById(R.id.textInputLayout);
         textInputLayout2 = findViewById(R.id.textInputLayout2);
+        masuk = findViewById(R.id.masuk);
+        kembali = findViewById(R.id.kembali);
 
-        btnSignInSiswa.setOnClickListener(new View.OnClickListener() {
+        masuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validateForm();
             }
         });
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        kembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginPetugasActivity.this, LoginChoiceActivity.class);
-                startActivity(intent);
-                finish();
+                onBackPressed();
             }
         });
     }
 
     private void validateForm() {
-        String username = edtUsername.getText().toString().trim();
-        String password = edtPassword.getText().toString().trim();
+        String username = editUsername.getText().toString().trim();
+        String password = editPassword.getText().toString().trim();
 
         if (username.isEmpty()) {
-            edtUsername.setError("Username kosong/salah");
-        } else if (password.isEmpty()) {
-            edtPassword.setError("Password kosong/salah");
-            textInputLayout2.setEndIconVisible(false);
-
-            edtPassword.addTextChangedListener(new TextWatcher() {
+            textInputLayout.setError("Username salah");
+            editUsername.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 }
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    textInputLayout2.setEndIconVisible(true);
+                    textInputLayout.setErrorEnabled(false);
                 }
 
                 @Override
                 public void afterTextChanged(Editable s) {
                 }
             });
-
         } else {
+            textInputLayout.setErrorEnabled(false);
+            loadDataPembayaran(username, password);
+        }
+
+        if (password.isEmpty()) {
+            textInputLayout2.setError("Password kosong/salah");
+            editPassword.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    textInputLayout2.setErrorEnabled(false);
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                }
+            });
+        } else {
+            textInputLayout2.setErrorEnabled(false);
             loadDataPembayaran(username, password);
         }
     }

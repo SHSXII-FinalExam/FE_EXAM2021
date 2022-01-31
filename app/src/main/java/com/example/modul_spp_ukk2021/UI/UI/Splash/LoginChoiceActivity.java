@@ -58,17 +58,21 @@ public class LoginChoiceActivity extends AppCompatActivity {
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginChoiceActivity.this, card, ViewCompat.getTransitionName(card));
                 Intent intent = new Intent(LoginChoiceActivity.this, LoginSiswaActivity.class);
                 startActivity(intent, options.toBundle());
-                finish();
             }
         });
 
         btnLoginPetugas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginChoiceActivity.this, card, ViewCompat.getTransitionName(card));
                 Intent intent = new Intent(LoginChoiceActivity.this, LoginPetugasActivity.class);
-                startActivity(intent);
-                finish();
+                startActivity(intent, options.toBundle());
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
     }
 }

@@ -34,7 +34,6 @@ public class SplashActivity extends AppCompatActivity {
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(SplashActivity.this, logo, ViewCompat.getTransitionName(logo));
                 Intent intent = new Intent(SplashActivity.this, LoginChoiceActivity.class);
                 startActivity(intent, options.toBundle());
-                finish();
             }
         }, 2000);
     }

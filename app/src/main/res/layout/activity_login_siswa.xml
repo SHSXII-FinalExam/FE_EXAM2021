@@ -6,11 +6,32 @@
     android:background="@drawable/logo_backgroundlogin"
     android:overScrollMode="never">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/kembali"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:backgroundTint="#F5F6F7"
+        android:fontFamily="@font/poppins_semibold"
+        android:paddingHorizontal="24dp"
+        android:text="Kembali"
+        android:textAllCaps="false"
+        android:textColor="#9A9EA7"
+        android:textSize="14sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="#9A9EA7"
+        app:strokeColor="#F5F6F7" />
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:transitionName="card_Siswa"
+        android:transitionName="card"
         app:cardBackgroundColor="#F7F7F7"
         app:cardCornerRadius="15dp"
         app:cardElevation="0dp"
@@ -55,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="42dp"
                 android:layout_marginEnd="32dp"
                 android:textColorHint="#9A9EA7"
                 app:boxBackgroundColor="#F7F7F7"
@@ -76,7 +97,7 @@
                 <EditText
                     android:id="@+id/nisn"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:hint="NISN"
                     android:inputType="number"
                     android:maxLength="10"
@@ -121,7 +142,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/signin_siswa"
+                android:id="@+id/masuk"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginStart="30dp"
