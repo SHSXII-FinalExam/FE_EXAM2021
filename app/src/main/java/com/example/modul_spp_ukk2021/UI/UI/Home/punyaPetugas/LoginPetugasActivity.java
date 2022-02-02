@@ -3,25 +3,19 @@ package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.LoginStaff;
-import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStaffRepository;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin.HomeAdminFragment;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.HomeSiswaActivity;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.LoginSiswaActivity;
-import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -40,16 +34,11 @@ public class LoginPetugasActivity extends AppCompatActivity {
     private EditText editUsername, editPassword;
     private TextInputLayout textInputLayout, textInputLayout2;
     private MaterialButton kembali, masuk;
-    private List<LoginStaff> loginStaff = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_petugasadmin);
-
-        Fade fade = new Fade();
-        getWindow().setEnterTransition(fade);
-        getWindow().setExitTransition(fade);
+        setContentView(R.layout.activity_login_staff);
 
         editUsername = findViewById(R.id.username);
         editPassword = findViewById(R.id.password);

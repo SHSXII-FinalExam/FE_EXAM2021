@@ -49,10 +49,6 @@ public class LoginSiswaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_siswa);
 
-        Fade fade = new Fade();
-        getWindow().setEnterTransition(fade);
-        getWindow().setExitTransition(fade);
-
         editNISN = findViewById(R.id.nisn);
         editPassword = findViewById(R.id.password);
         textInputLayout = findViewById(R.id.textInputLayout);

@@ -24,41 +24,32 @@ public class HomeAdminFragment extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_home_admin);
 
-        MaterialButton logoutAdmin = findViewById(R.id.logoutAdmin);
-        logoutAdmin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeAdminFragment.this, LoginChoiceActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        MaterialCardView dataSiswa = findViewById(R.id.dataSiswa);
-        dataSiswa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.fragment_container, new DataSiswaFragment()).commit();
-            }
-        });
-
-        MaterialCardView dataPetugas = findViewById(R.id.dataPetugas);
-        dataPetugas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeAdminFragment.this, DataPetugasActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        MaterialCardView dataKelas = findViewById(R.id.dataKelas);
-        dataKelas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeAdminFragment.this, DataKelasActivity.class);
-                startActivity(intent);
-            }
-        });
+//        MaterialCardView dataSiswa = findViewById(R.id.dataSiswa);
+//        dataSiswa.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                fragmentManager = getSupportFragmentManager();
+//                fragmentManager.beginTransaction().replace(R.id.fragment_container, new DataSiswaFragment()).commit();
+//            }
+//        });
+//
+//        MaterialCardView dataPetugas = findViewById(R.id.dataPetugas);
+//        dataPetugas.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(HomeAdminFragment.this, DataPetugasActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        MaterialCardView dataKelas = findViewById(R.id.dataKelas);
+//        dataKelas.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(HomeAdminFragment.this, DataKelasActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         MaterialCardView dataSPP = findViewById(R.id.dataSPP);
         dataSPP.setOnClickListener(new View.OnClickListener() {

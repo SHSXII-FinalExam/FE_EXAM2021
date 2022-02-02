@@ -30,10 +30,6 @@ public class LoginChoiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_choice);
 
-        Fade fade = new Fade();
-        getWindow().setEnterTransition(fade);
-        getWindow().setExitTransition(fade);
-
         TextView btnLoginPetugas = findViewById(R.id.btn_petugas);
         TextView btnLoginSiswa = findViewById(R.id.btn_siswa);
         MaterialCardView card = findViewById(R.id.card);

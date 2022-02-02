@@ -13,18 +13,16 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:backgroundTint="#F5F6F7"
-        android:fontFamily="@font/poppins_semibold"
-        android:paddingHorizontal="24dp"
+        android:fontFamily="@font/avenir_bold"
         android:text="Kembali"
         android:textAllCaps="false"
         android:textColor="#9A9EA7"
-        android:textSize="14sp"
+        android:textSize="@dimen/_14ssp"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="#9A9EA7"
+        app:rippleColor="#F5F6F7"
         app:strokeColor="#F5F6F7" />
 
     <com.google.android.material.card.MaterialCardView
@@ -49,11 +47,11 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="47dp"
-                android:fontFamily="@font/poppins_bold"
+                android:layout_marginTop="45dp"
+                android:fontFamily="@font/avenir_bold"
                 android:text="Selamat Datang"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_20ssp"
+                android:textColor="#251F39"
+                android:textSize="@dimen/_26ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -62,10 +60,10 @@
                 android:id="@+id/desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins"
+                android:fontFamily="@font/avenir_regular"
                 android:text="Masukkan kredensial untuk masuk"
                 android:textColor="#9A9EA7"
-                android:textSize="@dimen/_10ssp"
+                android:textSize="@dimen/_14ssp"
                 app:layout_constraintEnd_toEndOf="@+id/title"
                 app:layout_constraintStart_toStartOf="@+id/title"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -76,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="42dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginEnd="32dp"
                 android:textColorHint="#9A9EA7"
                 app:boxBackgroundColor="#F7F7F7"
@@ -98,12 +96,14 @@
                     android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/avenir_demi"
                     android:hint="Username"
                     android:inputType="text"
                     android:maxLength="10"
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColor="#0D0A19" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -134,11 +134,13 @@
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/avenir_demi"
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColor="#0D0A19" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
@@ -148,9 +150,11 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="35dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginBottom="150dp"
+                android:layout_marginBottom="100dp"
+                android:fontFamily="@font/avenir_demi"
                 android:text="Masuk"
                 android:textAllCaps="false"
+                android:textSize="@dimen/_14ssp"
                 app:cornerRadius="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
