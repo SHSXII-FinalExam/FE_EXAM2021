@@ -47,7 +47,7 @@ public class HomeSiswaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_siswa);
+        setContentView(R.layout.activity_tagihan_siswa);
         ButterKnife.bind(this);
 
         adapter = new HomeSiswaAdapter(this, pembayaran);
@@ -56,15 +56,15 @@ public class HomeSiswaActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        ScrollView scrollView = findViewById(R.id.scroll_homesiswa);
+        ScrollView scrollView = findViewById(R.id.scroll);
         scrollView.post(new Runnable() {
             @Override
             public void run() {
                 scrollView.scrollTo(0, 0);
             }
         });
-        MaterialButton logoutPetugas = findViewById(R.id.logoutSiswa);
-        logoutPetugas.setOnClickListener(new View.OnClickListener() {
+        MaterialButton logout = findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeSiswaActivity.this, LoginChoiceActivity.class);
@@ -90,7 +90,7 @@ public class HomeSiswaActivity extends AppCompatActivity {
             total_sum += price;
         }
 
-        TextView nominal = findViewById(R.id.textView13);
+        TextView nominal = findViewById(R.id.nominal);
         Locale localeID = new Locale("in", "ID");
         NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
         format.setMaximumFractionDigits(0);
@@ -101,11 +101,8 @@ public class HomeSiswaActivity extends AppCompatActivity {
         editor.putInt("tagihanSiswa", total_sum);
         editor.apply();
 
-        TextView Nama = findViewById(R.id.textView);
-        if (nama.contains(" ")) {
-            nama = nama.substring(0, nama.indexOf(" "));
-            Nama.setText("Halo, " + nama);
-        }
+        TextView Nama = findViewById(R.id.nama);
+        Nama.setText(nama);
 
     }
 

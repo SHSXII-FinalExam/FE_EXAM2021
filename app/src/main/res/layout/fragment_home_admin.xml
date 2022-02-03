@@ -107,19 +107,6 @@
     <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
     <!--    </com.google.android.material.card.MaterialCardView>-->
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomnav"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="55dp"
-        android:layout_marginRight="8dp"
-        android:elevation="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/bottom_menu" />
-
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -131,7 +118,7 @@
         android:textColor="#251F39"
         android:textSize="@dimen/_26ssp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bottomnav" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/pict_frame"
@@ -144,6 +131,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <ImageView
+        android:id="@+id/profile_pict"
         android:layout_width="@dimen/_70sdp"
         android:layout_height="@dimen/_70sdp"
         android:background="@drawable/bg_profilepict"
