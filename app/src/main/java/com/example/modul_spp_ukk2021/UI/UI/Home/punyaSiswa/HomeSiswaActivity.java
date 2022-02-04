@@ -94,7 +94,7 @@ public class HomeSiswaActivity extends AppCompatActivity {
         Locale localeID = new Locale("in", "ID");
         NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
         format.setMaximumFractionDigits(0);
-        nominal.setText(format.format(total_sum));
+        nominal.setText(format.format(total_sum)+",00");
 
         SharedPreferences settings = getApplicationContext().getSharedPreferences("totalTagihan", 0);
         SharedPreferences.Editor editor = settings.edit();

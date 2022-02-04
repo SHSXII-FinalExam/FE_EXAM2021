@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    app:cardBackgroundColor="#F7F7F7"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="0dp"
+    app:rippleColor="@android:color/transparent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="6dp"
+        android:backgroundTint="#724DF7"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:background="@drawable/ic_piggy"
+            android:backgroundTint="@color/white" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/namaSiswa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/avenir_demi"
+        android:text="Desember"
+        android:textColor="#251F39"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/nominal"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toEndOf="@+id/materialCardView"
+        app:layout_constraintTop_toTopOf="@+id/materialCardView" />
+
+    <TextView
+        android:id="@+id/nominal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenir_medium"
+        android:text="Lunas"
+        android:textColor="#837EA7"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
+        app:layout_constraintStart_toStartOf="@+id/namaSiswa"
+        app:layout_constraintTop_toBottomOf="@+id/namaSiswa" />
+
+    <TextView
+        android:id="@+id/tahun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenir_demi"
+        android:text="+Rp.270.000,00"
+        android:textColor="#41E46F"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/aaa"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/namaSiswa" />
+
+    <TextView
+        android:id="@+id/aaa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenir_medium"
+        android:text="20/06/06"
+        android:textColor="#C8C4D9"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/nominal"
+        app:layout_constraintEnd_toEndOf="@+id/tahun"
+        app:layout_constraintTop_toBottomOf="@+id/tahun" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
