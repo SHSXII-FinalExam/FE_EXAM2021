@@ -11,7 +11,7 @@ public class KurangBayarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kurang_bayar);
+        setContentView(R.layout.pp_activity_kurang_bayar);
 
     }
 }

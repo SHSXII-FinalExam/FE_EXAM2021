@@ -1,137 +1,79 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ScrollView;
-import android.widget.TextView;
+import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
-import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
-import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
 import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
-
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
+import com.google.android.material.tabs.TabLayout;
 
 public class HomeSiswaActivity extends AppCompatActivity {
 
-    private HomeSiswaAdapter adapter;
-    private List<Pembayaran> pembayaran = new ArrayList<>();
-
-    @BindView(R.id.recyclerHomeSiswa)
-    RecyclerView recyclerView;
-
+    TabLayout mTabs;
+    View mIndicator;
+    ViewPager mViewPager;
+    private int indicatorWidth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tagihan_siswa);
-        ButterKnife.bind(this);
+        setContentView(R.layout.ps_activity_home);
 
-        adapter = new HomeSiswaAdapter(this, pembayaran);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-
-        ScrollView scrollView = findViewById(R.id.scroll);
-        scrollView.post(new Runnable() {
-            @Override
-            public void run() {
-                scrollView.scrollTo(0, 0);
-            }
-        });
         MaterialButton logout = findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeSiswaActivity.this, logout, ViewCompat.getTransitionName(logout));
                 Intent intent = new Intent(HomeSiswaActivity.this, LoginChoiceActivity.class);
-                startActivity(intent);
+                startActivity(intent, options.toBundle());
             }
         });
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        loadDataPembayaran();
-    }
+        mTabs = findViewById(R.id.tab);
+        mIndicator = findViewById(R.id.indicator);
+        mViewPager = findViewById(R.id.viewPager);
 
-    public void getVariable() {
-        int total_sum = 0;
-        String nama = "";
+        PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(TagihanSiswaFragment.newInstance(), "Tagihan");
+        adapter.addFragment(HistorySiswaFragment.newInstance(), "History");
+        mViewPager.setAdapter(adapter);
 
-        for (int i = 0; i < pembayaran.size(); i++) {
-            Pembayaran food_items = pembayaran.get(i);
-            int price = food_items.getNominal();
-            nama = food_items.getNama();
-            total_sum += price;
-        }
-
-        TextView nominal = findViewById(R.id.nominal);
-        Locale localeID = new Locale("in", "ID");
-        NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
-        format.setMaximumFractionDigits(0);
-        nominal.setText(format.format(total_sum)+",00");
-
-        SharedPreferences settings = getApplicationContext().getSharedPreferences("totalTagihan", 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putInt("tagihanSiswa", total_sum);
-        editor.apply();
-
-        TextView Nama = findViewById(R.id.nama);
-        Nama.setText(nama);
-
-    }
-
-    private void loadDataPembayaran() {
-        String nisnSiswa = getIntent().getStringExtra("nisnSiswa");
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-        Call<PembayaranRepository> call = api.viewHistoryNISN(nisnSiswa);
-        call.enqueue(new Callback<PembayaranRepository>() {
+        mTabs.setupWithViewPager(mViewPager);
+        mTabs.post(new Runnable() {
             @Override
-            public void onResponse(Call<PembayaranRepository> call, Response<PembayaranRepository> response) {
-                String value = response.body().getValue();
-                Log.e("value", value);
-                if (value.equals("1")) {
-                    pembayaran = response.body().getResult();
-                    adapter = new HomeSiswaAdapter(HomeSiswaActivity.this, pembayaran);
-                    recyclerView.setAdapter(adapter);
-                }
+            public void run() {
+                indicatorWidth = mTabs.getWidth() / mTabs.getTabCount();
+                FrameLayout.LayoutParams indicatorParams = (FrameLayout.LayoutParams) mIndicator.getLayoutParams();
+                indicatorParams.width = indicatorWidth;
+                mIndicator.setLayoutParams(indicatorParams);
+            }
+        });
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float positionOffset, int positionOffsetPx) {
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mIndicator.getLayoutParams();
+                float translationOffset = (positionOffset + i) * indicatorWidth;
+                params.leftMargin = (int) translationOffset;
+                mIndicator.setLayoutParams(params);
             }
 
             @Override
-            public void onFailure(Call<PembayaranRepository> call, Throwable t) {
-                Log.e("DEBUG", "Error: ", t);
+            public void onPageSelected(int i) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
             }
         });
-    }
 
+    }
 }

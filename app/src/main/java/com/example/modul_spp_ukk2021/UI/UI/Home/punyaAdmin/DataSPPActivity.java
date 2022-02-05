@@ -19,9 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
 import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
-import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
 import com.google.android.material.card.MaterialCardView;
@@ -56,7 +54,7 @@ public class DataSPPActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_spp);
+        setContentView(R.layout.pa_activity_data_spp);
         ButterKnife.bind(this);
 
         adapter = new DataSPPAdapter(this, spp);
@@ -79,7 +77,7 @@ public class DataSPPActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // get prompts.xml view
                 LayoutInflater li = LayoutInflater.from(context);
-                View promptsView = li.inflate(R.layout.dialog_tambah_spp, null);
+                View promptsView = li.inflate(R.layout.pa_dialog_tambah_spp, null);
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 

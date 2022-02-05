@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
 import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
 
 import java.text.NumberFormat;
@@ -32,7 +31,7 @@ public class DataSPPAdapter extends RecyclerView.Adapter<DataSPPAdapter.ViewHold
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.container_data_spp, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pa_container_data_spp, parent, false);
 
         return new ViewHolder(view);
     }

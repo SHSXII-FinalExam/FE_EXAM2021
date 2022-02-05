@@ -1,42 +1,24 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.transition.Fade;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TableLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Data.Model.Login;
-import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
-import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.DataSiswaAdapter;
-import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,13 +32,12 @@ public class LoginSiswaActivity extends AppCompatActivity {
     private EditText editNISN, editPassword;
     private TextInputLayout textInputLayout, textInputLayout2;
     private MaterialButton kembali, masuk;
-    private MaterialCardView card;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_siswa);
+        setContentView(R.layout.ps_activity_login);
 
         editNISN = findViewById(R.id.nisn);
         editPassword = findViewById(R.id.password);
@@ -64,7 +45,6 @@ public class LoginSiswaActivity extends AppCompatActivity {
         textInputLayout2 = findViewById(R.id.textInputLayout2);
         masuk = findViewById(R.id.masuk);
         kembali = findViewById(R.id.kembali);
-        card = findViewById(R.id.card);
 
         masuk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +122,7 @@ public class LoginSiswaActivity extends AppCompatActivity {
                 String value = response.body().getValue();
 
                 if (value.equals("1")) {
-                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginSiswaActivity.this, card, ViewCompat.getTransitionName(masuk));
+                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginSiswaActivity.this, masuk, ViewCompat.getTransitionName(masuk));
                     Intent intent = new Intent(LoginSiswaActivity.this, HomeSiswaActivity.class);
                     intent.putExtra("nisnSiswa", nisn);
                     startActivity(intent, options.toBundle());

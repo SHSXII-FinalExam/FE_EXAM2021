@@ -10,11 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Kelas;
-import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
 
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +29,7 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.container_data_kelas, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pa_container_data_kelas, parent, false);
 
         return new ViewHolder(view);
     }

@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/ic_arrow"
+        android:background="@drawable/ic_arrow_up"
         android:backgroundTint="#C62828"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_medium"
-        android:text="Data Petugas"
+        android:text="Data SPP Tahunan"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/tambah_petugas"
+        android:id="@+id/tambah_spp"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="24dp"
@@ -57,7 +57,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <ScrollView
-        android:id="@+id/scroll_datapetugas"
+        android:id="@+id/scroll_dataspp"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#FFFFFF"
@@ -72,20 +72,19 @@
             android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/dataPetugas"
+                android:id="@+id/recycler_spp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginBottom="32dp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/container_data_petugas" />
+                tools:listitem="@layout/pa_container_data_spp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -1,30 +1,22 @@
-package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
+package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.HomeSiswaAdapter;
-import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
-import com.google.android.material.button.MaterialButton;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -41,48 +33,33 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
 
-public class HomePetugasFragment extends Fragment {
+public class HistorySiswaFragment extends Fragment {
 
-    private TextView Nama;
-    private HomePetugasAdapter adapter;
+    private TagihanSiswaAdapter adapter;
     private List<Pembayaran> pembayaran = new ArrayList<>();
 
-    @BindView(R.id.recyclerHomePetugas)
+    @BindView(R.id.recyclerHistory)
     RecyclerView recyclerView;
+    View view;
+
+    public static HistorySiswaFragment newInstance() {
+        return new HistorySiswaFragment();
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View v = inflater.inflate(R.layout.fragment_home_petugas, container, false);
-        ButterKnife.bind(v);
+        view = inflater.inflate(R.layout.ps_fragment_history, container, false);
+        ButterKnife.bind(getActivity());
 
-        Nama = v.findViewById(R.id.textView);
-
-        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerHomePetugas);
-        adapter = new HomePetugasAdapter(getContext(), pembayaran);
+        adapter = new TagihanSiswaAdapter(getActivity(), pembayaran);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView = view.findViewById(R.id.recyclerHistory);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(new HomePetugasAdapter(getContext(), new ArrayList<Pembayaran>()));
+        recyclerView.setAdapter(adapter);
 
-        ScrollView scrollView = v.findViewById(R.id.scroll_homepetugas);
-        scrollView.post(new Runnable() {
-            @Override
-            public void run() {
-                scrollView.scrollTo(0, 0);
-            }
-        });
-
-        MaterialButton logoutPetugas = v.findViewById(R.id.logoutPetugas);
-        logoutPetugas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(requireContext(), LoginChoiceActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        return v;
+        return view;
     }
 
     @Override
@@ -92,29 +69,49 @@ public class HomePetugasFragment extends Fragment {
     }
 
     public void getVariable() {
+        int total_sum = 0;
         String nama = "";
 
-        if (nama.contains(" ")) {
-            nama = nama.substring(0, nama.indexOf(" "));
-            Nama.setText("Halo, " + nama);
+        for (int i = 0; i < pembayaran.size(); i++) {
+            Pembayaran food_items = pembayaran.get(i);
+            int price = food_items.getNominal();
+            nama = food_items.getNama();
+            total_sum += price;
         }
+
+        TextView nominal = view.findViewById(R.id.nominal);
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
+        format.setMaximumFractionDigits(0);
+        nominal.setText(format.format(total_sum)+",00");
+
+        SharedPreferences settings = getActivity().getSharedPreferences("totalTagihan", 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt("tagihanSiswa", total_sum);
+        editor.apply();
+
+        TextView Nama = view.findViewById(R.id.nama);
+        Nama.setText(nama);
 
     }
 
     private void loadDataPembayaran() {
+        String nisnSiswa = getActivity().getIntent().getStringExtra("nisnSiswa");
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-        Call<PembayaranRepository> call = api.viewHistorySiswa();
+        Call<PembayaranRepository> call = api.viewHistoryNISN(nisnSiswa);
         call.enqueue(new Callback<PembayaranRepository>() {
             @Override
             public void onResponse(Call<PembayaranRepository> call, Response<PembayaranRepository> response) {
                 String value = response.body().getValue();
+                Log.e("value", value);
                 if (value.equals("1")) {
                     pembayaran = response.body().getResult();
-                    adapter = new HomePetugasAdapter(getActivity(), pembayaran);
+                    adapter = new TagihanSiswaAdapter(getActivity(), pembayaran);
                     recyclerView.setAdapter(adapter);
                 }
             }
@@ -125,4 +122,5 @@ public class HomePetugasFragment extends Fragment {
             }
         });
     }
+
 }

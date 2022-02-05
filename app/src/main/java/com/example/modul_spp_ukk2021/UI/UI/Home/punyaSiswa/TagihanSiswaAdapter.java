@@ -19,12 +19,12 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeSiswaAdapter extends RecyclerView.Adapter<HomeSiswaAdapter.ViewHolder> {
+public class TagihanSiswaAdapter extends RecyclerView.Adapter<TagihanSiswaAdapter.ViewHolder> {
     private Context context;
     private List<Pembayaran> pembayaran;
 
     // data is passed into the constructor
-    public HomeSiswaAdapter(Context context, List<Pembayaran> pembayaran) {
+    public TagihanSiswaAdapter(Context context, List<Pembayaran> pembayaran) {
         this.context = context;
         this.pembayaran = pembayaran;
     }
@@ -32,7 +32,7 @@ public class HomeSiswaAdapter extends RecyclerView.Adapter<HomeSiswaAdapter.View
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.container_data_tagihan, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ps_container_data_tagihan, parent, false);
 
         return new ViewHolder(view);
     }
@@ -52,12 +52,6 @@ public class HomeSiswaAdapter extends RecyclerView.Adapter<HomeSiswaAdapter.View
         SimpleDateFormat simpleDate = new SimpleDateFormat("dd MMMM yyyy", localeID);
         String strDt = simpleDate.format(pembayaran.getTgl_bayar());
         holder.textViewTahun.setText(strDt);
-
-
-        if (position == this.pembayaran.size() - 1) {
-            ((HomeSiswaActivity) context).getVariable();
-        }
-
     }
 
     // total number of rows

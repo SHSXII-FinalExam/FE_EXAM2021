@@ -9,9 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.DataSiswaFragment;
-import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
 public class HomeAdminFragment extends AppCompatActivity {
@@ -22,7 +19,7 @@ public class HomeAdminFragment extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_home_admin);
+        setContentView(R.layout.pa_fragment_home);
 
 //        MaterialCardView dataSiswa = findViewById(R.id.dataSiswa);
 //        dataSiswa.setOnClickListener(new View.OnClickListener() {

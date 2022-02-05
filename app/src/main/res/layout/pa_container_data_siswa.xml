@@ -1,46 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/CardSiswa"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
-    app:cardBackgroundColor="#F7F7F7"
-    app:cardCornerRadius="15dp"
+    app:cardBackgroundColor="#F5F6F7"
+    app:cardCornerRadius="6dp"
     app:cardElevation="0dp"
     app:rippleColor="@android:color/transparent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/detailSiswa"
+            android:layout_width="47dp"
+            android:layout_height="76dp"
+            android:background="@drawable/gradient"
+            android:backgroundTint="@color/black"
+            android:bottomLeftRadius="0dp"
+            android:bottomRightRadius="10dp"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:topLeftRadius="0dp"
+            android:topRightRadius="10dp"
+            app:icon="@drawable/ic_play"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="34dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/namaSiswa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:alpha="0.6"
-            android:fontFamily="@font/poppins_medium"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:fontFamily="@font/avenir_demi"
+            android:maxEms="7"
             android:text="Gregorius Devon"
-            android:textColor="@color/black"
+            android:textColor="#251F39"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/kelas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:fontFamily="@font/poppins"
+            android:fontFamily="@font/avenir_demi"
             android:text="XII RPL 3"
             android:textColor="#C62828"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/namaSiswa"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/detailSiswa"
             app:layout_constraintTop_toTopOf="@+id/namaSiswa" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

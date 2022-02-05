@@ -3,22 +3,16 @@ package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Kelas;
-import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.KelasRepository;
-import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
-import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +44,7 @@ public class DataKelasActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_kelas);
+        setContentView(R.layout.pa_activity_data_kelas);
         ButterKnife.bind(this);
 
         adapter = new DataKelasAdapter(this, kelas);

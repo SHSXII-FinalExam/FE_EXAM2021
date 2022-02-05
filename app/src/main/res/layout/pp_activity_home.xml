@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_homepetugas"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:overScrollMode="never">
+
+    <ImageView
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/ic_power"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/profile_pict"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_profilepict2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/nama"
+        app:layout_constraintTop_toBottomOf="@+id/logout" />
+
+    <TextView
+        android:id="@+id/nama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/avenir_bold"
+        android:text="Dummy Name"
+        android:textColor="#251F39"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/level"
+        app:layout_constraintEnd_toStartOf="@+id/profile_pict"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/halo" />
+
+    <TextView
+        android:id="@+id/halo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenir_bold"
+        android:text="Halo,"
+        android:textColor="#8A959E"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/nama"
+        app:layout_constraintStart_toStartOf="@+id/nama"
+        app:layout_constraintTop_toTopOf="@+id/profile_pict"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenir_demi"
+        android:text="Staff level: Petugas"
+        android:textColor="#8A959E"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_pict"
+        app:layout_constraintStart_toStartOf="@+id/nama"
+        app:layout_constraintTop_toBottomOf="@+id/nama"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:focusableInTouchMode="true"
+        app:boxBackgroundColor="#F5F5F5"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:hintAnimationEnabled="false"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_pict">
+
+        <EditText
+            android:id="@+id/searchSiswa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_search"
+            android:drawablePadding="23dp"
+            android:focusableInTouchMode="true"
+            android:fontFamily="@font/poppins_medium"
+            android:hint="Cari Siswa"
+            android:imeOptions="actionSearch"
+            android:paddingTop="11dp"
+            android:paddingBottom="11dp"
+            android:singleLine="true"
+            android:textColorHint="#9A9EA7" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/dataSiswa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/avenir_demi"
+        android:text="Data Siswa"
+        android:textColor="#251F39"
+        android:textSize="17sp"
+        android:transitionName="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar" />
+
+    <TextView
+        android:id="@+id/dataSiswa_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/avenir_demi"
+        android:text="(38)"
+        android:textColor="#C8C4D9"
+        android:textSize="17sp"
+        app:layout_constraintStart_toEndOf="@+id/dataSiswa"
+        app:layout_constraintTop_toTopOf="@+id/dataSiswa" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerDataSiswa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="16dp"
+        android:overScrollMode="never"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dataSiswa"
+        tools:listitem="@layout/pa_container_data_siswa" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

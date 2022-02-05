@@ -14,11 +14,11 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:backgroundTint="#F7F7F7"
-        android:fontFamily="@font/avenir_condensed"
+        android:fontFamily="@font/avenir_demi"
         android:text="Kembali"
         android:textAllCaps="false"
         android:textColor="#9A9EA7"
-        android:textSize="@dimen/_14ssp"
+        android:textSize="14sp"
         app:cornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -29,7 +29,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:transitionName="card"
         app:cardBackgroundColor="#F7F7F7"
         app:cardCornerRadius="15dp"
@@ -41,8 +41,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/_20sdp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/title"
@@ -52,7 +51,7 @@
                 android:fontFamily="@font/avenir_bold"
                 android:text="Selamat Datang"
                 android:textColor="#251F39"
-                android:textSize="@dimen/_26ssp"
+                android:textSize="32sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -64,7 +63,7 @@
                 android:fontFamily="@font/avenir_regular"
                 android:text="Masukkan kredensial untuk masuk"
                 android:textColor="#9A9EA7"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/title"
                 app:layout_constraintStart_toStartOf="@+id/title"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -97,6 +96,7 @@
                     android:id="@+id/nisn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:autofillHints="email@gmail.com"
                     android:fontFamily="@font/avenir_demi"
                     android:hint="NISN"
                     android:inputType="number"
@@ -146,18 +146,18 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/masuk"
-                android:transitionName="masuk"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp"
+                android:layout_height="50dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="35dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginBottom="100dp"
+                android:layout_marginBottom="90dp"
                 android:background="@drawable/gradient"
                 android:fontFamily="@font/avenir_demi"
                 android:text="Masuk"
                 android:textAllCaps="false"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="14sp"
+                android:transitionName="button"
                 app:backgroundTint="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

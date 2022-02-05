@@ -1,39 +1,24 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ScrollView;
-import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.core.view.MenuItemCompat;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
-import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
-import com.google.android.material.textfield.TextInputEditText;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,7 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
 
-public class DataSiswaFragment extends Fragment {
+public class DataSiswaActivity extends AppCompatActivity {
     private DataSiswaAdapter adapter;
     private List<Siswa> siswa = new ArrayList<>();
 
@@ -53,28 +38,19 @@ public class DataSiswaFragment extends Fragment {
     RecyclerView recyclerView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View v = inflater.inflate(R.layout.fragment_data_siswa, container, false);
-        ButterKnife.bind(v);
+        setContentView(R.layout.pp_activity_home);
+        ButterKnife.bind(this);
 
-        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerDataSiswa);
-        adapter = new DataSiswaAdapter(getContext(), siswa);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerDataSiswa);
+        adapter = new DataSiswaAdapter(this, siswa);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-
-        ScrollView scrollView = v.findViewById(R.id.scroll_datasiswa);
-        scrollView.post(new Runnable() {
-            @Override
-            public void run() {
-                scrollView.scrollTo(0, 0);
-            }
-        });
-
-        EditText SearchSiswa = (EditText) v.findViewById(R.id.searchSiswa);
+        EditText SearchSiswa = (EditText) findViewById(R.id.searchSiswa);
         SearchSiswa.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -99,7 +75,7 @@ public class DataSiswaFragment extends Fragment {
                             recyclerView.setVisibility(View.VISIBLE);
                             if (value.equals("1")) {
                                 siswa = response.body().getResult();
-                                adapter = new DataSiswaAdapter(getActivity(), siswa);
+                                adapter = new DataSiswaAdapter(DataSiswaActivity.this, siswa);
                                 recyclerView.setAdapter(adapter);
                             }
                         }
@@ -118,8 +94,6 @@ public class DataSiswaFragment extends Fragment {
             public void afterTextChanged(Editable s) {
             }
         });
-
-        return v;
     }
 
     @Override
@@ -141,7 +115,7 @@ public class DataSiswaFragment extends Fragment {
                 String value = response.body().getValue();
                 if (value.equals("1")) {
                     siswa = response.body().getResult();
-                    adapter = new DataSiswaAdapter(getActivity(), siswa);
+                    adapter = new DataSiswaAdapter(DataSiswaActivity.this, siswa);
                     recyclerView.setAdapter(adapter);
                 }
             }

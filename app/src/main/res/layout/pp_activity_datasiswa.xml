@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_homepetugas"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:overScrollMode="never">
+
+    <TextView
+        android:id="@+id/dataSiswa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="17dp"
+        android:fontFamily="@font/avenir_demi"
+        android:text="Tagihan"
+        android:textColor="#251F39"
+        android:textSize="17sp"
+        android:transitionName="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dataSiswa_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/avenir_demi"
+        android:text="(38)"
+        android:textColor="#C8C4D9"
+        android:textSize="17sp"
+        app:layout_constraintStart_toEndOf="@+id/dataSiswa"
+        app:layout_constraintTop_toTopOf="@+id/dataSiswa" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerTagihanSiswa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="16dp"
+        android:overScrollMode="never"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dataSiswa"
+        tools:listitem="@layout/ps_container_data_tagihan" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

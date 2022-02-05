@@ -2,7 +2,6 @@
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +10,11 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.HomeSiswaActivity;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.HomeSiswaAdapter;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +32,7 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.container_data_siswa, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pa_container_data_siswa, parent, false);
 
         return new ViewHolder(view);
     }
@@ -54,7 +48,7 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
         holder.cardSiswa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, KonfirmasiPetugasActivity.class);
+                Intent intent = new Intent(context, HomePetugasActivity.class);
                 intent.putExtra("siswaNama", siswa.getNama());
                 context.startActivity(intent);
             }
@@ -71,10 +65,10 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.namaSiswa)
         TextView textViewNama;
-        @BindView(R.id.textView3)
+        @BindView(R.id.kelas)
         TextView textViewKelas;
-        @BindView(R.id.CardSiswa)
-        MaterialCardView cardSiswa;
+        @BindView(R.id.detailSiswa)
+        MaterialButton cardSiswa;
 
         public ViewHolder(View itemView) {
             super(itemView);

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -19,7 +18,6 @@ import com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin.HomeAdminFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -38,7 +36,7 @@ public class LoginPetugasActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_staff);
+        setContentView(R.layout.pp_activity_login);
 
         editUsername = findViewById(R.id.username);
         editPassword = findViewById(R.id.password);
@@ -132,7 +130,7 @@ public class LoginPetugasActivity extends AppCompatActivity {
                     Log.e("keshav", "Level ->" + level);
 
                     if (value.equals("1") && level.equals("petugas")) {
-                        Intent intent = new Intent(LoginPetugasActivity.this, PetugasBottomNavigation.class);
+                        Intent intent = new Intent(LoginPetugasActivity.this, DataSiswaActivity.class);
                         intent.putExtra("username", username);
                         startActivity(intent);
                         finish();
