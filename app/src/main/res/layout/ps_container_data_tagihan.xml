@@ -30,7 +30,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
-        android:id="@+id/namaSiswa"
+        android:id="@+id/namaBulan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -39,13 +39,13 @@
         android:text="Desember"
         android:textColor="#251F39"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/nominal"
+        app:layout_constraintBottom_toTopOf="@+id/status"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toEndOf="@+id/materialCardView"
         app:layout_constraintTop_toTopOf="@+id/materialCardView" />
 
     <TextView
-        android:id="@+id/nominal"
+        android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/avenir_medium"
@@ -53,31 +53,31 @@
         android:textColor="#837EA7"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
-        app:layout_constraintStart_toStartOf="@+id/namaSiswa"
-        app:layout_constraintTop_toBottomOf="@+id/namaSiswa" />
+        app:layout_constraintStart_toStartOf="@+id/namaBulan"
+        app:layout_constraintTop_toBottomOf="@+id/namaBulan" />
 
     <TextView
-        android:id="@+id/tahun"
+        android:id="@+id/nominal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/avenir_demi"
         android:text="+Rp.270.000,00"
         android:textColor="#41E46F"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/aaa"
+        app:layout_constraintBottom_toTopOf="@+id/tanggal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/namaSiswa" />
+        app:layout_constraintTop_toTopOf="@+id/namaBulan" />
 
     <TextView
-        android:id="@+id/aaa"
+        android:id="@+id/tanggal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/avenir_medium"
         android:text="20/06/06"
         android:textColor="#C8C4D9"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/nominal"
-        app:layout_constraintEnd_toEndOf="@+id/tahun"
-        app:layout_constraintTop_toBottomOf="@+id/tahun" />
+        app:layout_constraintBottom_toBottomOf="@+id/status"
+        app:layout_constraintEnd_toEndOf="@+id/nominal"
+        app:layout_constraintTop_toBottomOf="@+id/nominal" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

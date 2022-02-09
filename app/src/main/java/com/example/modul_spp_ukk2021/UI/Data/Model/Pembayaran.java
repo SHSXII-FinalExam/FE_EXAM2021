@@ -12,8 +12,11 @@ Pembayaran {
     String nama_kelas;
     Date tgl_bayar;
     Integer nominal;
+    Integer bulan_bayar;
     String tahun_bayar;
-    String bulan_bayar;
+    String status_bayar;
+    Integer jumlah_bayar;
+    Integer kurang_bayar;
 
     public String getId_pembayaran() {
         return id_pembayaran;
@@ -43,11 +46,23 @@ Pembayaran {
         return nominal;
     }
 
+    public Integer getBulan_bayar() {
+        return bulan_bayar;
+    }
+
     public String getTahun_bayar() {
         return tahun_bayar;
     }
 
-    public String getBulan_bayar() {
-        return bulan_bayar;
+    public String getStatus_bayar() {
+        return status_bayar;
+    }
+
+    public Integer getJumlah_bayar() {
+        return jumlah_bayar;
+    }
+
+    public Integer getKurang_bayar() {
+        return kurang_bayar;
     }
 }

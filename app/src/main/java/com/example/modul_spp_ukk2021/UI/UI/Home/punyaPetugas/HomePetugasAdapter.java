@@ -69,9 +69,9 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.namaSiswa)
+        @BindView(R.id.namaBulan)
         TextView textViewNama;
-        @BindView(R.id.tahun)
+        @BindView(R.id.tanggal)
         TextView textViewTahun;
         @BindView(R.id.nominal)
         TextView textViewNominal;

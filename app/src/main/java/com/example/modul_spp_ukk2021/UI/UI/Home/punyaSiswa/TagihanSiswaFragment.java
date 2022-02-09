@@ -1,6 +1,8 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +16,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.Data.Model.LoginStaff;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStaffRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
 import com.google.android.material.card.MaterialCardView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,7 +45,7 @@ public class TagihanSiswaFragment extends Fragment {
     View view;
 
     ImageView profile_frame, profile_pict, minimize, minimize2;
-    TextView nama, kelas, profile;
+    TextView nama, kelas, profile, nominal, tagihan_count;
     MaterialCardView cardView;
 
     public static TagihanSiswaFragment newInstance() {
@@ -63,6 +69,8 @@ public class TagihanSiswaFragment extends Fragment {
         profile_frame = view.findViewById(R.id.profile_frame);
         profile_pict = view.findViewById(R.id.profile_pict);
         nama = view.findViewById(R.id.nama);
+        nominal = view.findViewById(R.id.nominal);
+        tagihan_count = view.findViewById(R.id.tagihan_count);
         kelas = view.findViewById(R.id.kelas);
         cardView = view.findViewById(R.id.materialCardView5);
         profile = view.findViewById(R.id.profile);
@@ -90,33 +98,6 @@ public class TagihanSiswaFragment extends Fragment {
         loadDataPembayaran();
     }
 
-//    public void getVariable() {
-//        int total_sum = 0;
-//        String nama = "";
-//
-//        for (int i = 0; i < pembayaran.size(); i++) {
-//            Pembayaran food_items = pembayaran.get(i);
-//            int price = food_items.getNominal();
-//            nama = food_items.getNama();
-//            total_sum += price;
-//        }
-//
-//        TextView nominal = view.findViewById(R.id.nominal);
-//        Locale localeID = new Locale("in", "ID");
-//        NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
-//        format.setMaximumFractionDigits(0);
-//        nominal.setText(format.format(total_sum)+",00");
-//
-//        SharedPreferences settings = getActivity().getSharedPreferences("totalTagihan", 0);
-//        SharedPreferences.Editor editor = settings.edit();
-//        editor.putInt("tagihanSiswa", total_sum);
-//        editor.apply();
-//
-//        TextView Nama = view.findViewById(R.id.nama);
-//        Nama.setText(nama);
-//
-//    }
-
     private void minimize() {
         int status = profile_pict.getVisibility();
 
@@ -140,6 +121,11 @@ public class TagihanSiswaFragment extends Fragment {
 
     }
 
+    private List<Pembayaran> fetchResults(Response<PembayaranRepository> response) {
+        PembayaranRepository pembayaranRepository = response.body();
+        return pembayaranRepository.getResult();
+    }
+
     private void loadDataPembayaran() {
         String nisnSiswa = getActivity().getIntent().getStringExtra("nisnSiswa");
 
@@ -148,16 +134,36 @@ public class TagihanSiswaFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-        Call<PembayaranRepository> call = api.viewHistoryNISN(nisnSiswa);
+        Call<PembayaranRepository> call = api.viewTagihan(nisnSiswa);
         call.enqueue(new Callback<PembayaranRepository>() {
             @Override
             public void onResponse(Call<PembayaranRepository> call, Response<PembayaranRepository> response) {
                 String value = response.body().getValue();
+                List<Pembayaran> results = fetchResults(response);
+                int total_sum = 0;
+
                 Log.e("value", value);
                 if (value.equals("1")) {
                     pembayaran = response.body().getResult();
                     adapter = new TagihanSiswaAdapter(getActivity(), pembayaran);
                     recyclerView.setAdapter(adapter);
+
+                    int i = 0;
+                    for (i = 0; i < results.size(); i++) {
+                        int total_Kurang = results.get(i).getKurang_bayar();
+                        int belum_Bayar = results.get(i).getNominal();
+
+                        if (results.get(i).getKurang_bayar() == 0) {
+                            total_sum += belum_Bayar;
+                        }
+                        total_sum += total_Kurang;
+                    }
+                    tagihan_count.setText("("+String.valueOf(i)+")");
+
+                    Locale localeID = new Locale("in", "ID");
+                    NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
+                    format.setMaximumFractionDigits(0);
+                    nominal.setText(format.format(total_sum) + ",00");
                 }
             }
 

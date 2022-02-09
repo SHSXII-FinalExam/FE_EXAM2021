@@ -68,6 +68,7 @@ public class HomeSiswaActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int i) {
+                adapter.notifyDataSetChanged();
             }
 
             @Override

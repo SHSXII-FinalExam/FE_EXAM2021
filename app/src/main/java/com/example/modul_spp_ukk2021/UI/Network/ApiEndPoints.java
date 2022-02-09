@@ -1,7 +1,5 @@
 package com.example.modul_spp_ukk2021.UI.Network;
 
-import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
-import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.KelasRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStaffRepository;
@@ -33,8 +31,13 @@ public interface ApiEndPoints {
 
     // Punya Siswa
     @FormUrlEncoded
-    @POST("dbReadHistoryNISN.php")
-    Call<PembayaranRepository> viewHistoryNISN(
+    @POST("dbReadTagihan.php")
+    Call<PembayaranRepository> viewTagihan(
+            @Field("nisn") String nisn);
+
+    @FormUrlEncoded
+    @POST("dbReadHistory.php")
+    Call<PembayaranRepository> viewHistory(
             @Field("nisn") String nisn);
 
     // Punya Petugas & Admin
@@ -56,7 +59,7 @@ public interface ApiEndPoints {
     @FormUrlEncoded
     @POST("dbSearchSiswa.php")
     Call<SiswaRepository> searchDataSiswa(
-            @Field("search") String search);
+            @Field("nisn") String search);
 
     @GET("dbReadSiswa.php")
     Call<SiswaRepository> viewDataSiswa();

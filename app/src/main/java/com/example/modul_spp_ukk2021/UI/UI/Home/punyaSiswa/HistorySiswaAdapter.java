@@ -1,6 +1,7 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +15,22 @@ import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.time.Month;
+import java.time.format.TextStyle;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TagihanSiswaAdapter extends RecyclerView.Adapter<TagihanSiswaAdapter.ViewHolder> {
+public class HistorySiswaAdapter extends RecyclerView.Adapter<HistorySiswaAdapter.ViewHolder> {
     private Context context;
     private List<Pembayaran> pembayaran;
 
     // data is passed into the constructor
-    public TagihanSiswaAdapter(Context context, List<Pembayaran> pembayaran) {
+    public HistorySiswaAdapter(Context context, List<Pembayaran> pembayaran) {
         this.context = context;
         this.pembayaran = pembayaran;
     }
@@ -48,11 +53,7 @@ public class TagihanSiswaAdapter extends RecyclerView.Adapter<TagihanSiswaAdapte
         Locale localeID = new Locale("in", "ID");
         NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
         format.setMaximumFractionDigits(0);
-        if (pembayaran.getKurang_bayar() == 0){
-            holder.tvNominal.setText(format.format(pembayaran.getNominal()));
-        } else {
-            holder.tvNominal.setText(format.format(pembayaran.getKurang_bayar()));
-        }
+        holder.tvNominal.setText(format.format(pembayaran.getNominal()));
 
         DateFormatSymbols symbols = new DateFormatSymbols(localeID);
         String[] monthNames = symbols.getMonths();
