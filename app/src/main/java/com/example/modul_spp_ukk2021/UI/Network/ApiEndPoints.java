@@ -40,6 +40,11 @@ public interface ApiEndPoints {
     Call<PembayaranRepository> viewHistory(
             @Field("nisn") String nisn);
 
+    @FormUrlEncoded
+    @POST("dbReadPembayaran.php")
+    Call<PembayaranRepository> viewPembayaran(
+            @Field("nisn") String nisn);
+
     // Punya Petugas & Admin
     @FormUrlEncoded
     @POST("dbCreatePetugas.php")
@@ -59,7 +64,7 @@ public interface ApiEndPoints {
     @FormUrlEncoded
     @POST("dbSearchSiswa.php")
     Call<SiswaRepository> searchDataSiswa(
-            @Field("nisn") String search);
+            @Field("search") String search);
 
     @GET("dbReadSiswa.php")
     Call<SiswaRepository> viewDataSiswa();
@@ -72,7 +77,4 @@ public interface ApiEndPoints {
 
     @GET("dbReadPetugas.php")
     Call<PetugasRepository> viewDataPetugas();
-
-    @GET("dbReadHistorySiswa.php")
-    Call<PembayaranRepository> viewHistorySiswa();
 }

@@ -1,6 +1,8 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +18,10 @@ import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
+import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.HomeSiswaActivity;
+import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.LoginSiswaActivity;
 import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,27 +67,20 @@ public class HomePetugasActivity extends AppCompatActivity {
         loadDataPembayaran();
     }
 
-    public void getVariable() {
-        String nama = "";
-
-        if (nama.contains(" ")) {
-            nama = nama.substring(0, nama.indexOf(" "));
-            Nama.setText("Halo, " + nama);
-        }
-
-    }
-
     private void loadDataPembayaran() {
+        String nisnSiswa = this.getIntent().getStringExtra("nisnSiswa");
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-        Call<PembayaranRepository> call = api.viewHistorySiswa();
+        Call<PembayaranRepository> call = api.viewPembayaran(nisnSiswa);
         call.enqueue(new Callback<PembayaranRepository>() {
             @Override
             public void onResponse(Call<PembayaranRepository> call, Response<PembayaranRepository> response) {
                 String value = response.body().getValue();
+
                 if (value.equals("1")) {
                     pembayaran = response.body().getResult();
                     adapter = new HomePetugasAdapter(HomePetugasActivity.this, pembayaran);

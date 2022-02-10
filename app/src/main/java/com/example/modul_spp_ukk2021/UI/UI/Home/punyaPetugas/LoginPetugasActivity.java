@@ -9,12 +9,16 @@ import android.view.View;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.LoginStaff;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStaffRepository;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin.HomeAdminFragment;
+import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.LoginSiswaActivity;
+import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -110,6 +114,13 @@ public class LoginPetugasActivity extends AppCompatActivity {
     private List<LoginStaff> fetchResults(Response<LoginStaffRepository> response) {
         LoginStaffRepository loginStaffRepository = response.body();
         return loginStaffRepository.getResult();
+    }
+
+    @Override
+    public void onBackPressed() {
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginPetugasActivity.this, masuk, ViewCompat.getTransitionName(masuk));
+        Intent intent = new Intent(LoginPetugasActivity.this, LoginChoiceActivity.class);
+        startActivity(intent, options.toBundle());
     }
 
     private void loadDataPembayaran(String username, String password) {

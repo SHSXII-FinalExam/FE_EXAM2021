@@ -17,6 +17,8 @@ import androidx.core.view.ViewCompat;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
+import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.LoginPetugasActivity;
+import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -107,6 +109,13 @@ public class LoginSiswaActivity extends AppCompatActivity {
             loadDataPembayaran(nisn, password);
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginSiswaActivity.this, masuk, ViewCompat.getTransitionName(masuk));
+        Intent intent = new Intent(LoginSiswaActivity.this, LoginChoiceActivity.class);
+        startActivity(intent, options.toBundle());
     }
 
     private void loadDataPembayaran(String nisn, String password) {

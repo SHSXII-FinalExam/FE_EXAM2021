@@ -45,11 +45,11 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
         holder.textViewNama.setText(siswa.getNama());
         holder.textViewKelas.setText(siswa.getNama_kelas());
 
-        holder.cardSiswa.setOnClickListener(new View.OnClickListener() {
+        holder.buttonSiswa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, HomePetugasActivity.class);
-                intent.putExtra("siswaNama", siswa.getNama());
+                intent.putExtra("nisnSiswa", siswa.getNisn());
                 context.startActivity(intent);
             }
         });
@@ -68,7 +68,7 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
         @BindView(R.id.kelas)
         TextView textViewKelas;
         @BindView(R.id.detailSiswa)
-        MaterialButton cardSiswa;
+        MaterialButton buttonSiswa;
 
         public ViewHolder(View itemView) {
             super(itemView);

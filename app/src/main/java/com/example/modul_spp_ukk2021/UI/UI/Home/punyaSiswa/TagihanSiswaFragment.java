@@ -48,8 +48,7 @@ public class TagihanSiswaFragment extends Fragment {
     TextView nama, kelas, profile, nominal, tagihan_count;
     MaterialCardView cardView;
 
-    public static TagihanSiswaFragment newInstance() {
-        return new TagihanSiswaFragment();
+    public TagihanSiswaFragment() {
     }
 
     @Override
@@ -119,11 +118,6 @@ public class TagihanSiswaFragment extends Fragment {
 
     }
 
-    private List<Pembayaran> fetchResults(Response<PembayaranRepository> response) {
-        PembayaranRepository pembayaranRepository = response.body();
-        return pembayaranRepository.getResult();
-    }
-
     private void loadDataPembayaran() {
         String nisnSiswa = getActivity().getIntent().getStringExtra("nisnSiswa");
 
@@ -138,7 +132,6 @@ public class TagihanSiswaFragment extends Fragment {
             public void onResponse(Call<PembayaranRepository> call, Response<PembayaranRepository> response) {
                 String value = response.body().getValue();
                 List<Pembayaran> results = response.body().getResult();
-                int total_sum = 0;
 
                 Log.e("value", value);
                 if (value.equals("1")) {
@@ -147,6 +140,7 @@ public class TagihanSiswaFragment extends Fragment {
                     recyclerView.setAdapter(adapter);
 
                     int i = 0;
+                    int total_sum = 0;
                     for (i = 0; i < results.size(); i++) {
                         int total_Kurang = results.get(i).getKurang_bayar();
                         int belum_Bayar = results.get(i).getNominal();

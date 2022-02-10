@@ -42,26 +42,19 @@ public class HistorySiswaFragment extends Fragment {
     RecyclerView recyclerView;
     View view;
 
-    TextView tagihan_count;
-
-    public static HistorySiswaFragment newInstance() {
-        return new HistorySiswaFragment();
+    public HistorySiswaFragment () {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         view = inflater.inflate(R.layout.ps_fragment_history, container, false);
-        ButterKnife.bind(getActivity());
 
         adapter = new HistorySiswaAdapter(getActivity(), pembayaran);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView = view.findViewById(R.id.recyclerHistory);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-
-        tagihan_count = view.findViewById(R.id.tagihan_count);
 
         return view;
     }
@@ -70,11 +63,6 @@ public class HistorySiswaFragment extends Fragment {
     public void onResume() {
         super.onResume();
         loadDataPembayaran();
-    }
-
-    private List<Pembayaran> fetchResults(Response<PembayaranRepository> response) {
-        PembayaranRepository pembayaranRepository = response.body();
-        return pembayaranRepository.getResult();
     }
 
     private void loadDataPembayaran() {
@@ -97,7 +85,6 @@ public class HistorySiswaFragment extends Fragment {
                     pembayaran = response.body().getResult();
                     adapter = new HistorySiswaAdapter(getActivity(), pembayaran);
                     recyclerView.setAdapter(adapter);
-
                 }
             }
 

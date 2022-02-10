@@ -42,11 +42,11 @@ public class HomeSiswaActivity extends AppCompatActivity {
         mViewPager = findViewById(R.id.viewPager);
 
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(TagihanSiswaFragment.newInstance(), "Tagihan");
-        adapter.addFragment(HistorySiswaFragment.newInstance(), "History");
+        adapter.addFragment(new TagihanSiswaFragment(), "Tagihan");
+        adapter.addFragment(new HistorySiswaFragment(), "History");
 
-        mTabs.setupWithViewPager(mViewPager);
         mViewPager.setAdapter(adapter);
+        mTabs.setupWithViewPager(mViewPager);
         mTabs.post(new Runnable() {
             @Override
             public void run() {
@@ -77,4 +77,5 @@ public class HomeSiswaActivity extends AppCompatActivity {
         });
 
     }
+
 }
