@@ -11,7 +11,6 @@ import androidx.core.view.ViewCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -32,8 +31,9 @@ public class HomeSiswaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeSiswaActivity.this, logout, ViewCompat.getTransitionName(logout));
-                Intent intent = new Intent(HomeSiswaActivity.this, LoginChoiceActivity.class);
+                Intent intent = new Intent(HomeSiswaActivity.this, LoginSiswaActivity.class);
                 startActivity(intent, options.toBundle());
+                finish();
             }
         });
 
@@ -44,9 +44,9 @@ public class HomeSiswaActivity extends AppCompatActivity {
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
         adapter.addFragment(TagihanSiswaFragment.newInstance(), "Tagihan");
         adapter.addFragment(HistorySiswaFragment.newInstance(), "History");
-        mViewPager.setAdapter(adapter);
 
         mTabs.setupWithViewPager(mViewPager);
+        mViewPager.setAdapter(adapter);
         mTabs.post(new Runnable() {
             @Override
             public void run() {
@@ -68,7 +68,7 @@ public class HomeSiswaActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int i) {
-                adapter.notifyDataSetChanged();
+
             }
 
             @Override

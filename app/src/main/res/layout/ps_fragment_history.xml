@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:transitionName="card">
 
     <TextView
@@ -25,7 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:fontFamily="@font/avenir_demi"
-        android:text="(38)"
         android:textColor="#C8C4D9"
         android:textSize="17sp"
         app:layout_constraintStart_toEndOf="@+id/history"

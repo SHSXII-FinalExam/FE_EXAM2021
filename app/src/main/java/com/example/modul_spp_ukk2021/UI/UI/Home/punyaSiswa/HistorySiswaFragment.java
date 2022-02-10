@@ -90,13 +90,14 @@ public class HistorySiswaFragment extends Fragment {
             @Override
             public void onResponse(Call<PembayaranRepository> call, Response<PembayaranRepository> response) {
                 String value = response.body().getValue();
-                List<Pembayaran> results = fetchResults(response);
+                List<Pembayaran> results = response.body().getResult();
 
                 Log.e("value", value);
                 if (value.equals("1")) {
                     pembayaran = response.body().getResult();
                     adapter = new HistorySiswaAdapter(getActivity(), pembayaran);
                     recyclerView.setAdapter(adapter);
+
                 }
             }
 

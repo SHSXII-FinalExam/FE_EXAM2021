@@ -1,6 +1,8 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
+import com.google.android.material.card.MaterialCardView;
 
 import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
@@ -53,7 +56,8 @@ public class HistorySiswaAdapter extends RecyclerView.Adapter<HistorySiswaAdapte
         Locale localeID = new Locale("in", "ID");
         NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
         format.setMaximumFractionDigits(0);
-        holder.tvNominal.setText(format.format(pembayaran.getNominal()));
+        holder.tvNominal.setText("+" + format.format(pembayaran.getNominal()));
+        holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#2EDCB5")));
 
         DateFormatSymbols symbols = new DateFormatSymbols(localeID);
         String[] monthNames = symbols.getMonths();
@@ -78,9 +82,11 @@ public class HistorySiswaAdapter extends RecyclerView.Adapter<HistorySiswaAdapte
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvBulan, tvNominal, tvStatus, tvTanggal;
+        MaterialCardView materialCardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            materialCardView = itemView.findViewById(R.id.materialCardView);
             tvBulan = itemView.findViewById(R.id.namaBulan);
             tvNominal = itemView.findViewById(R.id.nominal);
             tvStatus = itemView.findViewById(R.id.status);

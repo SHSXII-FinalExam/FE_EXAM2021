@@ -106,7 +106,6 @@ public class TagihanSiswaFragment extends Fragment {
             profile_pict.setVisibility(View.GONE);
             nama.setVisibility(View.GONE);
             kelas.setVisibility(View.GONE);
-            cardView.setVisibility(View.GONE);
             minimize.setAlpha(0f);
             minimize2.setVisibility(View.VISIBLE);
         } else {
@@ -114,7 +113,6 @@ public class TagihanSiswaFragment extends Fragment {
             profile_pict.setVisibility(View.VISIBLE);
             nama.setVisibility(View.VISIBLE);
             kelas.setVisibility(View.VISIBLE);
-            cardView.setVisibility(View.VISIBLE);
             minimize.setAlpha(1f);
             minimize2.setVisibility(View.GONE);
         }
@@ -139,7 +137,7 @@ public class TagihanSiswaFragment extends Fragment {
             @Override
             public void onResponse(Call<PembayaranRepository> call, Response<PembayaranRepository> response) {
                 String value = response.body().getValue();
-                List<Pembayaran> results = fetchResults(response);
+                List<Pembayaran> results = response.body().getResult();
                 int total_sum = 0;
 
                 Log.e("value", value);
@@ -152,13 +150,15 @@ public class TagihanSiswaFragment extends Fragment {
                     for (i = 0; i < results.size(); i++) {
                         int total_Kurang = results.get(i).getKurang_bayar();
                         int belum_Bayar = results.get(i).getNominal();
+                        nama.setText(results.get(i).getNama());
+                        kelas.setText("Siswa " + results.get(i).getNama_kelas());
 
                         if (results.get(i).getKurang_bayar() == 0) {
                             total_sum += belum_Bayar;
                         }
                         total_sum += total_Kurang;
                     }
-                    tagihan_count.setText("("+String.valueOf(i)+")");
+                    tagihan_count.setText("(" + String.valueOf(i) + ")");
 
                     Locale localeID = new Locale("in", "ID");
                     NumberFormat format = NumberFormat.getCurrencyInstance(localeID);

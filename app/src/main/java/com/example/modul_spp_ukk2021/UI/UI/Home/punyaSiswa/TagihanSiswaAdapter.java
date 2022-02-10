@@ -1,6 +1,8 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
+import com.google.android.material.card.MaterialCardView;
 
 import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
@@ -43,15 +46,19 @@ public class TagihanSiswaAdapter extends RecyclerView.Adapter<TagihanSiswaAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         Pembayaran pembayaran = this.pembayaran.get(position);
 
-        holder.tvStatus.setText(pembayaran.getStatus_bayar());
-
         Locale localeID = new Locale("in", "ID");
         NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
         format.setMaximumFractionDigits(0);
         if (pembayaran.getKurang_bayar() == 0){
             holder.tvNominal.setText(format.format(pembayaran.getNominal()));
+            holder.tvNominal.setTextColor(Color.parseColor("#F14D6F"));
+            holder.tvStatus.setText(pembayaran.getStatus_bayar());
+            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#F14D6F")));
         } else {
             holder.tvNominal.setText(format.format(pembayaran.getKurang_bayar()));
+            holder.tvNominal.setTextColor(Color.parseColor("#FFC700"));
+            holder.tvStatus.setText("Kurang");
+            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#FFC700")));
         }
 
         DateFormatSymbols symbols = new DateFormatSymbols(localeID);
@@ -77,9 +84,11 @@ public class TagihanSiswaAdapter extends RecyclerView.Adapter<TagihanSiswaAdapte
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvBulan, tvNominal, tvStatus, tvTanggal;
+        MaterialCardView materialCardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            materialCardView = itemView.findViewById(R.id.materialCardView);
             tvBulan = itemView.findViewById(R.id.namaBulan);
             tvNominal = itemView.findViewById(R.id.nominal);
             tvStatus = itemView.findViewById(R.id.status);

@@ -7,6 +7,16 @@
     android:orientation="vertical"
     tools:context=".UI.UI.Home.punyaSiswa.HomeSiswaActivity">
 
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@+id/logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+    
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
@@ -40,35 +50,19 @@
 
     </FrameLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@+id/logout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:overScrollMode="never" />
-    </ScrollView>
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/logout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:transitionName="button"
         android:layout_marginBottom="30dp"
         android:background="@drawable/gradient"
         android:fontFamily="@font/avenir_demi"
         android:text="Logout"
         android:textAllCaps="false"
         android:textSize="14sp"
+        android:transitionName="button"
         app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

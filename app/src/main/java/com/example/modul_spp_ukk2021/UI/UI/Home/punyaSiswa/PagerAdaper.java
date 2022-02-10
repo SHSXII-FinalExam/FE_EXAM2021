@@ -12,9 +12,11 @@ class PagerAdapter extends FragmentPagerAdapter {
 
     private final List<Fragment> fragmentList = new ArrayList<>();
     private final List<String> fragmentTitleList = new ArrayList<>();
+    private final FragmentManager mFragmentManager;
 
     public PagerAdapter(FragmentManager fm) {
         super(fm);
+        mFragmentManager = fm;
     }
 
     @Override
@@ -31,6 +33,7 @@ class PagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return fragmentTitleList.get(position);
     }
+
 
     public void addFragment(Fragment fragment, String title) {
         fragmentList.add(fragment);
