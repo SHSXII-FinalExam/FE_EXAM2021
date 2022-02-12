@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardPembayaran"
+        android:layout_width="158dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:backgroundTint="#F6F8FE"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp"
+        app:rippleColor="@android:color/transparent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="20dp"
+                android:elevation="0dp"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/ic_piggy"
+                    android:backgroundTint="@color/white"
+                    android:elevation="1dp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/namaBulan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/avenir_demi"
+                android:text="Desember"
+                android:textColor="#251F39"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="@+id/materialCardView"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/materialCardView"
+                app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/avenir_medium"
+                android:text="Lunas"
+                android:textColor="#837EA7"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="@+id/namaBulan"
+                app:layout_constraintStart_toStartOf="@+id/namaBulan"
+                app:layout_constraintTop_toBottomOf="@+id/namaBulan" />
+
+            <TextView
+                android:id="@+id/nominal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/avenir_regular"
+                android:text="Rp.270.000,00"
+                android:textColor="#41E46F"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toEndOf="@+id/status"
+                app:layout_constraintStart_toStartOf="@+id/status"
+                app:layout_constraintTop_toBottomOf="@+id/status" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/updateData"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/gradient"
+                app:backgroundTint="@null"
+                app:cornerRadius="15dp"
+                app:icon="@drawable/ic_play"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nominal" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

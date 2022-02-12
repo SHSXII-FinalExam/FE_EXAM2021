@@ -1,8 +1,7 @@
-package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
+    package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,32 +10,28 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
-import com.google.android.material.card.MaterialCardView;
+import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
+import com.google.android.material.button.MaterialButton;
 
-import java.text.DateFormatSymbols;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.ViewHolder> {
     private Context context;
-    private List<Pembayaran> pembayaran;
+    private List<Siswa> siswa;
 
     // data is passed into the constructor
-    public HomePetugasAdapter(Context context, List<Pembayaran> pembayaran) {
+    public HomePetugasAdapter(Context context, List<Siswa> siswa) {
         this.context = context;
-        this.pembayaran = pembayaran;
+        this.siswa = siswa;
     }
 
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ps_container_data_tagihan, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pp_container_data_siswa, parent, false);
 
         return new ViewHolder(view);
     }
@@ -44,59 +39,39 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Pembayaran pembayaran = this.pembayaran.get(position);
+        Siswa siswa = this.siswa.get(position);
 
-        Locale localeID = new Locale("in", "ID");
-        NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
-        format.setMaximumFractionDigits(0);
-        if (pembayaran.getJumlah_bayar() < pembayaran.getNominal() && pembayaran.getJumlah_bayar() > 0) {
-            holder.tvNominal.setText(format.format(pembayaran.getKurang_bayar()));
-            holder.tvNominal.setTextColor(Color.parseColor("#FFC700"));
-            holder.tvStatus.setText("Kurang");
-            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#FFC700")));
-        } else if (pembayaran.getJumlah_bayar().equals(pembayaran.getNominal())) {
-            holder.tvNominal.setText(format.format(pembayaran.getNominal()));
-            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#2EDCB5")));
-        } else {
-            holder.tvNominal.setText(format.format(pembayaran.getNominal()));
-            holder.tvNominal.setTextColor(Color.parseColor("#F14D6F"));
-            holder.tvStatus.setText(pembayaran.getStatus_bayar());
-            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#F14D6F")));
-        }
+        holder.textViewNama.setText(siswa.getNama());
+        holder.textViewKelas.setText(siswa.getNama_kelas());
 
-        DateFormatSymbols symbols = new DateFormatSymbols(localeID);
-        String[] monthNames = symbols.getMonths();
-        holder.tvBulan.setText(monthNames[pembayaran.getBulan_bayar() - 1]);
-
-        if (pembayaran.getTgl_bayar() != null) {
-            SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy", localeID);
-            String strDt = simpleDate.format(pembayaran.getTgl_bayar());
-            holder.tvTanggal.setText(strDt);
-        } else {
-            holder.tvTanggal.setText("--/--/----");
-        }
-
+        holder.buttonSiswa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PembayaranActivity.class);
+                intent.putExtra("nisnSiswa", siswa.getNisn());
+                context.startActivity(intent);
+            }
+        });
     }
 
     // total number of rows
     @Override
     public int getItemCount() {
-        return pembayaran.size();
+        return siswa.size();
     }
-
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvBulan, tvNominal, tvStatus, tvTanggal;
-        MaterialCardView materialCardView;
+        @BindView(R.id.namaSiswa)
+        TextView textViewNama;
+        @BindView(R.id.kelas)
+        TextView textViewKelas;
+        @BindView(R.id.detailSiswa)
+        MaterialButton buttonSiswa;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            materialCardView = itemView.findViewById(R.id.materialCardView);
-            tvBulan = itemView.findViewById(R.id.namaBulan);
-            tvNominal = itemView.findViewById(R.id.nominal);
-            tvStatus = itemView.findViewById(R.id.status);
-            tvTanggal = itemView.findViewById(R.id.tanggal);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

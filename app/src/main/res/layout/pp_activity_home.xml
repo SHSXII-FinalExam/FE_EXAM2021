@@ -155,6 +155,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dataSiswa"
-        tools:listitem="@layout/pa_container_data_siswa" />
+        tools:listitem="@layout/pp_container_data_siswa" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

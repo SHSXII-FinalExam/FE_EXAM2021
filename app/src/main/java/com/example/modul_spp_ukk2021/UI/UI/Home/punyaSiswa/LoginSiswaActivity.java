@@ -1,15 +1,13 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
@@ -17,8 +15,8 @@ import androidx.core.view.ViewCompat;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.LoginPetugasActivity;
 import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
+import com.github.captain_miao.optroundcardview.OptRoundCardView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -31,42 +29,35 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
 
 public class LoginSiswaActivity extends AppCompatActivity {
+    private OptRoundCardView card;
+    private MaterialButton masuk;
     private EditText editNISN, editPassword;
     private TextInputLayout textInputLayout, textInputLayout2;
-    private MaterialButton kembali, masuk;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ps_activity_login);
-
+        setContentView(R.layout.activity_login_siswa);
+        card = findViewById(R.id.card);
+        masuk = findViewById(R.id.masuk);
         editNISN = findViewById(R.id.nisn);
         editPassword = findViewById(R.id.password);
         textInputLayout = findViewById(R.id.textInputLayout);
+        MaterialButton kembali = findViewById(R.id.kembali);
         textInputLayout2 = findViewById(R.id.textInputLayout2);
-        masuk = findViewById(R.id.masuk);
-        kembali = findViewById(R.id.kembali);
 
-        masuk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validateForm();
-            }
-        });
-
-        kembali.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        kembali.setOnClickListener(v -> onBackPressed());
+        masuk.setOnClickListener(v -> validateForm(editNISN.getText().toString().trim(), editPassword.getText().toString().trim()));
     }
 
-    private void validateForm() {
-        String nisn = editNISN.getText().toString().trim();
-        String password = editPassword.getText().toString().trim();
+    @Override
+    public void onBackPressed() {
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginSiswaActivity.this, card, ViewCompat.getTransitionName(card));
+        Intent intent = new Intent(LoginSiswaActivity.this, LoginChoiceActivity.class);
+        startActivity(intent, options.toBundle());
+    }
 
+    private void validateForm(String nisn, String password) {
         if (nisn.length() < 10) {
             textInputLayout.setError("NISN kurang/salah");
             editNISN.addTextChangedListener(new TextWatcher() {
@@ -83,12 +74,7 @@ public class LoginSiswaActivity extends AppCompatActivity {
                 public void afterTextChanged(Editable s) {
                 }
             });
-        } else {
-            textInputLayout.setErrorEnabled(false);
-            loadDataPembayaran(nisn, password);
-        }
-
-        if (password.isEmpty()) {
+        } else if (password.isEmpty()) {
             textInputLayout2.setError("Password kosong/salah");
             editPassword.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -106,19 +92,11 @@ public class LoginSiswaActivity extends AppCompatActivity {
             });
         } else {
             textInputLayout2.setErrorEnabled(false);
-            loadDataPembayaran(nisn, password);
+            loginSiswa(nisn, password);
         }
-
     }
 
-    @Override
-    public void onBackPressed() {
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginSiswaActivity.this, masuk, ViewCompat.getTransitionName(masuk));
-        Intent intent = new Intent(LoginSiswaActivity.this, LoginChoiceActivity.class);
-        startActivity(intent, options.toBundle());
-    }
-
-    private void loadDataPembayaran(String nisn, String password) {
+    private void loginSiswa(String nisn, String password) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -131,10 +109,15 @@ public class LoginSiswaActivity extends AppCompatActivity {
                 String value = response.body().getValue();
 
                 if (value.equals("1")) {
-                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginSiswaActivity.this, masuk, ViewCompat.getTransitionName(masuk));
-                    Intent intent = new Intent(LoginSiswaActivity.this, HomeSiswaActivity.class);
-                    intent.putExtra("nisnSiswa", nisn);
-                    startActivity(intent, options.toBundle());
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginSiswaActivity.this, masuk, ViewCompat.getTransitionName(masuk));
+                            Intent intent = new Intent(LoginSiswaActivity.this, HomeSiswaActivity.class);
+                            intent.putExtra("nisnSiswa", nisn);
+                            startActivity(intent, options.toBundle());
+                        }
+                    }, 1000);
                 }
             }
 
@@ -144,5 +127,4 @@ public class LoginSiswaActivity extends AppCompatActivity {
             }
         });
     }
-
 }

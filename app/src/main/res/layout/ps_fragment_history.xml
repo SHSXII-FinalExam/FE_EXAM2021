@@ -11,12 +11,12 @@
         android:id="@+id/history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="17dp"
-        android:fontFamily="@font/avenir_demi"
+        android:fontFamily="@font/avenir_bold"
         android:text="History"
         android:textColor="#251F39"
-        android:textSize="17sp"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,9 +25,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:fontFamily="@font/avenir_demi"
+        android:fontFamily="@font/avenir_bold"
         android:textColor="#C8C4D9"
-        android:textSize="17sp"
+        android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/history"
         app:layout_constraintTop_toTopOf="@+id/history" />
 
@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="10dp"
         android:nestedScrollingEnabled="false"

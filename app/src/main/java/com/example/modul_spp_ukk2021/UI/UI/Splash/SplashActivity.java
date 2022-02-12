@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.transition.Fade;
 import android.widget.ImageView;
 
 import androidx.annotation.RequiresApi;
@@ -21,11 +20,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
-        Fade fade = new Fade();
-        getWindow().setEnterTransition(fade);
-        getWindow().setExitTransition(fade);
-
         ImageView logo = findViewById(R.id.logo_ts);
 
         new Handler().postDelayed(new Runnable() {

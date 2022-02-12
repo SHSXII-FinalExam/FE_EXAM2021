@@ -26,17 +26,19 @@
         app:rippleColor="#F5F6F7"
         app:strokeColor="#F5F6F7" />
 
-    <com.google.android.material.card.MaterialCardView
+    <com.github.captain_miao.optroundcardview.OptRoundCardView
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:transitionName="card"
-        app:cardBackgroundColor="#F7F7F7"
-        app:cardCornerRadius="15dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:optRoundCardBackgroundColor="#F7F7F7"
+        app:optRoundCardCornerRadius="15dp"
+        app:optRoundCardLeftBottomCorner="false"
+        app:optRoundCardRightBottomCorner="false"
         app:rippleColor="@android:color/transparent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -93,13 +95,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/desc">
 
                 <EditText
-                    android:id="@+id/nisn"
+                    android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:autofillHints="email@gmail.com"
                     android:fontFamily="@font/avenir_demi"
-                    android:hint="NISN"
-                    android:inputType="number"
+                    android:hint="Username"
+                    android:inputType="text"
                     android:maxLength="10"
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
@@ -165,6 +167,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </com.github.captain_miao.optroundcardview.OptRoundCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

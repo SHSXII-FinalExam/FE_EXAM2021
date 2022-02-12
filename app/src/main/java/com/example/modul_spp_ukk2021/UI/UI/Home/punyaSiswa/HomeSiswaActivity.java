@@ -1,10 +1,12 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
@@ -15,31 +17,18 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 
 public class HomeSiswaActivity extends AppCompatActivity {
-
-    TabLayout mTabs;
-    View mIndicator;
-    ViewPager mViewPager;
+    private MaterialButton logout;
     private int indicatorWidth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.ps_activity_home);
-
-        MaterialButton logout = findViewById(R.id.logout);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeSiswaActivity.this, logout, ViewCompat.getTransitionName(logout));
-                Intent intent = new Intent(HomeSiswaActivity.this, LoginSiswaActivity.class);
-                startActivity(intent, options.toBundle());
-                finish();
-            }
-        });
-
-        mTabs = findViewById(R.id.tab);
-        mIndicator = findViewById(R.id.indicator);
-        mViewPager = findViewById(R.id.viewPager);
+        TabLayout mTabs = findViewById(R.id.tab);
+        View mIndicator = findViewById(R.id.indicator);
+        logout = findViewById(R.id.logout);
+        ViewPager mViewPager = findViewById(R.id.viewPager);
 
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new TagihanSiswaFragment(), "Tagihan");
@@ -68,7 +57,6 @@ public class HomeSiswaActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int i) {
-
             }
 
             @Override
@@ -76,6 +64,27 @@ public class HomeSiswaActivity extends AppCompatActivity {
             }
         });
 
+        logout.setOnClickListener(v -> {
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeSiswaActivity.this, logout, ViewCompat.getTransitionName(logout));
+            Intent intent = new Intent(HomeSiswaActivity.this, LoginSiswaActivity.class);
+            startActivity(intent, options.toBundle());
+            finish();
+        });
     }
 
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage("Apakah anda yakin ingin keluar dari akun ini?")
+                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeSiswaActivity.this, logout, ViewCompat.getTransitionName(logout));
+                        Intent intent = new Intent(HomeSiswaActivity.this, LoginSiswaActivity.class);
+                        startActivity(intent, options.toBundle());
+                        finish();
+                    }
+                })
+                .setNegativeButton("Tidak", null)
+                .show();
+    }
 }

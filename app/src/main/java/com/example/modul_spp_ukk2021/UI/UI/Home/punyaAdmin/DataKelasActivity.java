@@ -13,6 +13,7 @@ import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Kelas;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.KelasRepository;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +39,8 @@ public class DataKelasActivity extends AppCompatActivity {
     @BindView(R.id.recycler_kelas)
     RecyclerView recyclerView;
 
-//    @BindView(R.id.tambah_spp)
-//    MaterialCardView tambahPetugas;
+    @BindView(R.id.tambah_spp)
+    MaterialCardView tambahPetugas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

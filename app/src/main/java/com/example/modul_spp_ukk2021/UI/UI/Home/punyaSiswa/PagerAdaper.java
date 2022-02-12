@@ -3,7 +3,6 @@ package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,6 @@ class PagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return fragmentTitleList.get(position);
     }
-
 
     public void addFragment(Fragment fragment, String title) {
         fragmentList.add(fragment);

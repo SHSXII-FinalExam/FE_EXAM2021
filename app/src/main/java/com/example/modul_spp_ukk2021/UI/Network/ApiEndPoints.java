@@ -55,6 +55,12 @@ public interface ApiEndPoints {
             @Field("level") String level);
 
     @FormUrlEncoded
+    @POST("dbUpdatePembayaran.php")
+    Call<PembayaranRepository> updatePembayaran(
+            @Field("id_pembayaran") String id_pembayaran,
+            @Field("jumlah_bayar") String jumlah_bayar);
+
+    @FormUrlEncoded
     @POST("dbCreateSPP.php")
     Call<SPPRepository> createSPP(
             @Field("angkatan") String angkatan,

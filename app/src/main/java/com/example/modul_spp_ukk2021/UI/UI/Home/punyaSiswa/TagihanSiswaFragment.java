@@ -1,8 +1,6 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Data.Model.LoginStaff;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
-import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStaffRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
-import com.google.android.material.card.MaterialCardView;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -37,16 +32,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
 
 public class TagihanSiswaFragment extends Fragment {
-
+    private RecyclerView recyclerView;
     private TagihanSiswaAdapter adapter;
+    private TextView nama, kelas, nominal, tagihan_count;
     private List<Pembayaran> pembayaran = new ArrayList<>();
-
-    RecyclerView recyclerView;
-    View view;
-
-    ImageView profile_frame, profile_pict, minimize, minimize2;
-    TextView nama, kelas, profile, nominal, tagihan_count;
-    MaterialCardView cardView;
+    private ImageView profile_frame, profile_pict, minimize, minimize2;
 
     public TagihanSiswaFragment() {
     }
@@ -54,71 +44,58 @@ public class TagihanSiswaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        view = inflater.inflate(R.layout.ps_fragment_tagihan, container, false);
+        View view = inflater.inflate(R.layout.ps_fragment_tagihan, container, false);
+
+        nama = view.findViewById(R.id.nama);
+        kelas = view.findViewById(R.id.kelas);
+        nominal = view.findViewById(R.id.nominal);
+        minimize = view.findViewById(R.id.minimize);
+        minimize2 = view.findViewById(R.id.minimize2);
+        TextView profile = view.findViewById(R.id.profile);
+        profile_pict = view.findViewById(R.id.profile_pict);
+        profile_frame = view.findViewById(R.id.profile_frame);
+        tagihan_count = view.findViewById(R.id.tagihan_count);
 
         adapter = new TagihanSiswaAdapter(getActivity(), pembayaran);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView = view.findViewById(R.id.recyclerTagihan);
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
 
-        minimize = view.findViewById(R.id.minimize);
-        minimize2 = view.findViewById(R.id.minimize2);
-        profile_frame = view.findViewById(R.id.profile_frame);
-        profile_pict = view.findViewById(R.id.profile_pict);
-        nama = view.findViewById(R.id.nama);
-        nominal = view.findViewById(R.id.nominal);
-        tagihan_count = view.findViewById(R.id.tagihan_count);
-        kelas = view.findViewById(R.id.kelas);
-        cardView = view.findViewById(R.id.materialCardView5);
-        profile = view.findViewById(R.id.profile);
-
-        minimize.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                minimize();
-            }
-        });
-
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                minimize();
-            }
-        });
+        minimize.setOnClickListener(v -> minimize());
+        profile.setOnClickListener(v -> minimize());
 
         return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadDataPembayaran();
     }
 
     private void minimize() {
         int status = profile_pict.getVisibility();
 
         if (status == View.VISIBLE) {
-            profile_frame.setVisibility(View.GONE);
-            profile_pict.setVisibility(View.GONE);
+            minimize.setAlpha(0f);
             nama.setVisibility(View.GONE);
             kelas.setVisibility(View.GONE);
-            minimize.setAlpha(0f);
+            profile_frame.setVisibility(View.GONE);
+            profile_pict.setVisibility(View.GONE);
             minimize2.setVisibility(View.VISIBLE);
         } else {
-            profile_frame.setVisibility(View.VISIBLE);
-            profile_pict.setVisibility(View.VISIBLE);
+            minimize.setAlpha(1f);
             nama.setVisibility(View.VISIBLE);
             kelas.setVisibility(View.VISIBLE);
-            minimize.setAlpha(1f);
+            profile_frame.setVisibility(View.VISIBLE);
+            profile_pict.setVisibility(View.VISIBLE);
             minimize2.setVisibility(View.GONE);
         }
-
     }
 
-    private void loadDataPembayaran() {
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadDataTagihan();
+    }
+
+    private void loadDataTagihan() {
         String nisnSiswa = getActivity().getIntent().getStringExtra("nisnSiswa");
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -139,7 +116,7 @@ public class TagihanSiswaFragment extends Fragment {
                     adapter = new TagihanSiswaAdapter(getActivity(), pembayaran);
                     recyclerView.setAdapter(adapter);
 
-                    int i = 0;
+                    int i;
                     int total_sum = 0;
                     for (i = 0; i < results.size(); i++) {
                         int total_Kurang = results.get(i).getKurang_bayar();
@@ -152,12 +129,12 @@ public class TagihanSiswaFragment extends Fragment {
                         }
                         total_sum += total_Kurang;
                     }
-                    tagihan_count.setText("(" + String.valueOf(i) + ")");
 
                     Locale localeID = new Locale("in", "ID");
                     NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
                     format.setMaximumFractionDigits(0);
                     nominal.setText(format.format(total_sum) + ",00");
+                    tagihan_count.setText("(" + String.valueOf(i) + ")");
                 }
             }
 
@@ -167,5 +144,4 @@ public class TagihanSiswaFragment extends Fragment {
             }
         });
     }
-
 }

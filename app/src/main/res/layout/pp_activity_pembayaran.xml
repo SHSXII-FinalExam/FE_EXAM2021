@@ -15,9 +15,9 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="17dp"
         android:fontFamily="@font/avenir_demi"
-        android:text="Tagihan"
+        android:text="Data Pembayaran"
         android:textColor="#251F39"
-        android:textSize="17sp"
+        android:textSize="24sp"
         android:transitionName="text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +30,7 @@
         android:fontFamily="@font/avenir_demi"
         android:text="(38)"
         android:textColor="#C8C4D9"
-        android:textSize="17sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/dataSiswa"
         app:layout_constraintTop_toTopOf="@+id/dataSiswa" />
 
@@ -38,13 +38,13 @@
         android:id="@+id/recyclerTagihanSiswa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="20dp"
         android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dataSiswa"
-        tools:listitem="@layout/ps_container_data_tagihan" />
+        app:spanCount="2"
+        tools:listitem="@layout/pp_container_data_pembayaran" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

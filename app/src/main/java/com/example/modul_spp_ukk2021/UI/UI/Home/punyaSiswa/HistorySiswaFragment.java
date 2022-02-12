@@ -1,13 +1,10 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -19,13 +16,9 @@ import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,14 +28,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
 
 public class HistorySiswaFragment extends Fragment {
-
+    private View view;
+    private RecyclerView recyclerView;
     private HistorySiswaAdapter adapter;
     private List<Pembayaran> pembayaran = new ArrayList<>();
 
-    RecyclerView recyclerView;
-    View view;
-
-    public HistorySiswaFragment () {
+    public HistorySiswaFragment() {
     }
 
     @Override
@@ -62,10 +53,10 @@ public class HistorySiswaFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadDataPembayaran();
+        loadDataHistory();
     }
 
-    private void loadDataPembayaran() {
+    private void loadDataHistory() {
         String nisnSiswa = getActivity().getIntent().getStringExtra("nisnSiswa");
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -93,32 +84,5 @@ public class HistorySiswaFragment extends Fragment {
                 Log.e("DEBUG", "Error: ", t);
             }
         });
-    }
-
-    public void getVariable() {
-        int total_sum = 0;
-        String nama = "";
-
-        for (int i = 0; i < pembayaran.size(); i++) {
-            Pembayaran food_items = pembayaran.get(i);
-            int price = food_items.getNominal();
-            nama = food_items.getNama();
-            total_sum += price;
-        }
-
-        TextView nominal = view.findViewById(R.id.nominal);
-        Locale localeID = new Locale("in", "ID");
-        NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
-        format.setMaximumFractionDigits(0);
-        nominal.setText(format.format(total_sum) + ",00");
-
-        SharedPreferences settings = getActivity().getSharedPreferences("totalTagihan", 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putInt("tagihanSiswa", total_sum);
-        editor.apply();
-
-        TextView Nama = view.findViewById(R.id.nama);
-        Nama.setText(nama);
-
     }
 }

@@ -19,17 +19,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.card.MaterialCardView
+    <com.github.captain_miao.optroundcardview.OptRoundCardView
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:transitionName="card"
-        app:cardBackgroundColor="#F7F7F7"
-        app:cardCornerRadius="15dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:optRoundCardBackgroundColor="#F7F7F7"
+        app:optRoundCardCornerRadius="15dp"
+        app:optRoundCardLeftBottomCorner="false"
+        app:optRoundCardRightBottomCorner="false"
         app:rippleColor="@android:color/transparent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -157,6 +159,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/desc2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </com.github.captain_miao.optroundcardview.OptRoundCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,8 +16,8 @@ import com.example.modul_spp_ukk2021.UI.Data.Model.LoginStaff;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStaffRepository;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin.HomeAdminFragment;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.LoginSiswaActivity;
 import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
+import com.github.captain_miao.optroundcardview.OptRoundCardView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -33,41 +32,34 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
 
 public class LoginPetugasActivity extends AppCompatActivity {
+    private OptRoundCardView card;
     private EditText editUsername, editPassword;
     private TextInputLayout textInputLayout, textInputLayout2;
-    private MaterialButton kembali, masuk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pp_activity_login);
-
+        setContentView(R.layout.activity_login_staff);
+        card = findViewById(R.id.card);
         editUsername = findViewById(R.id.username);
         editPassword = findViewById(R.id.password);
+        MaterialButton masuk = findViewById(R.id.masuk);
+        MaterialButton kembali = findViewById(R.id.kembali);
         textInputLayout = findViewById(R.id.textInputLayout);
         textInputLayout2 = findViewById(R.id.textInputLayout2);
-        masuk = findViewById(R.id.masuk);
-        kembali = findViewById(R.id.kembali);
 
-        masuk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validateForm();
-            }
-        });
-
-        kembali.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        kembali.setOnClickListener(v -> onBackPressed());
+        masuk.setOnClickListener(v -> validateForm(editUsername.getText().toString().trim(), editPassword.getText().toString().trim()));
     }
 
-    private void validateForm() {
-        String username = editUsername.getText().toString().trim();
-        String password = editPassword.getText().toString().trim();
+    @Override
+    public void onBackPressed() {
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginPetugasActivity.this, card, ViewCompat.getTransitionName(card));
+        Intent intent = new Intent(LoginPetugasActivity.this, LoginChoiceActivity.class);
+        startActivity(intent, options.toBundle());
+    }
 
+    private void validateForm(String username, String password) {
         if (username.isEmpty()) {
             textInputLayout.setError("Username salah");
             editUsername.addTextChangedListener(new TextWatcher() {
@@ -84,12 +76,7 @@ public class LoginPetugasActivity extends AppCompatActivity {
                 public void afterTextChanged(Editable s) {
                 }
             });
-        } else {
-            textInputLayout.setErrorEnabled(false);
-            loadDataPembayaran(username, password);
-        }
-
-        if (password.isEmpty()) {
+        } else if (password.isEmpty()) {
             textInputLayout2.setError("Password kosong/salah");
             editPassword.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -116,13 +103,6 @@ public class LoginPetugasActivity extends AppCompatActivity {
         return loginStaffRepository.getResult();
     }
 
-    @Override
-    public void onBackPressed() {
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginPetugasActivity.this, masuk, ViewCompat.getTransitionName(masuk));
-        Intent intent = new Intent(LoginPetugasActivity.this, LoginChoiceActivity.class);
-        startActivity(intent, options.toBundle());
-    }
-
     private void loadDataPembayaran(String username, String password) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
@@ -141,7 +121,7 @@ public class LoginPetugasActivity extends AppCompatActivity {
                     Log.e("keshav", "Level ->" + level);
 
                     if (value.equals("1") && level.equals("petugas")) {
-                        Intent intent = new Intent(LoginPetugasActivity.this, DataSiswaActivity.class);
+                        Intent intent = new Intent(LoginPetugasActivity.this, HomePetugasActivity.class);
                         intent.putExtra("username", username);
                         startActivity(intent);
                         finish();
