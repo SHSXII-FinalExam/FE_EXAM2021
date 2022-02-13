@@ -17,42 +17,33 @@ import com.google.android.material.card.MaterialCardView;
 
 import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class PembayaranAdapter extends RecyclerView.Adapter<PembayaranAdapter.ViewHolder> {
     private Context context;
     private List<Pembayaran> listPembayaran;
+    private static OnRecyclerViewItemClickListener mListener;
 
-    // data is passed into the constructor
+    public interface OnRecyclerViewItemClickListener {
+        void onItemClicked(String id_pembayaran, Integer jumlah_bayar, Integer nominal);
+    }
+
+    public void setOnRecyclerViewItemClickListener(OnRecyclerViewItemClickListener listener) {
+        mListener = listener;
+    }
+
     public PembayaranAdapter(Context context, List<Pembayaran> pembayaran) {
         this.context = context;
         this.listPembayaran = pembayaran;
     }
 
-    // Define listener member variable
-    private static OnRecyclerViewItemClickListener mListener;
-
-    // Define the listener interface
-    public interface OnRecyclerViewItemClickListener {
-        void onItemClicked(String id_pembayaran, Integer jumlah_bayar, Integer nominal);
-    }
-
-    // Define the method that allows the parent activity or fragment to define the listener.
-    public void setOnRecyclerViewItemClickListener(OnRecyclerViewItemClickListener listener) {
-        this.mListener = listener;
-    }
-
-    // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pp_container_data_pembayaran, parent, false);
-
         return new ViewHolder(view);
     }
 
-    // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Pembayaran pembayaran = listPembayaran.get(position);
@@ -60,15 +51,21 @@ public class PembayaranAdapter extends RecyclerView.Adapter<PembayaranAdapter.Vi
         Locale localeID = new Locale("in", "ID");
         NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
         format.setMaximumFractionDigits(0);
+
+        DateFormatSymbols symbols = new DateFormatSymbols(localeID);
+        String[] monthNames = symbols.getMonths();
+        holder.tvBulan.setText(monthNames[pembayaran.getBulan_bayar() - 1]);
+
         if (pembayaran.getJumlah_bayar() < pembayaran.getNominal() && pembayaran.getJumlah_bayar() > 0) {
             holder.tvNominal.setText(format.format(pembayaran.getKurang_bayar()));
             holder.tvNominal.setTextColor(Color.parseColor("#FFC700"));
             holder.tvStatus.setText("Kurang");
+            holder.updateData.setBackgroundColor(Color.parseColor("#FFC700"));
             holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#FFC700")));
         } else if (pembayaran.getJumlah_bayar().equals(pembayaran.getNominal())) {
             holder.updateData.setVisibility(View.INVISIBLE);
             holder.updateData.setEnabled(false);
-            holder.tvNominal.setText(format.format(pembayaran.getNominal()));
+            holder.tvNominal.setText("+" + format.format(pembayaran.getNominal()));
             holder.tvStatus.setText(pembayaran.getStatus_bayar());
             holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#2EDCB5")));
         } else {
@@ -78,37 +75,26 @@ public class PembayaranAdapter extends RecyclerView.Adapter<PembayaranAdapter.Vi
             holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#F14D6F")));
         }
 
-        DateFormatSymbols symbols = new DateFormatSymbols(localeID);
-        String[] monthNames = symbols.getMonths();
-        holder.tvBulan.setText(monthNames[pembayaran.getBulan_bayar() - 1]);
-
-        holder.updateData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onItemClicked(pembayaran.getId_pembayaran(),pembayaran.getJumlah_bayar(),pembayaran.getNominal());
-            }
-        });
+        holder.updateData.setOnClickListener(v -> mListener.onItemClicked(pembayaran.getId_pembayaran(), pembayaran.getJumlah_bayar(), pembayaran.getNominal()));
     }
 
-    // total number of rows
     @Override
     public int getItemCount() {
         return listPembayaran.size();
     }
 
-    // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvBulan, tvNominal, tvStatus;
-        MaterialCardView materialCardView;
         MaterialButton updateData;
+        MaterialCardView materialCardView;
+        TextView tvBulan, tvNominal, tvStatus;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            materialCardView = itemView.findViewById(R.id.materialCardView);
-            updateData = itemView.findViewById(R.id.updateData);
+            tvStatus = itemView.findViewById(R.id.status);
             tvBulan = itemView.findViewById(R.id.namaBulan);
             tvNominal = itemView.findViewById(R.id.nominal);
-            tvStatus = itemView.findViewById(R.id.status);
+            updateData = itemView.findViewById(R.id.updateData);
+            materialCardView = itemView.findViewById(R.id.materialCardView);
         }
     }
 }

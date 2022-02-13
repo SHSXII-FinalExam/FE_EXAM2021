@@ -38,6 +38,7 @@ public class LoginSiswaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_siswa);
+
         card = findViewById(R.id.card);
         masuk = findViewById(R.id.masuk);
         editNISN = findViewById(R.id.nisn);
@@ -117,7 +118,7 @@ public class LoginSiswaActivity extends AppCompatActivity {
                             intent.putExtra("nisnSiswa", nisn);
                             startActivity(intent, options.toBundle());
                         }
-                    }, 1000);
+                    }, 600);
                 }
             }
 

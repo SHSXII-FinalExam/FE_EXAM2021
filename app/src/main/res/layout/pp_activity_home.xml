@@ -5,7 +5,7 @@
     android:id="@+id/scroll_homepetugas"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/logo_backgroundsplash"
     android:overScrollMode="never">
 
     <com.google.android.material.button.MaterialButton
@@ -45,7 +45,7 @@
         android:layout_marginStart="16dp"
         android:fontFamily="@font/avenir_bold"
         android:maxEms="7"
-        android:text="Dummy Name"
+        android:text="Dummy"
         android:textColor="#251F39"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/level"
@@ -73,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/avenir_demi"
-        android:text="Staff level: Petugas"
+        android:text="Staff level:"
         android:textColor="#8A959E"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/profile_pict"
@@ -109,13 +109,13 @@
             android:drawableEnd="@drawable/ic_search"
             android:drawablePadding="23dp"
             android:focusableInTouchMode="true"
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="@font/avenir_medium"
             android:hint="Cari Siswa"
             android:imeOptions="actionSearch"
             android:paddingTop="11dp"
             android:paddingBottom="11dp"
             android:singleLine="true"
-            android:textColorHint="#9A9EA7" />
+            android:textColorHint="#B5BAC5" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -138,7 +138,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:fontFamily="@font/avenir_demi"
-        android:text="(38)"
+        android:text=""
         android:textColor="#C8C4D9"
         android:textSize="17sp"
         app:layout_constraintStart_toEndOf="@+id/dataSiswa"
@@ -147,6 +147,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerDataSiswa"
         android:layout_width="match_parent"
+        android:layoutAnimation="@anim/layout_animation_fall_down"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="27dp"

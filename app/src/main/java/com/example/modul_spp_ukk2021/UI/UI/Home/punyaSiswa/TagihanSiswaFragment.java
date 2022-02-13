@@ -62,6 +62,7 @@ public class TagihanSiswaFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
 
         minimize.setOnClickListener(v -> minimize());
         profile.setOnClickListener(v -> minimize());

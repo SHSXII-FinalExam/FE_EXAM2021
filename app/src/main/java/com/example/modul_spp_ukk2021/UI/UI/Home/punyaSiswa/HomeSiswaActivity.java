@@ -23,8 +23,8 @@ public class HomeSiswaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.ps_activity_home);
+
         TabLayout mTabs = findViewById(R.id.tab);
         View mIndicator = findViewById(R.id.indicator);
         logout = findViewById(R.id.logout);
@@ -68,7 +68,6 @@ public class HomeSiswaActivity extends AppCompatActivity {
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeSiswaActivity.this, logout, ViewCompat.getTransitionName(logout));
             Intent intent = new Intent(HomeSiswaActivity.this, LoginSiswaActivity.class);
             startActivity(intent, options.toBundle());
-            finish();
         });
     }
 
@@ -81,7 +80,6 @@ public class HomeSiswaActivity extends AppCompatActivity {
                         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeSiswaActivity.this, logout, ViewCompat.getTransitionName(logout));
                         Intent intent = new Intent(HomeSiswaActivity.this, LoginSiswaActivity.class);
                         startActivity(intent, options.toBundle());
-                        finish();
                     }
                 })
                 .setNegativeButton("Tidak", null)

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraint"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/profile"
@@ -23,8 +22,8 @@
 
     <ImageView
         android:id="@+id/minimize"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+            android:layout_width="40dp"
+        android:layout_height="40dp"
         android:background="@drawable/ic_arrow_up"
         android:backgroundTint="#251F39"
         android:elevation="1dp"
@@ -83,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/avenir_medium"
-        android:text="Siswa XII RPL3"
+        android:text="Siswa Dummy"
         android:textColor="#8A959E"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/profile_frame"
@@ -140,7 +139,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="14dp"
                 android:fontFamily="@font/avenir_demi"
-                android:text="Rp.270.000,00"
+                android:text="Rp.0,00"
                 android:textColor="@color/white"
                 android:textSize="25sp"
                 app:layout_constraintBottom_toTopOf="@+id/textView13"
@@ -171,7 +170,7 @@
         android:layout_marginStart="5dp"
         android:fontFamily="@font/avenir_demi"
         android:text="(38)"
-        android:textColor="#C8C4D9"
+        android:textColor="#837EA7"
         android:textSize="17sp"
         app:layout_constraintStart_toEndOf="@+id/tagihan"
         app:layout_constraintTop_toTopOf="@+id/tagihan" />

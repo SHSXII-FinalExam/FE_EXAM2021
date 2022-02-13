@@ -15,11 +15,7 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
-    </style>
-
-    <style name="Widget.BottomNavigationView"
-        parent="Widget.Design.BottomNavigationView">
-        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
     </style>
 
     <style name="MyTextInputLayout" parent="Base.Widget.MaterialComponents.TextInputLayout">
@@ -48,5 +44,17 @@
         <item name="android:textSize">14sp</item>
         <item name="textAllCaps">false</item>
         <item name="android:fontFamily">@font/avenir_demi</item>
+    </style>
+
+    <!-- Custom Intent Transition Style -->
+    <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <style name="CustomAlertDialog" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:windowBackground">@drawable/popup_background</item>
     </style>
 </resources>

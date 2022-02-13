@@ -5,42 +5,41 @@
     android:id="@+id/scroll_homepetugas"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
     android:overScrollMode="never">
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/ic_arrow_left"
+        android:backgroundTint="#251F39"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/dataSiswa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="17dp"
-        android:fontFamily="@font/avenir_demi"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/avenir_bold"
         android:text="Data Pembayaran"
         android:textColor="#251F39"
         android:textSize="24sp"
-        android:transitionName="text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/dataSiswa_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:fontFamily="@font/avenir_demi"
-        android:text="(38)"
-        android:textColor="#C8C4D9"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/dataSiswa"
-        app:layout_constraintTop_toTopOf="@+id/dataSiswa" />
+        app:layout_constraintBottom_toBottomOf="@+id/back"
+        app:layout_constraintStart_toEndOf="@+id/back"
+        app:layout_constraintTop_toTopOf="@+id/back" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerTagihanSiswa"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:overScrollMode="never"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dataSiswa"

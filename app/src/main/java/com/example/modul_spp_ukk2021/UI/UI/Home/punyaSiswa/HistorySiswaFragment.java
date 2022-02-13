@@ -46,6 +46,7 @@ public class HistorySiswaFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerHistory);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
 
         return view;
     }

@@ -2,38 +2,50 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     app:cardBackgroundColor="#F5F6F7"
     app:cardCornerRadius="20dp"
     app:rippleColor="@android:color/transparent">
+
+    <TextView
+        android:id="@+id/maxInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/avenir_demi"
+        android:text="Max Input: "
+        android:textColor="#251F39"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
         android:textColorHint="#9A9EA7"
-        app:boxBackgroundColor="#F7F7F7"
         app:boxCornerRadiusBottomEnd="8dp"
         app:boxCornerRadiusBottomStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
         app:boxCornerRadiusTopStart="8dp"
-        app:boxStrokeColor="#E4E6E8"
-        app:boxStrokeErrorColor="#F3994B"
-        app:boxStrokeWidth="1dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
         app:hintEnabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/maxInput"
         app:startIconDrawable="@drawable/ic_balance">
 
         <EditText
             android:id="@+id/jumlahBayar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:autofillHints="email@gmail.com"
-            android:fontFamily="@font/avenir_demi"
+            android:fontFamily="@font/avenir_medium"
             android:hint="Input Jumlah Bayar"
             android:inputType="number"
             android:maxLength="10"
@@ -42,21 +54,4 @@
             android:singleLine="true"
             android:textColor="#0D0A19" />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/submit"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/gradient"
-        android:fontFamily="@font/avenir_demi"
-        android:text="Submit"
-        android:textAllCaps="false"
-        android:textSize="14sp"
-        android:transitionName="button"
-        app:backgroundTint="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

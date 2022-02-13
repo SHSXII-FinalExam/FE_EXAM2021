@@ -47,6 +47,11 @@ public interface ApiEndPoints {
 
     // Punya Petugas & Admin
     @FormUrlEncoded
+    @POST("dbReadPetugas.php")
+    Call<PetugasRepository> viewDataPetugas(
+            @Field("username") String username);
+
+    @FormUrlEncoded
     @POST("dbCreatePetugas.php")
     Call<PetugasRepository> createPetugas(
             @Field("username") String username,
@@ -80,7 +85,4 @@ public interface ApiEndPoints {
 
     @GET("dbReadKelas.php")
     Call<KelasRepository> viewDataKelas();
-
-    @GET("dbReadPetugas.php")
-    Call<PetugasRepository> viewDataPetugas();
 }

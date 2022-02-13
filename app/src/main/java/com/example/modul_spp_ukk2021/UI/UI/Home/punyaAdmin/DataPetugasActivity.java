@@ -110,7 +110,7 @@ public class DataPetugasActivity extends AppCompatActivity {
                                                 String value = response.body().getValue();
                                                 String message = response.body().getMessage();
                                                 if (value.equals("1")) {
-                                                    loadDataPembayaran();
+//                                                    loadDataPembayaran();
                                                     Toast.makeText(DataPetugasActivity.this, message, Toast.LENGTH_SHORT).show();
                                                 } else {
                                                     Toast.makeText(DataPetugasActivity.this, message, Toast.LENGTH_SHORT).show();
@@ -145,31 +145,31 @@ public class DataPetugasActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        loadDataPembayaran();
+//        loadDataPembayaran();
     }
 
-    private void loadDataPembayaran() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-        Call<PetugasRepository> call = api.viewDataPetugas();
-        call.enqueue(new Callback<PetugasRepository>() {
-            @Override
-            public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
-                String value = response.body().getValue();
-                if (value.equals("1")) {
-                    petugas = response.body().getResult();
-                    adapter = new DataPetugasAdapter(DataPetugasActivity.this, petugas);
-                    recyclerView.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PetugasRepository> call, Throwable t) {
-                Log.e("DEBUG", "Error: ", t);
-            }
-        });
-    }
+//    private void loadDataPembayaran() {
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(url)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+//        Call<PetugasRepository> call = api.viewDataPetugas();
+//        call.enqueue(new Callback<PetugasRepository>() {
+//            @Override
+//            public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
+//                String value = response.body().getValue();
+//                if (value.equals("1")) {
+//                    petugas = response.body().getResult();
+//                    adapter = new DataPetugasAdapter(DataPetugasActivity.this, petugas);
+//                    recyclerView.setAdapter(adapter);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<PetugasRepository> call, Throwable t) {
+//                Log.e("DEBUG", "Error: ", t);
+//            }
+//        });
+//    }
 }

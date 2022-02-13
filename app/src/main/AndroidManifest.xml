@@ -35,7 +35,6 @@
         <activity android:name=".UI.UI.Home.punyaPetugas.LoginPetugasActivity" />
         <activity android:name=".UI.UI.Home.punyaPetugas.PembayaranActivity" />
         <activity android:name=".UI.UI.Home.punyaPetugas.HomePetugasActivity" />
-        <activity android:name=".UI.UI.Home.punyaPetugas.KurangBayarActivity" />
 
         <!--Activity Admin-->
         <activity android:name=".UI.UI.Home.punyaAdmin.HomeAdminFragment" />

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:transitionName="card">
 
     <TextView
@@ -19,17 +18,6 @@
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/history_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:fontFamily="@font/avenir_bold"
-        android:textColor="#C8C4D9"
-        android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/history"
-        app:layout_constraintTop_toTopOf="@+id/history" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerHistory"

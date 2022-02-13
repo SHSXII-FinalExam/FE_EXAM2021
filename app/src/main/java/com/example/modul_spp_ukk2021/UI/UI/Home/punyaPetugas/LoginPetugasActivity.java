@@ -2,6 +2,7 @@ package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -33,6 +34,7 @@ import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
 
 public class LoginPetugasActivity extends AppCompatActivity {
     private OptRoundCardView card;
+    private MaterialButton masuk;
     private EditText editUsername, editPassword;
     private TextInputLayout textInputLayout, textInputLayout2;
 
@@ -41,9 +43,9 @@ public class LoginPetugasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_staff);
         card = findViewById(R.id.card);
+        masuk = findViewById(R.id.masuk);
         editUsername = findViewById(R.id.username);
         editPassword = findViewById(R.id.password);
-        MaterialButton masuk = findViewById(R.id.masuk);
         MaterialButton kembali = findViewById(R.id.kembali);
         textInputLayout = findViewById(R.id.textInputLayout);
         textInputLayout2 = findViewById(R.id.textInputLayout2);
@@ -94,7 +96,7 @@ public class LoginPetugasActivity extends AppCompatActivity {
             });
         } else {
             textInputLayout2.setErrorEnabled(false);
-            loadDataPembayaran(username, password);
+            loginStaff(username, password);
         }
     }
 
@@ -103,7 +105,7 @@ public class LoginPetugasActivity extends AppCompatActivity {
         return loginStaffRepository.getResult();
     }
 
-    private void loadDataPembayaran(String username, String password) {
+    private void loginStaff(String username, String password) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -118,18 +120,24 @@ public class LoginPetugasActivity extends AppCompatActivity {
 
                 for (int i = 0; i < results.size(); i++) {
                     String level = results.get(i).getLevel();
-                    Log.e("keshav", "Level ->" + level);
+                    Log.e("DEBUG", "Staff level:" + level);
 
-                    if (value.equals("1") && level.equals("petugas")) {
-                        Intent intent = new Intent(LoginPetugasActivity.this, HomePetugasActivity.class);
-                        intent.putExtra("username", username);
-                        startActivity(intent);
-                        finish();
-                    } else if (value.equals("1") && level.equals("admin")) {
+                    if (value.equals("1") && level.equals("Petugas")) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginPetugasActivity.this, masuk, ViewCompat.getTransitionName(masuk));
+                                Intent intent = new Intent(LoginPetugasActivity.this, HomePetugasActivity.class);
+                                intent.putExtra("level", level);
+                                intent.putExtra("username", username);
+                                startActivity(intent, options.toBundle());
+                            }
+                        }, 600);
+                    } else if (value.equals("1") && level.equals("Admin")) {
                         Intent intent = new Intent(LoginPetugasActivity.this, HomeAdminFragment.class);
+                        intent.putExtra("level", level);
                         intent.putExtra("username", username);
                         startActivity(intent);
-                        finish();
                     }
                 }
             }
