@@ -27,8 +27,6 @@ import com.google.android.material.card.MaterialCardView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,18 +43,16 @@ public class DataSPPActivity extends AppCompatActivity {
     private DataSPPAdapter adapter;
     private List<SPP> spp = new ArrayList<>();
 
-    @BindView(R.id.recycler_spp)
     RecyclerView recyclerView;
 
-    @BindView(R.id.tambah_spp)
     MaterialCardView tambahPetugas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pa_activity_data_spp);
-        ButterKnife.bind(this);
 
+        recyclerView = findViewById(R.id.recycler_spp);
         adapter = new DataSPPAdapter(this, spp);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -72,6 +68,7 @@ public class DataSPPActivity extends AppCompatActivity {
             }
         });
 
+        tambahPetugas = findViewById(R.id.tambah_petugas);
         tambahPetugas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

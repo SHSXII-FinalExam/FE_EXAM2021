@@ -18,8 +18,6 @@ import com.google.android.material.card.MaterialCardView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,17 +34,12 @@ public class DataKelasActivity extends AppCompatActivity {
     private DataKelasAdapter adapter;
     private List<Kelas> kelas = new ArrayList<>();
 
-    @BindView(R.id.recycler_kelas)
     RecyclerView recyclerView;
-
-    @BindView(R.id.tambah_spp)
-    MaterialCardView tambahPetugas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pa_activity_data_kelas);
-        ButterKnife.bind(this);
 
         adapter = new DataKelasAdapter(this, kelas);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));

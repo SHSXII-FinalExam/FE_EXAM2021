@@ -11,7 +11,7 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.LoginPetugasActivity;
+import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.LoginStaffActivity;
 import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.LoginSiswaActivity;
 import com.github.captain_miao.optroundcardview.OptRoundCardView;
 
@@ -48,7 +48,7 @@ public class LoginChoiceActivity extends AppCompatActivity {
         });
         btnLoginPetugas.setOnClickListener(v -> {
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginChoiceActivity.this, card, ViewCompat.getTransitionName(card));
-            Intent intent = new Intent(LoginChoiceActivity.this, LoginPetugasActivity.class);
+            Intent intent = new Intent(LoginChoiceActivity.this, LoginStaffActivity.class);
             startActivity(intent, options.toBundle());
             getWindow().setExitTransition(null);
         });

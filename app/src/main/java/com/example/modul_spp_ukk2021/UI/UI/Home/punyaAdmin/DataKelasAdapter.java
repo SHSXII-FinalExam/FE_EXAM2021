@@ -13,9 +13,6 @@ import com.example.modul_spp_ukk2021.UI.Data.Model.Kelas;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.ViewHolder> {
     private Context context;
     private List<Kelas> kelas;
@@ -52,12 +49,11 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.textView6)
         TextView textViewKelas;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            textViewKelas = itemView.findViewById(R.id.textView6);
         }
     }
 }

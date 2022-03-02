@@ -15,9 +15,6 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class DataSPPAdapter extends RecyclerView.Adapter<DataSPPAdapter.ViewHolder> {
     private Context context;
     private List<SPP> spp;
@@ -61,16 +58,15 @@ public class DataSPPAdapter extends RecyclerView.Adapter<DataSPPAdapter.ViewHold
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.textView)
         TextView textViewTahun;
-        @BindView(R.id.nominal)
         TextView textViewNominal;
-        @BindView(R.id.textView3)
         TextView textViewAngkatan;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            textViewTahun = itemView.findViewById(R.id.textView);
+            textViewNominal = itemView.findViewById(R.id.nominal);
+            textViewAngkatan = itemView.findViewById(R.id.textView3);
         }
     }
 }

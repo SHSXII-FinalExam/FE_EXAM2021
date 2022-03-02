@@ -27,8 +27,6 @@ import com.google.android.material.card.MaterialCardView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,17 +43,13 @@ public class DataPetugasActivity extends AppCompatActivity {
     private DataPetugasAdapter adapter;
     private List<Petugas> petugas = new ArrayList<>();
 
-    @BindView(R.id.dataPetugas)
     RecyclerView recyclerView;
-
-    @BindView(R.id.tambah_petugas)
     MaterialCardView tambahPetugas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pa_activity_data_petugas);
-        ButterKnife.bind(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.dataPetugas);
         adapter = new DataPetugasAdapter(this, petugas);
@@ -73,6 +67,7 @@ public class DataPetugasActivity extends AppCompatActivity {
             }
         });
 
+        tambahPetugas = findViewById(R.id.tambah_petugas);
         tambahPetugas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_homepetugas"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/logo_backgroundsplash"
+    android:overScrollMode="never">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/gradient"
+        android:fontFamily="@font/avenir_demi"
+        android:text="Logout"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:transitionName="button"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/profile_pict"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_profilepict2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/nama"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/avenir_bold"
+        android:maxEms="7"
+        android:text="Dummy"
+        android:textColor="#251F39"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/level"
+        app:layout_constraintEnd_toStartOf="@+id/profile_pict"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/halo" />
+
+    <TextView
+        android:id="@+id/halo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenir_bold"
+        android:text="Halo,"
+        android:textColor="#8A959E"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/nama"
+        app:layout_constraintStart_toStartOf="@+id/nama"
+        app:layout_constraintTop_toTopOf="@+id/profile_pict"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenir_demi"
+        android:text="Staff level:"
+        android:textColor="#8A959E"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_pict"
+        app:layout_constraintStart_toStartOf="@+id/nama"
+        app:layout_constraintTop_toBottomOf="@+id/nama"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_pict">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="@dimen/_145sdp"
+                android:layout_height="@dimen/_145sdp"
+                android:elevation="1dp"
+                android:src="@drawable/bg_spp"
+                app:layout_constraintBottom_toBottomOf="@+id/dataSPP"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/dataSPP" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dataSPP"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_145sdp"
+                android:layout_marginEnd="14dp"
+                android:backgroundTint="#F5F5F5"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/avenir_medium"
+                        android:text="Data SPP"
+                        android:textColor="#0D0A19"
+                        android:textSize="@dimen/_20ssp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView10"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_condensed"
+                        android:text="Data jumlah SPP angkatan tiap tahun"
+                        android:textColor="#6B6B6B"
+                        android:textSize="@dimen/_10ssp"
+                        app:layout_constraintBottom_toTopOf="@+id/periksaSPP"
+                        app:layout_constraintStart_toStartOf="@+id/textView9"
+                        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/periksaSPP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:background="@drawable/gradient"
+                        android:fontFamily="@font/avenir_condensed"
+                        android:text="Periksa"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/_12ssp"
+                        app:backgroundTint="@null"
+                        app:cornerRadius="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView10"
+                        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="@dimen/_145sdp"
+                android:layout_height="@dimen/_145sdp"
+                android:elevation="1dp"
+                android:src="@drawable/bg_kelas"
+                app:layout_constraintBottom_toBottomOf="@+id/dataKelas"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/dataKelas" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dataKelas"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_145sdp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="14dp"
+                android:backgroundTint="#F5F5F5"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dataSPP">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/avenir_medium"
+                        android:text="Data Kelas"
+                        android:textColor="#0D0A19"
+                        android:textSize="@dimen/_20ssp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView12"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_condensed"
+                        android:text="Informasi tiap kelas"
+                        android:textColor="#6B6B6B"
+                        android:textSize="@dimen/_10ssp"
+                        app:layout_constraintBottom_toTopOf="@+id/periksaKelas"
+                        app:layout_constraintStart_toStartOf="@+id/textView11"
+                        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/periksaKelas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:background="@drawable/gradient"
+                        android:fontFamily="@font/avenir_condensed"
+                        android:text="Periksa"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/_12ssp"
+                        app:backgroundTint="@null"
+                        app:cornerRadius="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView12"
+                        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="@dimen/_145sdp"
+                android:layout_height="@dimen/_145sdp"
+                android:elevation="1dp"
+                android:src="@drawable/bg_kelas"
+                app:layout_constraintBottom_toBottomOf="@+id/dataSiswa"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/dataSiswa" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dataSiswa"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_145sdp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="14dp"
+                android:backgroundTint="#F5F5F5"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dataKelas">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/avenir_medium"
+                        android:text="Data Siswa"
+                        android:textColor="#0D0A19"
+                        android:textSize="@dimen/_20ssp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView14"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <TextView
+                        android:id="@+id/textView14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_condensed"
+                        android:text="Informasi data siswa"
+                        android:textColor="#6B6B6B"
+                        android:textSize="@dimen/_10ssp"
+                        app:layout_constraintBottom_toTopOf="@+id/periksaSiswa"
+                        app:layout_constraintStart_toStartOf="@+id/textView13"
+                        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/periksaSiswa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:background="@drawable/gradient"
+                        android:fontFamily="@font/avenir_condensed"
+                        android:text="Periksa"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/_12ssp"
+                        app:backgroundTint="@null"
+                        app:cornerRadius="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView14"
+                        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="@dimen/_145sdp"
+                android:layout_height="@dimen/_145sdp"
+                android:elevation="1dp"
+                android:src="@drawable/bg_kelas"
+                app:layout_constraintBottom_toBottomOf="@+id/dataTransaksi"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/dataTransaksi" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dataTransaksi"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_145sdp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="14dp"
+                android:backgroundTint="#F5F5F5"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dataSiswa">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/avenir_medium"
+                        android:text="Data Transaksi"
+                        android:textColor="#0D0A19"
+                        android:textSize="@dimen/_20ssp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView16"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_condensed"
+                        android:text="Transaksi tiap siswa"
+                        android:textColor="#6B6B6B"
+                        android:textSize="@dimen/_10ssp"
+                        app:layout_constraintBottom_toTopOf="@+id/periksaTransaksi"
+                        app:layout_constraintStart_toStartOf="@+id/textView15"
+                        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/periksaTransaksi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:background="@drawable/gradient"
+                        android:fontFamily="@font/avenir_condensed"
+                        android:text="Periksa"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/_12ssp"
+                        app:backgroundTint="@null"
+                        app:cornerRadius="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView15"
+                        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="@dimen/_145sdp"
+                android:layout_height="@dimen/_145sdp"
+                android:elevation="1dp"
+                android:src="@drawable/bg_kelas"
+                app:layout_constraintBottom_toBottomOf="@+id/dataPetugas"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/dataPetugas" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dataPetugas"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_145sdp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginBottom="102dp"
+                android:backgroundTint="#F5F5F5"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dataTransaksi">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/avenir_medium"
+                        android:text="Data Petugas"
+                        android:textColor="#0D0A19"
+                        android:textSize="@dimen/_20ssp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView18"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_condensed"
+                        android:text="Informasi data petugas &amp; admin"
+                        android:textColor="#6B6B6B"
+                        android:textSize="@dimen/_10ssp"
+                        app:layout_constraintBottom_toTopOf="@+id/periksaPetugas"
+                        app:layout_constraintStart_toStartOf="@+id/textView17"
+                        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/periksaPetugas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:background="@drawable/gradient"
+                        android:fontFamily="@font/avenir_condensed"
+                        android:text="Periksa"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/_12ssp"
+                        app:backgroundTint="@null"
+                        app:cornerRadius="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView17"
+                        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

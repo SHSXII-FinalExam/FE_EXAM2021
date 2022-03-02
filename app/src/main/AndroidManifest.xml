@@ -25,19 +25,20 @@
             </intent-filter>
         </activity>
 
+        <!--Login-->
         <activity android:name=".UI.UI.Splash.LoginChoiceActivity" />
+        <activity android:name=".UI.UI.Home.punyaSiswa.LoginSiswaActivity" />
+        <activity android:name=".UI.UI.Home.punyaPetugas.LoginStaffActivity" />
 
         <!--Activity Siswa-->
-        <activity android:name=".UI.UI.Home.punyaSiswa.LoginSiswaActivity" />
         <activity android:name=".UI.UI.Home.punyaSiswa.HomeSiswaActivity" />
 
         <!--Activity Petugas-->
-        <activity android:name=".UI.UI.Home.punyaPetugas.LoginPetugasActivity" />
-        <activity android:name=".UI.UI.Home.punyaPetugas.PembayaranActivity" />
         <activity android:name=".UI.UI.Home.punyaPetugas.HomePetugasActivity" />
+        <activity android:name=".UI.UI.Home.punyaPetugas.PembayaranActivity" />
 
         <!--Activity Admin-->
-        <activity android:name=".UI.UI.Home.punyaAdmin.HomeAdminFragment" />
+        <activity android:name=".UI.UI.Home.punyaAdmin.HomeAdminActivity" />
         <activity android:name=".UI.UI.Home.punyaAdmin.DataPetugasActivity" />
         <activity android:name=".UI.UI.Home.punyaAdmin.DataKelasActivity" />
         <activity android:name=".UI.UI.Home.punyaAdmin.DataSPPActivity" />

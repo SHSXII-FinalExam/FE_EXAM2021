@@ -16,7 +16,7 @@ import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.LoginStaff;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStaffRepository;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin.HomeAdminFragment;
+import com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin.HomeAdminActivity;
 import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.github.captain_miao.optroundcardview.OptRoundCardView;
 import com.google.android.material.button.MaterialButton;
@@ -32,7 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
 
-public class LoginPetugasActivity extends AppCompatActivity {
+public class LoginStaffActivity extends AppCompatActivity {
     private OptRoundCardView card;
     private MaterialButton masuk;
     private EditText editUsername, editPassword;
@@ -56,8 +56,8 @@ public class LoginPetugasActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginPetugasActivity.this, card, ViewCompat.getTransitionName(card));
-        Intent intent = new Intent(LoginPetugasActivity.this, LoginChoiceActivity.class);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginStaffActivity.this, card, ViewCompat.getTransitionName(card));
+        Intent intent = new Intent(LoginStaffActivity.this, LoginChoiceActivity.class);
         startActivity(intent, options.toBundle());
     }
 
@@ -126,15 +126,15 @@ public class LoginPetugasActivity extends AppCompatActivity {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginPetugasActivity.this, masuk, ViewCompat.getTransitionName(masuk));
-                                Intent intent = new Intent(LoginPetugasActivity.this, HomePetugasActivity.class);
+                                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginStaffActivity.this, masuk, ViewCompat.getTransitionName(masuk));
+                                Intent intent = new Intent(LoginStaffActivity.this, HomePetugasActivity.class);
                                 intent.putExtra("level", level);
                                 intent.putExtra("username", username);
                                 startActivity(intent, options.toBundle());
                             }
                         }, 600);
                     } else if (value.equals("1") && level.equals("Admin")) {
-                        Intent intent = new Intent(LoginPetugasActivity.this, HomeAdminFragment.class);
+                        Intent intent = new Intent(LoginStaffActivity.this, HomeAdminActivity.class);
                         intent.putExtra("level", level);
                         intent.putExtra("username", username);
                         startActivity(intent);

@@ -40,12 +40,12 @@ public interface ApiEndPoints {
     Call<PembayaranRepository> viewHistory(
             @Field("nisn") String nisn);
 
+    // Punya Petugas & Admin
     @FormUrlEncoded
     @POST("dbReadPembayaran.php")
     Call<PembayaranRepository> viewPembayaran(
             @Field("nisn") String nisn);
 
-    // Punya Petugas & Admin
     @FormUrlEncoded
     @POST("dbReadPetugas.php")
     Call<PetugasRepository> viewDataPetugas(
