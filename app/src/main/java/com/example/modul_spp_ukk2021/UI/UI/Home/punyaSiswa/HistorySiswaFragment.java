@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
-import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
+import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
+import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class HistorySiswaFragment extends Fragment {
     private View view;

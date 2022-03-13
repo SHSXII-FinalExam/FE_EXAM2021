@@ -37,10 +37,10 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         Siswa siswa = this.siswa.get(position);
 
-        holder.textViewNama.setText(siswa.getNama());
-        holder.textViewKelas.setText(siswa.getNama_kelas());
+        holder.tvNama.setText(siswa.getNama());
+        holder.tvKelas.setText(siswa.getNama_kelas());
 
-        holder.buttonSiswa.setOnClickListener(v -> {
+        holder.btnSiswa.setOnClickListener(v -> {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -58,14 +58,14 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        MaterialButton buttonSiswa;
-        TextView textViewNama, textViewKelas;
+        MaterialButton btnSiswa;
+        TextView tvNama, tvKelas;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            textViewKelas = itemView.findViewById(R.id.kelas);
-            textViewNama = itemView.findViewById(R.id.namaSiswa);
-            buttonSiswa = itemView.findViewById(R.id.detailSiswa);
+            tvKelas = itemView.findViewById(R.id.kelas);
+            tvNama = itemView.findViewById(R.id.namaSiswa);
+            btnSiswa = itemView.findViewById(R.id.detailSiswa);
         }
     }
 }

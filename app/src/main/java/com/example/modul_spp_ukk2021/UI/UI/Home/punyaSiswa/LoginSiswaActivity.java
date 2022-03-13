@@ -14,7 +14,7 @@ import androidx.core.view.ViewCompat;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
-import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
+import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.github.captain_miao.optroundcardview.OptRoundCardView;
 import com.google.android.material.button.MaterialButton;
@@ -26,7 +26,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
+import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class LoginSiswaActivity extends AppCompatActivity {
     private OptRoundCardView card;
@@ -113,10 +113,9 @@ public class LoginSiswaActivity extends AppCompatActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginSiswaActivity.this, masuk, ViewCompat.getTransitionName(masuk));
                             Intent intent = new Intent(LoginSiswaActivity.this, HomeSiswaActivity.class);
                             intent.putExtra("nisnSiswa", nisn);
-                            startActivity(intent, options.toBundle());
+                            startActivity(intent);
                         }
                     }, 600);
                 }

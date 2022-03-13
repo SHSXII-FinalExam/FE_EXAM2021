@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/logo_backgroundsplash">
 
     <ImageView
         android:id="@+id/logo_ts"
-        android:layout_width="@dimen/_248sdp"
-        android:layout_height="@dimen/_80sdp"
+        android:layout_width="@dimen/_124sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/logo_ts"
-        android:transitionName="fade"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="116dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_ts"
+        tools:listitem="@layout/container_sidenav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

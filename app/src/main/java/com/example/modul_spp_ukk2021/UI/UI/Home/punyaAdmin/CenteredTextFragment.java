@@ -1,4 +1,4 @@
-package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin.menu;
+package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

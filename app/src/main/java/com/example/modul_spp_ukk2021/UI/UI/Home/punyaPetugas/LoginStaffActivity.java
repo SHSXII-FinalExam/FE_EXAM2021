@@ -15,7 +15,7 @@ import androidx.core.view.ViewCompat;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.LoginStaff;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStaffRepository;
-import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
+import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin.HomeAdminActivity;
 import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.github.captain_miao.optroundcardview.OptRoundCardView;
@@ -30,7 +30,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
+import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class LoginStaffActivity extends AppCompatActivity {
     private OptRoundCardView card;

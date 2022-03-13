@@ -20,137 +20,100 @@
             android:layout_height="60dp"
             android:background="@drawable/gradient_card1"
             android:fontFamily="@font/avenir_bold"
-            android:gravity="center_vertical"
             android:padding="16dp"
-            android:text="Tambah SPP"
+            android:text="Detail SPP"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:gravity="center_vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/deleteData"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/ic_delete"
+            android:backgroundTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/textTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textTitle" />
 
         <TextView
             android:id="@+id/tvTahun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="21dp"
+            android:layout_marginTop="18sp"
             android:fontFamily="@font/avenir_demi"
-            android:text="Tahun       :"
+            android:text="Tahun       : Dummy"
             android:textColor="#251F39"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tahun_spp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tahun_spp" />
-
-        <EditText
-            android:id="@+id/tahun_spp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/avenir_demi"
-            android:hint="Input Angka"
-            android:inputType="number"
-            android:maxLength="4"
-            android:singleLine="true"
-            android:textColor="#0D0A19"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvTahun"
-            app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+            app:layout_constraintTop_toBottomOf="@id/textTitle" />
 
         <TextView
             android:id="@+id/tvNominal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="21dp"
+            android:layout_marginTop="2dp"
             android:fontFamily="@font/avenir_demi"
-            android:text="Nominal   :"
+            android:text="Nominal   : Rp.0,00"
             android:textColor="#251F39"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/nominal_spp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/nominal_spp" />
-
-        <EditText
-            android:id="@+id/nominal_spp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:fontFamily="@font/avenir_demi"
-            android:hint="Input Angka"
-            android:inputType="number"
-            android:maxLength="7"
-            android:singleLine="true"
-            android:textColor="#0D0A19"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvTahun"
-            app:layout_constraintTop_toBottomOf="@+id/tahun_spp" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTahun" />
 
         <TextView
             android:id="@+id/tvAngkatan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="21dp"
-            android:fontFamily="@font/avenir_demi"
-            android:text="Angkatan :"
-            android:textColor="#251F39"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/angkatan_spp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/angkatan_spp" />
-
-        <EditText
-            android:id="@+id/angkatan_spp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="2dp"
             android:layout_marginBottom="60dp"
             android:fontFamily="@font/avenir_demi"
-            android:hint="Input Angka"
-            android:inputType="number"
-            android:maxLength="2"
-            android:singleLine="true"
-            android:textColor="#0D0A19"
+            android:text="Angkatan : Dummy"
+            android:textColor="#251F39"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvTahun"
-            app:layout_constraintTop_toBottomOf="@+id/nominal_spp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvNominal" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/buttonBatal"
+        android:id="@+id/buttonEdit"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/button_neutral_background"
         android:fontFamily="@font/avenir_demi"
-        android:text="Batal"
+        android:text="Edit"
         android:textColor="@color/colorWhite"
         android:textSize="14sp"
         app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="@id/layoutDialog"
-        app:layout_constraintEnd_toStartOf="@id/buttonKirim"
+        app:layout_constraintEnd_toStartOf="@id/buttonOK"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutDialog" />
 
     <Button
-        android:id="@+id/buttonKirim"
+        android:id="@+id/buttonOK"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/gradient"
         android:fontFamily="@font/avenir_demi"
-        android:text="Kirim"
+        android:text="Ok"
         android:textColor="@color/colorWhite"
         android:textSize="14sp"
         app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="@id/layoutDialog"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/buttonBatal"
+        app:layout_constraintStart_toEndOf="@id/buttonEdit"
         app:layout_constraintTop_toBottomOf="@id/layoutDialog" />
 </androidx.constraintlayout.widget.ConstraintLayout>

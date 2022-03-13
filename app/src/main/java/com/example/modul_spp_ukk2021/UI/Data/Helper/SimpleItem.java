@@ -1,4 +1,4 @@
-package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin.menu;
+package com.example.modul_spp_ukk2021.UI.Data.Helper;
 
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -31,7 +31,7 @@ public class SimpleItem extends DrawerItem<SimpleItem.ViewHolder> {
     @Override
     public ViewHolder createViewHolder(ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v = inflater.inflate(R.layout.pa_container_sidenav, parent, false);
+        View v = inflater.inflate(R.layout.container_sidenav, parent, false);
         return new ViewHolder(v);
     }
 

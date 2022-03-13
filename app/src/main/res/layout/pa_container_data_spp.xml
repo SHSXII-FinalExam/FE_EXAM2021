@@ -1,57 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    app:cardBackgroundColor="#F7F7F7"
-    app:cardCornerRadius="15dp"
+    android:layout_marginBottom="16dp"
+    app:cardBackgroundColor="#F6F8FE"
+    app:cardCornerRadius="6dp"
     app:cardElevation="0dp"
     app:rippleColor="@android:color/transparent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/detailSPP"
+            android:layout_width="47dp"
+            android:layout_height="60dp"
+            android:background="@drawable/gradient_button1"
+            app:backgroundTint="@null"
+            app:icon="@drawable/ic_play"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="34dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/Tahun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:alpha="0.6"
-            android:fontFamily="@font/poppins_medium"
-            android:text="2021"
-            android:textColor="#000000"
+            android:fontFamily="@font/avenir_demi"
+            android:maxEms="7"
+            android:text="Tahun"
+            android:textColor="#251F39"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/Nominal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/nominal"
+            android:id="@+id/Nominal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="8dp"
-            android:alpha="0.4"
-            android:fontFamily="@font/poppins"
-            android:text="Rp 500.000,00"
-            android:textColor="#000000"
+            android:fontFamily="@font/avenir_medium"
+            android:text="Rp.0,00"
+            android:textColor="#41E46F"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintStart_toStartOf="@+id/Tahun"
+            app:layout_constraintTop_toBottomOf="@+id/Tahun" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/Angkatan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:fontFamily="@font/poppins"
-            android:text="XII RPL 3"
+            android:fontFamily="@font/avenir_demi"
+            android:text="Angkatan"
             android:textColor="#C62828"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/nominal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView" />
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/Nominal"
+            app:layout_constraintEnd_toStartOf="@+id/detailSPP"
+            app:layout_constraintTop_toTopOf="@+id/Tahun" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

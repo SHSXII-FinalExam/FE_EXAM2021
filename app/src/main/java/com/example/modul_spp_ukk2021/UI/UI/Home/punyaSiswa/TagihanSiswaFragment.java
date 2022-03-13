@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
-import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
+import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
+import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class TagihanSiswaFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -59,7 +59,6 @@ public class TagihanSiswaFragment extends Fragment {
         adapter = new TagihanSiswaAdapter(getActivity(), pembayaran);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView = view.findViewById(R.id.recyclerTagihan);
-        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);

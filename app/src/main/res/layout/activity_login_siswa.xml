@@ -85,7 +85,6 @@
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusTopStart="8dp"
                 app:boxStrokeColor="#E4E6E8"
-                app:boxStrokeErrorColor="#F3994B"
                 app:boxStrokeWidth="1dp"
                 app:endIconDrawable="@drawable/ic_mail"
                 app:endIconMode="custom"

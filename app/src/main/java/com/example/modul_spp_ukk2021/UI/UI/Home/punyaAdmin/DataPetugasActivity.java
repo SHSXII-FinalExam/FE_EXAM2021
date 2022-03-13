@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
-import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
+import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
+import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class DataPetugasActivity extends AppCompatActivity {
 

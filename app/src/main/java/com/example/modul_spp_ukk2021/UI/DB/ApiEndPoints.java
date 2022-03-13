@@ -1,4 +1,4 @@
-package com.example.modul_spp_ukk2021.UI.Network;
+package com.example.modul_spp_ukk2021.UI.DB;
 
 import com.example.modul_spp_ukk2021.UI.Data.Repository.KelasRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
@@ -52,6 +52,11 @@ public interface ApiEndPoints {
             @Field("username") String username);
 
     @FormUrlEncoded
+    @POST("dbDeleteSPP.php")
+    Call<SPPRepository> deleteSPP(
+            @Field("id_spp") String id_spp);
+
+    @FormUrlEncoded
     @POST("dbCreatePetugas.php")
     Call<PetugasRepository> createPetugas(
             @Field("username") String username,
@@ -64,6 +69,14 @@ public interface ApiEndPoints {
     Call<PembayaranRepository> updatePembayaran(
             @Field("id_pembayaran") String id_pembayaran,
             @Field("jumlah_bayar") String jumlah_bayar);
+
+    @FormUrlEncoded
+    @POST("dbUpdateSPP.php")
+    Call<SPPRepository> updateSPP(
+            @Field("id_spp") String id_spp,
+            @Field("tahun") String tahun,
+            @Field("nominal") String nominal,
+            @Field("angkatan") String angkatan);
 
     @FormUrlEncoded
     @POST("dbCreateSPP.php")
