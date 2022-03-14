@@ -2,6 +2,7 @@ package com.example.modul_spp_ukk2021.UI.Network;
 
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStafRepository;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
 
@@ -26,4 +27,13 @@ public interface ApiEndPoints {
     Call<LoginStafRepository> loginStaf(
             @Field("username") String username,
             @Field("password") String password);
+    @FormUrlEncoded
+    @POST("dbReadTagihan.php")
+    Call<PembayaranRepository> viewTagihan(
+            @Field("nisn") String nisn);
+
+    @FormUrlEncoded
+    @POST("dbReadHistory.php")
+    Call<PembayaranRepository> viewHistory(
+            @Field("nisn") String nisn);
 }
