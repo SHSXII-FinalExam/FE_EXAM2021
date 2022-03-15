@@ -17,7 +17,12 @@ import com.example.modul_spp_ukk2021.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
-public class HomeAdminFragment extends AppCompatActivity {
+public class
+
+
+
+
+HomeAdminFragment extends AppCompatActivity {
     private Fragment fragment;
     private FragmentManager fragmentManager;
 
