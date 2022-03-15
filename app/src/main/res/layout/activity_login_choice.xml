@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:optRoundCardBackgroundColor="#F7F7F7"
-        app:optRoundCardCornerRadius="15dp"
+        app:optRoundCardCornerRadius="16dp"
         app:optRoundCardLeftBottomCorner="false"
         app:optRoundCardRightBottomCorner="false"
         app:rippleColor="@android:color/transparent">
@@ -42,7 +42,7 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="40dp"
                 android:fontFamily="@font/avenir_bold"
                 android:text="Kenali dirimu"
                 android:textColor="#251F39"
@@ -58,7 +58,7 @@
                 android:fontFamily="@font/avenir_regular"
                 android:text="Masuk sebagai Siswa atau Petugas"
                 android:textColor="#9A9EA7"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/title"
                 app:layout_constraintStart_toStartOf="@+id/title"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -77,86 +77,89 @@
                 android:id="@+id/desc1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="26dp"
-                android:layout_marginTop="26dp"
-                android:fontFamily="@font/avenir_bold"
+                android:layout_marginStart="24dp"
+                android:fontFamily="@font/avenir_medium"
                 android:text="Masuk sebagai Pelajar Moklet"
                 android:textColor="#727479"
-                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_siswa"
                 app:layout_constraintEnd_toStartOf="@+id/btn_siswa"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view" />
+                app:layout_constraintTop_toTopOf="@+id/btn_siswa" />
 
             <TextView
                 android:id="@+id/btn_siswa"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="26dp"
-                android:fontFamily="@font/avenir_demi"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/gradient"
+                android:fontFamily="@font/avenir_medium"
+                android:gravity="center"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
                 android:text="Masuk"
-                android:textColor="#C82929"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/desc1"
+                android:textColor="#F7F7F7"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/desc1"
-                app:layout_constraintTop_toTopOf="@+id/desc1" />
+                app:layout_constraintTop_toBottomOf="@+id/view" />
 
             <View
                 android:id="@+id/view2"
                 android:layout_width="match_parent"
                 android:layout_height="2sp"
-                android:layout_marginTop="26dp"
+                android:layout_marginTop="28dp"
                 android:background="#EEEEEE"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/desc1" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_siswa" />
 
             <TextView
                 android:id="@+id/desc2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="26dp"
-                android:layout_marginTop="110dp"
-                android:fontFamily="@font/avenir_bold"
+                android:fontFamily="@font/avenir_medium"
                 android:text="Masuk sebagai Staff"
-                android:textColor="#9A9EA7"
-                android:textSize="14sp"
+                android:textColor="#727479"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_petugas"
                 app:layout_constraintEnd_toStartOf="@+id/btn_petugas"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view2" />
+                app:layout_constraintStart_toStartOf="@+id/desc1"
+                app:layout_constraintTop_toTopOf="@+id/btn_petugas" />
 
             <TextView
                 android:id="@+id/btn_petugas"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="26dp"
-                android:fontFamily="@font/avenir_demi"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="120dp"
+                android:background="@drawable/neutral"
+                android:fontFamily="@font/avenir_medium"
+                android:gravity="center"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
                 android:text="Masuk"
-                android:textColor="#9A9EA7"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/desc2"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="#F7F7F7"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/view4"
+                app:layout_constraintEnd_toEndOf="@+id/btn_siswa"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/desc2"
-                app:layout_constraintTop_toTopOf="@+id/desc2" />
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <View
                 android:id="@+id/view4"
                 android:layout_width="match_parent"
                 android:layout_height="2sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="30dp"
-                android:alpha=".6"
+                android:layout_marginBottom="24dp"
                 android:background="#EEEEEE"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/desc2" />
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.github.captain_miao.optroundcardview.OptRoundCardView>

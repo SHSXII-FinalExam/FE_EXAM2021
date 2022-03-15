@@ -34,9 +34,8 @@ import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 public class TagihanSiswaFragment extends Fragment {
     private RecyclerView recyclerView;
     private TagihanSiswaAdapter adapter;
-    private TextView nama, kelas, nominal, tagihan_count;
+    private TextView nominal, tagihan_count;
     private List<Pembayaran> pembayaran = new ArrayList<>();
-    private ImageView profile_frame, profile_pict, minimize, minimize2;
 
     public TagihanSiswaFragment() {
     }
@@ -46,14 +45,7 @@ public class TagihanSiswaFragment extends Fragment {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.ps_fragment_tagihan, container, false);
 
-        nama = view.findViewById(R.id.nama);
-        kelas = view.findViewById(R.id.kelas);
         nominal = view.findViewById(R.id.nominal);
-        minimize = view.findViewById(R.id.minimize);
-        minimize2 = view.findViewById(R.id.minimize2);
-        TextView profile = view.findViewById(R.id.profile);
-        profile_pict = view.findViewById(R.id.profile_pict);
-        profile_frame = view.findViewById(R.id.profile_frame);
         tagihan_count = view.findViewById(R.id.tagihan_count);
 
         adapter = new TagihanSiswaAdapter(getActivity(), pembayaran);
@@ -63,30 +55,7 @@ public class TagihanSiswaFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        minimize.setOnClickListener(v -> minimize());
-        profile.setOnClickListener(v -> minimize());
-
         return view;
-    }
-
-    private void minimize() {
-        int status = profile_pict.getVisibility();
-
-        if (status == View.VISIBLE) {
-            minimize.setAlpha(0f);
-            nama.setVisibility(View.GONE);
-            kelas.setVisibility(View.GONE);
-            profile_frame.setVisibility(View.GONE);
-            profile_pict.setVisibility(View.GONE);
-            minimize2.setVisibility(View.VISIBLE);
-        } else {
-            minimize.setAlpha(1f);
-            nama.setVisibility(View.VISIBLE);
-            kelas.setVisibility(View.VISIBLE);
-            profile_frame.setVisibility(View.VISIBLE);
-            profile_pict.setVisibility(View.VISIBLE);
-            minimize2.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -121,8 +90,6 @@ public class TagihanSiswaFragment extends Fragment {
                     for (i = 0; i < results.size(); i++) {
                         int total_Kurang = results.get(i).getKurang_bayar();
                         int belum_Bayar = results.get(i).getNominal();
-                        nama.setText(results.get(i).getNama());
-                        kelas.setText("Siswa " + results.get(i).getNama_kelas());
 
                         if (results.get(i).getKurang_bayar() == 0) {
                             total_sum += belum_Bayar;

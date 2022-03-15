@@ -1,5 +1,6 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
@@ -33,8 +35,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class LoginStaffActivity extends AppCompatActivity {
-    private OptRoundCardView card;
     private MaterialButton masuk;
+    private OptRoundCardView card;
+    private ProgressDialog progressbar;
     private EditText editUsername, editPassword;
     private TextInputLayout textInputLayout, textInputLayout2;
 
@@ -49,6 +52,13 @@ public class LoginStaffActivity extends AppCompatActivity {
         MaterialButton kembali = findViewById(R.id.kembali);
         textInputLayout = findViewById(R.id.textInputLayout);
         textInputLayout2 = findViewById(R.id.textInputLayout2);
+
+        progressbar = new ProgressDialog(this);
+        progressbar.setMessage("Loading...");
+        progressbar.setCancelable(false);
+        progressbar.setIndeterminate(true);
+        progressbar.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
+        progressbar.dismiss();
 
         kembali.setOnClickListener(v -> onBackPressed());
         masuk.setOnClickListener(v -> validateForm(editUsername.getText().toString().trim(), editPassword.getText().toString().trim()));
@@ -95,8 +105,9 @@ public class LoginStaffActivity extends AppCompatActivity {
                 }
             });
         } else {
-            textInputLayout2.setErrorEnabled(false);
+            progressbar.show();
             loginStaff(username, password);
+            textInputLayout2.setErrorEnabled(false);
         }
     }
 
@@ -144,6 +155,8 @@ public class LoginStaffActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginStaffRepository> call, Throwable t) {
+                progressbar.dismiss();
+                Toast.makeText(LoginStaffActivity.this, "Login gagal, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
                 Log.e("DEBUG", "Error: ", t);
             }
         });

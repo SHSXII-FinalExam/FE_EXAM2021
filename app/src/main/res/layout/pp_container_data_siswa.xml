@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
-    app:cardBackgroundColor="#B3FFFFFF"
+    app:cardBackgroundColor="#F6F8FE"
     app:cardCornerRadius="6dp"
     app:cardElevation="0dp"
     app:rippleColor="@android:color/transparent">
@@ -15,7 +15,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/detailSiswa"
-            android:layout_width="47dp"
+            android:layout_width="48dp"
             android:layout_height="60dp"
             android:background="@drawable/gradient_button1"
             app:backgroundTint="@null"
@@ -31,7 +31,6 @@
             android:id="@+id/namaSiswa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:fontFamily="@font/avenir_demi"
             android:maxEms="7"
             android:text="Dummy Name"
@@ -46,10 +45,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:fontFamily="@font/avenir_demi"
+            android:fontFamily="@font/avenir_medium"
             android:text="Kelas"
             android:textColor="#C62828"
-            android:textSize="14sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/namaSiswa"
             app:layout_constraintEnd_toStartOf="@+id/detailSiswa"
             app:layout_constraintTop_toTopOf="@+id/namaSiswa" />

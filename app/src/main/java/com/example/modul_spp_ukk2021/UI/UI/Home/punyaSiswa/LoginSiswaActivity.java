@@ -1,12 +1,17 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
@@ -15,6 +20,7 @@ import androidx.core.view.ViewCompat;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
+import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.LoginStaffActivity;
 import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.github.captain_miao.optroundcardview.OptRoundCardView;
 import com.google.android.material.button.MaterialButton;
@@ -29,8 +35,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class LoginSiswaActivity extends AppCompatActivity {
-    private OptRoundCardView card;
     private MaterialButton masuk;
+    private OptRoundCardView card;
+    private ProgressDialog progressbar;
     private EditText editNISN, editPassword;
     private TextInputLayout textInputLayout, textInputLayout2;
 
@@ -43,9 +50,16 @@ public class LoginSiswaActivity extends AppCompatActivity {
         masuk = findViewById(R.id.masuk);
         editNISN = findViewById(R.id.nisn);
         editPassword = findViewById(R.id.password);
-        textInputLayout = findViewById(R.id.textInputLayout);
         MaterialButton kembali = findViewById(R.id.kembali);
+        textInputLayout = findViewById(R.id.textInputLayout);
         textInputLayout2 = findViewById(R.id.textInputLayout2);
+
+        progressbar = new ProgressDialog(this);
+        progressbar.setMessage("Loading...");
+        progressbar.setCancelable(false);
+        progressbar.setIndeterminate(true);
+        progressbar.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
+        progressbar.dismiss();
 
         kembali.setOnClickListener(v -> onBackPressed());
         masuk.setOnClickListener(v -> validateForm(editNISN.getText().toString().trim(), editPassword.getText().toString().trim()));
@@ -92,8 +106,9 @@ public class LoginSiswaActivity extends AppCompatActivity {
                 }
             });
         } else {
-            textInputLayout2.setErrorEnabled(false);
+            progressbar.show();
             loginSiswa(nisn, password);
+            textInputLayout2.setErrorEnabled(false);
         }
     }
 
@@ -123,6 +138,8 @@ public class LoginSiswaActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginSiswaRepository> call, Throwable t) {
+                progressbar.dismiss();
+                Toast.makeText(LoginSiswaActivity.this, "Login gagal, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
                 Log.e("DEBUG", "Error: ", t);
             }
         });

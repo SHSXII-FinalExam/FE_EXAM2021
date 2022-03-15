@@ -3,6 +3,8 @@ package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,23 +15,36 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerAdapter;
+import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerItem;
+import com.example.modul_spp_ukk2021.UI.Data.Helper.SimpleItem;
+import com.example.modul_spp_ukk2021.UI.Data.Helper.SpaceItem;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
+import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.HomeSiswaActivity;
+import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.LoginSiswaActivity;
 import com.google.android.material.button.MaterialButton;
+import com.yarolegovich.slidingrootnav.SlidingRootNav;
+import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -40,10 +55,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
-public class HomePetugasActivity extends AppCompatActivity {
-    private MaterialButton logout;
+public class HomePetugasActivity extends AppCompatActivity implements DrawerAdapter.OnItemSelectedListener{
+    private static final int POS_DASHBOARD = 0;
+    private static final int POS_LOGOUT = 2;
+
+    private String[] screenTitles;
+    private Drawable[] screenIcons;
     private RecyclerView recyclerView;
     private HomePetugasAdapter adapter;
+    private SlidingRootNav slidingRootNav;
     private TextView tagihan_count, nama, level;
     private List<Siswa> siswa = new ArrayList<>();
 
@@ -52,7 +72,6 @@ public class HomePetugasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pp_activity_home);
 
-        logout = findViewById(R.id.logout);
         nama = findViewById(R.id.nama);
         level = findViewById(R.id.level);
         tagihan_count = findViewById(R.id.dataSiswa_count);
@@ -65,6 +84,8 @@ public class HomePetugasActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         runLayoutAnimation(recyclerView);
+
+        SideNavSetup(savedInstanceState);
 
         SearchSiswa.addTextChangedListener(new TextWatcher() {
             @Override
@@ -114,12 +135,45 @@ public class HomePetugasActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
+    }
 
-        logout.setOnClickListener(v -> {
-            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(HomePetugasActivity.this, logout, ViewCompat.getTransitionName(logout));
-            Intent intent = new Intent(HomePetugasActivity.this, LoginStaffActivity.class);
-            startActivity(intent, options.toBundle());
-        });
+    public void SideNavSetup(Bundle savedInstanceState) {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+
+        slidingRootNav = new SlidingRootNavBuilder(this)
+                .withToolbarMenuToggle(toolbar)
+                .withMenuOpened(false)
+                .withContentClickableWhenMenuOpened(false)
+                .withSavedState(savedInstanceState)
+                .withMenuLayout(R.layout.activity_sidenav)
+                .inject();
+
+        screenIcons = loadScreenIcons();
+        screenTitles = loadScreenTitles();
+
+        DrawerAdapter adapter = new DrawerAdapter(Arrays.asList(
+                createItemFor(POS_DASHBOARD).setChecked(true),
+                new SpaceItem(48),
+                createItemFor(POS_LOGOUT)));
+        adapter.setListener(this);
+
+        RecyclerView list = findViewById(R.id.list);
+        list.setNestedScrollingEnabled(false);
+        list.setLayoutManager(new LinearLayoutManager(this));
+        list.setAdapter(adapter);
+
+        adapter.setSelected(POS_DASHBOARD);
+    }
+
+    @Override
+    public void onItemSelected(int position) {
+        if (position == POS_LOGOUT) {
+            Intent intent = new Intent(HomePetugasActivity.this, LoginSiswaActivity.class);
+            startActivity(intent);
+        }
+        slidingRootNav.closeMenu();
     }
 
     @Override
@@ -128,9 +182,8 @@ public class HomePetugasActivity extends AppCompatActivity {
                 .setMessage("Apakah anda yakin ingin keluar dari akun ini?")
                 .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(HomePetugasActivity.this, logout, ViewCompat.getTransitionName(logout));
                         Intent intent = new Intent(HomePetugasActivity.this, LoginStaffActivity.class);
-                        startActivity(intent, options.toBundle());
+                        startActivity(intent);
                     }
                 })
                 .setNegativeButton("Tidak", null)
@@ -220,5 +273,36 @@ public class HomePetugasActivity extends AppCompatActivity {
                 Log.e("DEBUG", "Error: ", t);
             }
         });
+    }
+
+    @SuppressWarnings("rawtypes")
+    private DrawerItem createItemFor(int position) {
+        return new SimpleItem(screenIcons[position], screenTitles[position])
+                .withIconTint(color(android.R.color.darker_gray))
+                .withTextTint(color(android.R.color.darker_gray))
+                .withSelectedIconTint(color(R.color.colorPrimary))
+                .withSelectedTextTint(color(R.color.colorPrimary));
+    }
+
+    private String[] loadScreenTitles() {
+        return getResources().getStringArray(R.array.pp_sideNavTitles);
+    }
+
+    private Drawable[] loadScreenIcons() {
+        TypedArray ta = getResources().obtainTypedArray(R.array.pp_sideNavIcons);
+        Drawable[] icons = new Drawable[ta.length()];
+        for (int i = 0; i < ta.length(); i++) {
+            int id = ta.getResourceId(i, 0);
+            if (id != 0) {
+                icons[i] = ContextCompat.getDrawable(this, id);
+            }
+        }
+        ta.recycle();
+        return icons;
+    }
+
+    @ColorInt
+    private int color(@ColorRes int res) {
+        return ContextCompat.getColor(this, res);
     }
 }
