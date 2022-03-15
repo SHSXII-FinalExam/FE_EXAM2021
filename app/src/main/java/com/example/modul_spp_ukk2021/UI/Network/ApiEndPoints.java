@@ -36,4 +36,11 @@ public interface ApiEndPoints {
     @POST("dbReadHistory.php")
     Call<PembayaranRepository> viewHistory(
             @Field("nisn") String nisn);
+
+    @FormUrlEncoded
+    @POST("dbReadPetugas.php")
+    Call<PetugasRepository> viewDataPetugas(
+            @Field("username") String username);
+    @GET("dbReadSiswa.php")
+    Call<SiswaRepository> viewDataSiswa();
 }

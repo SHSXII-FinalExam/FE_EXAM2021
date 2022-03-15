@@ -1,5 +1,4 @@
 package com.example.modul_spp_ukk2021.UI.Home.punyaPetugas;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -120,12 +119,12 @@ public class LoginPetugasActivity extends AppCompatActivity {
                     String level = results.get(i).getLevel();
                     Log.e("keshav", "Level ->" + level);
 
-                    if (value.equals("1") && level.equals("petugas")) {
-                        Intent intent = new Intent(LoginPetugasActivity.this, BottomNavigationPetugas.class);
+                    if (value.equals("1") && level.equals("Petugas")) {
+                        Intent intent = new Intent(LoginPetugasActivity.this, HomePetugasActivity.class);
                         intent.putExtra("username", username);
                         startActivity(intent);
                         finish();
-                    } else if (value.equals("1") && level.equals("admin")) {
+                    } else if (value.equals("1") && level.equals("Admin")) {
                         Intent intent = new Intent(LoginPetugasActivity.this, HomeAdminFragment.class);
                         intent.putExtra("username", username);
                         startActivity(intent);

@@ -87,7 +87,7 @@ public class ChatsFragment extends Fragment {
 
         adapter = new TagihanSiswaAdapter(getActivity(), pembayaran);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView = view.findViewById(R.id.recyclerTagihan);
+        recyclerView = view.findViewById(R.id.recyclerHistory);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
