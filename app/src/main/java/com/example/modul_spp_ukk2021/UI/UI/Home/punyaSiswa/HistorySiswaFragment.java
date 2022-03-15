@@ -28,7 +28,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class HistorySiswaFragment extends Fragment {
-    private View view;
     private RecyclerView recyclerView;
     private HistorySiswaAdapter adapter;
     private List<Pembayaran> pembayaran = new ArrayList<>();
@@ -39,7 +38,7 @@ public class HistorySiswaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        view = inflater.inflate(R.layout.ps_fragment_history, container, false);
+        View view = inflater.inflate(R.layout.ps_fragment_history, container, false);
 
         adapter = new HistorySiswaAdapter(getActivity(), pembayaran);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
