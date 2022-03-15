@@ -63,7 +63,7 @@
                     android:fontFamily="@font/avenir_demi"
                     android:text="Rp.0,00"
                     android:textColor="@color/white"
-                    android:textSize="25sp"
+                    android:textSize="24sp"
                     app:layout_constraintBottom_toTopOf="@+id/textView13"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/imageView3"
@@ -81,7 +81,7 @@
             android:fontFamily="@font/avenir_demi"
             android:text="Tagihan"
             android:textColor="#251F39"
-            android:textSize="17sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/materialCardView5" />
 
@@ -93,7 +93,7 @@
             android:fontFamily="@font/avenir_medium"
             android:text="(99)"
             android:textColor="#837EA7"
-            android:textSize="17sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/tagihan"
             app:layout_constraintTop_toTopOf="@+id/tagihan" />
 

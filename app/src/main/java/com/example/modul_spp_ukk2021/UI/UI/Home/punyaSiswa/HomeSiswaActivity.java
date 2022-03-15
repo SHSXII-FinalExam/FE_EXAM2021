@@ -30,6 +30,8 @@ import com.example.modul_spp_ukk2021.UI.Data.Helper.SimpleItem;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.SpaceItem;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
+import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.LoginStaffActivity;
+import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
@@ -143,7 +145,7 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
     @Override
     public void onItemSelected(int position) {
         if (position == POS_LOGOUT) {
-            Intent intent = new Intent(HomeSiswaActivity.this, LoginSiswaActivity.class);
+            Intent intent = new Intent(HomeSiswaActivity.this, LoginChoiceActivity.class);
             startActivity(intent);
         }
         slidingRootNav.closeMenu();
