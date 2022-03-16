@@ -1,5 +1,7 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,9 +9,12 @@ import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +45,7 @@ import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 public class PembayaranActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PembayaranAdapter adapter;
+    private ProgressDialog progressbar;
     private List<Pembayaran> pembayaran = new ArrayList<>();
 
     @Override
@@ -48,6 +54,13 @@ public class PembayaranActivity extends AppCompatActivity {
         setContentView(R.layout.pp_activity_pembayaran);
 
         ImageView back = findViewById(R.id.back);
+        ImageView refresh = findViewById(R.id.refresh);
+
+        progressbar = new ProgressDialog(this);
+        progressbar.setMessage("Loading...");
+        progressbar.setCancelable(false);
+        progressbar.setIndeterminate(true);
+        progressbar.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
 
         recyclerView = findViewById(R.id.recyclerTagihanSiswa);
         adapter = new PembayaranAdapter(this, pembayaran);
@@ -56,6 +69,7 @@ public class PembayaranActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(new PembayaranAdapter(this, new ArrayList<>()));
+        runLayoutAnimation(recyclerView);
 
         adapter.setOnRecyclerViewItemClickListener((id_pembayaran, jumlah_bayar, nominal) -> {
             if (jumlah_bayar < nominal && jumlah_bayar > 0) {
@@ -92,6 +106,10 @@ public class PembayaranActivity extends AppCompatActivity {
         back.setOnClickListener(v -> {
             onBackPressed();
         });
+
+        refresh.setOnClickListener(v -> {
+            loadDataPembayaran();
+        });
     }
 
     @Override
@@ -106,7 +124,17 @@ public class PembayaranActivity extends AppCompatActivity {
         loadDataPembayaran();
     }
 
+    private void runLayoutAnimation(final RecyclerView recyclerView) {
+        Context context = recyclerView.getContext();
+        LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_from_bottom);
+
+        recyclerView.setLayoutAnimation(controller);
+        recyclerView.getAdapter().notifyDataSetChanged();
+        recyclerView.scheduleLayoutAnimation();
+    }
+
     private void loadDataPembayaran() {
+        progressbar.show();
         String nisnSiswa = this.getIntent().getStringExtra("nisnSiswa");
 
         new Handler().postDelayed(new Runnable() {
@@ -124,14 +152,18 @@ public class PembayaranActivity extends AppCompatActivity {
                         String value = response.body().getValue();
 
                         if (value.equals("1")) {
+                            progressbar.dismiss();
                             pembayaran = response.body().getResult();
                             adapter = new PembayaranAdapter(PembayaranActivity.this, pembayaran);
                             recyclerView.setAdapter(adapter);
+                            runLayoutAnimation(recyclerView);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<PembayaranRepository> call, Throwable t) {
+                        progressbar.dismiss();
+                        Toast.makeText(PembayaranActivity.this, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
                         Log.e("DEBUG", "Error: ", t);
                     }
                 });

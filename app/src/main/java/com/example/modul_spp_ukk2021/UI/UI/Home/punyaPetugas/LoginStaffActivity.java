@@ -137,11 +137,10 @@ public class LoginStaffActivity extends AppCompatActivity {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginStaffActivity.this, masuk, ViewCompat.getTransitionName(masuk));
                                 Intent intent = new Intent(LoginStaffActivity.this, HomePetugasActivity.class);
                                 intent.putExtra("level", level);
                                 intent.putExtra("username", username);
-                                startActivity(intent, options.toBundle());
+                                startActivity(intent);
                             }
                         }, 600);
                     } else if (value.equals("1") && level.equals("Admin")) {

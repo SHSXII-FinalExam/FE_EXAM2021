@@ -1,10 +1,13 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,6 +57,14 @@ public class TagihanSiswaFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+        runLayoutAnimation(recyclerView);
+
+        ((HomeSiswaActivity) getActivity()).setTagihanRefreshListener(new HomeSiswaActivity.FragmentRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadDataTagihan();
+            }
+        });
 
         return view;
     }
@@ -62,6 +73,15 @@ public class TagihanSiswaFragment extends Fragment {
     public void onResume() {
         super.onResume();
         loadDataTagihan();
+    }
+
+    private void runLayoutAnimation(final RecyclerView recyclerView) {
+        Context context = recyclerView.getContext();
+        LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_from_bottom);
+
+        recyclerView.setLayoutAnimation(controller);
+        recyclerView.getAdapter().notifyDataSetChanged();
+        recyclerView.scheduleLayoutAnimation();
     }
 
     private void loadDataTagihan() {
@@ -84,6 +104,7 @@ public class TagihanSiswaFragment extends Fragment {
                     pembayaran = response.body().getResult();
                     adapter = new TagihanSiswaAdapter(getActivity(), pembayaran);
                     recyclerView.setAdapter(adapter);
+                    runLayoutAnimation(recyclerView);
 
                     int i;
                     int total_sum = 0;

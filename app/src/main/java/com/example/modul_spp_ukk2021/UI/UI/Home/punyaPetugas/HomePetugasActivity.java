@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
@@ -20,9 +22,7 @@ import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,10 +37,7 @@ import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.HomeSiswaActivity;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.LoginSiswaActivity;
 import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
-import com.google.android.material.button.MaterialButton;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
@@ -56,9 +53,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
-public class HomePetugasActivity extends AppCompatActivity implements DrawerAdapter.OnItemSelectedListener{
+public class HomePetugasActivity extends AppCompatActivity implements DrawerAdapter.OnItemSelectedListener {
     private static final int POS_DASHBOARD = 0;
-    private static final int POS_LOGOUT = 2;
+    private static final int POS_LOGOUT = 1;
 
     private String[] screenTitles;
     private Drawable[] screenIcons;
@@ -156,7 +153,6 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
 
         DrawerAdapter adapter = new DrawerAdapter(Arrays.asList(
                 createItemFor(POS_DASHBOARD).setChecked(true),
-                new SpaceItem(48),
                 createItemFor(POS_LOGOUT)));
         adapter.setListener(this);
 
@@ -175,6 +171,21 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
             startActivity(intent);
         }
         slidingRootNav.closeMenu();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_refresh) {
+            loadDataSiswa();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -200,7 +211,7 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
 
     private void runLayoutAnimation(final RecyclerView recyclerView) {
         Context context = recyclerView.getContext();
-        LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down);
+        LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_from_bottom);
 
         recyclerView.setLayoutAnimation(controller);
         recyclerView.getAdapter().notifyDataSetChanged();
@@ -260,6 +271,7 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
                     siswa = response.body().getResult();
                     adapter = new HomePetugasAdapter(HomePetugasActivity.this, siswa);
                     recyclerView.setAdapter(adapter);
+                    runLayoutAnimation(recyclerView);
 
                     int i;
                     for (i = 0; i < results.size(); i++) {

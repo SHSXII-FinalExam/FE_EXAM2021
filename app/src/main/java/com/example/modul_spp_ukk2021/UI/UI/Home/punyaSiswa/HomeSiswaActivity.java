@@ -6,6 +6,8 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -18,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -53,13 +56,34 @@ import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapter.OnItemSelectedListener {
     private static final int POS_DASHBOARD = 0;
-    private static final int POS_LOGOUT = 2;
+    private static final int POS_LOGOUT = 1;
 
     private int indicatorWidth;
     private TextView nama, kelas;
     private String[] screenTitles;
     private Drawable[] screenIcons;
     private SlidingRootNav slidingRootNav;
+    private FragmentRefreshListener historyRefreshListener, tagihanRefreshListener;
+
+    public interface FragmentRefreshListener {
+        void onRefresh();
+    }
+
+    public FragmentRefreshListener getHistoryRefreshListener() {
+        return historyRefreshListener;
+    }
+
+    public FragmentRefreshListener getTagihanRefreshListener() {
+        return tagihanRefreshListener;
+    }
+
+    public void setTagihanRefreshListener(FragmentRefreshListener fragmentRefreshListener) {
+        this.tagihanRefreshListener = fragmentRefreshListener;
+    }
+
+    public void setHistoryRefreshListener(FragmentRefreshListener fragmentRefreshListener) {
+        this.historyRefreshListener = fragmentRefreshListener;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +154,6 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
 
         DrawerAdapter adapter = new DrawerAdapter(Arrays.asList(
                 createItemFor(POS_DASHBOARD).setChecked(true),
-                new SpaceItem(48),
                 createItemFor(POS_LOGOUT)));
         adapter.setListener(this);
 
@@ -149,6 +172,24 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
             startActivity(intent);
         }
         slidingRootNav.closeMenu();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_refresh) {
+            if (getHistoryRefreshListener() != null && getTagihanRefreshListener() != null) {
+                getHistoryRefreshListener().onRefresh();
+                getTagihanRefreshListener().onRefresh();
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

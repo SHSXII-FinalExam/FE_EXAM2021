@@ -10,7 +10,7 @@
         android:id="@+id/cardPembayaran"
         android:layout_width="158dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="12dp"
         android:backgroundTint="#F6F8FE"
         app:cardCornerRadius="8dp"
         app:cardElevation="0dp"

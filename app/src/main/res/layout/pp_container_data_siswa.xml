@@ -34,7 +34,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp"
             android:fontFamily="@font/avenir_medium"
-            android:maxEms="7"
+            android:maxEms="8"
             android:text="Dummy Name"
             android:textColor="#251F39"
             android:textSize="16sp"

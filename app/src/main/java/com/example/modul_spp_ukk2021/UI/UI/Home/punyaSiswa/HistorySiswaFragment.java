@@ -1,10 +1,13 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -46,6 +49,14 @@ public class HistorySiswaFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+        runLayoutAnimation(recyclerView);
+
+        ((HomeSiswaActivity) getActivity()).setHistoryRefreshListener(new HomeSiswaActivity.FragmentRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadDataHistory();
+            }
+        });
 
         return view;
     }
@@ -54,6 +65,15 @@ public class HistorySiswaFragment extends Fragment {
     public void onResume() {
         super.onResume();
         loadDataHistory();
+    }
+
+    private void runLayoutAnimation(final RecyclerView recyclerView) {
+        Context context = recyclerView.getContext();
+        LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_from_bottom);
+
+        recyclerView.setLayoutAnimation(controller);
+        recyclerView.getAdapter().notifyDataSetChanged();
+        recyclerView.scheduleLayoutAnimation();
     }
 
     private void loadDataHistory() {
@@ -76,6 +96,7 @@ public class HistorySiswaFragment extends Fragment {
                     pembayaran = response.body().getResult();
                     adapter = new HistorySiswaAdapter(getActivity(), pembayaran);
                     recyclerView.setAdapter(adapter);
+                    runLayoutAnimation(recyclerView);
                 }
             }
 

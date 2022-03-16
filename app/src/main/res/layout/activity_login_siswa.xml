@@ -155,7 +155,6 @@
                 android:text="Masuk"
                 android:textAllCaps="false"
                 android:textSize="16sp"
-                android:transitionName="button"
                 app:backgroundTint="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
