@@ -72,7 +72,7 @@ public class PembayaranAdapter extends RecyclerView.Adapter<PembayaranAdapter.Vi
             holder.tvNominal.setText(format.format(pembayaran.getNominal()));
             holder.tvNominal.setTextColor(Color.parseColor("#F14D6F"));
             holder.tvStatus.setText(pembayaran.getStatus_bayar());
-            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#F14D6F")));
+            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#FF4646")));
         }
 
         holder.updateData.setOnClickListener(v -> mListener.onItemClicked(pembayaran.getId_pembayaran(), pembayaran.getJumlah_bayar(), pembayaran.getNominal()));
