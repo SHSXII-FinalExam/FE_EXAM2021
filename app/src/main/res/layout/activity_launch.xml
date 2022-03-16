@@ -6,10 +6,11 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/logo_ts"
         android:layout_width="131dp"
         android:layout_height="128dp"
         android:background="@drawable/logo"
-        android:transitionName="fade"
+        android:transitionName="logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
