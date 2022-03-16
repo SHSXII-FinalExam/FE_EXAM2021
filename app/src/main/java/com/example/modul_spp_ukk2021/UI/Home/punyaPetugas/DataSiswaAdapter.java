@@ -31,7 +31,7 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.container_data_siswa, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_container_data_siswa, parent, false);
 
         return new ViewHolder(view);
     }

@@ -2,11 +2,8 @@ package com.example.modul_spp_ukk2021.UI.Home.punyaAdmin;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -24,7 +21,7 @@ public class HomeAdminFragment extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_home_admin);
+        setContentView(R.layout.admin_activity_home);
 
         MaterialButton logoutAdmin = findViewById(R.id.logoutAdmin);
         logoutAdmin.setOnClickListener(new View.OnClickListener() {
@@ -35,14 +32,14 @@ public class HomeAdminFragment extends AppCompatActivity {
             }
         });
 
-        MaterialCardView dataSiswa = findViewById(R.id.dataSiswa);
-        dataSiswa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.fragment_container, new DataSiswaFragment()).commit();
-            }
-        });
+//        MaterialCardView dataSiswa = findViewById(R.id.dataSiswa);
+//        dataSiswa.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                fragmentManager = getSupportFragmentManager();
+//                fragmentManager.beginTransaction().replace(R.id.fragment_container, new DataSiswaFragment()).commit();
+//            }
+//        });
 
         MaterialCardView dataPetugas = findViewById(R.id.dataPetugas);
         dataPetugas.setOnClickListener(new View.OnClickListener() {

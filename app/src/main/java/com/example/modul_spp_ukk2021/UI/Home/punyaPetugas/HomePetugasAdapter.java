@@ -26,7 +26,7 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.container_nama_tagihan, parent, false);
+        View view = mInflater.inflate(R.layout.siswa_container_data_tagihan, parent, false);
         return new ViewHolder(view);
     }
 

@@ -1,64 +1,88 @@
 package com.example.modul_spp_ukk2021.UI.Home.punyaSiswa;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ScrollView;
-import android.widget.Toast;
+import android.widget.FrameLayout;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.HomePetugasAdapter;
-import com.example.modul_spp_ukk2021.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
-
-public class HomeSiswaActivity extends AppCompatActivity implements HomeSiswaAdapter.ItemClickListener {
-    HomeSiswaAdapter adapter;
+public class HomeSiswaActivity extends AppCompatActivity {
+    private MaterialButton logout;
+    private int indicatorWidth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_siswa);
+        setContentView(R.layout.siswa_activity_home);
 
-        // data to populate the RecyclerView with
-        ArrayList<String> animalNames = new ArrayList<>();
-        animalNames.add("Gregorius Devon");
-        animalNames.add("Gregorius Devon");
-        animalNames.add("Gregorius Devon");
-        animalNames.add("Gregorius Devon");
+        TabLayout mTabs = findViewById(R.id.tab);
+        View mIndicator = findViewById(R.id.indicator);
+        logout = findViewById(R.id.logout);
+        ViewPager mViewPager = findViewById(R.id.viewPager);
 
-        // set up the RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.recyclerHomeSiswa);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new HomeSiswaAdapter(this, animalNames);
-        adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
+        PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new TagihanSiswaFragment(), "Tagihan");
+        adapter.addFragment(new HistorySiswaFragment(), "History");
 
-        ScrollView scrollView = findViewById(R.id.scroll_homesiswa);
-        scrollView.post(new Runnable() {
+        mViewPager.setAdapter(adapter);
+        mTabs.setupWithViewPager(mViewPager);
+        mTabs.post(new Runnable() {
             @Override
             public void run() {
-                scrollView.scrollTo(0, 0);
+                indicatorWidth = mTabs.getWidth() / mTabs.getTabCount();
+                FrameLayout.LayoutParams indicatorParams = (FrameLayout.LayoutParams) mIndicator.getLayoutParams();
+                indicatorParams.width = indicatorWidth;
+                mIndicator.setLayoutParams(indicatorParams);
             }
         });
 
-        MaterialButton logoutPetugas = findViewById(R.id.logoutSiswa);
-        logoutPetugas.setOnClickListener(new View.OnClickListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeSiswaActivity.this, LoginChoiceActivity.class);
-                startActivity(intent);
+            public void onPageScrolled(int i, float positionOffset, int positionOffsetPx) {
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mIndicator.getLayoutParams();
+                float translationOffset = (positionOffset + i) * indicatorWidth;
+                params.leftMargin = (int) translationOffset;
+                mIndicator.setLayoutParams(params);
             }
+
+            @Override
+            public void onPageSelected(int i) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+            }
+        });
+
+        logout.setOnClickListener(v -> {
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeSiswaActivity.this, logout, ViewCompat.getTransitionName(logout));
+            Intent intent = new Intent(HomeSiswaActivity.this, LoginSiswaActivity.class);
+            startActivity(intent, options.toBundle());
         });
     }
 
     @Override
-    public void onItemClick(View view, int position) {
-        Toast.makeText(this, "You clicked " + adapter.getItem(position), Toast.LENGTH_SHORT).show();
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage("Apakah anda yakin ingin keluar dari akun ini?")
+                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeSiswaActivity.this, logout, ViewCompat.getTransitionName(logout));
+                        Intent intent = new Intent(HomeSiswaActivity.this, LoginSiswaActivity.class);
+                        startActivity(intent, options.toBundle());
+                    }
+                })
+                .setNegativeButton("Tidak", null)
+                .show();
     }
 }

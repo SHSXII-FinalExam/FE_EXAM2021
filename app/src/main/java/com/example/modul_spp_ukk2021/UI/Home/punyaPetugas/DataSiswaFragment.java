@@ -1,16 +1,12 @@
 package com.example.modul_spp_ukk2021.UI.Home.punyaPetugas;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ScrollView;
-import android.widget.Toast;
+
 import static com.example.modul_spp_ukk2021.UI.Network.BaseURL.url;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -38,16 +34,15 @@ public class DataSiswaFragment extends Fragment {
     private DataSiswaAdapter adapter;
     private List<Siswa> siswa = new ArrayList<>();
 
-    @BindView(R.id.recyclerDataSiswa)
     RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View v = inflater.inflate(R.layout.fragment_data_siswa, container, false);
+        View v = inflater.inflate(R.layout.admin_activity_data_siswa, container, false);
         ButterKnife.bind(v);
 
-        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerDataSiswa);
+        recyclerView = (RecyclerView) v.findViewById(R.id.recycler_siswa);
         adapter = new DataSiswaAdapter(getContext(), siswa);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -55,13 +50,6 @@ public class DataSiswaFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-        ScrollView scrollView = v.findViewById(R.id.scroll_datasiswa);
-        scrollView.post(new Runnable() {
-            @Override
-            public void run() {
-                scrollView.scrollTo(0, 0);
-            }
-        });
 
 //        EditText SearchSiswa = (EditText) v.findViewById(R.id.searchSiswa);
 //        SearchSiswa.addTextChangedListener(new TextWatcher() {
