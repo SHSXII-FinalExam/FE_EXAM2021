@@ -18,7 +18,7 @@ public class LoginChoiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_choice);
 
-        MaterialButton btnLoginAdmin = findViewById(R.id.btn_admin);
+        MaterialButton btnLoginStaff = findViewById(R.id.btn_staff);
         MaterialButton btnLoginSiswa = findViewById(R.id.btn_siswa);
 
         btnLoginSiswa.setOnClickListener(new View.OnClickListener() {
@@ -30,7 +30,7 @@ public class LoginChoiceActivity extends AppCompatActivity {
             }
         });
 
-        btnLoginAdmin.setOnClickListener(new View.OnClickListener() {
+        btnLoginStaff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginChoiceActivity.this, LoginStaffActivity.class);

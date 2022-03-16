@@ -36,7 +36,6 @@ public class TagihanSiswaFragment extends Fragment {
     private TagihanSiswaAdapter adapter;
     private TextView nama, kelas;
     private List<Pembayaran> pembayaran = new ArrayList<>();
-    private ImageView profile_frame, profile_pict, minimize, minimize2;
 
     public TagihanSiswaFragment() {
     }
@@ -48,8 +47,6 @@ public class TagihanSiswaFragment extends Fragment {
 
         nama = view.findViewById(R.id.nama);
         kelas = view.findViewById(R.id.kelas);
-        TextView profile = view.findViewById(R.id.profile);
-        profile_frame = view.findViewById(R.id.profile_frame);
         adapter = new TagihanSiswaAdapter(getActivity(), pembayaran);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView = view.findViewById(R.id.recyclerTagihan);

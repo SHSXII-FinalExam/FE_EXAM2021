@@ -15,7 +15,7 @@
         android:theme="@style/Theme.ModulSPP_UKK2021">
 
         <!--Splash & Onboarding-->
-        <activity android:name=".UI.Splash.SplashActivity">
+        <activity android:name=".UI.Splash.LaunchActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".UI.Splash.SplashActivity" />
         <activity android:name=".UI.Splash.LoginChoiceActivity" />
 
         <!--Activity Siswa-->

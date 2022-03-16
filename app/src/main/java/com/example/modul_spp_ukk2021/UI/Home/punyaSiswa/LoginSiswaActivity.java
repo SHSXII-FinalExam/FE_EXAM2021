@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+
 import static com.example.modul_spp_ukk2021.UI.Network.BaseURL.url;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.modul_spp_ukk2021.R;
@@ -33,10 +35,6 @@ public class LoginSiswaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_siswa);
 
-        LoginForm();
-    }
-
-    private void LoginForm() {
         edtNISN = findViewById(R.id.login_SiswaNISN);
         edtPassword = findViewById(R.id.login_siswaPass);
         MaterialButton btnSignInSiswa = findViewById(R.id.signin_siswa);
@@ -50,7 +48,7 @@ public class LoginSiswaActivity extends AppCompatActivity {
             }
         });
 
-            btnBack.setOnClickListener(new View.OnClickListener() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginSiswaActivity.this, LoginChoiceActivity.class);
@@ -86,11 +84,11 @@ public class LoginSiswaActivity extends AppCompatActivity {
             });
 
         } else {
-            loadDataPembayaran(nisn, password);
+            loginSiswa(nisn, password);
         }
     }
 
-    private void loadDataPembayaran(String nisn, String password) {
+    private void loginSiswa(String nisn, String password) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())

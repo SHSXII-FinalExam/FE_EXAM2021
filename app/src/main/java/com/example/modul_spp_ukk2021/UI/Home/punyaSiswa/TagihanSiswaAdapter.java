@@ -47,8 +47,6 @@ public class TagihanSiswaAdapter extends RecyclerView.Adapter<TagihanSiswaAdapte
         String[] monthNames = symbols.getMonths();
         holder.tvBulan.setText(monthNames[pembayaran.getBulan_bayar() - 1]);
 
-
-
         if (pembayaran.getKurang_bayar() == 0) {
             holder.tvStatus.setText(pembayaran.getStatus_bayar());
             holder.tvNominal.setText(format.format(pembayaran.getNominal()));
