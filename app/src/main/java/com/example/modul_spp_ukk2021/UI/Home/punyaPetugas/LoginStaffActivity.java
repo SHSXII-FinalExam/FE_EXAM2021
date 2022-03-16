@@ -46,11 +46,11 @@ public class LoginStaffActivity extends AppCompatActivity {
     private void LoginForm() {
         edtUsername = findViewById(R.id.login_PetugasUsername);
         edtPassword = findViewById(R.id.login_PetugasPass);
-        MaterialButton btnSignInSiswa = findViewById(R.id.signin_petugas);
+        MaterialButton btnLoginStaff = findViewById(R.id.signin_petugas);
         ImageView btnBack = findViewById(R.id.imageView11);
         textInputLayout2 = findViewById(R.id.textInputLayout2);
 
-        btnSignInSiswa.setOnClickListener(new View.OnClickListener() {
+        btnLoginStaff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validateForm();
@@ -120,12 +120,14 @@ public class LoginStaffActivity extends AppCompatActivity {
                     Log.e("keshav", "Level ->" + level);
 
                     if (value.equals("1") && level.equals("Petugas")) {
-                        Intent intent = new Intent(LoginStaffActivity.this, HomePetugasFragment.class);
+                        Intent intent = new Intent(LoginStaffActivity.this, HomePetugasActivity.class);
+                        intent.putExtra("level", level);
                         intent.putExtra("username", username);
                         startActivity(intent);
                         finish();
                     } else if (value.equals("1") && level.equals("Admin")) {
                         Intent intent = new Intent(LoginStaffActivity.this, HomeAdminFragment.class);
+                        intent.putExtra("level", level);
                         intent.putExtra("username", username);
                         startActivity(intent);
                         finish();
