@@ -3,6 +3,7 @@
     <!-- Admin -->
     <string-array name="pa_sideNavTitles">
         <item>Data Siswa</item>
+        <item>Data Kelas</item>
         <item>Data SPP</item>
         <item>Data Transaksi</item>
         <item>Data Petugas</item>
@@ -12,6 +13,7 @@
     
     <array name="pa_sideNavIcons">
         <item>@drawable/ic_person</item>
+        <item>@drawable/ic_lock</item>
         <item>@drawable/ic_balance</item>
         <item>@drawable/ic_money</item>
         <item>@drawable/ic_person</item>

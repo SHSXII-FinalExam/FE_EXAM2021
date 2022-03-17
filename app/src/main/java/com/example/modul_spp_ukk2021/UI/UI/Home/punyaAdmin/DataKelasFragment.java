@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -26,10 +24,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
+import com.example.modul_spp_ukk2021.UI.Data.Model.Kelas;
 import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.KelasRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.PembayaranActivity;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.HomeSiswaActivity;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
@@ -43,23 +41,23 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
-public class DataSPPFragment extends Fragment {
-    private DataSPPAdapter adapter;
+public class DataKelasFragment extends Fragment {
+    private DataKelasAdapter adapter;
     private RecyclerView recyclerView;
     private ProgressDialog progressbar;
-    private List<SPP> spp = new ArrayList<>();
+    private List<Kelas> kelas = new ArrayList<>();
 
-    public DataSPPFragment() {
+    public DataKelasFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = inflater.inflate(R.layout.pa_fragment_data_spp, container, false);
+        View view = inflater.inflate(R.layout.pa_fragment_data_kelas, container, false);
 
-        adapter = new DataSPPAdapter(getActivity(), spp);
+        adapter = new DataKelasAdapter(getActivity(), kelas);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView = view.findViewById(R.id.recycler_spp);
+        recyclerView = view.findViewById(R.id.recycler_kelas);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
@@ -72,7 +70,7 @@ public class DataSPPFragment extends Fragment {
         progressbar.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
         progressbar.dismiss();
 
-        adapter.setOnRecyclerViewItemClickListener((id_spp) -> {
+        adapter.setOnRecyclerViewItemClickListener((id_kelas) -> {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -81,18 +79,18 @@ public class DataSPPFragment extends Fragment {
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
                     ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-                    Call<SPPRepository> call = api.deleteSPP(id_spp);
-                    call.enqueue(new Callback<SPPRepository>() {
+                    Call<KelasRepository> call = api.deleteKelas(id_kelas);
+                    call.enqueue(new Callback<KelasRepository>() {
                         @Override
-                        public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
+                        public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
                             String value = response.body().getValue();
                             if (value.equals("1")) {
-                                loadDataSPP();
+                                loadDataKelas();
                             }
                         }
 
                         @Override
-                        public void onFailure(Call<SPPRepository> call, Throwable t) {
+                        public void onFailure(Call<KelasRepository> call, Throwable t) {
                             Log.e("DEBUG", "Error: ", t);
                         }
                     });
@@ -108,23 +106,23 @@ public class DataSPPFragment extends Fragment {
             }
         });
 
-        ((HomeAdminActivity) getActivity()).setSPPRefreshListener(new HomeAdminActivity.FragmentRefreshListener() {
+        ((HomeAdminActivity) getActivity()).setKelasRefreshListener(new HomeAdminActivity.FragmentRefreshListener() {
             @Override
             public void onRefresh() {
-                loadDataSPP();
+                loadDataKelas();
             }
         });
 
-        MaterialButton tambahSPP = view.findViewById(R.id.tambah_spp);
-        tambahSPP.setOnClickListener(new View.OnClickListener() {
+        MaterialButton tambahKelas = view.findViewById(R.id.tambah_kelas);
+        tambahKelas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogTheme);
-                View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_spp, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
+                View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_kelas, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
                 builder.setView(view);
-                final EditText angkatan = (EditText) view.findViewById(R.id.angkatan_spp);
-                final EditText tahun = (EditText) view.findViewById(R.id.tahun_spp);
-                final EditText nominal = (EditText) view.findViewById(R.id.nominal_spp);
+                final EditText angkatan = (EditText) view.findViewById(R.id.angkatan_kelas);
+                final EditText nama_kelas = (EditText) view.findViewById(R.id.nama_kelas);
+                final EditText jurusan = (EditText) view.findViewById(R.id.jurusan_kelas);
                 final AlertDialog alertDialog = builder.create();
                 view.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -134,20 +132,20 @@ public class DataSPPFragment extends Fragment {
                                 .addConverterFactory(GsonConverterFactory.create())
                                 .build();
                         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-                        Call<SPPRepository> call = api.createSPP(angkatan.getText().toString(), tahun.getText().toString(), nominal.getText().toString());
-                        call.enqueue(new Callback<SPPRepository>() {
+                        Call<KelasRepository> call = api.createKelas(angkatan.getText().toString(), nama_kelas.getText().toString(), jurusan.getText().toString());
+                        call.enqueue(new Callback<KelasRepository>() {
                             @Override
-                            public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
+                            public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
                                 String value = response.body().getValue();
                                 String message = response.body().getMessage();
                                 if (value.equals("1")) {
-                                    loadDataSPP();
+                                    loadDataKelas();
                                     alertDialog.dismiss();
                                 }
                             }
 
                             @Override
-                            public void onFailure(Call<SPPRepository> call, Throwable t) {
+                            public void onFailure(Call<KelasRepository> call, Throwable t) {
                                 Log.e("DEBUG", "Error: ", t);
                             }
                         });
@@ -172,7 +170,7 @@ public class DataSPPFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadDataSPP();
+        loadDataKelas();
     }
 
     private void runLayoutAnimation(final RecyclerView recyclerView) {
@@ -184,7 +182,7 @@ public class DataSPPFragment extends Fragment {
         recyclerView.scheduleLayoutAnimation();
     }
 
-    public void loadDataSPP() {
+    public void loadDataKelas() {
         progressbar.show();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -192,22 +190,22 @@ public class DataSPPFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-        Call<SPPRepository> call = api.viewDataSPP();
-        call.enqueue(new Callback<SPPRepository>() {
+        Call<KelasRepository> call = api.viewDataKelas();
+        call.enqueue(new Callback<KelasRepository>() {
             @Override
-            public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
+            public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
                 String value = response.body().getValue();
                 if (value.equals("1")) {
                     progressbar.dismiss();
-                    spp = response.body().getResult();
-                    adapter = new DataSPPAdapter(getActivity(), spp);
+                    kelas = response.body().getResult();
+                    adapter = new DataKelasAdapter(getActivity(), kelas);
                     recyclerView.setAdapter(adapter);
                     runLayoutAnimation(recyclerView);
                 }
             }
 
             @Override
-            public void onFailure(Call<SPPRepository> call, Throwable t) {
+            public void onFailure(Call<KelasRepository> call, Throwable t) {
                 progressbar.dismiss();
                 Toast.makeText(getContext(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
                 Log.e("DEBUG", "Error: ", t);

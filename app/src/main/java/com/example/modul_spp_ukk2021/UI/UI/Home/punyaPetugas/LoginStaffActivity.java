@@ -148,6 +148,9 @@ public class LoginStaffActivity extends AppCompatActivity {
                         intent.putExtra("level", level);
                         intent.putExtra("username", username);
                         startActivity(intent);
+                    } else {
+                        progressbar.dismiss();
+                        Toast.makeText(LoginStaffActivity.this, "Login gagal, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -155,7 +158,7 @@ public class LoginStaffActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<LoginStaffRepository> call, Throwable t) {
                 progressbar.dismiss();
-                Toast.makeText(LoginStaffActivity.this, "Login gagal, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginStaffActivity.this, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
                 Log.e("DEBUG", "Error: ", t);
             }
         });

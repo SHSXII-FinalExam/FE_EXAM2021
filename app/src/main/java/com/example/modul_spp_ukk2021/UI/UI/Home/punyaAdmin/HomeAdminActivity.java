@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
@@ -14,9 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,7 +24,6 @@ import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerAdapter;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerItem;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.SimpleItem;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.SpaceItem;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.HomePetugasActivity;
 import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.LoginStaffActivity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
@@ -35,14 +32,36 @@ import java.util.Arrays;
 
 public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapter.OnItemSelectedListener {
     private static final int POS_SISWA = 0;
-    private static final int POS_SPP = 1;
-    private static final int POS_TRANSAKSI = 2;
-    private static final int POS_PETUGAS = 3;
-    private static final int POS_LOGOUT = 5;
+    private static final int POS_KELAS = 1;
+    private static final int POS_SPP = 2;
+    private static final int POS_TRANSAKSI = 3;
+    private static final int POS_PETUGAS = 4;
+    private static final int POS_LOGOUT = 6;
 
     private String[] screenTitles;
     private Drawable[] screenIcons;
     private SlidingRootNav slidingRootNav;
+    private FragmentRefreshListener sppRefreshListener, kelasRefreshListener;
+
+    public interface FragmentRefreshListener {
+        void onRefresh();
+    }
+
+    public FragmentRefreshListener getSPPRefreshListener() {
+        return sppRefreshListener;
+    }
+
+    public FragmentRefreshListener getKelasRefreshListener() {
+        return kelasRefreshListener;
+    }
+
+    public void setSPPRefreshListener(FragmentRefreshListener fragmentRefreshListener) {
+        this.sppRefreshListener = fragmentRefreshListener;
+    }
+
+    public void setKelasRefreshListener(FragmentRefreshListener fragmentRefreshListener) {
+        this.kelasRefreshListener = fragmentRefreshListener;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +76,6 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
                 .withToolbarMenuToggle(toolbar)
                 .withMenuOpened(true)
                 .withContentClickableWhenMenuOpened(false)
-                .withSavedState(savedInstanceState)
                 .withMenuLayout(R.layout.activity_sidenav)
                 .inject();
 
@@ -66,6 +84,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
 
         DrawerAdapter adapter = new DrawerAdapter(Arrays.asList(
                 createItemFor(POS_SISWA).setChecked(true),
+                createItemFor(POS_KELAS),
                 createItemFor(POS_SPP),
                 createItemFor(POS_TRANSAKSI),
                 createItemFor(POS_PETUGAS),
@@ -97,17 +116,35 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
 
     @Override
     public void onItemSelected(int position) {
-        if (position == POS_SISWA) {
-            Fragment selectedScreen = new CenteredTextFragment();
-            showFragment(selectedScreen);
-        } else if (position == POS_SPP) {
+        if (position == POS_SPP) {
             Fragment selectedScreen = new DataSPPFragment();
+            showFragment(selectedScreen);
+        } else if (position == POS_KELAS) {
+            Fragment selectedScreen = new DataKelasFragment();
             showFragment(selectedScreen);
         } else if (position == POS_LOGOUT) {
             Intent intent = new Intent(HomeAdminActivity.this, LoginStaffActivity.class);
             startActivity(intent);
         }
         slidingRootNav.closeMenu();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_refresh) {
+            if (getSPPRefreshListener() != null && getKelasRefreshListener() != null) {
+                getSPPRefreshListener().onRefresh();
+                getKelasRefreshListener().onRefresh();
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void showFragment(Fragment fragment) {

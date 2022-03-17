@@ -35,7 +35,7 @@
             android:fontFamily="@font/avenir_demi"
             android:gravity="center_vertical"
             android:padding="16dp"
-            android:text="Tambah SPP"
+            android:text="Tambah Kelas"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,19 +43,19 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvTahun"
+            android:id="@+id/tvNamaKelas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:fontFamily="@font/avenir_demi"
-            android:text="Tahun       :"
+            android:text="Kelas         :"
             android:textColor="#251F39"
-            app:layout_constraintBottom_toBottomOf="@+id/tahun_spp"
+            app:layout_constraintBottom_toBottomOf="@+id/nama_kelas"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tahun_spp" />
+            app:layout_constraintTop_toTopOf="@+id/nama_kelas" />
 
         <EditText
-            android:id="@+id/tahun_spp"
+            android:id="@+id/nama_kelas"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -65,22 +65,22 @@
             android:singleLine="true"
             android:textColor="#0D0A19"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvTahun"
+            app:layout_constraintStart_toEndOf="@+id/tvNamaKelas"
             app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
         <TextView
-            android:id="@+id/tvNominal"
+            android:id="@+id/tvJurusan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/avenir_demi"
-            android:text="Nominal   :"
+            android:text="Jurusan     :"
             android:textColor="#251F39"
-            app:layout_constraintBottom_toBottomOf="@+id/nominal_spp"
-            app:layout_constraintStart_toStartOf="@+id/tvTahun"
-            app:layout_constraintTop_toTopOf="@+id/nominal_spp" />
+            app:layout_constraintBottom_toBottomOf="@+id/jurusan_kelas"
+            app:layout_constraintStart_toStartOf="@+id/tvNamaKelas"
+            app:layout_constraintTop_toTopOf="@+id/jurusan_kelas" />
 
         <EditText
-            android:id="@+id/nominal_spp"
+            android:id="@+id/jurusan_kelas"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -90,8 +90,8 @@
             android:singleLine="true"
             android:textColor="#0D0A19"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvTahun"
-            app:layout_constraintTop_toBottomOf="@+id/tahun_spp" />
+            app:layout_constraintStart_toEndOf="@+id/tvNamaKelas"
+            app:layout_constraintTop_toBottomOf="@+id/nama_kelas" />
 
         <TextView
             android:id="@+id/tvAngkatan"
@@ -100,12 +100,12 @@
             android:fontFamily="@font/avenir_demi"
             android:text="Angkatan :"
             android:textColor="#251F39"
-            app:layout_constraintBottom_toBottomOf="@+id/angkatan_spp"
-            app:layout_constraintStart_toStartOf="@+id/tvNominal"
-            app:layout_constraintTop_toTopOf="@+id/angkatan_spp" />
+            app:layout_constraintBottom_toBottomOf="@+id/angkatan_kelas"
+            app:layout_constraintStart_toStartOf="@+id/tvJurusan"
+            app:layout_constraintTop_toTopOf="@+id/angkatan_kelas" />
 
         <EditText
-            android:id="@+id/angkatan_spp"
+            android:id="@+id/angkatan_kelas"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -117,8 +117,8 @@
             android:textColor="#0D0A19"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvTahun"
-            app:layout_constraintTop_toBottomOf="@+id/nominal_spp" />
+            app:layout_constraintStart_toEndOf="@+id/tvNamaKelas"
+            app:layout_constraintTop_toBottomOf="@+id/jurusan_kelas" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button

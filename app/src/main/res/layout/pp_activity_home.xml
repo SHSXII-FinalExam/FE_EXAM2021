@@ -122,7 +122,6 @@
         android:text="Data Siswa"
         android:textColor="#251F39"
         android:textSize="16sp"
-        android:transitionName="text"
         app:layout_constraintStart_toStartOf="@+id/search_bar"
         app:layout_constraintTop_toBottomOf="@+id/search_bar" />
 

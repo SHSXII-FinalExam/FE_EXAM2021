@@ -121,7 +121,7 @@ public class TagihanSiswaFragment extends Fragment {
                     Locale localeID = new Locale("in", "ID");
                     NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
                     format.setMaximumFractionDigits(0);
-                    nominal.setText(format.format(total_sum) + ",00");
+                    nominal.setText(format.format(total_sum));
                     tagihan_count.setText("(" + String.valueOf(i) + ")");
                 }
             }

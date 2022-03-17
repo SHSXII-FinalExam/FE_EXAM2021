@@ -133,13 +133,16 @@ public class LoginSiswaActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
                     }, 600);
+                } else {
+                    progressbar.dismiss();
+                    Toast.makeText(LoginSiswaActivity.this, "Login gagal, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<LoginSiswaRepository> call, Throwable t) {
                 progressbar.dismiss();
-                Toast.makeText(LoginSiswaActivity.this, "Login gagal, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginSiswaActivity.this, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
                 Log.e("DEBUG", "Error: ", t);
             }
         });

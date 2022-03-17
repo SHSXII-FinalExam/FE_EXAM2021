@@ -45,7 +45,7 @@ public class TagihanSiswaAdapter extends RecyclerView.Adapter<TagihanSiswaAdapte
 
         DateFormatSymbols symbols = new DateFormatSymbols(localeID);
         String[] monthNames = symbols.getMonths();
-        holder.tvBulan.setText(monthNames[pembayaran.getBulan_bayar() - 1]);
+        holder.tvBulan.setText(monthNames[pembayaran.getBulan_bayar() - 1] + " " + pembayaran.getTahun_bayar());
 
         if (pembayaran.getTgl_bayar() != null) {
             SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy", localeID);

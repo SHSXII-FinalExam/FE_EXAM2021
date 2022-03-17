@@ -145,7 +145,6 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
                 .withToolbarMenuToggle(toolbar)
                 .withMenuOpened(false)
                 .withContentClickableWhenMenuOpened(false)
-                .withSavedState(savedInstanceState)
                 .withMenuLayout(R.layout.activity_sidenav)
                 .inject();
 
@@ -198,7 +197,7 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
                 .setMessage("Apakah anda yakin ingin keluar dari akun ini?")
                 .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent intent = new Intent(HomeSiswaActivity.this, LoginSiswaActivity.class);
+                        Intent intent = new Intent(HomeSiswaActivity.this, LoginChoiceActivity.class);
                         startActivity(intent);
                     }
                 })

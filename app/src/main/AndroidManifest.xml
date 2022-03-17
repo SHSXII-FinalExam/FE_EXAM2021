@@ -39,8 +39,6 @@
 
         <!--Activity Admin-->
         <activity android:name=".UI.UI.Home.punyaAdmin.HomeAdminActivity" />
-        <activity android:name=".UI.UI.Home.punyaAdmin.DataPetugasActivity" />
-        <activity android:name=".UI.UI.Home.punyaAdmin.DataKelasActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

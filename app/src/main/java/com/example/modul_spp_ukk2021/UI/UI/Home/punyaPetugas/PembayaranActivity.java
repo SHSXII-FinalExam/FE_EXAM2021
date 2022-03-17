@@ -61,6 +61,7 @@ public class PembayaranActivity extends AppCompatActivity {
         progressbar.setCancelable(false);
         progressbar.setIndeterminate(true);
         progressbar.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
+        progressbar.dismiss();
 
         recyclerView = findViewById(R.id.recyclerTagihanSiswa);
         adapter = new PembayaranAdapter(this, pembayaran);

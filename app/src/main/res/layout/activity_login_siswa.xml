@@ -125,7 +125,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-                app:passwordToggleDrawable="@drawable/show_password_selector"
+                app:passwordToggleDrawable="@drawable/ic_lock"
                 app:passwordToggleEnabled="true">
 
                 <EditText

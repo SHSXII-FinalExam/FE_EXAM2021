@@ -47,7 +47,7 @@ public class HistorySiswaAdapter extends RecyclerView.Adapter<HistorySiswaAdapte
 
         DateFormatSymbols symbols = new DateFormatSymbols(localeID);
         String[] monthNames = symbols.getMonths();
-        holder.tvBulan.setText(monthNames[pembayaran.getBulan_bayar() - 1]);
+        holder.tvBulan.setText(monthNames[pembayaran.getBulan_bayar() - 1] + " " + pembayaran.getTahun_bayar());
 
         holder.tvNominal.setText("+" + format.format(pembayaran.getNominal()));
         holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#2EDCB5")));

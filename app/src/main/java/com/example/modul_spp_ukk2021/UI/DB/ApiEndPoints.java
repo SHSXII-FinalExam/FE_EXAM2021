@@ -40,11 +40,9 @@ public interface ApiEndPoints {
     Call<PembayaranRepository> viewHistory(
             @Field("nisn") String nisn);
 
-    // Punya Petugas & Admin
-    @FormUrlEncoded
-    @POST("dbReadPembayaran.php")
-    Call<PembayaranRepository> viewPembayaran(
-            @Field("nisn") String nisn);
+    // Punya Petugas
+    @GET("dbReadSiswa.php")
+    Call<SiswaRepository> viewDataSiswa();
 
     @FormUrlEncoded
     @POST("dbReadPetugas.php")
@@ -52,23 +50,31 @@ public interface ApiEndPoints {
             @Field("username") String username);
 
     @FormUrlEncoded
-    @POST("dbDeleteSPP.php")
-    Call<SPPRepository> deleteSPP(
-            @Field("id_spp") String id_spp);
+    @POST("dbReadPembayaran.php")
+    Call<PembayaranRepository> viewPembayaran(
+            @Field("nisn") String nisn);
 
     @FormUrlEncoded
-    @POST("dbCreatePetugas.php")
-    Call<PetugasRepository> createPetugas(
-            @Field("username") String username,
-            @Field("password") String password,
-            @Field("nama_petugas") String nama_petugas,
-            @Field("level") String level);
+    @POST("dbSearchSiswa.php")
+    Call<SiswaRepository> searchDataSiswa(
+            @Field("search") String search);
 
     @FormUrlEncoded
     @POST("dbUpdatePembayaran.php")
     Call<PembayaranRepository> updatePembayaran(
             @Field("id_pembayaran") String id_pembayaran,
             @Field("jumlah_bayar") String jumlah_bayar);
+
+    // Punya Admin
+    @FormUrlEncoded
+    @POST("dbDeleteSPP.php")
+    Call<SPPRepository> deleteSPP(
+            @Field("id_spp") String id_spp);
+
+    @FormUrlEncoded
+    @POST("dbDeleteKelas.php")
+    Call<KelasRepository> deleteKelas(
+            @Field("id_kelas") String id_kelas);
 
     @FormUrlEncoded
     @POST("dbUpdateSPP.php")
@@ -79,6 +85,14 @@ public interface ApiEndPoints {
             @Field("angkatan") String angkatan);
 
     @FormUrlEncoded
+    @POST("dbUpdateKelas.php")
+    Call<KelasRepository> updateKelas(
+            @Field("id_kelas") String id_kelas,
+            @Field("nama_kelas") String nama_kelas,
+            @Field("jurusan") String jurusan,
+            @Field("angkatan") String angkatan);
+
+    @FormUrlEncoded
     @POST("dbCreateSPP.php")
     Call<SPPRepository> createSPP(
             @Field("angkatan") String angkatan,
@@ -86,12 +100,11 @@ public interface ApiEndPoints {
             @Field("nominal") String nominal);
 
     @FormUrlEncoded
-    @POST("dbSearchSiswa.php")
-    Call<SiswaRepository> searchDataSiswa(
-            @Field("search") String search);
-
-    @GET("dbReadSiswa.php")
-    Call<SiswaRepository> viewDataSiswa();
+    @POST("dbCreateKelas.php")
+    Call<KelasRepository> createKelas(
+            @Field("angkatan") String angkatan,
+            @Field("nama_kelas") String nama_kelas,
+            @Field("jurusan") String jurusan);
 
     @GET("dbReadSPP.php")
     Call<SPPRepository> viewDataSPP();

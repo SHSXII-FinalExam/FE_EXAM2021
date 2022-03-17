@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/avenir_regular"
-                android:text="Rp.0,00"
+                android:text="Rp.0"
                 android:textColor="#41E46F"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="@+id/status"

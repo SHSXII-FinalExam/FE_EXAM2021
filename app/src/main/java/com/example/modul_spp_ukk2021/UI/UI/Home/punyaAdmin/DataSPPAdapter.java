@@ -4,17 +4,23 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -28,6 +34,7 @@ import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.LoginStaffActivity;
 import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.PembayaranActivity;
 import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.PembayaranAdapter;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -65,6 +72,7 @@ public class DataSPPAdapter extends RecyclerView.Adapter<DataSPPAdapter.ViewHold
         return new ViewHolder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         SPP spp = this.spp.get(position);
@@ -75,7 +83,23 @@ public class DataSPPAdapter extends RecyclerView.Adapter<DataSPPAdapter.ViewHold
 
         holder.tvTahun.setText("Tahun " + spp.getTahun());
         holder.tvAngkatan.setText("Angkatan " + spp.getAngkatan());
-        holder.tvNominal.setText(format.format(spp.getNominal()) + ",00");
+        holder.tvNominal.setText(format.format(spp.getNominal()));
+
+        holder.deleteData.setOnClickListener(v -> {
+            PopupMenu popup = new PopupMenu(context, v, Gravity.END, R.attr.popupMenuStyle, 0);
+            MenuInflater inflater = popup.getMenuInflater();
+            inflater.inflate(R.menu.cardmenu, popup.getMenu());
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if (item.getItemId() == R.id.action_delete) {
+                        mListener.onItemClicked(spp.getId_spp());
+                    }
+                    return true;
+                }
+            });
+            popup.show();
+        });
 
         holder.detailSPP.setOnClickListener(v -> {
             new Handler().postDelayed(new Runnable() {
@@ -85,32 +109,13 @@ public class DataSPPAdapter extends RecyclerView.Adapter<DataSPPAdapter.ViewHold
                     View view = LayoutInflater.from(context).inflate(R.layout.pa_dialog_view_spp, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
                     builder.setView(view);
                     ((TextView) view.findViewById(R.id.tvTahun)).setText("Tahun       : " + spp.getTahun());
-                    ((TextView) view.findViewById(R.id.tvNominal)).setText("Nominal   : " + format.format(spp.getNominal()) + ",00");
+                    ((TextView) view.findViewById(R.id.tvNominal)).setText("Nominal   : " + format.format(spp.getNominal()));
                     ((TextView) view.findViewById(R.id.tvAngkatan)).setText("Angkatan : " + spp.getAngkatan());
                     final AlertDialog alertDialog = builder.create();
                     view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             alertDialog.dismiss();
-                        }
-                    });
-                    view.findViewById(R.id.deleteData).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            new AlertDialog.Builder(context)
-                                    .setMessage("Apakah anda yakin menghapus?")
-                                    .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            mListener.onItemClicked(spp.getId_spp());
-                                            alertDialog.dismiss();
-                                        }
-                                    })
-                                    .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            alertDialog.show();
-                                        }
-                                    })
-                                    .show();
                         }
                     });
                     view.findViewById(R.id.buttonEdit).setOnClickListener(new View.OnClickListener() {
@@ -180,7 +185,8 @@ public class DataSPPAdapter extends RecyclerView.Adapter<DataSPPAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        MaterialButton detailSPP;
+        ImageView deleteData;
+        MaterialCardView detailSPP;
         TextView tvTahun, tvNominal, tvAngkatan;
 
         public ViewHolder(View itemView) {
@@ -189,6 +195,7 @@ public class DataSPPAdapter extends RecyclerView.Adapter<DataSPPAdapter.ViewHold
             tvNominal = itemView.findViewById(R.id.Nominal);
             tvAngkatan = itemView.findViewById(R.id.Angkatan);
             detailSPP = itemView.findViewById(R.id.detailSPP);
+            deleteData = itemView.findViewById(R.id.deleteData);
         }
     }
 }

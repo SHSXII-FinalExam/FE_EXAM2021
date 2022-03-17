@@ -1,44 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detailSPP"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
-    app:cardBackgroundColor="#F6F8FE"
-    app:cardCornerRadius="6dp"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="8dp"
     app:cardElevation="0dp"
     app:rippleColor="@android:color/transparent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/detailSPP"
-            android:layout_width="47dp"
-            android:layout_height="60dp"
-            android:background="@drawable/gradient_button1"
-            app:backgroundTint="@null"
-            app:icon="@drawable/ic_play"
-            app:iconGravity="textStart"
-            app:iconPadding="0dp"
-            app:iconSize="34dp"
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_card"
+            android:elevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/deleteData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="12dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="12dp"
+            android:src="@drawable/ic_more"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/Tahun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:fontFamily="@font/avenir_demi"
-            android:maxEms="7"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/avenir_medium"
+            android:maxLength="20"
             android:text="Tahun"
-            android:textColor="#251F39"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/Nominal"
+            android:textColor="@color/white"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,9 +58,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/avenir_medium"
             android:text="Rp.0,00"
-            android:textColor="#41E46F"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/Tahun"
             app:layout_constraintTop_toBottomOf="@+id/Tahun" />
 
@@ -58,14 +67,15 @@
             android:id="@+id/Angkatan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/avenir_demi"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/avenir_medium"
             android:text="Angkatan"
-            android:textColor="#C62828"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/Nominal"
-            app:layout_constraintEnd_toStartOf="@+id/detailSPP"
-            app:layout_constraintTop_toTopOf="@+id/Tahun" />
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/Tahun"
+            app:layout_constraintTop_toBottomOf="@+id/Nominal" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
