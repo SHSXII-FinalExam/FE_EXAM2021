@@ -3,9 +3,12 @@ package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -173,24 +177,29 @@ public class PembayaranActivity extends AppCompatActivity {
     }
 
     private void DialogUpdate(String id_pembayaran, Integer nominal) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(PembayaranActivity.this, R.style.CustomAlertDialog);
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.pp_dialog_update_pembayaran, null);
-        dialog.setView(dialogView);
-
-        TextView maxInput = dialogView.findViewById(R.id.maxInput);
-        EditText jumlah_bayar = dialogView.findViewById(R.id.jumlahBayar);
+        AlertDialog.Builder builder = new AlertDialog.Builder(PembayaranActivity.this, R.style.AlertDialogTheme);
+        View view = LayoutInflater.from(PembayaranActivity.this).inflate(R.layout.pp_dialog_update_pembayaran, (ConstraintLayout) findViewById(R.id.layoutDialogContainer));
+        builder.setView(view);
+        TextView maxInput = view.findViewById(R.id.maxInput);
+        EditText jumlah_bayar = view.findViewById(R.id.jumlahBayar);
+        final AlertDialog alertDialog = builder.create();
 
         Locale localeID = new Locale("in", "ID");
         NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
         format.setMaximumFractionDigits(0);
 
-        maxInput.setText("Max Input: " + format.format(nominal) + ",00");
+        maxInput.setText("Max Input: " + format.format(nominal));
         jumlah_bayar.setFilters(new InputFilter[]{new InputFilterMinMax("0", nominal.toString())});
 
-        dialog.setPositiveButton("SUBMIT", new DialogInterface.OnClickListener() {
+        view.findViewById(R.id.buttonBatal).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+        view.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(url)
                         .addConverterFactory(GsonConverterFactory.create())
@@ -202,6 +211,7 @@ public class PembayaranActivity extends AppCompatActivity {
                     public void onResponse(Call<PembayaranRepository> call, Response<PembayaranRepository> response) {
                         String value = response.body().getValue();
                         if (value.equals("1")) {
+                            alertDialog.dismiss();
                             loadDataPembayaran();
                         }
                     }
@@ -213,12 +223,9 @@ public class PembayaranActivity extends AppCompatActivity {
                 });
             }
         });
-        dialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        dialog.show();
+        if (alertDialog.getWindow() != null) {
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+        alertDialog.show();
     }
 }

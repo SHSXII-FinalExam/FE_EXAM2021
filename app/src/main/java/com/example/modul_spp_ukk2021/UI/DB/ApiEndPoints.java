@@ -80,9 +80,7 @@ public interface ApiEndPoints {
     @POST("dbUpdateSPP.php")
     Call<SPPRepository> updateSPP(
             @Field("id_spp") String id_spp,
-            @Field("tahun") String tahun,
-            @Field("nominal") String nominal,
-            @Field("angkatan") String angkatan);
+            @Field("nominal") String nominal);
 
     @FormUrlEncoded
     @POST("dbUpdateKelas.php")

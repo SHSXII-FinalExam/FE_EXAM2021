@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
             android:elevation="0dp"
             app:cardCornerRadius="8dp"
@@ -26,7 +27,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/gradient">
+                android:background="@drawable/gradient_red">
 
                 <ImageView
                     android:id="@+id/imageView3"
@@ -91,7 +92,7 @@
             android:layout_marginStart="4dp"
             android:fontFamily="@font/avenir_medium"
             android:text="()"
-            android:textColor="#837EA7"
+            android:textColor="#C8C4D9"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/tagihan"
             app:layout_constraintTop_toTopOf="@+id/tagihan" />

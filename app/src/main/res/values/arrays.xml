@@ -5,7 +5,6 @@
         <item>Data Siswa</item>
         <item>Data Kelas</item>
         <item>Data SPP</item>
-        <item>Data Transaksi</item>
         <item>Data Petugas</item>
         <item />
         <item>Logout</item>
@@ -15,7 +14,6 @@
         <item>@drawable/ic_person</item>
         <item>@drawable/ic_lock</item>
         <item>@drawable/ic_balance</item>
-        <item>@drawable/ic_money</item>
         <item>@drawable/ic_person</item>
         <item>0</item>
         <item>@drawable/ic_power</item>

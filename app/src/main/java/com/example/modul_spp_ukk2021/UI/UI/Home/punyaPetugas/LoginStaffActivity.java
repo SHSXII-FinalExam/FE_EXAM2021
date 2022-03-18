@@ -129,29 +129,31 @@ public class LoginStaffActivity extends AppCompatActivity {
                 String value = response.body().getValue();
                 List<LoginStaff> results = fetchResults(response);
 
-                for (int i = 0; i < results.size(); i++) {
-                    String level = results.get(i).getLevel();
-                    Log.e("DEBUG", "Staff level:" + level);
+                if (value.equals("1")) {
+                    for (int i = 0; i < results.size(); i++) {
+                        String level = results.get(i).getLevel();
+                        Log.e("DEBUG", "Staff level:" + level);
 
-                    if (value.equals("1") && level.equals("Petugas")) {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(LoginStaffActivity.this, HomePetugasActivity.class);
-                                intent.putExtra("level", level);
-                                intent.putExtra("username", username);
-                                startActivity(intent);
-                            }
-                        }, 600);
-                    } else if (value.equals("1") && level.equals("Admin")) {
-                        Intent intent = new Intent(LoginStaffActivity.this, HomeAdminActivity.class);
-                        intent.putExtra("level", level);
-                        intent.putExtra("username", username);
-                        startActivity(intent);
-                    } else {
-                        progressbar.dismiss();
-                        Toast.makeText(LoginStaffActivity.this, "Login gagal, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
+                        if (level.equals("Petugas")) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(LoginStaffActivity.this, HomePetugasActivity.class);
+                                    intent.putExtra("level", level);
+                                    intent.putExtra("username", username);
+                                    startActivity(intent);
+                                }
+                            }, 600);
+                        } else if (level.equals("Admin")) {
+                            Intent intent = new Intent(LoginStaffActivity.this, HomeAdminActivity.class);
+                            intent.putExtra("level", level);
+                            intent.putExtra("username", username);
+                            startActivity(intent);
+                        }
                     }
+                } else {
+                    progressbar.dismiss();
+                    Toast.makeText(LoginStaffActivity.this, "Login gagal, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
                 }
             }
 

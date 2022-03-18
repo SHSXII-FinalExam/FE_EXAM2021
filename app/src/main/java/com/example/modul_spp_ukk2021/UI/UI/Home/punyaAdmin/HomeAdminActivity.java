@@ -25,6 +25,7 @@ import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerItem;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.SimpleItem;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.SpaceItem;
 import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.LoginStaffActivity;
+import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
@@ -34,9 +35,8 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     private static final int POS_SISWA = 0;
     private static final int POS_KELAS = 1;
     private static final int POS_SPP = 2;
-    private static final int POS_TRANSAKSI = 3;
-    private static final int POS_PETUGAS = 4;
-    private static final int POS_LOGOUT = 6;
+    private static final int POS_PETUGAS = 3;
+    private static final int POS_LOGOUT = 5;
 
     private String[] screenTitles;
     private Drawable[] screenIcons;
@@ -86,7 +86,6 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
                 createItemFor(POS_SISWA).setChecked(true),
                 createItemFor(POS_KELAS),
                 createItemFor(POS_SPP),
-                createItemFor(POS_TRANSAKSI),
                 createItemFor(POS_PETUGAS),
                 new SpaceItem(48),
                 createItemFor(POS_LOGOUT)));
@@ -106,7 +105,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
                 .setMessage("Apakah anda yakin ingin keluar dari akun ini?")
                 .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent intent = new Intent(HomeAdminActivity.this, LoginStaffActivity.class);
+                        Intent intent = new Intent(HomeAdminActivity.this, LoginChoiceActivity.class);
                         startActivity(intent);
                     }
                 })
@@ -139,9 +138,11 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
-            if (getSPPRefreshListener() != null && getKelasRefreshListener() != null) {
-                getSPPRefreshListener().onRefresh();
+            if (getKelasRefreshListener() != null) {
                 getKelasRefreshListener().onRefresh();
+            }
+            if (getSPPRefreshListener() != null) {
+                getSPPRefreshListener().onRefresh();
             }
         }
         return super.onOptionsItemSelected(item);

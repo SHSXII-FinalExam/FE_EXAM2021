@@ -54,7 +54,7 @@ public class DataSPPAdapter extends RecyclerView.Adapter<DataSPPAdapter.ViewHold
     private static OnRecyclerViewItemClickListener mListener;
 
     public interface OnRecyclerViewItemClickListener {
-        void onItemClicked(String id_spp);
+        void onItemClicked(String id_spp, String refresh);
     }
 
     public void setOnRecyclerViewItemClickListener(DataSPPAdapter.OnRecyclerViewItemClickListener listener) {
@@ -93,7 +93,7 @@ public class DataSPPAdapter extends RecyclerView.Adapter<DataSPPAdapter.ViewHold
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     if (item.getItemId() == R.id.action_delete) {
-                        mListener.onItemClicked(spp.getId_spp());
+                        mListener.onItemClicked(spp.getId_spp(), null);
                     }
                     return true;
                 }
@@ -123,13 +123,13 @@ public class DataSPPAdapter extends RecyclerView.Adapter<DataSPPAdapter.ViewHold
                         public void onClick(View v) {
                             alertDialog.dismiss();
                             AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
-                            View view2 = LayoutInflater.from(context).inflate(R.layout.pa_dialog_tambah_spp, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
+                            View view2 = LayoutInflater.from(context).inflate(R.layout.pa_dialog_edit_spp, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
                             builder.setView(view2);
-                            final EditText angkatan = (EditText) view2.findViewById(R.id.angkatan_spp);
-                            final EditText tahun = (EditText) view2.findViewById(R.id.tahun_spp);
+                            final TextView angkatan = (TextView) view2.findViewById(R.id.angkatan_spp);
+                            final TextView tahun = (TextView) view2.findViewById(R.id.tahun_spp);
                             final EditText nominal = (EditText) view2.findViewById(R.id.nominal_spp);
-                            angkatan.setText(spp.getAngkatan());
-                            tahun.setText(spp.getTahun());
+                            angkatan.setText(" " + spp.getAngkatan());
+                            tahun.setText(" " + spp.getTahun());
                             nominal.setText(spp.getNominal().toString());
                             final AlertDialog alertDialog2 = builder.create();
                             view2.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
@@ -140,7 +140,7 @@ public class DataSPPAdapter extends RecyclerView.Adapter<DataSPPAdapter.ViewHold
                                             .addConverterFactory(GsonConverterFactory.create())
                                             .build();
                                     ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-                                    Call<SPPRepository> call = api.updateSPP(spp.getId_spp(), tahun.getText().toString(), nominal.getText().toString(), angkatan.getText().toString());
+                                    Call<SPPRepository> call = api.updateSPP(spp.getId_spp(), nominal.toString());
                                     call.enqueue(new Callback<SPPRepository>() {
                                         @Override
                                         public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
@@ -148,6 +148,7 @@ public class DataSPPAdapter extends RecyclerView.Adapter<DataSPPAdapter.ViewHold
                                             String message = response.body().getMessage();
                                             if (value.equals("1")) {
                                                 alertDialog2.dismiss();
+                                                mListener.onItemClicked(null, "1");
                                             }
                                         }
 

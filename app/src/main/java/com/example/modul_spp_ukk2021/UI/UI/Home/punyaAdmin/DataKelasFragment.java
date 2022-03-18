@@ -70,32 +70,36 @@ public class DataKelasFragment extends Fragment {
         progressbar.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
         progressbar.dismiss();
 
-        adapter.setOnRecyclerViewItemClickListener((id_kelas) -> {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl(url)
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
-                    ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-                    Call<KelasRepository> call = api.deleteKelas(id_kelas);
-                    call.enqueue(new Callback<KelasRepository>() {
-                        @Override
-                        public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
-                            String value = response.body().getValue();
-                            if (value.equals("1")) {
-                                loadDataKelas();
+        adapter.setOnRecyclerViewItemClickListener((id_kelas, refresh) -> {
+            if (id_kelas != null && refresh == null) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl(url)
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
+                        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+                        Call<KelasRepository> call = api.deleteKelas(id_kelas);
+                        call.enqueue(new Callback<KelasRepository>() {
+                            @Override
+                            public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
+                                String value = response.body().getValue();
+                                if (value.equals("1")) {
+                                    loadDataKelas();
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<KelasRepository> call, Throwable t) {
-                            Log.e("DEBUG", "Error: ", t);
-                        }
-                    });
-                }
-            }, 500);
+                            @Override
+                            public void onFailure(Call<KelasRepository> call, Throwable t) {
+                                Log.e("DEBUG", "Error: ", t);
+                            }
+                        });
+                    }
+                }, 500);
+            } else {
+                loadDataKelas();
+            }
         });
 
         NestedScrollView scrollView = view.findViewById(R.id.scroll_data);

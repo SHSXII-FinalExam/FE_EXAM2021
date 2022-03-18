@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/detailKelas"
+    android:id="@+id/detailStaff"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/gradient_blue">
+        android:background="@drawable/gradient_red">
 
         <ImageView
             android:id="@+id/imageView3"
@@ -39,42 +39,42 @@
             app:tint="@color/white" />
 
         <TextView
-            android:id="@+id/Kelas"
+            android:id="@+id/nama"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/avenir_medium"
-            android:text="Kelas"
+            android:text="Dummy"
             android:textColor="@color/white"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/Jurusan"
+            android:id="@+id/nisn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/avenir_medium"
-            android:text="Jurusan"
+            android:text="NISN"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/Kelas"
-            app:layout_constraintTop_toBottomOf="@+id/Kelas" />
+            app:layout_constraintStart_toStartOf="@+id/nama"
+            app:layout_constraintTop_toBottomOf="@+id/nama" />
 
         <TextView
-            android:id="@+id/Angkatan"
+            android:id="@+id/Kelas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="12dp"
             android:fontFamily="@font/avenir_medium"
-            android:text="Angkatan"
+            android:text="Siswa Dummy"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/Kelas"
-            app:layout_constraintTop_toBottomOf="@+id/Jurusan" />
+            app:layout_constraintStart_toStartOf="@+id/nama"
+            app:layout_constraintTop_toBottomOf="@+id/nisn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/gradient">
+        android:background="@drawable/gradient_grey">
 
         <ImageView
             android:id="@+id/imageView3"
@@ -45,7 +45,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/avenir_medium"
-            android:maxLength="20"
             android:text="Tahun"
             android:textColor="@color/white"
             android:textSize="24sp"

@@ -58,8 +58,8 @@ public class TagihanSiswaAdapter extends RecyclerView.Adapter<TagihanSiswaAdapte
         if (pembayaran.getKurang_bayar() == 0) {
             holder.tvStatus.setText(pembayaran.getStatus_bayar());
             holder.tvNominal.setText(format.format(pembayaran.getNominal()));
-            holder.tvNominal.setTextColor(Color.parseColor("#F14D6F"));
-            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#F14D6F")));
+            holder.tvNominal.setTextColor(Color.parseColor("#FF4646"));
+            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#FF4646")));
         } else {
             holder.tvStatus.setText("Kurang");
             holder.tvNominal.setText(format.format(pembayaran.getKurang_bayar()));

@@ -72,32 +72,36 @@ public class DataSPPFragment extends Fragment {
         progressbar.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
         progressbar.dismiss();
 
-        adapter.setOnRecyclerViewItemClickListener((id_spp) -> {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl(url)
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
-                    ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-                    Call<SPPRepository> call = api.deleteSPP(id_spp);
-                    call.enqueue(new Callback<SPPRepository>() {
-                        @Override
-                        public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
-                            String value = response.body().getValue();
-                            if (value.equals("1")) {
-                                loadDataSPP();
+        adapter.setOnRecyclerViewItemClickListener((id_spp, refresh) -> {
+            if (id_spp != null && refresh == null) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl(url)
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
+                        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+                        Call<SPPRepository> call = api.deleteSPP(id_spp);
+                        call.enqueue(new Callback<SPPRepository>() {
+                            @Override
+                            public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
+                                String value = response.body().getValue();
+                                if (value.equals("1")) {
+                                    loadDataSPP();
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<SPPRepository> call, Throwable t) {
-                            Log.e("DEBUG", "Error: ", t);
-                        }
-                    });
-                }
-            }, 500);
+                            @Override
+                            public void onFailure(Call<SPPRepository> call, Throwable t) {
+                                Log.e("DEBUG", "Error: ", t);
+                            }
+                        });
+                    }
+                }, 500);
+            } else {
+                loadDataSPP();
+            }
         });
 
         NestedScrollView scrollView = view.findViewById(R.id.scroll_data);

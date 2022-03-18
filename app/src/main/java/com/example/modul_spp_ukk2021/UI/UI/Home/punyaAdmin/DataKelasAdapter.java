@@ -47,7 +47,7 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
     private static OnRecyclerViewItemClickListener mListener;
 
     public interface OnRecyclerViewItemClickListener {
-        void onItemClicked(String id_spp);
+        void onItemClicked(String id_spp, String refresh);
     }
 
     public void setOnRecyclerViewItemClickListener(DataKelasAdapter.OnRecyclerViewItemClickListener listener) {
@@ -82,7 +82,7 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     if (item.getItemId() == R.id.action_delete) {
-                        mListener.onItemClicked(kelas.getId_kelas());
+                        mListener.onItemClicked(kelas.getId_kelas(), null);
                     }
                     return true;
                 }
@@ -117,6 +117,8 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
                             final EditText angkatan = (EditText) view2.findViewById(R.id.angkatan_kelas);
                             final EditText nama_kelas = (EditText) view2.findViewById(R.id.nama_kelas);
                             final EditText jurusan = (EditText) view2.findViewById(R.id.jurusan_kelas);
+                            final TextView textTitle = (TextView) view2.findViewById(R.id.textTitle);
+                            textTitle.setText("Edit Kelas");
                             angkatan.setText(kelas.getAngkatan());
                             nama_kelas.setText(kelas.getNama_kelas());
                             jurusan.setText(kelas.getJurusan());
@@ -137,6 +139,7 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
                                             String message = response.body().getMessage();
                                             if (value.equals("1")) {
                                                 alertDialog2.dismiss();
+                                                mListener.onItemClicked(null, "1");
                                             }
                                         }
 
