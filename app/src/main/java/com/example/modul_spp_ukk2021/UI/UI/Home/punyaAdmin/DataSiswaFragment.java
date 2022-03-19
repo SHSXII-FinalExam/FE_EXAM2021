@@ -1,0 +1,213 @@
+package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
+
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
+import android.widget.Toast;
+
+import androidx.core.widget.NestedScrollView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
+import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
+import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
+
+public class DataSiswaFragment extends Fragment {
+    private DataSiswaAdapter adapter;
+    private RecyclerView recyclerView;
+    private ProgressDialog progressbar;
+    private List<Siswa> siswa = new ArrayList<>();
+
+    public DataSiswaFragment() {
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        View view = inflater.inflate(R.layout.pa_fragment_data_siswa, container, false);
+
+        adapter = new DataSiswaAdapter(getActivity(), siswa);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView = view.findViewById(R.id.recycler_siswa);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+        runLayoutAnimation(recyclerView);
+
+        progressbar = new ProgressDialog(getContext());
+        progressbar.setMessage("Loading...");
+        progressbar.setCancelable(false);
+        progressbar.setIndeterminate(true);
+        progressbar.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
+        progressbar.dismiss();
+
+//        adapter.setOnRecyclerViewItemClickListener((id_petugas, refresh) -> {
+//            if (id_petugas != null && refresh == null) {
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Retrofit retrofit = new Retrofit.Builder()
+//                                .baseUrl(url)
+//                                .addConverterFactory(GsonConverterFactory.create())
+//                                .build();
+//                        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+//                        Call<PetugasRepository> call = api.deleteSPP(id_petugas);
+//                        call.enqueue(new Callback<PetugasRepository>() {
+//                            @Override
+//                            public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
+//                                String value = response.body().getValue();
+//                                if (value.equals("1")) {
+//                                    loadDataPetugas();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<PetugasRepository> call, Throwable t) {
+//                                Log.e("DEBUG", "Error: ", t);
+//                            }
+//                        });
+//                    }
+//                }, 500);
+//            } else {
+//                loadDataPetugas();
+//            }
+//        });
+
+        NestedScrollView scrollView = view.findViewById(R.id.scroll_data);
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.scrollTo(0, 0);
+            }
+        });
+
+        ((HomeAdminActivity) getActivity()).setSiswaRefreshListener(new HomeAdminActivity.FragmentRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadDataSiswa();
+            }
+        });
+
+//        MaterialButton tambahPetugas = view.findViewById(R.id.tambah_petugas);
+//        tambahPetugas.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogTheme);
+//                View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_spp, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
+//                builder.setView(view);
+//                final EditText angkatan = (EditText) view.findViewById(R.id.angkatan_spp);
+//                final EditText tahun = (EditText) view.findViewById(R.id.tahun_spp);
+//                final EditText nominal = (EditText) view.findViewById(R.id.nominal_spp);
+//                final AlertDialog alertDialog = builder.create();
+//                view.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Retrofit retrofit = new Retrofit.Builder()
+//                                .baseUrl(url)
+//                                .addConverterFactory(GsonConverterFactory.create())
+//                                .build();
+//                        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+//                        Call<SPPRepository> call = api.createSPP(angkatan.getText().toString(), tahun.getText().toString(), nominal.getText().toString());
+//                        call.enqueue(new Callback<PetugasRepository>() {
+//                            @Override
+//                            public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
+//                                String value = response.body().getValue();
+//                                String message = response.body().getMessage();
+//                                if (value.equals("1")) {
+//                                    loadDataPetugas();
+//                                    alertDialog.dismiss();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<PetugasRepository> call, Throwable t) {
+//                                Log.e("DEBUG", "Error: ", t);
+//                            }
+//                        });
+//                    }
+//                });
+//                view.findViewById(R.id.buttonBatal).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        alertDialog.dismiss();
+//                    }
+//                });
+//                if (alertDialog.getWindow() != null) {
+//                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+//                }
+//                alertDialog.show();
+//            }
+//        });
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadDataSiswa();
+    }
+
+    private void runLayoutAnimation(final RecyclerView recyclerView) {
+        Context context = recyclerView.getContext();
+        LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_from_bottom);
+
+        recyclerView.setLayoutAnimation(controller);
+        recyclerView.getAdapter().notifyDataSetChanged();
+        recyclerView.scheduleLayoutAnimation();
+    }
+
+    public void loadDataSiswa() {
+        progressbar.show();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+        Call<SiswaRepository> call = api.viewDataSiswa();
+        call.enqueue(new Callback<SiswaRepository>() {
+            @Override
+            public void onResponse(Call<SiswaRepository> call, Response<SiswaRepository> response) {
+                String value = response.body().getValue();
+                if (value.equals("1")) {
+                    progressbar.dismiss();
+                    siswa = response.body().getResult();
+                    adapter = new DataSiswaAdapter(getActivity(), siswa);
+                    recyclerView.setAdapter(adapter);
+                    runLayoutAnimation(recyclerView);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SiswaRepository> call, Throwable t) {
+                progressbar.dismiss();
+                Toast.makeText(getContext(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
+                Log.e("DEBUG", "Error: ", t);
+            }
+        });
+    }
+}

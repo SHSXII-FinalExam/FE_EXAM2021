@@ -17,7 +17,7 @@
             android:id="@+id/detailSiswa"
             android:layout_width="44dp"
             android:layout_height="0dp"
-            android:background="@drawable/gradient_button1"
+            android:background="@drawable/button1_gradient"
             app:backgroundTint="@null"
             app:icon="@drawable/ic_play"
             app:iconGravity="textStart"

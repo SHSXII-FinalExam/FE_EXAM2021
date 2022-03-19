@@ -20,7 +20,7 @@
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@drawable/gradient_card1"
+            android:background="@drawable/card_gradient_blue"
             android:elevation="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/textTitle"
             app:layout_constraintEnd_toEndOf="parent"

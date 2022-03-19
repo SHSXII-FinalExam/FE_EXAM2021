@@ -41,7 +41,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     private String[] screenTitles;
     private Drawable[] screenIcons;
     private SlidingRootNav slidingRootNav;
-    private FragmentRefreshListener sppRefreshListener, kelasRefreshListener;
+    private FragmentRefreshListener sppRefreshListener, kelasRefreshListener, petugasRefreshListener, siswaRefreshListener, transaksiRefreshListener;
 
     public interface FragmentRefreshListener {
         void onRefresh();
@@ -53,6 +53,22 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
 
     public FragmentRefreshListener getKelasRefreshListener() {
         return kelasRefreshListener;
+    }
+
+    public FragmentRefreshListener getPetugasRefreshListener() {
+        return petugasRefreshListener;
+    }
+
+    public FragmentRefreshListener getSiswaRefreshListener() {
+        return siswaRefreshListener;
+    }
+
+    public void setSiswaRefreshListener(FragmentRefreshListener fragmentRefreshListener) {
+        this.siswaRefreshListener = fragmentRefreshListener;
+    }
+
+    public void setPetugasRefreshListener(FragmentRefreshListener fragmentRefreshListener) {
+        this.petugasRefreshListener = fragmentRefreshListener;
     }
 
     public void setSPPRefreshListener(FragmentRefreshListener fragmentRefreshListener) {
@@ -115,14 +131,20 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
 
     @Override
     public void onItemSelected(int position) {
-        if (position == POS_SPP) {
-            Fragment selectedScreen = new DataSPPFragment();
+        if (position == POS_SISWA) {
+            Fragment selectedScreen = new DataSiswaFragment();
             showFragment(selectedScreen);
         } else if (position == POS_KELAS) {
             Fragment selectedScreen = new DataKelasFragment();
             showFragment(selectedScreen);
+        } else if (position == POS_SPP) {
+            Fragment selectedScreen = new DataSPPFragment();
+            showFragment(selectedScreen);
+        } else if (position == POS_PETUGAS) {
+            Fragment selectedScreen = new DataPetugasFragment();
+            showFragment(selectedScreen);
         } else if (position == POS_LOGOUT) {
-            Intent intent = new Intent(HomeAdminActivity.this, LoginStaffActivity.class);
+            Intent intent = new Intent(HomeAdminActivity.this, LoginChoiceActivity.class);
             startActivity(intent);
         }
         slidingRootNav.closeMenu();
@@ -138,11 +160,17 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
+            if (getSiswaRefreshListener() != null) {
+                getSiswaRefreshListener().onRefresh();
+            }
             if (getKelasRefreshListener() != null) {
                 getKelasRefreshListener().onRefresh();
             }
             if (getSPPRefreshListener() != null) {
                 getSPPRefreshListener().onRefresh();
+            }
+            if (getPetugasRefreshListener() != null) {
+                getPetugasRefreshListener().onRefresh();
             }
         }
         return super.onOptionsItemSelected(item);
