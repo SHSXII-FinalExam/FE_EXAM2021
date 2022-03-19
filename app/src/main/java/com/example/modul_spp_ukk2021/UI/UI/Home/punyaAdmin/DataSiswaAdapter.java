@@ -1,22 +1,39 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.os.Handler;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.ViewHolder> {
     private List<Siswa> siswa;
@@ -51,39 +68,42 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
         holder.tvNISN.setText(siswa.getNisn());
         holder.tvKelas.setText("Siswa " + siswa.getNama_kelas());
 
-//        holder.deleteData.setOnClickListener(v -> {
-//            PopupMenu popup = new PopupMenu(context, v, Gravity.END, R.attr.popupMenuStyle, 0);
-//            MenuInflater inflater = popup.getMenuInflater();
-//            inflater.inflate(R.menu.cardmenu, popup.getMenu());
-//            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                @Override
-//                public boolean onMenuItemClick(MenuItem item) {
-//                    if (item.getItemId() == R.id.action_delete) {
-//                        mListener.onItemClicked(petugas.getId_petugas(), null);
-//                    }
-//                    return true;
-//                }
-//            });
-//            popup.show();
-//        });
-//
-//        holder.detailStaff.setOnClickListener(v -> {
-//            new Handler().postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
-//                    View view = LayoutInflater.from(context).inflate(R.layout.pa_dialog_view_spp, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
-//                    builder.setView(view);
-//                    ((TextView) view.findViewById(R.id.tvTahun)).setText("Tahun       : " + spp.getTahun());
-//                    ((TextView) view.findViewById(R.id.tvNominal)).setText("Nominal   : " + format.format(spp.getNominal()));
-//                    ((TextView) view.findViewById(R.id.tvAngkatan)).setText("Angkatan : " + spp.getAngkatan());
-//                    final AlertDialog alertDialog = builder.create();
-//                    view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            alertDialog.dismiss();
-//                        }
-//                    });
+        holder.deleteData.setOnClickListener(v -> {
+            PopupMenu popup = new PopupMenu(context, v, Gravity.END, R.attr.popupMenuStyle, 0);
+            MenuInflater inflater = popup.getMenuInflater();
+            inflater.inflate(R.menu.cardmenu, popup.getMenu());
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if (item.getItemId() == R.id.action_delete) {
+                        mListener.onItemClicked(siswa.getNisn(), null);
+                    }
+                    return true;
+                }
+            });
+            popup.show();
+        });
+
+        holder.detailSiswa.setOnClickListener(v -> {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
+                    View view = LayoutInflater.from(context).inflate(R.layout.pa_dialog_view_siswa, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
+                    builder.setView(view);
+                    ((TextView) view.findViewById(R.id.tvNama)).setText("Nama                : " + siswa.getNama());
+                    ((TextView) view.findViewById(R.id.tvNISN)).setText("NISN                 : " + siswa.getNisn());
+                    ((TextView) view.findViewById(R.id.tvNIS)).setText("NIS                    : " + siswa.getNis());
+                    ((TextView) view.findViewById(R.id.tvKelas)).setText("Kelas                 : " + siswa.getNama_kelas());
+                    ((TextView) view.findViewById(R.id.tvAlamat)).setText("Alamat              : " + siswa.getAlamat());
+                    ((TextView) view.findViewById(R.id.tvNoTelp)).setText("Nomor Ponsel : " + siswa.getNo_telp());
+                    final AlertDialog alertDialog = builder.create();
+                    view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alertDialog.dismiss();
+                        }
+                    });
 //                    view.findViewById(R.id.buttonEdit).setOnClickListener(new View.OnClickListener() {
 //                        @Override
 //                        public void onClick(View v) {
@@ -137,13 +157,13 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
 //                            alertDialog2.show();
 //                        }
 //                    });
-//                    if (alertDialog.getWindow() != null) {
-//                        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-//                    }
-//                    alertDialog.show();
-//                }
-//            }, 400);
-//        });
+                    if (alertDialog.getWindow() != null) {
+                        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                    }
+                    alertDialog.show();
+                }
+            }, 400);
+        });
     }
 
     @Override
@@ -154,13 +174,16 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView deleteData;
         MaterialCardView detailSiswa;
-        TextView tvNama, tvNISN, tvKelas;
+        TextView tvNama, tvNISN, tvNIS, tvKelas, tvAlamat, tvNoTelp;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvNama = itemView.findViewById(R.id.nama);
-            tvNISN = itemView.findViewById(R.id.NISN);
-            tvKelas = itemView.findViewById(R.id.Kelas);
+            tvNama = itemView.findViewById(R.id.tvNama);
+            tvNISN = itemView.findViewById(R.id.tvNISN);
+            tvNIS = itemView.findViewById(R.id.tvNIS);
+            tvKelas = itemView.findViewById(R.id.tvKelas);
+            tvAlamat = itemView.findViewById(R.id.tvAlamat);
+            tvNoTelp = itemView.findViewById(R.id.tvNoTelp);
             detailSiswa = itemView.findViewById(R.id.detailSiswa);
             deleteData = itemView.findViewById(R.id.deleteData);
         }

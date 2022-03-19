@@ -73,39 +73,39 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
         holder.tvLevel.setText("Staff level: " + petugas.getLevel());
         holder.tvUsername.setText("Username: " + petugas.getUsername());
 
-//        holder.deleteData.setOnClickListener(v -> {
-//            PopupMenu popup = new PopupMenu(context, v, Gravity.END, R.attr.popupMenuStyle, 0);
-//            MenuInflater inflater = popup.getMenuInflater();
-//            inflater.inflate(R.menu.cardmenu, popup.getMenu());
-//            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                @Override
-//                public boolean onMenuItemClick(MenuItem item) {
-//                    if (item.getItemId() == R.id.action_delete) {
-//                        mListener.onItemClicked(petugas.getId_petugas(), null);
-//                    }
-//                    return true;
-//                }
-//            });
-//            popup.show();
-//        });
-//
-//        holder.detailStaff.setOnClickListener(v -> {
-//            new Handler().postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
-//                    View view = LayoutInflater.from(context).inflate(R.layout.pa_dialog_view_spp, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
-//                    builder.setView(view);
-//                    ((TextView) view.findViewById(R.id.tvTahun)).setText("Tahun       : " + spp.getTahun());
-//                    ((TextView) view.findViewById(R.id.tvNominal)).setText("Nominal   : " + format.format(spp.getNominal()));
-//                    ((TextView) view.findViewById(R.id.tvAngkatan)).setText("Angkatan : " + spp.getAngkatan());
-//                    final AlertDialog alertDialog = builder.create();
-//                    view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            alertDialog.dismiss();
-//                        }
-//                    });
+        holder.deleteData.setOnClickListener(v -> {
+            PopupMenu popup = new PopupMenu(context, v, Gravity.END, R.attr.popupMenuStyle, 0);
+            MenuInflater inflater = popup.getMenuInflater();
+            inflater.inflate(R.menu.cardmenu, popup.getMenu());
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if (item.getItemId() == R.id.action_delete) {
+                        mListener.onItemClicked(petugas.getId_petugas(), null);
+                    }
+                    return true;
+                }
+            });
+            popup.show();
+        });
+
+        holder.detailStaff.setOnClickListener(v -> {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
+                    View view = LayoutInflater.from(context).inflate(R.layout.pa_dialog_view_petugas, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
+                    builder.setView(view);
+                    ((TextView) view.findViewById(R.id.tvNama)).setText("Nama         : " + petugas.getNama_petugas());
+                    ((TextView) view.findViewById(R.id.tvUsername)).setText("Username : " + petugas.getUsername());
+                    ((TextView) view.findViewById(R.id.tvLevel)).setText("Level          : " + petugas.getLevel());
+                    final AlertDialog alertDialog = builder.create();
+                    view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alertDialog.dismiss();
+                        }
+                    });
 //                    view.findViewById(R.id.buttonEdit).setOnClickListener(new View.OnClickListener() {
 //                        @Override
 //                        public void onClick(View v) {
@@ -159,13 +159,13 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
 //                            alertDialog2.show();
 //                        }
 //                    });
-//                    if (alertDialog.getWindow() != null) {
-//                        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-//                    }
-//                    alertDialog.show();
-//                }
-//            }, 400);
-//        });
+                    if (alertDialog.getWindow() != null) {
+                        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                    }
+                    alertDialog.show();
+                }
+            }, 400);
+        });
     }
 
     @Override

@@ -70,37 +70,37 @@ public class DataPetugasFragment extends Fragment {
         progressbar.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
         progressbar.dismiss();
 
-//        adapter.setOnRecyclerViewItemClickListener((id_petugas, refresh) -> {
-//            if (id_petugas != null && refresh == null) {
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Retrofit retrofit = new Retrofit.Builder()
-//                                .baseUrl(url)
-//                                .addConverterFactory(GsonConverterFactory.create())
-//                                .build();
-//                        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-//                        Call<PetugasRepository> call = api.deleteSPP(id_petugas);
-//                        call.enqueue(new Callback<PetugasRepository>() {
-//                            @Override
-//                            public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
-//                                String value = response.body().getValue();
-//                                if (value.equals("1")) {
-//                                    loadDataPetugas();
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<PetugasRepository> call, Throwable t) {
-//                                Log.e("DEBUG", "Error: ", t);
-//                            }
-//                        });
-//                    }
-//                }, 500);
-//            } else {
-//                loadDataPetugas();
-//            }
-//        });
+        adapter.setOnRecyclerViewItemClickListener((id_petugas, refresh) -> {
+            if (id_petugas != null && refresh == null) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl(url)
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
+                        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+                        Call<PetugasRepository> call = api.deletePetugas(id_petugas);
+                        call.enqueue(new Callback<PetugasRepository>() {
+                            @Override
+                            public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
+                                String value = response.body().getValue();
+                                if (value.equals("1")) {
+                                    loadDataPetugas();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<PetugasRepository> call, Throwable t) {
+                                Log.e("DEBUG", "Error: ", t);
+                            }
+                        });
+                    }
+                }, 500);
+            } else {
+                loadDataPetugas();
+            }
+        });
 
         NestedScrollView scrollView = view.findViewById(R.id.scroll_data);
         scrollView.post(new Runnable() {

@@ -3,6 +3,7 @@ package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,37 +65,37 @@ public class DataSiswaFragment extends Fragment {
         progressbar.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
         progressbar.dismiss();
 
-//        adapter.setOnRecyclerViewItemClickListener((id_petugas, refresh) -> {
-//            if (id_petugas != null && refresh == null) {
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Retrofit retrofit = new Retrofit.Builder()
-//                                .baseUrl(url)
-//                                .addConverterFactory(GsonConverterFactory.create())
-//                                .build();
-//                        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-//                        Call<PetugasRepository> call = api.deleteSPP(id_petugas);
-//                        call.enqueue(new Callback<PetugasRepository>() {
-//                            @Override
-//                            public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
-//                                String value = response.body().getValue();
-//                                if (value.equals("1")) {
-//                                    loadDataPetugas();
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<PetugasRepository> call, Throwable t) {
-//                                Log.e("DEBUG", "Error: ", t);
-//                            }
-//                        });
-//                    }
-//                }, 500);
-//            } else {
-//                loadDataPetugas();
-//            }
-//        });
+        adapter.setOnRecyclerViewItemClickListener((nisn, refresh) -> {
+            if (nisn != null && refresh == null) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl(url)
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
+                        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+                        Call<SiswaRepository> call = api.deleteSiswa(nisn);
+                        call.enqueue(new Callback<SiswaRepository>() {
+                            @Override
+                            public void onResponse(Call<SiswaRepository> call, Response<SiswaRepository> response) {
+                                String value = response.body().getValue();
+                                if (value.equals("1")) {
+                                    loadDataSiswa();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<SiswaRepository> call, Throwable t) {
+                                Log.e("DEBUG", "Error: ", t);
+                            }
+                        });
+                    }
+                }, 500);
+            } else {
+                loadDataSiswa();
+            }
+        });
 
         NestedScrollView scrollView = view.findViewById(R.id.scroll_data);
         scrollView.post(new Runnable() {

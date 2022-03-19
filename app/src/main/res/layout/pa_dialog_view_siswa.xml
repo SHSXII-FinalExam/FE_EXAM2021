@@ -18,7 +18,7 @@
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@drawable/card_gradient_grey"
+            android:background="@drawable/card_gradient_red"
             android:elevation="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/textTitle"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +33,7 @@
             android:fontFamily="@font/avenir_demi"
             android:gravity="center_vertical"
             android:padding="16dp"
-            android:text="Detail SPP"
+            android:text="Detail Siswa"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,40 +41,87 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvTahun"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvNama"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
             android:fontFamily="@font/avenir_medium"
-            android:text="Tahun       : Dummy"
+            android:text="Nama                : Dummy"
             android:textColor="#251F39"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textTitle" />
 
         <TextView
-            android:id="@+id/tvNominal"
+            android:id="@+id/tvNISN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/avenir_medium"
-            android:text="Nominal   : Rp.0"
+            android:text="NISN                 : NISN"
             android:textColor="#251F39"
-            app:layout_constraintStart_toStartOf="@+id/tvTahun"
-            app:layout_constraintTop_toBottomOf="@+id/tvTahun" />
+            app:layout_constraintStart_toStartOf="@+id/tvNama"
+            app:layout_constraintTop_toBottomOf="@+id/tvNama" />
 
         <TextView
-            android:id="@+id/tvAngkatan"
+            android:id="@+id/tvNIS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/avenir_medium"
+            android:text="NIS                    : NIS"
+            android:textColor="#251F39"
+            app:layout_constraintStart_toStartOf="@+id/tvNama"
+            app:layout_constraintTop_toBottomOf="@+id/tvNISN" />
+
+        <TextView
+            android:id="@+id/tvKelas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/avenir_medium"
+            android:text="Kelas                 : Dummy"
+            android:textColor="#251F39"
+            app:layout_constraintStart_toStartOf="@+id/tvNama"
+            app:layout_constraintTop_toBottomOf="@+id/tvNIS" />
+
+        <TextView
+            android:id="@+id/tvAlamat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/avenir_medium"
+            android:text="Alamat              : Dummy"
+            android:textColor="#251F39"
+            app:layout_constraintEnd_toEndOf="@+id/tvNama"
+            app:layout_constraintStart_toStartOf="@+id/tvNama"
+            app:layout_constraintTop_toBottomOf="@+id/tvKelas" />
+
+        <TextView
+            android:id="@+id/tvNoTelp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/avenir_medium"
+            android:text="Nomor Ponsel : Dummy"
+            android:textColor="#251F39"
+            app:layout_constraintStart_toStartOf="@+id/tvNama"
+            app:layout_constraintTop_toBottomOf="@+id/tvAlamat" />
+
+        <TextView
+            android:id="@+id/tvPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="60dp"
             android:fontFamily="@font/avenir_medium"
-            android:text="Angkatan : Dummy"
+            android:text="Password          : [ENCRYPTED]"
             android:textColor="#251F39"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tvNominal"
-            app:layout_constraintTop_toBottomOf="@+id/tvNominal" />
+            app:layout_constraintStart_toStartOf="@+id/tvNISN"
+            app:layout_constraintTop_toBottomOf="@+id/tvNoTelp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
@@ -101,7 +148,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="40dp"
-        android:background="@drawable/gradient_grey"
+        android:background="@drawable/gradient_red"
         android:fontFamily="@font/avenir_demi"
         android:text="Ok"
         android:textColor="@color/colorWhite"

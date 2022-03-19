@@ -67,6 +67,11 @@ public interface ApiEndPoints {
 
     // Punya Admin
     @FormUrlEncoded
+    @POST("dbDeleteSiswa.php")
+    Call<SiswaRepository> deleteSiswa(
+            @Field("id_spp") String nisn);
+
+    @FormUrlEncoded
     @POST("dbDeleteSPP.php")
     Call<SPPRepository> deleteSPP(
             @Field("id_spp") String id_spp);
@@ -75,6 +80,11 @@ public interface ApiEndPoints {
     @POST("dbDeleteKelas.php")
     Call<KelasRepository> deleteKelas(
             @Field("id_kelas") String id_kelas);
+
+    @FormUrlEncoded
+    @POST("dbDeletePetugas.php")
+    Call<PetugasRepository> deletePetugas(
+            @Field("id_petugas") String id_petugas);
 
     @FormUrlEncoded
     @POST("dbUpdateSPP.php")

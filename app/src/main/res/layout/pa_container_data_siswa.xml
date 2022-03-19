@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
-    app:cardCornerRadius="8dp"
+    app:cardCornerRadius="4dp"
     app:cardElevation="0dp"
     app:rippleColor="@android:color/transparent">
 
@@ -39,7 +39,7 @@
             app:tint="@color/white" />
 
         <TextView
-            android:id="@+id/nama"
+            android:id="@+id/tvNama"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -54,18 +54,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/NISN"
+            android:id="@+id/tvNISN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/avenir_medium"
             android:text="NISN"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/nama"
-            app:layout_constraintTop_toBottomOf="@+id/nama" />
+            app:layout_constraintStart_toStartOf="@+id/tvNama"
+            app:layout_constraintTop_toBottomOf="@+id/tvNama" />
 
         <TextView
-            android:id="@+id/Kelas"
+            android:id="@+id/tvKelas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="56dp"
@@ -75,8 +75,8 @@
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/nama"
-            app:layout_constraintTop_toBottomOf="@+id/NISN" />
+            app:layout_constraintStart_toStartOf="@+id/tvNama"
+            app:layout_constraintTop_toBottomOf="@+id/tvNISN" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

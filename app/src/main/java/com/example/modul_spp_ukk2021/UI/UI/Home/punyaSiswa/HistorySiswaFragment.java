@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -31,6 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class HistorySiswaFragment extends Fragment {
+    private TextView tagihan_count;
     private RecyclerView recyclerView;
     private HistorySiswaAdapter adapter;
     private List<Pembayaran> pembayaran = new ArrayList<>();
@@ -42,6 +44,8 @@ public class HistorySiswaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.ps_fragment_history, container, false);
+
+        tagihan_count = view.findViewById(R.id.tagihan_count);
 
         adapter = new HistorySiswaAdapter(getActivity(), pembayaran);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -97,6 +101,13 @@ public class HistorySiswaFragment extends Fragment {
                     adapter = new HistorySiswaAdapter(getActivity(), pembayaran);
                     recyclerView.setAdapter(adapter);
                     runLayoutAnimation(recyclerView);
+
+                    int i;
+                    for (i = 0; i < results.size(); i++) {
+                        int a = results.get(i).getNominal();
+                    }
+
+                    tagihan_count.setText("(" + String.valueOf(i) + ")");
                 }
             }
 
