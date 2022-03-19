@@ -113,6 +113,7 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
                                 siswa = response.body().getResult();
                                 adapter = new HomePetugasAdapter(HomePetugasActivity.this, siswa);
                                 recyclerView.setAdapter(adapter);
+                                runLayoutAnimation(recyclerView);
 
                                 int i = results.size();
                                 tagihan_count.setText("(" + String.valueOf(i) + ")");

@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:optRoundCardBackgroundColor="#F7F7F7"
-        app:optRoundCardCornerRadius="16dp"
+        app:optRoundCardCornerRadius="8dp"
         app:optRoundCardLeftBottomCorner="false"
         app:optRoundCardRightBottomCorner="false"
         app:rippleColor="@android:color/transparent">

@@ -29,8 +29,8 @@
             android:id="@+id/deleteData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="12dp"
             android:paddingStart="8dp"
+            android:paddingTop="12dp"
             android:paddingEnd="16dp"
             android:paddingBottom="12dp"
             android:src="@drawable/ic_more"
@@ -40,14 +40,16 @@
 
         <TextView
             android:id="@+id/nama"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/avenir_medium"
+            android:singleLine="true"
             android:text="Dummy"
             android:textColor="@color/white"
             android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/deleteData"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,7 +68,7 @@
             android:id="@+id/Kelas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="56dp"
             android:layout_marginBottom="12dp"
             android:fontFamily="@font/avenir_medium"
             android:text="Siswa Dummy"

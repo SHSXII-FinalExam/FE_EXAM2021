@@ -38,6 +38,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     private static final int POS_PETUGAS = 3;
     private static final int POS_LOGOUT = 5;
 
+    private Toolbar toolbar;
     private String[] screenTitles;
     private Drawable[] screenIcons;
     private SlidingRootNav slidingRootNav;
@@ -84,7 +85,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pa_activity_home);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
@@ -134,15 +135,19 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
         if (position == POS_SISWA) {
             Fragment selectedScreen = new DataSiswaFragment();
             showFragment(selectedScreen);
+            toolbar.setTitle("Data Siswa");
         } else if (position == POS_KELAS) {
             Fragment selectedScreen = new DataKelasFragment();
             showFragment(selectedScreen);
+            toolbar.setTitle("Data Kelas");
         } else if (position == POS_SPP) {
             Fragment selectedScreen = new DataSPPFragment();
             showFragment(selectedScreen);
+            toolbar.setTitle("Data SPP");
         } else if (position == POS_PETUGAS) {
             Fragment selectedScreen = new DataPetugasFragment();
             showFragment(selectedScreen);
+            toolbar.setTitle("Data Petugas");
         } else if (position == POS_LOGOUT) {
             Intent intent = new Intent(HomeAdminActivity.this, LoginChoiceActivity.class);
             startActivity(intent);
