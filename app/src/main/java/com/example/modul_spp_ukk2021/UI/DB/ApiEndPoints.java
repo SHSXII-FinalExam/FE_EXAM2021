@@ -69,7 +69,7 @@ public interface ApiEndPoints {
     @FormUrlEncoded
     @POST("dbDeleteSiswa.php")
     Call<SiswaRepository> deleteSiswa(
-            @Field("id_spp") String nisn);
+            @Field("nisn") String nisn);
 
     @FormUrlEncoded
     @POST("dbDeleteSPP.php")
