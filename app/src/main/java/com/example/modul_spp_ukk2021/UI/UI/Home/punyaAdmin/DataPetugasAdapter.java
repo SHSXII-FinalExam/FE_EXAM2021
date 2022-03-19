@@ -96,8 +96,8 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
                     AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
                     View view = LayoutInflater.from(context).inflate(R.layout.pa_dialog_view_petugas, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
                     builder.setView(view);
-                    ((TextView) view.findViewById(R.id.tvNama)).setText("Nama         : " + petugas.getNama_petugas());
-                    ((TextView) view.findViewById(R.id.tvUsername)).setText("Username : " + petugas.getUsername());
+                    ((TextView) view.findViewById(R.id.tvFillNama)).setText(petugas.getNama_petugas());
+                    ((TextView) view.findViewById(R.id.tvFillUsername)).setText(petugas.getUsername());
                     ((TextView) view.findViewById(R.id.tvLevel)).setText("Level          : " + petugas.getLevel());
                     final AlertDialog alertDialog = builder.create();
                     view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {

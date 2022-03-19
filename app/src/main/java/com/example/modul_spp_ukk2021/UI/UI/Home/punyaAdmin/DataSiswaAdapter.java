@@ -91,11 +91,11 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
                     AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
                     View view = LayoutInflater.from(context).inflate(R.layout.pa_dialog_view_siswa, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
                     builder.setView(view);
-                    ((TextView) view.findViewById(R.id.tvNama)).setText("Nama                : " + siswa.getNama());
+                    ((TextView) view.findViewById(R.id.tvFillNama)).setText(siswa.getNama());
                     ((TextView) view.findViewById(R.id.tvNISN)).setText("NISN                 : " + siswa.getNisn());
                     ((TextView) view.findViewById(R.id.tvNIS)).setText("NIS                    : " + siswa.getNis());
                     ((TextView) view.findViewById(R.id.tvKelas)).setText("Kelas                 : " + siswa.getNama_kelas());
-                    ((TextView) view.findViewById(R.id.tvAlamat)).setText("Alamat              : " + siswa.getAlamat());
+                    ((TextView) view.findViewById(R.id.tvFillAlamat)).setText(siswa.getAlamat());
                     ((TextView) view.findViewById(R.id.tvNoTelp)).setText("Nomor Ponsel : " + siswa.getNo_telp());
                     final AlertDialog alertDialog = builder.create();
                     view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
@@ -174,16 +174,13 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView deleteData;
         MaterialCardView detailSiswa;
-        TextView tvNama, tvNISN, tvNIS, tvKelas, tvAlamat, tvNoTelp;
+        TextView tvNama, tvNISN, tvKelas;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvNama = itemView.findViewById(R.id.tvNama);
             tvNISN = itemView.findViewById(R.id.tvNISN);
-            tvNIS = itemView.findViewById(R.id.tvNIS);
             tvKelas = itemView.findViewById(R.id.tvKelas);
-            tvAlamat = itemView.findViewById(R.id.tvAlamat);
-            tvNoTelp = itemView.findViewById(R.id.tvNoTelp);
             detailSiswa = itemView.findViewById(R.id.detailSiswa);
             deleteData = itemView.findViewById(R.id.deleteData);
         }
