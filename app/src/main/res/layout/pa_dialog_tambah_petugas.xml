@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutDialogContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,7 +20,7 @@
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@drawable/card_gradient_blue"
+            android:background="@drawable/card_gradient_green"
             android:elevation="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/textTitle"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +35,7 @@
             android:fontFamily="@font/avenir_demi"
             android:gravity="center_vertical"
             android:padding="16dp"
-            android:text="Tambah Kelas"
+            android:text="Tambah Petugas"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,128 +43,133 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvNamaKelas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:fontFamily="@font/avenir_demi"
-            android:text="Kelas         :"
-            android:textColor="#251F39"
-            app:layout_constraintBottom_toBottomOf="@+id/nama_kelas"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/nama_kelas" />
-
-        <Button
-            android:id="@+id/nama_kelas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/dialog_background"
-            android:drawableEnd="@drawable/ic_arrow_down"
-            android:drawableTint="#251F39"
-            android:elevation="0dp"
-            android:fontFamily="@font/avenir_medium"
-            android:text="Kelas"
-            android:textAllCaps="false"
-            android:textColor="#251F39"
-            app:backgroundTint="@null"
-            app:layout_constraintStart_toEndOf="@+id/tvNamaKelas"
-            app:layout_constraintTop_toBottomOf="@+id/textTitle" />
-
-        <TextView
-            android:id="@+id/namajurusan_kelas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:fontFamily="@font/avenir_medium"
-            android:text=" RPL/TKJ "
-            android:textColor="#251F39"
-            app:layout_constraintBottom_toBottomOf="@+id/nama_kelas"
-            app:layout_constraintStart_toEndOf="@+id/nama_kelas"
-            app:layout_constraintTop_toTopOf="@+id/nama_kelas" />
-
-        <EditText
-            android:id="@+id/namanomor_kelas"
+            android:id="@+id/tvNama"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/avenir_medium"
+            android:text="Nama         :"
+            android:textColor="#251F39"
+            app:layout_constraintBottom_toBottomOf="@+id/nama_petugas"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/nama_petugas" />
+
+        <EditText
+            android:id="@+id/nama_petugas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:fontFamily="@font/avenir_medium"
-            android:inputType="number"
-            android:maxLength="2"
+            android:inputType="text"
+            android:maxLength="35"
             android:singleLine="true"
             android:textColor="#0D0A19"
-            app:layout_constraintBottom_toBottomOf="@+id/nama_kelas"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/namajurusan_kelas"
-            app:layout_constraintTop_toTopOf="@+id/nama_kelas" />
+            app:layout_constraintStart_toEndOf="@+id/tvNama"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
         <TextView
-            android:id="@+id/tvJurusan"
+            android:id="@+id/tvUsername"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenir_medium"
+            android:text="Username :"
+            android:textColor="#251F39"
+            app:layout_constraintBottom_toBottomOf="@+id/username_petugas"
+            app:layout_constraintStart_toStartOf="@+id/tvNama"
+            app:layout_constraintTop_toTopOf="@+id/username_petugas" />
+
+        <EditText
+            android:id="@+id/username_petugas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/avenir_medium"
+            android:inputType="text"
+            android:maxLength="25"
+            android:singleLine="true"
+            android:textColor="#0D0A19"
+            app:layout_constraintEnd_toEndOf="@+id/nama_petugas"
+            app:layout_constraintStart_toEndOf="@+id/tvUsername"
+            app:layout_constraintTop_toBottomOf="@+id/nama_petugas" />
+
+        <TextView
+            android:id="@+id/tvLevel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/avenir_demi"
-            android:text="Jurusan     :"
+            android:fontFamily="@font/avenir_medium"
+            android:text="Level          :"
             android:textColor="#251F39"
-            app:layout_constraintBottom_toBottomOf="@+id/jurusan_kelas"
-            app:layout_constraintStart_toStartOf="@+id/tvNamaKelas"
-            app:layout_constraintTop_toTopOf="@+id/jurusan_kelas" />
+            app:layout_constraintBottom_toBottomOf="@+id/level_petugas"
+            app:layout_constraintStart_toStartOf="@+id/tvNama"
+            app:layout_constraintTop_toTopOf="@+id/level_petugas" />
 
         <RadioGroup
-            android:id="@+id/jurusan_kelas"
+            android:id="@+id/level_petugas"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/namanomor_kelas"
-            app:layout_constraintStart_toEndOf="@+id/tvJurusan"
-            app:layout_constraintTop_toBottomOf="@+id/nama_kelas">
+            app:layout_constraintEnd_toEndOf="@+id/nama_petugas"
+            app:layout_constraintStart_toEndOf="@+id/tvLevel"
+            app:layout_constraintTop_toBottomOf="@+id/username_petugas">
 
             <RadioButton
-                android:id="@+id/RPL"
+                android:id="@+id/Petugas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/avenir_medium"
-                android:text="RPL"
+                android:text="Petugas"
                 android:textColor="#251F39" />
 
             <RadioButton
-                android:id="@+id/TKJ"
+                android:id="@+id/Admin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/avenir_medium"
-                android:text="TKJ"
+                android:text="Admin"
                 android:textColor="#251F39" />
         </RadioGroup>
 
         <TextView
-            android:id="@+id/tvAngkatan"
+            android:id="@+id/tvPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/avenir_demi"
-            android:text="Angkatan :"
+            android:fontFamily="@font/avenir_medium"
+            android:text="Password  :"
             android:textColor="#251F39"
-            app:layout_constraintBottom_toBottomOf="@+id/angkatan_kelas"
-            app:layout_constraintStart_toStartOf="@+id/tvJurusan"
-            app:layout_constraintTop_toTopOf="@+id/angkatan_kelas" />
+            app:layout_constraintBottom_toBottomOf="@+id/layout_password"
+            app:layout_constraintStart_toStartOf="@+id/tvUsername"
+            app:layout_constraintTop_toTopOf="@+id/layout_password" />
 
-        <EditText
-            android:id="@+id/angkatan_kelas"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="60dp"
-            android:fontFamily="@font/avenir_medium"
-            android:autofillHints=""
-            android:inputType="number"
-            android:maxLength="2"
-            android:singleLine="true"
-            android:textColor="#0D0A19"
+            android:textColorHint="#9A9EA7"
+            app:boxBackgroundColor="#F6F8FE"
+            app:boxStrokeColor="@color/colorNeutral"
+            app:hintEnabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/namanomor_kelas"
-            app:layout_constraintStart_toEndOf="@+id/tvAngkatan"
-            app:layout_constraintTop_toBottomOf="@+id/jurusan_kelas" />
+            app:layout_constraintEnd_toEndOf="@+id/nama_petugas"
+            app:layout_constraintStart_toEndOf="@+id/tvPassword"
+            app:layout_constraintTop_toBottomOf="@+id/level_petugas"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:id="@+id/password_petugas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/avenir_medium"
+                android:inputType="textPassword"
+                android:maxLength="34"
+                android:singleLine="true"
+                android:textColor="#0D0A19" />
+        </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
@@ -192,7 +196,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="40dp"
-        android:background="@drawable/gradient_blue"
+        android:background="@drawable/gradient_green"
         android:fontFamily="@font/avenir_demi"
         android:text="Kirim"
         android:textAllCaps="false"

@@ -149,6 +149,8 @@ public class DataSPPAdapter extends RecyclerView.Adapter<DataSPPAdapter.ViewHold
                                             if (value.equals("1")) {
                                                 alertDialog2.dismiss();
                                                 mListener.onItemClicked(null, "1");
+                                            } else {
+                                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
                                             }
                                         }
 

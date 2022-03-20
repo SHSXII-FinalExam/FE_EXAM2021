@@ -3,8 +3,10 @@ package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -38,6 +40,7 @@ public class LoginSiswaActivity extends AppCompatActivity {
     private MaterialButton masuk;
     private OptRoundCardView card;
     private ProgressDialog progressbar;
+    private SharedPreferences sharedprefs;
     private EditText editNISN, editPassword;
     private TextInputLayout textInputLayout, textInputLayout2;
 
@@ -45,6 +48,7 @@ public class LoginSiswaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_siswa);
+        sharedprefs = getSharedPreferences("myprefs", Context.MODE_PRIVATE);
 
         card = findViewById(R.id.card);
         masuk = findViewById(R.id.masuk);
@@ -128,6 +132,7 @@ public class LoginSiswaActivity extends AppCompatActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            sharedprefs.edit().putString("nisn",nisn).apply();
                             Intent intent = new Intent(LoginSiswaActivity.this, HomeSiswaActivity.class);
                             intent.putExtra("nisnSiswa", nisn);
                             startActivity(intent);

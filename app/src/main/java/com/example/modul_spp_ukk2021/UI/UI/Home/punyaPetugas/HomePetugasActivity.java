@@ -3,9 +3,11 @@ package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -62,6 +64,7 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
     private RecyclerView recyclerView;
     private HomePetugasAdapter adapter;
     private SlidingRootNav slidingRootNav;
+    private SharedPreferences sharedprefs;
     private TextView tagihan_count, nama, level;
     private List<Siswa> siswa = new ArrayList<>();
 
@@ -69,6 +72,7 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pp_activity_home);
+        sharedprefs = getSharedPreferences("myprefs", Context.MODE_PRIVATE);
 
         nama = findViewById(R.id.nama);
         level = findViewById(R.id.level);
@@ -167,6 +171,7 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
     @Override
     public void onItemSelected(int position) {
         if (position == POS_LOGOUT) {
+            sharedprefs.edit().clear().apply();
             Intent intent = new Intent(HomePetugasActivity.this, LoginChoiceActivity.class);
             startActivity(intent);
         }
@@ -194,6 +199,7 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
                 .setMessage("Apakah anda yakin ingin keluar dari akun ini?")
                 .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        sharedprefs.edit().clear().apply();
                         Intent intent = new Intent(HomePetugasActivity.this, LoginChoiceActivity.class);
                         startActivity(intent);
                     }

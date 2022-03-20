@@ -1,10 +1,13 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -63,6 +66,7 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
     private String[] screenTitles;
     private Drawable[] screenIcons;
     private SlidingRootNav slidingRootNav;
+    private SharedPreferences sharedprefs;
     private FragmentRefreshListener historyRefreshListener, tagihanRefreshListener;
 
     public interface FragmentRefreshListener {
@@ -89,6 +93,7 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ps_activity_home);
+        sharedprefs = getSharedPreferences("myprefs", Context.MODE_PRIVATE);
 
         nama = findViewById(R.id.nama);
         kelas = findViewById(R.id.kelas);
@@ -167,6 +172,7 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
     @Override
     public void onItemSelected(int position) {
         if (position == POS_LOGOUT) {
+            sharedprefs.edit().clear().apply();
             Intent intent = new Intent(HomeSiswaActivity.this, LoginChoiceActivity.class);
             startActivity(intent);
         }
@@ -197,6 +203,7 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
                 .setMessage("Apakah anda yakin ingin keluar dari akun ini?")
                 .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        sharedprefs.edit().clear().apply();
                         Intent intent = new Intent(HomeSiswaActivity.this, LoginChoiceActivity.class);
                         startActivity(intent);
                     }

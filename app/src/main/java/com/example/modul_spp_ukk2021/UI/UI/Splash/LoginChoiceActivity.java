@@ -1,8 +1,10 @@
 package com.example.modul_spp_ukk2021.UI.UI.Splash;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
@@ -30,18 +32,18 @@ public class LoginChoiceActivity extends AppCompatActivity {
         TextView btnLoginSiswa = findViewById(R.id.btn_siswa);
         TextView btnLoginPetugas = findViewById(R.id.btn_petugas);
 
-        ScaleAnimation scaleAnim = new ScaleAnimation(
-                1f, 1f,
-                0f, 1f,
-                Animation.ABSOLUTE, 0,
-                Animation.RELATIVE_TO_SELF, 1);
-        scaleAnim.setDuration(500);
-        scaleAnim.setRepeatCount(0);
-        scaleAnim.setInterpolator(new AccelerateDecelerateInterpolator());
-        scaleAnim.setFillAfter(true);
-        scaleAnim.setFillBefore(false);
-        scaleAnim.setFillEnabled(true);
-        card.startAnimation(scaleAnim);
+//        ScaleAnimation scaleAnim = new ScaleAnimation(
+//                1f, 1f,
+//                0f, 1f,
+//                Animation.ABSOLUTE, 0,
+//                Animation.RELATIVE_TO_SELF, 1);
+//        scaleAnim.setDuration(500);
+//        scaleAnim.setRepeatCount(0);
+//        scaleAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+//        scaleAnim.setFillAfter(true);
+//        scaleAnim.setFillBefore(false);
+//        scaleAnim.setFillEnabled(true);
+//        card.startAnimation(scaleAnim);
 
         btnLoginSiswa.setOnClickListener(v -> {
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginChoiceActivity.this, card, ViewCompat.getTransitionName(card));

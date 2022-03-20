@@ -7,11 +7,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupMenu;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -45,6 +50,7 @@ public class DataKelasFragment extends Fragment {
     private DataKelasAdapter adapter;
     private RecyclerView recyclerView;
     private ProgressDialog progressbar;
+    private String nama_kelas, jurusan_kelas;
     private List<Kelas> kelas = new ArrayList<>();
 
     public DataKelasFragment() {
@@ -124,10 +130,46 @@ public class DataKelasFragment extends Fragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogTheme);
                 View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_kelas, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
                 builder.setView(view);
+                final Button nama = (Button) view.findViewById(R.id.nama_kelas);
+                final EditText namanomor = (EditText) view.findViewById(R.id.namanomor_kelas);
                 final EditText angkatan = (EditText) view.findViewById(R.id.angkatan_kelas);
-                final EditText nama_kelas = (EditText) view.findViewById(R.id.nama_kelas);
-                final EditText jurusan = (EditText) view.findViewById(R.id.jurusan_kelas);
+                final RadioGroup jurusan = (RadioGroup) view.findViewById(R.id.jurusan_kelas);
+                final TextView namajurusan = (TextView) view.findViewById(R.id.namajurusan_kelas);
                 final AlertDialog alertDialog = builder.create();
+
+                jurusan.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup radioGroup, int id) {
+                        switch (id) {
+                            case R.id.RPL:
+                                jurusan_kelas = "RPL";
+                                namajurusan.setText(jurusan_kelas);
+                                break;
+                            case R.id.TKJ:
+                                jurusan_kelas = "TKJ";
+                                namajurusan.setText(jurusan_kelas);
+                                break;
+                        }
+                    }
+                });
+
+                nama.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        PopupMenu dropDownMenu = new PopupMenu(getContext(), nama);
+                        dropDownMenu.getMenuInflater().inflate(R.menu.dropdown_kelas, dropDownMenu.getMenu());
+                        dropDownMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem menuItem) {
+                                nama.setText(menuItem.getTitle().toString());
+                                nama_kelas = menuItem.getTitle().toString();
+                                return true;
+                            }
+                        });
+                        dropDownMenu.show();
+                    }
+                });
+
                 view.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -136,7 +178,7 @@ public class DataKelasFragment extends Fragment {
                                 .addConverterFactory(GsonConverterFactory.create())
                                 .build();
                         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-                        Call<KelasRepository> call = api.createKelas(angkatan.getText().toString(), nama_kelas.getText().toString(), jurusan.getText().toString());
+                        Call<KelasRepository> call = api.createKelas(angkatan.getText().toString(), nama_kelas + " " + jurusan_kelas + " " + namanomor.getText().toString(), jurusan_kelas.trim());
                         call.enqueue(new Callback<KelasRepository>() {
                             @Override
                             public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
@@ -145,6 +187,8 @@ public class DataKelasFragment extends Fragment {
                                 if (value.equals("1")) {
                                     loadDataKelas();
                                     alertDialog.dismiss();
+                                } else {
+                                    Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                                 }
                             }
 

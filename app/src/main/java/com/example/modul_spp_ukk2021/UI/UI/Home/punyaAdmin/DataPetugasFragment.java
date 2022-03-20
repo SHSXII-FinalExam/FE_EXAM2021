@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -42,8 +43,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class DataPetugasFragment extends Fragment {
-    private DataPetugasAdapter adapter;
+    private String level_petugas;
     private RecyclerView recyclerView;
+    private DataPetugasAdapter adapter;
     private ProgressDialog progressbar;
     private List<Petugas> petugas = new ArrayList<>();
 
@@ -117,56 +119,79 @@ public class DataPetugasFragment extends Fragment {
             }
         });
 
-//        MaterialButton tambahPetugas = view.findViewById(R.id.tambah_petugas);
-//        tambahPetugas.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogTheme);
-//                View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_spp, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
-//                builder.setView(view);
-//                final EditText angkatan = (EditText) view.findViewById(R.id.angkatan_spp);
-//                final EditText tahun = (EditText) view.findViewById(R.id.tahun_spp);
-//                final EditText nominal = (EditText) view.findViewById(R.id.nominal_spp);
-//                final AlertDialog alertDialog = builder.create();
-//                view.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Retrofit retrofit = new Retrofit.Builder()
-//                                .baseUrl(url)
-//                                .addConverterFactory(GsonConverterFactory.create())
-//                                .build();
-//                        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-//                        Call<SPPRepository> call = api.createSPP(angkatan.getText().toString(), tahun.getText().toString(), nominal.getText().toString());
-//                        call.enqueue(new Callback<PetugasRepository>() {
-//                            @Override
-//                            public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
-//                                String value = response.body().getValue();
-//                                String message = response.body().getMessage();
-//                                if (value.equals("1")) {
-//                                    loadDataPetugas();
-//                                    alertDialog.dismiss();
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<PetugasRepository> call, Throwable t) {
-//                                Log.e("DEBUG", "Error: ", t);
-//                            }
-//                        });
-//                    }
-//                });
-//                view.findViewById(R.id.buttonBatal).setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        alertDialog.dismiss();
-//                    }
-//                });
-//                if (alertDialog.getWindow() != null) {
-//                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-//                }
-//                alertDialog.show();
-//            }
-//        });
+        MaterialButton tambahPetugas = view.findViewById(R.id.tambah_petugas);
+        tambahPetugas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogTheme);
+                View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_petugas, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
+                builder.setView(view);
+                final EditText nama_petugas = (EditText) view.findViewById(R.id.nama_petugas);
+                final EditText username_petugas = (EditText) view.findViewById(R.id.username_petugas);
+                final EditText password_petugas = (EditText) view.findViewById(R.id.password_petugas);
+                final RadioGroup level = (RadioGroup) view.findViewById(R.id.level_petugas);
+                final AlertDialog alertDialog = builder.create();
+
+                level.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup radioGroup, int id) {
+                        switch (id) {
+                            case R.id.Petugas:
+                                level_petugas = "Petugas";
+                                break;
+                            case R.id.Admin:
+                                level_petugas = "Admin";
+                                break;
+                        }
+                    }
+                });
+
+                view.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (level_petugas != null && password_petugas.getText().toString().trim().length() > 0) {
+                            Retrofit retrofit = new Retrofit.Builder()
+                                    .baseUrl(url)
+                                    .addConverterFactory(GsonConverterFactory.create())
+                                    .build();
+                            ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+                            Call<PetugasRepository> call = api.createPetugas(level_petugas, username_petugas.getText().toString(), password_petugas.getText().toString(), nama_petugas.getText().toString());
+                            call.enqueue(new Callback<PetugasRepository>() {
+                                @Override
+                                public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
+                                    String value = response.body().getValue();
+                                    String message = response.body().getMessage();
+                                    if (value.equals("1")) {
+                                        loadDataPetugas();
+                                        alertDialog.dismiss();
+                                    } else {
+                                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<PetugasRepository> call, Throwable t) {
+                                    Log.e("DEBUG", "Error: ", t);
+                                }
+                            });
+                        } else {
+                            Toast.makeText(getContext(), "Data belum lengkap, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                view.findViewById(R.id.buttonBatal).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.dismiss();
+                    }
+                });
+                if (alertDialog.getWindow() != null) {
+                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                }
+                alertDialog.show();
+            }
+        });
 
         return view;
     }

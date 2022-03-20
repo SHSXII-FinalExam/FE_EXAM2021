@@ -66,34 +66,37 @@
 
         <TextView
             android:id="@+id/tvNISN"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/avenir_medium"
             android:text="NISN                 : NISN"
             android:textColor="#251F39"
+            app:layout_constraintEnd_toEndOf="@+id/tvFillNama"
             app:layout_constraintStart_toStartOf="@+id/tvNama"
             app:layout_constraintTop_toBottomOf="@+id/tvFillNama" />
 
         <TextView
             android:id="@+id/tvNIS"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/avenir_medium"
             android:text="NIS                    : NIS"
             android:textColor="#251F39"
+            app:layout_constraintEnd_toEndOf="@+id/tvNISN"
             app:layout_constraintStart_toStartOf="@+id/tvNama"
             app:layout_constraintTop_toBottomOf="@+id/tvNISN" />
 
         <TextView
             android:id="@+id/tvKelas"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/avenir_medium"
             android:text="Kelas                 : Dummy"
             android:textColor="#251F39"
+            app:layout_constraintEnd_toEndOf="@+id/tvNIS"
             app:layout_constraintStart_toStartOf="@+id/tvNama"
             app:layout_constraintTop_toBottomOf="@+id/tvNIS" />
 
@@ -121,18 +124,19 @@
 
         <TextView
             android:id="@+id/tvNoTelp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/avenir_medium"
             android:text="Nomor Ponsel : Dummy"
             android:textColor="#251F39"
+            app:layout_constraintEnd_toEndOf="@+id/tvFillAlamat"
             app:layout_constraintStart_toStartOf="@+id/tvNama"
             app:layout_constraintTop_toBottomOf="@+id/tvFillAlamat" />
 
         <TextView
             android:id="@+id/tvPassword"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="60dp"
@@ -140,6 +144,7 @@
             android:text="Password          : [ENCRYPTED]"
             android:textColor="#251F39"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tvNoTelp"
             app:layout_constraintStart_toStartOf="@+id/tvNISN"
             app:layout_constraintTop_toBottomOf="@+id/tvNoTelp" />
     </androidx.constraintlayout.widget.ConstraintLayout>

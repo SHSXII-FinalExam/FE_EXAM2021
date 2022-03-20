@@ -147,6 +147,8 @@ public class DataSPPFragment extends Fragment {
                                 if (value.equals("1")) {
                                     loadDataSPP();
                                     alertDialog.dismiss();
+                                } else {
+                                    Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                                 }
                             }
 

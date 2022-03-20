@@ -1,10 +1,13 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -42,6 +45,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     private String[] screenTitles;
     private Drawable[] screenIcons;
     private SlidingRootNav slidingRootNav;
+    private SharedPreferences sharedprefs;
     private FragmentRefreshListener sppRefreshListener, kelasRefreshListener, petugasRefreshListener, siswaRefreshListener, transaksiRefreshListener;
 
     public interface FragmentRefreshListener {
@@ -84,6 +88,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pa_activity_home);
+        sharedprefs = getSharedPreferences("myprefs", Context.MODE_PRIVATE);
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -122,6 +127,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
                 .setMessage("Apakah anda yakin ingin keluar dari akun ini?")
                 .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        sharedprefs.edit().clear().apply();
                         Intent intent = new Intent(HomeAdminActivity.this, LoginChoiceActivity.class);
                         startActivity(intent);
                     }
@@ -149,6 +155,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
             showFragment(selectedScreen);
             toolbar.setTitle("Data Petugas");
         } else if (position == POS_LOGOUT) {
+            sharedprefs.edit().clear().apply();
             Intent intent = new Intent(HomeAdminActivity.this, LoginChoiceActivity.class);
             startActivity(intent);
         }

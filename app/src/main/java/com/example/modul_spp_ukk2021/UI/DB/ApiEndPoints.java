@@ -101,6 +101,15 @@ public interface ApiEndPoints {
             @Field("angkatan") String angkatan);
 
     @FormUrlEncoded
+    @POST("dbUpdatePetugas.php")
+    Call<PetugasRepository> updatePetugas(
+            @Field("id_petugas") String id_petugas,
+            @Field("level") String level,
+            @Field("username") String username,
+            @Field("password") String password,
+            @Field("nama_petugas") String nama_petugas);
+
+    @FormUrlEncoded
     @POST("dbCreateSPP.php")
     Call<SPPRepository> createSPP(
             @Field("angkatan") String angkatan,
@@ -113,6 +122,14 @@ public interface ApiEndPoints {
             @Field("angkatan") String angkatan,
             @Field("nama_kelas") String nama_kelas,
             @Field("jurusan") String jurusan);
+
+    @FormUrlEncoded
+    @POST("dbCreatePetugas.php")
+    Call<PetugasRepository> createPetugas(
+            @Field("level") String level,
+            @Field("username") String username,
+            @Field("password") String password,
+            @Field("nama_petugas") String nama_petugas);
 
     @GET("dbReadSPP.php")
     Call<SPPRepository> viewDataSPP();

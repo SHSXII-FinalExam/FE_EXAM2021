@@ -42,30 +42,33 @@
 
         <TextView
             android:id="@+id/tvTahun"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
             android:fontFamily="@font/avenir_medium"
             android:text="Tahun       : Dummy"
             android:textColor="#251F39"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textTitle" />
 
         <TextView
             android:id="@+id/tvNominal"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/avenir_medium"
             android:text="Nominal   : Rp.0"
             android:textColor="#251F39"
+            app:layout_constraintEnd_toEndOf="@+id/tvTahun"
             app:layout_constraintStart_toStartOf="@+id/tvTahun"
             app:layout_constraintTop_toBottomOf="@+id/tvTahun" />
 
         <TextView
             android:id="@+id/tvAngkatan"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="60dp"
@@ -73,6 +76,7 @@
             android:text="Angkatan : Dummy"
             android:textColor="#251F39"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tvTahun"
             app:layout_constraintStart_toStartOf="@+id/tvNominal"
             app:layout_constraintTop_toBottomOf="@+id/tvNominal" />
     </androidx.constraintlayout.widget.ConstraintLayout>

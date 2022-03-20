@@ -59,6 +59,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
             android:fontFamily="@font/avenir_medium"
             android:text=" Dummy"
             android:textColor="#0D0A19"
@@ -87,7 +88,7 @@
             android:maxLength="11"
             android:singleLine="true"
             android:textColor="#0D0A19"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tahun_spp"
             app:layout_constraintStart_toEndOf="@+id/tvTahun"
             app:layout_constraintTop_toBottomOf="@+id/tahun_spp" />
 
@@ -112,7 +113,7 @@
             android:text=" Dummy"
             android:textColor="#0D0A19"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tahun_spp"
             app:layout_constraintStart_toEndOf="@+id/tvTahun"
             app:layout_constraintTop_toBottomOf="@+id/nominal_spp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
