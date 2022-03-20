@@ -128,37 +128,43 @@ public class DataSPPAdapter extends RecyclerView.Adapter<DataSPPAdapter.ViewHold
                             final TextView angkatan = (TextView) view2.findViewById(R.id.angkatan_spp);
                             final TextView tahun = (TextView) view2.findViewById(R.id.tahun_spp);
                             final EditText nominal = (EditText) view2.findViewById(R.id.nominal_spp);
+                            final AlertDialog alertDialog2 = builder.create();
+
                             angkatan.setText(" " + spp.getAngkatan());
                             tahun.setText(" " + spp.getTahun());
                             nominal.setText(spp.getNominal().toString());
-                            final AlertDialog alertDialog2 = builder.create();
+
                             view2.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    Retrofit retrofit = new Retrofit.Builder()
-                                            .baseUrl(url)
-                                            .addConverterFactory(GsonConverterFactory.create())
-                                            .build();
-                                    ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-                                    Call<SPPRepository> call = api.updateSPP(spp.getId_spp(), nominal.toString());
-                                    call.enqueue(new Callback<SPPRepository>() {
-                                        @Override
-                                        public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
-                                            String value = response.body().getValue();
-                                            String message = response.body().getMessage();
-                                            if (value.equals("1")) {
-                                                alertDialog2.dismiss();
-                                                mListener.onItemClicked(null, "1");
-                                            } else {
-                                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                                    if (nominal.getText().toString().trim().length() > 0) {
+                                        Retrofit retrofit = new Retrofit.Builder()
+                                                .baseUrl(url)
+                                                .addConverterFactory(GsonConverterFactory.create())
+                                                .build();
+                                        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+                                        Call<SPPRepository> call = api.updateSPP(spp.getId_spp(), nominal.getText().toString());
+                                        call.enqueue(new Callback<SPPRepository>() {
+                                            @Override
+                                            public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
+                                                String value = response.body().getValue();
+                                                String message = response.body().getMessage();
+                                                if (value.equals("1")) {
+                                                    alertDialog2.dismiss();
+                                                    mListener.onItemClicked(null, "1");
+                                                } else {
+                                                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                                                }
                                             }
-                                        }
 
-                                        @Override
-                                        public void onFailure(Call<SPPRepository> call, Throwable t) {
-                                            Log.e("DEBUG", "Error: ", t);
-                                        }
-                                    });
+                                            @Override
+                                            public void onFailure(Call<SPPRepository> call, Throwable t) {
+                                                Log.e("DEBUG", "Error: ", t);
+                                            }
+                                        });
+                                    } else {
+                                        Toast.makeText(context, "Data belum lengkap, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             });
                             view2.findViewById(R.id.buttonBatal).setOnClickListener(new View.OnClickListener() {

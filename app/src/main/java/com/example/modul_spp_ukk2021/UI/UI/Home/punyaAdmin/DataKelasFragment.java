@@ -173,30 +173,34 @@ public class DataKelasFragment extends Fragment {
                 view.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl(url)
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .build();
-                        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-                        Call<KelasRepository> call = api.createKelas(angkatan.getText().toString(), nama_kelas + " " + jurusan_kelas + " " + namanomor.getText().toString(), jurusan_kelas.trim());
-                        call.enqueue(new Callback<KelasRepository>() {
-                            @Override
-                            public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
-                                String value = response.body().getValue();
-                                String message = response.body().getMessage();
-                                if (value.equals("1")) {
-                                    loadDataKelas();
-                                    alertDialog.dismiss();
-                                } else {
-                                    Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                        if (nama_kelas != null && jurusan_kelas != null && angkatan.getText().toString().trim().length() > 0) {
+                            Retrofit retrofit = new Retrofit.Builder()
+                                    .baseUrl(url)
+                                    .addConverterFactory(GsonConverterFactory.create())
+                                    .build();
+                            ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+                            Call<KelasRepository> call = api.createKelas(angkatan.getText().toString(), nama_kelas + " " + jurusan_kelas + " " + namanomor.getText().toString(), jurusan_kelas.trim());
+                            call.enqueue(new Callback<KelasRepository>() {
+                                @Override
+                                public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
+                                    String value = response.body().getValue();
+                                    String message = response.body().getMessage();
+                                    if (value.equals("1")) {
+                                        loadDataKelas();
+                                        alertDialog.dismiss();
+                                    } else {
+                                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onFailure(Call<KelasRepository> call, Throwable t) {
-                                Log.e("DEBUG", "Error: ", t);
-                            }
-                        });
+                                @Override
+                                public void onFailure(Call<KelasRepository> call, Throwable t) {
+                                    Log.e("DEBUG", "Error: ", t);
+                                }
+                            });
+                        } else {
+                            Toast.makeText(getContext(), "Data belum lengkap, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
                 view.findViewById(R.id.buttonBatal).setOnClickListener(new View.OnClickListener() {

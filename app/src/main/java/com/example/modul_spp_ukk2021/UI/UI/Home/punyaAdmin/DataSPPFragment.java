@@ -133,30 +133,34 @@ public class DataSPPFragment extends Fragment {
                 view.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl(url)
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .build();
-                        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-                        Call<SPPRepository> call = api.createSPP(angkatan.getText().toString(), tahun.getText().toString(), nominal.getText().toString());
-                        call.enqueue(new Callback<SPPRepository>() {
-                            @Override
-                            public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
-                                String value = response.body().getValue();
-                                String message = response.body().getMessage();
-                                if (value.equals("1")) {
-                                    loadDataSPP();
-                                    alertDialog.dismiss();
-                                } else {
-                                    Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                        if (angkatan.getText().toString().trim().length() > 0 && tahun.getText().toString().trim().length() > 0 && nominal.getText().toString().trim().length() > 0) {
+                            Retrofit retrofit = new Retrofit.Builder()
+                                    .baseUrl(url)
+                                    .addConverterFactory(GsonConverterFactory.create())
+                                    .build();
+                            ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+                            Call<SPPRepository> call = api.createSPP(angkatan.getText().toString(), tahun.getText().toString(), nominal.getText().toString());
+                            call.enqueue(new Callback<SPPRepository>() {
+                                @Override
+                                public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
+                                    String value = response.body().getValue();
+                                    String message = response.body().getMessage();
+                                    if (value.equals("1")) {
+                                        loadDataSPP();
+                                        alertDialog.dismiss();
+                                    } else {
+                                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onFailure(Call<SPPRepository> call, Throwable t) {
-                                Log.e("DEBUG", "Error: ", t);
-                            }
-                        });
+                                @Override
+                                public void onFailure(Call<SPPRepository> call, Throwable t) {
+                                    Log.e("DEBUG", "Error: ", t);
+                                }
+                            });
+                        } else {
+                            Toast.makeText(getContext(), "Data belum lengkap, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
                 view.findViewById(R.id.buttonBatal).setOnClickListener(new View.OnClickListener() {

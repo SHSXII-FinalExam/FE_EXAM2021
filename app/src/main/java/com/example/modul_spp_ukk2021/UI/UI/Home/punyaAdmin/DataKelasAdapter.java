@@ -174,30 +174,34 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
                             view2.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    Retrofit retrofit = new Retrofit.Builder()
-                                            .baseUrl(url)
-                                            .addConverterFactory(GsonConverterFactory.create())
-                                            .build();
-                                    ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-                                    Call<KelasRepository> call = api.updateKelas(kelas.getId_kelas(), nama + " " + jurusan_kelas + " " + namanomor.getText().toString(), jurusan_kelas, angkatan.getText().toString());
-                                    call.enqueue(new Callback<KelasRepository>() {
-                                        @Override
-                                        public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
-                                            String value = response.body().getValue();
-                                            String message = response.body().getMessage();
-                                            if (value.equals("1")) {
-                                                alertDialog2.dismiss();
-                                                mListener.onItemClicked(null, "1");
-                                            } else {
-                                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                                    if (nama_kelas != null && jurusan_kelas != null && angkatan.getText().toString().trim().length() > 0) {
+                                        Retrofit retrofit = new Retrofit.Builder()
+                                                .baseUrl(url)
+                                                .addConverterFactory(GsonConverterFactory.create())
+                                                .build();
+                                        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+                                        Call<KelasRepository> call = api.updateKelas(kelas.getId_kelas(), nama + " " + jurusan_kelas + " " + namanomor.getText().toString(), jurusan_kelas, angkatan.getText().toString());
+                                        call.enqueue(new Callback<KelasRepository>() {
+                                            @Override
+                                            public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
+                                                String value = response.body().getValue();
+                                                String message = response.body().getMessage();
+                                                if (value.equals("1")) {
+                                                    alertDialog2.dismiss();
+                                                    mListener.onItemClicked(null, "1");
+                                                } else {
+                                                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                                                }
                                             }
-                                        }
 
-                                        @Override
-                                        public void onFailure(Call<KelasRepository> call, Throwable t) {
-                                            Log.e("DEBUG", "Error: ", t);
-                                        }
-                                    });
+                                            @Override
+                                            public void onFailure(Call<KelasRepository> call, Throwable t) {
+                                                Log.e("DEBUG", "Error: ", t);
+                                            }
+                                        });
+                                    } else {
+                                        Toast.makeText(context, "Data belum lengkap, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             });
                             view2.findViewById(R.id.buttonBatal).setOnClickListener(new View.OnClickListener() {
