@@ -151,6 +151,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="60dp"
             android:textColorHint="#9A9EA7"
+            android:theme="@style/EditText"
             app:boxBackgroundColor="#F6F8FE"
             app:boxStrokeColor="@color/colorNeutral"
             app:hintEnabled="false"

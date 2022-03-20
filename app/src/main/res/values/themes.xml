@@ -38,6 +38,10 @@
         <item name="android:fontFamily">@font/avenir_medium</item>
     </style>
 
+    <style name="EditText" parent="">
+        <item name="colorPrimary">@color/colorNeutral</item>
+    </style>
+
     <style name="ToolbarText" parent="@style/TextAppearance.MaterialComponents.Headline6">
         <item name="fontFamily">@font/avenir_medium</item>
         <item name="android:fontFamily">@font/avenir_medium</item>
