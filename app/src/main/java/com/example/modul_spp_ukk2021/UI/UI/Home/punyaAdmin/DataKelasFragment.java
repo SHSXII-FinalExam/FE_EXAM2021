@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Kelas;
 import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
+import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.KelasRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
 import com.google.android.material.button.MaterialButton;
@@ -149,6 +151,8 @@ public class DataKelasFragment extends Fragment {
                                 jurusan_kelas = "TKJ";
                                 namajurusan.setText(jurusan_kelas);
                                 break;
+                            default:
+                                jurusan_kelas = null;
                         }
                     }
                 });
@@ -158,6 +162,34 @@ public class DataKelasFragment extends Fragment {
                     public void onClick(View v) {
                         PopupMenu dropDownMenu = new PopupMenu(getContext(), nama);
                         dropDownMenu.getMenuInflater().inflate(R.menu.dropdown_kelas, dropDownMenu.getMenu());
+
+//                        Retrofit retrofit = new Retrofit.Builder()
+//                                .baseUrl(url)
+//                                .addConverterFactory(GsonConverterFactory.create())
+//                                .build();
+//                        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+//                        Call<KelasRepository> call = api.viewDataKelas();
+//                        call.enqueue(new Callback<KelasRepository>() {
+//                            @Override
+//                            public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
+//                                String value = response.body().getValue();
+//                                List<Kelas> results = response.body().getResult();
+//
+//                                if (value.equals("1")) {
+//                                    for (int i = 0; i < results.size(); i++) {
+//                                        dropDownMenu.getMenu().add(Menu.NONE, 1, Menu.NONE, results.get(i).getAngkatan());
+//                                    }
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<KelasRepository> call, Throwable t) {
+//                                progressbar.dismiss();
+//                                Toast.makeText(getContext(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
+//                                Log.e("DEBUG", "Error: ", t);
+//                            }
+//                        });
+
                         dropDownMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {

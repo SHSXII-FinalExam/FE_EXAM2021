@@ -5,6 +5,7 @@ public class Siswa {
     String nis;
     String nama;
     String id_kelas;
+    String id_spp;
     String alamat;
     String no_telp;
     String nama_kelas;
@@ -25,6 +26,10 @@ public class Siswa {
 
     public String getId_kelas() {
         return id_kelas;
+    }
+
+    public String getId_spp() {
+        return id_spp;
     }
 
     public String getAlamat() {

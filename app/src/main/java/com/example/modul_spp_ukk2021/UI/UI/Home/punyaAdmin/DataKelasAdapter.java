@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -159,6 +160,7 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
                                 public void onClick(View v) {
                                     PopupMenu dropDownMenu = new PopupMenu(context, nama_kelas);
                                     dropDownMenu.getMenuInflater().inflate(R.menu.dropdown_kelas, dropDownMenu.getMenu());
+
                                     dropDownMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                                         @Override
                                         public boolean onMenuItemClick(MenuItem menuItem) {
