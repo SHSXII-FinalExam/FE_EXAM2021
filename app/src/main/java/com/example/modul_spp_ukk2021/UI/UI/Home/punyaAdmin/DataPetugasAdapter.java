@@ -3,6 +3,7 @@ package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Build;
 import android.util.Log;
 import android.view.Gravity;
@@ -92,6 +93,7 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
                 ((TextView) view.findViewById(R.id.tvFillUsername)).setText(petugas.getUsername());
                 ((TextView) view.findViewById(R.id.tvLevel)).setText("Level          : " + petugas.getLevel());
                 final AlertDialog alertDialog = builder.create();
+
                 view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

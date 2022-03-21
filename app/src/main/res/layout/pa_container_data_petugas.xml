@@ -13,7 +13,7 @@
         android:id="@+id/container_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/gradient_green">
+        android:background="@drawable/gradient_red">
 
         <ImageView
             android:id="@+id/imageView3"

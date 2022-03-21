@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
@@ -50,7 +51,7 @@ public class HistorySiswaAdapter extends RecyclerView.Adapter<HistorySiswaAdapte
         holder.tvBulan.setText(monthNames[pembayaran.getBulan_bayar() - 1] + " " + pembayaran.getTahun_bayar());
 
         holder.tvNominal.setText("+" + format.format(pembayaran.getNominal()));
-        holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#2EDCB5")));
+        holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.cyan)));
 
         if (pembayaran.getTgl_bayar() != null) {
             SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy", localeID);

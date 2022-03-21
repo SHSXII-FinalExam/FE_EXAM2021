@@ -110,7 +110,7 @@
             <View
                 android:id="@+id/view2"
                 android:layout_width="match_parent"
-                android:layout_height="2sp"
+                android:layout_height="2dp"
                 android:layout_marginTop="16dp"
                 android:background="#EEEEEE"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -154,7 +154,7 @@
             <View
                 android:id="@+id/view4"
                 android:layout_width="match_parent"
-                android:layout_height="2sp"
+                android:layout_height="2dp"
                 android:layout_marginBottom="24dp"
                 android:background="#EEEEEE"
                 app:layout_constraintBottom_toBottomOf="parent"

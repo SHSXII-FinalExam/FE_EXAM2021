@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
@@ -60,20 +61,20 @@ public class PembayaranAdapter extends RecyclerView.Adapter<PembayaranAdapter.Vi
             holder.tvNominal.setText(format.format(pembayaran.getKurang_bayar()));
             holder.tvNominal.setTextColor(Color.parseColor("#FFC700"));
             holder.tvStatus.setText("Kurang");
-            holder.updateData.setBackgroundColor(Color.parseColor("#FFC700"));
-            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#FFC700")));
+            holder.updateData.setBackgroundColor(ContextCompat.getColor(context, R.color.kurang));
+            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.kurang)));
         } else if (pembayaran.getJumlah_bayar().equals(pembayaran.getNominal())) {
             holder.updateData.setVisibility(View.INVISIBLE);
             holder.updateData.setEnabled(false);
             holder.tvNominal.setText("+" + format.format(pembayaran.getNominal()));
-            holder.tvNominal.setTextColor(Color.parseColor("#2EDCB5"));
+            holder.tvNominal.setTextColor(ContextCompat.getColor(context, R.color.lunas));
             holder.tvStatus.setText(pembayaran.getStatus_bayar());
-            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#2EDCB5")));
+            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.cyan)));
         } else {
             holder.tvNominal.setText(format.format(pembayaran.getNominal()));
-            holder.tvNominal.setTextColor(Color.parseColor("#FF4646"));
+            holder.tvNominal.setTextColor(ContextCompat.getColor(context, R.color.belum));
             holder.tvStatus.setText(pembayaran.getStatus_bayar());
-            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#FF4646")));
+            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.belum)));
         }
 
         holder.updateData.setOnClickListener(v -> mListener.onItemClicked(pembayaran.getId_pembayaran(), pembayaran.getJumlah_bayar(), pembayaran.getNominal()));

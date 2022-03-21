@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
@@ -58,13 +59,13 @@ public class TagihanSiswaAdapter extends RecyclerView.Adapter<TagihanSiswaAdapte
         if (pembayaran.getKurang_bayar() == 0) {
             holder.tvStatus.setText(pembayaran.getStatus_bayar());
             holder.tvNominal.setText(format.format(pembayaran.getNominal()));
-            holder.tvNominal.setTextColor(Color.parseColor("#FF4646"));
-            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#FF4646")));
+            holder.tvNominal.setTextColor(ContextCompat.getColor(context, R.color.belum));
+            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.belum)));
         } else {
             holder.tvStatus.setText("Kurang");
             holder.tvNominal.setText(format.format(pembayaran.getKurang_bayar()));
-            holder.tvNominal.setTextColor(Color.parseColor("#FFC700"));
-            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#FFC700")));
+            holder.tvNominal.setTextColor(ContextCompat.getColor(context, R.color.kurang));
+            holder.materialCardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.kurang));
         }
     }
 
