@@ -103,10 +103,16 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (getSiswaRefreshListener() != null || getKelasRefreshListener() != null || getSPPRefreshListener() != null || getPetugasRefreshListener() != null) {
+                if (getSiswaRefreshListener() != null) {
                     getSiswaRefreshListener().onRefresh();
+                }
+                if (getKelasRefreshListener() != null) {
                     getKelasRefreshListener().onRefresh();
+                }
+                if (getSPPRefreshListener() != null) {
                     getSPPRefreshListener().onRefresh();
+                }
+                if (getPetugasRefreshListener() != null) {
                     getPetugasRefreshListener().onRefresh();
                 }
 
