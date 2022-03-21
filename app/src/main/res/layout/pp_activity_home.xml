@@ -16,130 +16,145 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/profile_pict"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="12dp"
-        android:background="@drawable/bg_profilepict2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/nama"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-    <TextView
-        android:id="@+id/nama"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:fontFamily="@font/avenir_demi"
-        android:maxEms="7"
-        android:text="Dummy"
-        android:textColor="#251F39"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/level"
-        app:layout_constraintEnd_toStartOf="@+id/profile_pict"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/halo" />
-
-    <TextView
-        android:id="@+id/halo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/avenir_bold"
-        android:text="Halo,"
-        android:textColor="#8A959E"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/nama"
-        app:layout_constraintStart_toStartOf="@+id/nama"
-        app:layout_constraintTop_toTopOf="@+id/profile_pict"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <TextView
-        android:id="@+id/level"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/avenir_medium"
-        android:text="Staff level:"
-        android:textColor="#8A959E"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_pict"
-        app:layout_constraintStart_toStartOf="@+id/nama"
-        app:layout_constraintTop_toBottomOf="@+id/nama"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/search_bar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:focusableInTouchMode="true"
-        app:boxBackgroundColor="#F5F5F5"
-        app:boxCornerRadiusBottomEnd="4dp"
-        app:boxCornerRadiusBottomStart="4dp"
-        app:boxCornerRadiusTopEnd="4dp"
-        app:boxCornerRadiusTopStart="4dp"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:hintAnimationEnabled="false"
-        app:hintEnabled="false"
-        app:layout_constraintEnd_toEndOf="@+id/profile_pict"
-        app:layout_constraintStart_toStartOf="@+id/nama"
-        app:layout_constraintTop_toBottomOf="@+id/profile_pict">
-
-        <EditText
-            android:id="@+id/searchSiswa"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_search"
-            android:drawablePadding="23dp"
-            android:focusableInTouchMode="true"
-            android:fontFamily="@font/avenir_medium"
-            android:hint="Cari Siswa"
-            android:imeOptions="actionSearch"
-            android:paddingTop="11dp"
-            android:paddingBottom="11dp"
-            android:singleLine="true"
-            android:textColorHint="#B5BAC5" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/dataSiswa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/avenir_medium"
-        android:text="Data Siswa"
-        android:textColor="#251F39"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/search_bar"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar" />
-
-    <TextView
-        android:id="@+id/dataSiswa_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:fontFamily="@font/avenir_demi"
-        android:text="(99)"
-        android:textColor="#C8C4D9"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/dataSiswa"
-        app:layout_constraintTop_toTopOf="@+id/dataSiswa" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerDataSiswa"
-        android:layout_width="0dp"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
-        android:layoutAnimation="@anim/layout_animation_from_bottom"
-        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/search_bar"
-        app:layout_constraintStart_toStartOf="@+id/search_bar"
-        app:layout_constraintTop_toBottomOf="@+id/dataSiswa"
-        tools:listitem="@layout/pp_container_data_siswa" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/profile_pict"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/bg_profilepict2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/nama"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/nama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/avenir_demi"
+                android:maxEms="7"
+                android:text="Dummy"
+                android:textColor="#251F39"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/level"
+                app:layout_constraintEnd_toStartOf="@+id/profile_pict"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/halo" />
+
+            <TextView
+                android:id="@+id/halo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/avenir_bold"
+                android:text="Halo,"
+                android:textColor="#8A959E"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/nama"
+                app:layout_constraintStart_toStartOf="@+id/nama"
+                app:layout_constraintTop_toTopOf="@+id/profile_pict"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/avenir_medium"
+                android:text="Staff level:"
+                android:textColor="#8A959E"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/profile_pict"
+                app:layout_constraintStart_toStartOf="@+id/nama"
+                app:layout_constraintTop_toBottomOf="@+id/nama"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/search_bar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:focusableInTouchMode="true"
+                app:boxBackgroundColor="#F5F5F5"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:hintAnimationEnabled="false"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="@+id/profile_pict"
+                app:layout_constraintStart_toStartOf="@+id/nama"
+                app:layout_constraintTop_toBottomOf="@+id/profile_pict">
+
+                <EditText
+                    android:id="@+id/searchSiswa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_search"
+                    android:drawablePadding="23dp"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/avenir_medium"
+                    android:hint="Cari Siswa"
+                    android:imeOptions="actionSearch"
+                    android:paddingTop="11dp"
+                    android:paddingBottom="11dp"
+                    android:singleLine="true"
+                    android:textColorHint="#B5BAC5" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/dataSiswa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/avenir_medium"
+                android:text="Data Siswa"
+                android:textColor="#251F39"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/search_bar"
+                app:layout_constraintTop_toBottomOf="@+id/search_bar" />
+
+            <TextView
+                android:id="@+id/dataSiswa_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/avenir_demi"
+                android:text="(99)"
+                android:textColor="#C8C4D9"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/dataSiswa"
+                app:layout_constraintTop_toTopOf="@+id/dataSiswa" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerDataSiswa"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="12dp"
+                android:layoutAnimation="@anim/layout_animation_from_bottom"
+                android:overScrollMode="never"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/search_bar"
+                app:layout_constraintStart_toStartOf="@+id/search_bar"
+                app:layout_constraintTop_toBottomOf="@+id/dataSiswa"
+                tools:listitem="@layout/pp_container_data_siswa" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

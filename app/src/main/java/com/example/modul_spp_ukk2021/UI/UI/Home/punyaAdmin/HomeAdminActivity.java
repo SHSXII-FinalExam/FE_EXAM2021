@@ -7,9 +7,11 @@ import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
@@ -21,6 +23,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerAdapter;
@@ -46,6 +49,8 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     private Drawable[] screenIcons;
     private SlidingRootNav slidingRootNav;
     private SharedPreferences sharedprefs;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private boolean doubleBackToExitPressedOnce = false;
     private FragmentRefreshListener sppRefreshListener, kelasRefreshListener, petugasRefreshListener, siswaRefreshListener, transaksiRefreshListener;
 
     public interface FragmentRefreshListener {
@@ -94,15 +99,48 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
-        slidingRootNav = new SlidingRootNavBuilder(this)
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (getSiswaRefreshListener() != null || getKelasRefreshListener() != null || getSPPRefreshListener() != null || getPetugasRefreshListener() != null) {
+                    getSiswaRefreshListener().onRefresh();
+                    getKelasRefreshListener().onRefresh();
+                    getSPPRefreshListener().onRefresh();
+                    getPetugasRefreshListener().onRefresh();
+                }
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (swipeRefreshLayout.isRefreshing()) {
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                    }
+                }, 500);
+            }
+        });
+
+        slidingRootNav = new
+
+                SlidingRootNavBuilder(this)
                 .withToolbarMenuToggle(toolbar)
                 .withMenuOpened(true)
                 .withContentClickableWhenMenuOpened(false)
                 .withMenuLayout(R.layout.activity_sidenav)
+                .withDragDistance(120)
+                .withRootViewScale(0.7f)
+                .withRootViewElevation(5)
                 .inject();
 
-        screenIcons = loadScreenIcons();
-        screenTitles = loadScreenTitles();
+        screenIcons =
+
+                loadScreenIcons();
+
+        screenTitles =
+
+                loadScreenTitles();
 
         DrawerAdapter adapter = new DrawerAdapter(Arrays.asList(
                 createItemFor(POS_SISWA).setChecked(true),
@@ -115,7 +153,9 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
 
         RecyclerView list = findViewById(R.id.list);
         list.setNestedScrollingEnabled(false);
-        list.setLayoutManager(new LinearLayoutManager(this));
+        list.setLayoutManager(new
+
+                LinearLayoutManager(this));
         list.setAdapter(adapter);
 
         adapter.setSelected(POS_SISWA);
@@ -123,17 +163,23 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setMessage("Apakah anda yakin ingin keluar dari akun ini?")
-                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        sharedprefs.edit().clear().apply();
-                        Intent intent = new Intent(HomeAdminActivity.this, LoginChoiceActivity.class);
-                        startActivity(intent);
-                    }
-                })
-                .setNegativeButton("Tidak", null)
-                .show();
+        slidingRootNav.openMenu();
+        if (slidingRootNav.isMenuOpened()) {
+            if (doubleBackToExitPressedOnce) {
+                finishAffinity();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Tekan lagi untuk keluar...", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        }
     }
 
     @Override
@@ -171,19 +217,8 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_refresh) {
-            if (getSiswaRefreshListener() != null) {
-                getSiswaRefreshListener().onRefresh();
-            }
-            if (getKelasRefreshListener() != null) {
-                getKelasRefreshListener().onRefresh();
-            }
-            if (getSPPRefreshListener() != null) {
-                getSPPRefreshListener().onRefresh();
-            }
-            if (getPetugasRefreshListener() != null) {
-                getPetugasRefreshListener().onRefresh();
-            }
+        if (id == R.id.generate_data) {
+
         }
         return super.onOptionsItemSelected(item);
     }

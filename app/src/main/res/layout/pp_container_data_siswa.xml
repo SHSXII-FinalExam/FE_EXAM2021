@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
     app:cardBackgroundColor="#F6F8FE"
-    app:cardCornerRadius="4dp"
+    app:cardCornerRadius="8dp"
     app:cardElevation="0dp"
     app:rippleColor="@android:color/transparent">
 
@@ -17,7 +17,7 @@
             android:id="@+id/detailSiswa"
             android:layout_width="44dp"
             android:layout_height="0dp"
-            android:background="@drawable/button1_gradient"
+            android:background="@drawable/button2_gradient"
             app:backgroundTint="@null"
             app:icon="@drawable/ic_play"
             app:iconGravity="textStart"

@@ -15,94 +15,107 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/profile_frame"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="12dp"
-        android:background="@drawable/bg_profile"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-    <ImageView
-        android:id="@+id/profile_pict"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@drawable/bg_profilepict"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_frame"
-        app:layout_constraintEnd_toEndOf="@+id/profile_frame"
-        app:layout_constraintStart_toStartOf="@+id/profile_frame"
-        app:layout_constraintTop_toTopOf="@+id/profile_frame" />
-
-    <TextView
-        android:id="@+id/nama"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/avenir_demi"
-        android:maxEms="7"
-        android:text="Dummy Name"
-        android:textColor="#251F39"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/kelas"
-        app:layout_constraintStart_toEndOf="@+id/profile_frame"
-        app:layout_constraintTop_toTopOf="@+id/profile_frame"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <TextView
-        android:id="@+id/kelas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/avenir_medium"
-        android:text="Siswa Dummy"
-        android:textColor="#8A959E"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_frame"
-        app:layout_constraintStart_toEndOf="@+id/profile_frame"
-        app:layout_constraintTop_toBottomOf="@+id/nama" />
-
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:clipToPadding="false"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_frame">
-
-        <View
-            android:id="@+id/indicator"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:background="@drawable/tabnav_bg" />
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/tabnav_outline"
-            app:tabGravity="fill"
-            app:tabIndicatorHeight="0dp"
-            app:tabMode="fixed"
-            app:tabRippleColor="@null"
-            app:tabSelectedTextColor="#0D0A19"
-            app:tabTextAppearance="@style/MineCustomTabText"
-            app:tabTextColor="#9A9EA7" />
-
-    </FrameLayout>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/profile_frame"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/bg_profile"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/profile_pict"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/bg_profilepict"
+                app:layout_constraintBottom_toBottomOf="@+id/profile_frame"
+                app:layout_constraintEnd_toEndOf="@+id/profile_frame"
+                app:layout_constraintStart_toStartOf="@+id/profile_frame"
+                app:layout_constraintTop_toTopOf="@+id/profile_frame" />
+
+            <TextView
+                android:id="@+id/nama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/avenir_demi"
+                android:maxEms="7"
+                android:text="Dummy Name"
+                android:textColor="#251F39"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/kelas"
+                app:layout_constraintStart_toEndOf="@+id/profile_frame"
+                app:layout_constraintTop_toTopOf="@+id/profile_frame"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/kelas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/avenir_medium"
+                android:text="Siswa Dummy"
+                android:textColor="#8A959E"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/profile_frame"
+                app:layout_constraintStart_toEndOf="@+id/profile_frame"
+                app:layout_constraintTop_toBottomOf="@+id/nama" />
+
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profile_frame">
+
+                <View
+                    android:id="@+id/indicator"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/tabnav_bg" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/tabnav_outline"
+                    app:tabGravity="fill"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabMode="fixed"
+                    app:tabRippleColor="@null"
+                    app:tabSelectedTextColor="#0D0A19"
+                    app:tabTextAppearance="@style/MineCustomTabText"
+                    app:tabTextColor="#9A9EA7" />
+            </FrameLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:overScrollMode="never"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

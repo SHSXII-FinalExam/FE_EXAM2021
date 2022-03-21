@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
 import com.google.android.material.button.MaterialButton;
 
@@ -39,6 +40,7 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
         holder.tvKelas.setText(siswa.getNama_kelas());
 
         holder.btnSiswa.setOnClickListener(v -> {
+            Utils.preventTwoClick(v);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

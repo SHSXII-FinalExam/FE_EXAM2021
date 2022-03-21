@@ -9,11 +9,13 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
@@ -94,6 +96,7 @@ public class HistorySiswaFragment extends Fragment {
             public void onResponse(Call<PembayaranRepository> call, Response<PembayaranRepository> response) {
                 String value = response.body().getValue();
                 List<Pembayaran> results = response.body().getResult();
+                String message = response.body().getMessage();
 
                 Log.e("value", value);
                 if (value.equals("1")) {
@@ -108,6 +111,8 @@ public class HistorySiswaFragment extends Fragment {
                     }
 
                     tagihan_count.setText("(" + String.valueOf(i) + ")");
+                } else {
+                    Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                 }
             }
 

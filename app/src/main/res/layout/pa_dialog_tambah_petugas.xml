@@ -95,44 +95,6 @@
             app:layout_constraintTop_toBottomOf="@+id/nama_petugas" />
 
         <TextView
-            android:id="@+id/tvLevel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/avenir_medium"
-            android:text="Level          :"
-            android:textColor="#251F39"
-            app:layout_constraintBottom_toBottomOf="@+id/level_petugas"
-            app:layout_constraintStart_toStartOf="@+id/tvNama"
-            app:layout_constraintTop_toTopOf="@+id/level_petugas" />
-
-        <RadioGroup
-            android:id="@+id/level_petugas"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/nama_petugas"
-            app:layout_constraintStart_toEndOf="@+id/tvLevel"
-            app:layout_constraintTop_toBottomOf="@+id/username_petugas">
-
-            <RadioButton
-                android:id="@+id/Petugas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/avenir_medium"
-                android:text="Petugas"
-                android:textColor="#251F39" />
-
-            <RadioButton
-                android:id="@+id/Admin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/avenir_medium"
-                android:text="Admin"
-                android:textColor="#251F39" />
-        </RadioGroup>
-
-        <TextView
             android:id="@+id/tvPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -158,7 +120,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/nama_petugas"
             app:layout_constraintStart_toEndOf="@+id/tvPassword"
-            app:layout_constraintTop_toBottomOf="@+id/level_petugas"
+            app:layout_constraintTop_toBottomOf="@+id/username_petugas"
             app:passwordToggleEnabled="true">
 
             <EditText
@@ -171,6 +133,7 @@
                 android:singleLine="true"
                 android:textColor="#0D0A19" />
         </com.google.android.material.textfield.TextInputLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button

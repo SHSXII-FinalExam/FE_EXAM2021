@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -98,6 +99,7 @@ public class TagihanSiswaFragment extends Fragment {
             public void onResponse(Call<PembayaranRepository> call, Response<PembayaranRepository> response) {
                 String value = response.body().getValue();
                 List<Pembayaran> results = response.body().getResult();
+                String message = response.body().getMessage();
 
                 Log.e("value", value);
                 if (value.equals("1")) {
@@ -123,6 +125,8 @@ public class TagihanSiswaFragment extends Fragment {
                     format.setMaximumFractionDigits(0);
                     nominal.setText(format.format(total_sum));
                     tagihan_count.setText("(" + String.valueOf(i) + ")");
+                } else {
+                    Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                 }
             }
 

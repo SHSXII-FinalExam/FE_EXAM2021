@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
+import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
 import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
@@ -43,7 +44,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class DataPetugasFragment extends Fragment {
-    private String level_petugas;
     private RecyclerView recyclerView;
     private DataPetugasAdapter adapter;
     private ProgressDialog progressbar;
@@ -123,39 +123,25 @@ public class DataPetugasFragment extends Fragment {
         tambahPetugas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Utils.preventTwoClick(v);
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogTheme);
                 View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_petugas, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
                 builder.setView(view);
                 final EditText nama_petugas = (EditText) view.findViewById(R.id.nama_petugas);
                 final EditText username_petugas = (EditText) view.findViewById(R.id.username_petugas);
                 final EditText password_petugas = (EditText) view.findViewById(R.id.password_petugas);
-                final RadioGroup level = (RadioGroup) view.findViewById(R.id.level_petugas);
                 final AlertDialog alertDialog = builder.create();
-
-                level.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup radioGroup, int id) {
-                        switch (id) {
-                            case R.id.Petugas:
-                                level_petugas = "Petugas";
-                                break;
-                            case R.id.Admin:
-                                level_petugas = "Admin";
-                                break;
-                        }
-                    }
-                });
 
                 view.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (level_petugas != null && password_petugas.getText().toString().trim().length() > 0) {
+                        if (password_petugas.getText().toString().trim().length() > 0) {
                             Retrofit retrofit = new Retrofit.Builder()
                                     .baseUrl(url)
                                     .addConverterFactory(GsonConverterFactory.create())
                                     .build();
                             ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-                            Call<PetugasRepository> call = api.createPetugas(level_petugas, username_petugas.getText().toString(), password_petugas.getText().toString(), nama_petugas.getText().toString());
+                            Call<PetugasRepository> call = api.createPetugas("Petugas", username_petugas.getText().toString(), password_petugas.getText().toString(), nama_petugas.getText().toString());
                             call.enqueue(new Callback<PetugasRepository>() {
                                 @Override
                                 public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {

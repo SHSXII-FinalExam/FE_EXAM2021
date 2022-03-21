@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
+import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
 import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
 import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.LoginStaffActivity;
@@ -86,6 +87,7 @@ public class DataSPPAdapter extends RecyclerView.Adapter<DataSPPAdapter.ViewHold
         holder.tvNominal.setText(format.format(spp.getNominal()));
 
         holder.deleteData.setOnClickListener(v -> {
+            Utils.preventTwoClick(v);
             PopupMenu popup = new PopupMenu(context, v, Gravity.END, R.attr.popupMenuStyle, 0);
             MenuInflater inflater = popup.getMenuInflater();
             inflater.inflate(R.menu.cardmenu, popup.getMenu());
@@ -102,6 +104,7 @@ public class DataSPPAdapter extends RecyclerView.Adapter<DataSPPAdapter.ViewHold
         });
 
         holder.detailSPP.setOnClickListener(v -> {
+            Utils.preventTwoClick(v);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

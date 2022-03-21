@@ -30,6 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
+import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Kelas;
 import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
@@ -129,6 +130,7 @@ public class DataKelasFragment extends Fragment {
         tambahKelas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Utils.preventTwoClick(v);
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogTheme);
                 View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_kelas, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
                 builder.setView(view);

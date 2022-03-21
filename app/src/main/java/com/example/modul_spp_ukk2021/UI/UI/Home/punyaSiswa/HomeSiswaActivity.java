@@ -5,27 +5,31 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
+import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.os.Handler;
 import android.util.Log;
+import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityOptionsCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.modul_spp_ukk2021.R;
@@ -33,21 +37,17 @@ import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerAdapter;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerItem;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.SimpleItem;
-import com.example.modul_spp_ukk2021.UI.Data.Helper.SpaceItem;
+import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.LoginStaffActivity;
+import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.PembayaranActivity;
 import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
-import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,6 +67,8 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
     private Drawable[] screenIcons;
     private SlidingRootNav slidingRootNav;
     private SharedPreferences sharedprefs;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private boolean doubleBackToExitPressedOnce = false;
     private FragmentRefreshListener historyRefreshListener, tagihanRefreshListener;
 
     public interface FragmentRefreshListener {
@@ -100,15 +102,42 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
         TabLayout mTabs = findViewById(R.id.tab);
         View mIndicator = findViewById(R.id.indicator);
         ViewPager mViewPager = findViewById(R.id.viewPager);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (getHistoryRefreshListener() != null && getTagihanRefreshListener() != null) {
+                    getHistoryRefreshListener().onRefresh();
+                    getTagihanRefreshListener().onRefresh();
+                }
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (swipeRefreshLayout.isRefreshing()) {
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                    }
+                }, 500);
+            }
+        });
 
         SliderSetup(mTabs, mIndicator, mViewPager);
-        SideNavSetup(savedInstanceState);
+        SideNavSetup();
+    }
+
+    public void toggleRefreshing(boolean enabled) {
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setEnabled(enabled);
+        }
     }
 
     public void SliderSetup(TabLayout mTabs, View mIndicator, ViewPager mViewPager) {
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new TagihanSiswaFragment(), "Tagihan");
-        adapter.addFragment(new HistorySiswaFragment(), "History");
+        adapter.addFragment(new HistorySiswaFragment(), "Riwayat");
 
         mViewPager.setAdapter(adapter);
         mTabs.setupWithViewPager(mViewPager);
@@ -137,11 +166,12 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
 
             @Override
             public void onPageScrollStateChanged(int i) {
+                toggleRefreshing(i == ViewPager.SCROLL_STATE_IDLE);
             }
         });
     }
 
-    public void SideNavSetup(Bundle savedInstanceState) {
+    public void SideNavSetup() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -151,6 +181,9 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
                 .withMenuOpened(false)
                 .withContentClickableWhenMenuOpened(false)
                 .withMenuLayout(R.layout.activity_sidenav)
+                .withDragDistance(120)
+                .withRootViewScale(0.7f)
+                .withRootViewElevation(5)
                 .inject();
 
         screenIcons = loadScreenIcons();
@@ -188,28 +221,56 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_refresh) {
-            if (getHistoryRefreshListener() != null && getTagihanRefreshListener() != null) {
-                getHistoryRefreshListener().onRefresh();
-                getTagihanRefreshListener().onRefresh();
+        if (id == R.id.profile) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
+            View view = LayoutInflater.from(this).inflate(R.layout.pa_dialog_view_siswa, (ConstraintLayout) findViewById(R.id.layoutDialogContainer));
+            builder.setView(view);
+//            ((TextView) view.findViewById(R.id.tvFillNama)).setText(siswa.getNama());
+//            ((TextView) view.findViewById(R.id.tvNISN)).setText("NISN                 : " + siswa.getNisn());
+//            ((TextView) view.findViewById(R.id.tvNIS)).setText("NIS                    : " + siswa.getNis());
+//            ((TextView) view.findViewById(R.id.tvKelas)).setText("Kelas                 : " + siswa.getNama_kelas());
+//            ((TextView) view.findViewById(R.id.tvFillAlamat)).setText(siswa.getAlamat());
+//            ((TextView) view.findViewById(R.id.tvNoTelp)).setText("Nomor Ponsel : " + siswa.getNo_telp());
+            final AlertDialog alertDialog = builder.create();
+
+            view.findViewById(R.id.buttonTransaksi).setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.edit_siswa).setVisibility(View.INVISIBLE);
+
+            view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            if (alertDialog.getWindow() != null) {
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
             }
+            alertDialog.show();
         }
+
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setMessage("Apakah anda yakin ingin keluar dari akun ini?")
-                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        sharedprefs.edit().clear().apply();
-                        Intent intent = new Intent(HomeSiswaActivity.this, LoginChoiceActivity.class);
-                        startActivity(intent);
-                    }
-                })
-                .setNegativeButton("Tidak", null)
-                .show();
+        slidingRootNav.openMenu();
+        if (slidingRootNav.isMenuOpened()) {
+            if (doubleBackToExitPressedOnce) {
+                finishAffinity();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Tekan lagi untuk keluar...", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        }
     }
 
     @Override
@@ -235,7 +296,6 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
 
                 Log.e("value", value);
                 if (value.equals("1")) {
-
                     int i;
                     int total_sum = 0;
                     for (i = 0; i < results.size(); i++) {

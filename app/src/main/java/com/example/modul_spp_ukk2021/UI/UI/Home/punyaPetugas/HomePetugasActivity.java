@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,6 +19,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
@@ -28,6 +30,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerAdapter;
@@ -66,7 +69,9 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
     private SlidingRootNav slidingRootNav;
     private SharedPreferences sharedprefs;
     private TextView tagihan_count, nama, level;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private List<Siswa> siswa = new ArrayList<>();
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +93,24 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
         runLayoutAnimation(recyclerView);
 
         SideNavSetup(savedInstanceState);
+
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadDataSiswa();
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(swipeRefreshLayout.isRefreshing()) {
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                    }
+                }, 500);
+            }
+        });
 
         SearchSiswa.addTextChangedListener(new TextWatcher() {
             @Override
@@ -150,6 +173,9 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
                 .withMenuOpened(false)
                 .withContentClickableWhenMenuOpened(false)
                 .withMenuLayout(R.layout.activity_sidenav)
+                .withDragDistance(120)
+                .withRootViewScale(0.7f)
+                .withRootViewElevation(5)
                 .inject();
 
         screenIcons = loadScreenIcons();
@@ -166,6 +192,8 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
         list.setAdapter(adapter);
 
         adapter.setSelected(POS_DASHBOARD);
+
+        invalidateOptionsMenu();
     }
 
     @Override
@@ -181,31 +209,39 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar, menu);
+        MenuItem item = menu.findItem(R.id.profile);
+        item.setVisible(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_refresh) {
-            loadDataSiswa();
+        if (id == R.id.generate_data) {
+
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setMessage("Apakah anda yakin ingin keluar dari akun ini?")
-                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        sharedprefs.edit().clear().apply();
-                        Intent intent = new Intent(HomePetugasActivity.this, LoginChoiceActivity.class);
-                        startActivity(intent);
-                    }
-                })
-                .setNegativeButton("Tidak", null)
-                .show();
+        slidingRootNav.openMenu();
+        if (slidingRootNav.isMenuOpened()) {
+            if (doubleBackToExitPressedOnce) {
+                finishAffinity();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Tekan lagi untuk keluar...", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        }
     }
 
     @Override

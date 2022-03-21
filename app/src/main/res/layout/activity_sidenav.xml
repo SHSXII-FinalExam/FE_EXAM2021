@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/logo_backgroundsplash">
+    android:background="@drawable/logo_backgroundsplash_clean">
 
     <ImageView
         android:id="@+id/logo_ts"
         android:layout_width="@dimen/_124sdp"
         android:layout_height="@dimen/_40sdp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/logo_ts"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

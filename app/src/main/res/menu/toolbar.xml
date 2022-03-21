@@ -4,18 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.toolbar.MainActivity" >
 
-    <item android:id="@+id/action_refresh"
-        android:icon="@drawable/ic_refresh"
-        android:title="Refresh"
-        android:orderInCategory="1"
-        android:menuCategory="secondary"
+    <item android:id="@+id/profile"
+        android:icon="@drawable/bg_profilepict"
+        android:title=""
         app:showAsAction="ifRoom" />
 
     <item android:id="@+id/generate_data"
-        android:icon="@drawable/ic_refresh"
         android:title="Save as"
-        android:orderInCategory="1"
-        android:menuCategory="secondary"
         app:showAsAction="never" />
 
 </menu>

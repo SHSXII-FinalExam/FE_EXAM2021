@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
+import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Kelas;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.KelasRepository;
 import com.google.android.material.card.MaterialCardView;
@@ -76,6 +77,7 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
         holder.tvJurusan.setText(kelas.getJurusan());
 
         holder.deleteData.setOnClickListener(v -> {
+            Utils.preventTwoClick(v);
             PopupMenu popup = new PopupMenu(context, v, Gravity.END, R.attr.popupMenuStyle, 0);
             MenuInflater inflater = popup.getMenuInflater();
             inflater.inflate(R.menu.cardmenu, popup.getMenu());
@@ -92,6 +94,7 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
         });
 
         holder.detailKelas.setOnClickListener(v -> {
+            Utils.preventTwoClick(v);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

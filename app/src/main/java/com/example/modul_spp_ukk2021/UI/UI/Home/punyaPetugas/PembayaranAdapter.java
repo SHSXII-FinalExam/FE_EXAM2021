@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
@@ -77,7 +78,10 @@ public class PembayaranAdapter extends RecyclerView.Adapter<PembayaranAdapter.Vi
             holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.belum)));
         }
 
-        holder.updateData.setOnClickListener(v -> mListener.onItemClicked(pembayaran.getId_pembayaran(), pembayaran.getJumlah_bayar(), pembayaran.getNominal()));
+        holder.updateData.setOnClickListener(v -> {
+            Utils.preventTwoClick(v);
+            mListener.onItemClicked(pembayaran.getId_pembayaran(), pembayaran.getJumlah_bayar(), pembayaran.getNominal());
+        });
     }
 
     @Override

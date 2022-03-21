@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
+import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
@@ -45,7 +46,6 @@ import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.ViewHolder> {
     private Context context;
-    private String level_petugas;
     private List<Petugas> petugas;
     private static OnRecyclerViewItemClickListener mListener;
 
@@ -84,61 +84,47 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
             holder.tvNamaPetugas.setText("Anda");
             holder.deleteData.setVisibility(View.GONE);
             holder.container_layout.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient_grey));
+        } else if (petugas.getLevel().equals("Admin")) {
+            holder.deleteData.setVisibility(View.GONE);
+        }
 
-            holder.detailStaff.setOnClickListener(v -> {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
-                View view = LayoutInflater.from(context).inflate(R.layout.pa_dialog_view_petugas, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
-                builder.setView(view);
-                ((TextView) view.findViewById(R.id.tvFillNama)).setText(petugas.getNama_petugas());
-                ((TextView) view.findViewById(R.id.tvFillUsername)).setText(petugas.getUsername());
-                ((TextView) view.findViewById(R.id.tvLevel)).setText("Level          : " + petugas.getLevel());
-                final AlertDialog alertDialog = builder.create();
-
-                view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialog.dismiss();
+        holder.deleteData.setOnClickListener(v -> {
+            Utils.preventTwoClick(v);
+            PopupMenu popup = new PopupMenu(context, v, Gravity.END, R.attr.popupMenuStyle, 0);
+            MenuInflater inflater = popup.getMenuInflater();
+            inflater.inflate(R.menu.cardmenu, popup.getMenu());
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if (item.getItemId() == R.id.action_delete) {
+                        mListener.onItemClicked(petugas.getId_petugas(), null);
                     }
-                });
-                view.findViewById(R.id.buttonEdit).setVisibility(View.INVISIBLE);
-                if (alertDialog.getWindow() != null) {
-                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                    return true;
                 }
-                alertDialog.show();
+            });
+            popup.show();
+        });
+
+        holder.detailStaff.setOnClickListener(v -> {
+            Utils.preventTwoClick(v);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
+            View view = LayoutInflater.from(context).inflate(R.layout.pa_dialog_view_petugas, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
+            builder.setView(view);
+            ((TextView) view.findViewById(R.id.tvFillNama)).setText(petugas.getNama_petugas());
+            ((TextView) view.findViewById(R.id.tvFillUsername)).setText(petugas.getUsername());
+            ((TextView) view.findViewById(R.id.tvLevel)).setText("Level          : " + petugas.getLevel());
+            final AlertDialog alertDialog = builder.create();
+
+            view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.dismiss();
+                }
             });
 
-        } else {
-
-            holder.deleteData.setOnClickListener(v -> {
-                PopupMenu popup = new PopupMenu(context, v, Gravity.END, R.attr.popupMenuStyle, 0);
-                MenuInflater inflater = popup.getMenuInflater();
-                inflater.inflate(R.menu.cardmenu, popup.getMenu());
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        if (item.getItemId() == R.id.action_delete) {
-                            mListener.onItemClicked(petugas.getId_petugas(), null);
-                        }
-                        return true;
-                    }
-                });
-                popup.show();
-            });
-
-            holder.detailStaff.setOnClickListener(v -> {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
-                View view = LayoutInflater.from(context).inflate(R.layout.pa_dialog_view_petugas, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
-                builder.setView(view);
-                ((TextView) view.findViewById(R.id.tvFillNama)).setText(petugas.getNama_petugas());
-                ((TextView) view.findViewById(R.id.tvFillUsername)).setText(petugas.getUsername());
-                ((TextView) view.findViewById(R.id.tvLevel)).setText("Level          : " + petugas.getLevel());
-                final AlertDialog alertDialog = builder.create();
-                view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialog.dismiss();
-                    }
-                });
+            if (petugas.getUsername().equals(username) || petugas.getLevel().equals("Admin")) {
+                view.findViewById(R.id.buttonEdit).setVisibility(View.INVISIBLE);
+            } else {
                 view.findViewById(R.id.buttonEdit).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -150,7 +136,6 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
                         final EditText nama_petugas = (EditText) view2.findViewById(R.id.nama_petugas);
                         final EditText username_petugas = (EditText) view2.findViewById(R.id.username_petugas);
                         final EditText password_petugas = (EditText) view2.findViewById(R.id.password_petugas);
-                        final RadioGroup level = (RadioGroup) view2.findViewById(R.id.level_petugas);
                         final AlertDialog alertDialog2 = builder.create();
 
                         textTitle.setText("Edit Petugas");
@@ -158,38 +143,16 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
                         username_petugas.setText(petugas.getUsername());
                         password_petugas.setHint("New password");
 
-                        if (petugas.getLevel().equals("Petugas")) {
-                            level_petugas = "Petugas";
-                            level.check(R.id.Petugas);
-                        } else if (petugas.getLevel().equals("Admin")) {
-                            level_petugas = "Admin";
-                            level.check(R.id.Admin);
-                        }
-
-                        level.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(RadioGroup radioGroup, int id) {
-                                switch (id) {
-                                    case R.id.Petugas:
-                                        level_petugas = "Petugas";
-                                        break;
-                                    case R.id.Admin:
-                                        level_petugas = "Admin";
-                                        break;
-                                }
-                            }
-                        });
-
                         view2.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                if (level_petugas != null && password_petugas.getText().toString().trim().length() > 0) {
+                                if (password_petugas.getText().toString().trim().length() > 0) {
                                     Retrofit retrofit = new Retrofit.Builder()
                                             .baseUrl(url)
                                             .addConverterFactory(GsonConverterFactory.create())
                                             .build();
                                     ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-                                    Call<PetugasRepository> call = api.updatePetugas(petugas.getId_petugas(), level_petugas, username_petugas.getText().toString(), password_petugas.getText().toString(), nama_petugas.getText().toString());
+                                    Call<PetugasRepository> call = api.updatePetugas(petugas.getId_petugas(), "Petugas", username_petugas.getText().toString(), password_petugas.getText().toString(), nama_petugas.getText().toString());
                                     call.enqueue(new Callback<PetugasRepository>() {
                                         @Override
                                         public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
@@ -226,12 +189,12 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
                         alertDialog2.show();
                     }
                 });
-                if (alertDialog.getWindow() != null) {
-                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-                }
-                alertDialog.show();
-            });
-        }
+            }
+            if (alertDialog.getWindow() != null) {
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            }
+            alertDialog.show();
+        });
     }
 
     @Override
