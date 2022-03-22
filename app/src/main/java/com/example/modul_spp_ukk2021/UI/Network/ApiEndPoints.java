@@ -2,11 +2,14 @@ package com.example.modul_spp_ukk2021.UI.Network;
 
 import android.telecom.Call;
 
+import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStafRepository;
+
 public interface ApiEndPoints {
     @GET("dbReadSiswa.php")
-    Call<SiswaRepository> viewSiswa();
+    Call<com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository> viewSiswa();
     @GET("dbReadPetugas.php")
-    Call<PetugasRepository> viewPetugas();
+    Call<com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository> viewPetugas();
     @POST("dbLoginSiswa.php")
     Call<LoginSiswaRepository> loginSiswa(
             @Field("nisn") String nisn,
@@ -24,8 +27,8 @@ public interface ApiEndPoints {
             @Field("nisn") String nisn);
 
     @POST("dbReadPetugas.php")
-    Call<PetugasRepository> viewDataPetugas(
+    Call<com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository> viewDataPetugas(
             @Field("username") String username);
     @GET("dbReadSiswa.php")
-    Call<SiswaRepository> viewDataSiswa();
+    Call<com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository> viewDataSiswa();
 }
