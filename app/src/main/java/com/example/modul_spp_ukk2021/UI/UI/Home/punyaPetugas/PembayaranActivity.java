@@ -2,23 +2,26 @@ package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
 import android.text.InputFilter;
-import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -26,9 +29,11 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.InputFilterMinMax;
+import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
@@ -52,6 +57,7 @@ public class PembayaranActivity extends AppCompatActivity {
     private ProgressDialog progressbar;
     private List<Pembayaran> pembayaran = new ArrayList<>();
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,13 +65,30 @@ public class PembayaranActivity extends AppCompatActivity {
 
         ImageView back = findViewById(R.id.back);
         ImageView refresh = findViewById(R.id.refresh);
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadDataPembayaran();
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (swipeRefreshLayout.isRefreshing()) {
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                    }
+                }, 500);
+            }
+        });
 
         progressbar = new ProgressDialog(this);
         progressbar.setMessage("Loading...");
         progressbar.setCancelable(false);
         progressbar.setIndeterminate(true);
         progressbar.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
-        progressbar.dismiss();
 
         recyclerView = findViewById(R.id.recyclerTagihanSiswa);
         adapter = new PembayaranAdapter(this, pembayaran);
@@ -113,7 +136,31 @@ public class PembayaranActivity extends AppCompatActivity {
         });
 
         refresh.setOnClickListener(v -> {
-            loadDataPembayaran();
+            Utils.preventTwoClick(v);
+            PopupMenu popup = new PopupMenu(this, v, Gravity.END, R.attr.popupMenuStyle, 0);
+            MenuInflater inflater = popup.getMenuInflater();
+            inflater.inflate(R.menu.menu_refresh, popup.getMenu());
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if (item.getItemId() == R.id.action_refresh) {
+                        swipeRefreshLayout.setRefreshing(true);
+
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (swipeRefreshLayout.isRefreshing()) {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                    loadDataPembayaran();
+                                }
+                            }
+                        }, 1000);
+                    }
+                    return true;
+                }
+            });
+            popup.show();
         });
     }
 
@@ -126,7 +173,18 @@ public class PembayaranActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        progressbar.show();
         loadDataPembayaran();
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (progressbar.isShowing()) {
+                    progressbar.dismiss();
+                }
+            }
+        }, 500);
     }
 
     private void runLayoutAnimation(final RecyclerView recyclerView) {
@@ -139,41 +197,33 @@ public class PembayaranActivity extends AppCompatActivity {
     }
 
     private void loadDataPembayaran() {
-        progressbar.show();
         String nisnSiswa = this.getIntent().getStringExtra("nisnSiswa");
 
-        new Handler().postDelayed(new Runnable() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+        Call<PembayaranRepository> call = api.viewPembayaran(nisnSiswa);
+        call.enqueue(new Callback<PembayaranRepository>() {
             @Override
-            public void run() {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(url)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-                Call<PembayaranRepository> call = api.viewPembayaran(nisnSiswa);
-                call.enqueue(new Callback<PembayaranRepository>() {
-                    @Override
-                    public void onResponse(Call<PembayaranRepository> call, Response<PembayaranRepository> response) {
-                        String value = response.body().getValue();
+            public void onResponse(Call<PembayaranRepository> call, Response<PembayaranRepository> response) {
+                String value = response.body().getValue();
 
-                        if (value.equals("1")) {
-                            progressbar.dismiss();
-                            pembayaran = response.body().getResult();
-                            adapter = new PembayaranAdapter(PembayaranActivity.this, pembayaran);
-                            recyclerView.setAdapter(adapter);
-                            runLayoutAnimation(recyclerView);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<PembayaranRepository> call, Throwable t) {
-                        progressbar.dismiss();
-                        Toast.makeText(PembayaranActivity.this, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
-                        Log.e("DEBUG", "Error: ", t);
-                    }
-                });
+                if (value.equals("1")) {
+                    pembayaran = response.body().getResult();
+                    adapter = new PembayaranAdapter(PembayaranActivity.this, pembayaran);
+                    recyclerView.setAdapter(adapter);
+                    runLayoutAnimation(recyclerView);
+                }
             }
-        }, 500);
+
+            @Override
+            public void onFailure(Call<PembayaranRepository> call, Throwable t) {
+                Toast.makeText(PembayaranActivity.this, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
+                Log.e("DEBUG", "Error: ", t);
+            }
+        });
     }
 
     private void DialogUpdate(String id_pembayaran, Integer nominal) {

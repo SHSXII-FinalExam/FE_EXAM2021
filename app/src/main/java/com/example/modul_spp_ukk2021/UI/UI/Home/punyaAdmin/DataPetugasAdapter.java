@@ -2,8 +2,8 @@ package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Build;
 import android.util.Log;
 import android.view.Gravity;
@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,10 +29,8 @@ import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
-import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
 import com.google.android.material.card.MaterialCardView;
 
-import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -47,6 +44,7 @@ import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.ViewHolder> {
     private Context context;
     private List<Petugas> petugas;
+    private SharedPreferences sharedprefs;
     private static OnRecyclerViewItemClickListener mListener;
 
     public interface OnRecyclerViewItemClickListener {
@@ -92,7 +90,7 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
             Utils.preventTwoClick(v);
             PopupMenu popup = new PopupMenu(context, v, Gravity.END, R.attr.popupMenuStyle, 0);
             MenuInflater inflater = popup.getMenuInflater();
-            inflater.inflate(R.menu.cardmenu, popup.getMenu());
+            inflater.inflate(R.menu.menu_customcard, popup.getMenu());
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {

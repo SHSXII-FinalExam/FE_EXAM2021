@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -80,7 +79,7 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
             Utils.preventTwoClick(v);
             PopupMenu popup = new PopupMenu(context, v, Gravity.END, R.attr.popupMenuStyle, 0);
             MenuInflater inflater = popup.getMenuInflater();
-            inflater.inflate(R.menu.cardmenu, popup.getMenu());
+            inflater.inflate(R.menu.menu_customcard, popup.getMenu());
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {

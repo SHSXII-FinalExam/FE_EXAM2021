@@ -49,9 +49,8 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     private Drawable[] screenIcons;
     private SlidingRootNav slidingRootNav;
     private SharedPreferences sharedprefs;
-    private SwipeRefreshLayout swipeRefreshLayout;
     private boolean doubleBackToExitPressedOnce = false;
-    private FragmentRefreshListener sppRefreshListener, kelasRefreshListener, petugasRefreshListener, siswaRefreshListener, transaksiRefreshListener;
+    private FragmentRefreshListener sppRefreshListener, kelasRefreshListener, petugasRefreshListener, siswaRefreshListener;
 
     public interface FragmentRefreshListener {
         void onRefresh();
@@ -99,7 +98,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
-        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

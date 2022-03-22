@@ -69,7 +69,6 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
     private SlidingRootNav slidingRootNav;
     private SharedPreferences sharedprefs;
     private TextView tagihan_count, nama, level;
-    private SwipeRefreshLayout swipeRefreshLayout;
     private List<Siswa> siswa = new ArrayList<>();
     private boolean doubleBackToExitPressedOnce = false;
 
@@ -94,7 +93,7 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
 
         SideNavSetup(savedInstanceState);
 
-        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

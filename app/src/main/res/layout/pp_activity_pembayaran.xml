@@ -24,7 +24,7 @@
         android:layout_marginStart="24dp"
         android:background="@drawable/ic_back"
         android:backgroundTint="#251F39"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerTagihanSiswa"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,8 +32,8 @@
         android:id="@+id/refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/ic_refresh"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/ic_more"
         android:backgroundTint="#251F39"
         app:layout_constraintBottom_toBottomOf="@+id/back"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,17 +52,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/back" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerTagihanSiswa"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:overScrollMode="never"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5"
-        app:spanCount="2"
-        tools:listitem="@layout/pp_container_data_pembayaran" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView5">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerTagihanSiswa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:spanCount="2"
+            tools:listitem="@layout/pp_container_data_pembayaran" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
