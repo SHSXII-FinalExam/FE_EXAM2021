@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Home.punyaAdmin.LoginAdminActivity;
 import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.LoginPetugasActivity;
@@ -26,7 +24,8 @@ public class LoginChoiceActivity extends AppCompatActivity {
         btnLoginSiswa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginChoiceActivity.this, LoginSiswaActivity.class);
+                Intent intent;
+                intent = new Intent(LoginChoiceActivity.this, LoginSiswaActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -49,5 +48,21 @@ public class LoginChoiceActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void finish() {
+
+    }
+
+    private void startActivity(Intent intent) {
+
+    }
+
+    private MaterialButton findViewById(int btn_admin) {
+        
+    }
+
+    private void setContentView(int activity_login_choice) {
+        
     }
 }
