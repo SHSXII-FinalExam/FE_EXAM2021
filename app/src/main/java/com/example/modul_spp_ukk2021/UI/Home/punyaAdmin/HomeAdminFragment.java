@@ -22,7 +22,8 @@ public class HomeAdminFragment extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_home_admin);
 
-        MaterialButton logoutAdmin = logoutAdmin.findViewById();
+        MaterialButton logoutAdmin = null;
+        logoutAdmin = logoutAdmin.findViewById();
         logoutAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,16 +32,19 @@ public class HomeAdminFragment extends AppCompatActivity {
             }
         });
 
-        MaterialCardView dataSiswa = dataSiswa.findViewById();
+        MaterialCardView dataSiswa = null;
+        dataSiswa = dataSiswa.findViewById();
         dataSiswa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.fragment_container, new DataSiswaFragment()).commit();
+                int commit = fragmentManager.beginTransaction().replace(R.id.fragment_container,
+                        new DataSiswaFragment()).commit();
             }
         });
 
-        MaterialCardView dataPetugas = dataPetugas.findViewById();
+        MaterialCardView dataPetugas = null;
+        dataPetugas = dataPetugas.findViewById();
         dataPetugas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,20 +53,24 @@ public class HomeAdminFragment extends AppCompatActivity {
             }
         });
 
-        MaterialCardView dataKelas = dataKelas.findViewById();
+        MaterialCardView dataKelas = null;
+        dataKelas = dataKelas.findViewById();
         dataKelas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeAdminFragment.this, DataKelasActivity.class);
+                Intent intent;
+                intent = new Intent(HomeAdminFragment.this, DataKelasActivity.class);
                 fragment.startActivity();
             }
         });
 
-        MaterialCardView dataSPP = dataSPP.findViewById();
+        MaterialCardView dataSPP = null;
+        dataSPP = dataSPP.findViewById();
         dataSPP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeAdminFragment.this, DataSPPActivity.class);
+                Intent intent;
+                intent = new Intent(HomeAdminFragment.this, DataSPPActivity.class);
                 fragment.startActivity();
             }
         });
