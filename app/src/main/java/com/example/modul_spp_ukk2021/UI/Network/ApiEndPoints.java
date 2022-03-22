@@ -4,6 +4,7 @@ import android.telecom.Call;
 
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStafRepository;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
 
 public interface ApiEndPoints {
     @GET("dbReadSiswa.php")
