@@ -34,7 +34,7 @@ public class HomePetugasFragment extends Fragment implements HomePetugasAdapter.
         animalNames.add("Ruqul Adam");
         animalNames.add("Christiany Kikyo");
         animalNames.add("Manggala Kagendra");
-        animalNames.add("Kresna Mukti");
+        animalNames.add("Alfian Nurditariyono");
 
         // set up the RecyclerView
         RecyclerView recyclerView = v.findViewById(R.id.recyclerHomePetugas);

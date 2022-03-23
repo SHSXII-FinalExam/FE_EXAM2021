@@ -32,7 +32,7 @@ public class DataSiswaFragment extends Fragment implements DataSiswaAdapter.Item
         animalNames.add("Ruqul Adam");
         animalNames.add("Christiany Kikyo");
         animalNames.add("Manggala Kagendra");
-        animalNames.add("Kresna Mukti");
+        animalNames.add("Alfian Nurditariyono");
 
         // set up the RecyclerView
         RecyclerView recyclerView = v.findViewById(R.id.recyclerDataSiswa);
