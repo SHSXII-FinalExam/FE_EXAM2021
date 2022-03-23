@@ -47,7 +47,7 @@
                 android:layout_marginStart="12dp"
                 android:fontFamily="@font/avenir_demi"
                 android:maxEms="7"
-                android:text="Dummy"
+                android:text=""
                 android:textColor="#251F39"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/level"
@@ -136,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/avenir_demi"
-                android:text="(99)"
+                android:text="()"
                 android:textColor="#C8C4D9"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/dataSiswa"
@@ -154,6 +154,20 @@
                 app:layout_constraintStart_toStartOf="@+id/search_bar"
                 app:layout_constraintTop_toBottomOf="@+id/dataSiswa"
                 tools:listitem="@layout/pp_container_data_siswa" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/emptyTransaksi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="2dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dataSiswa"
+                app:lottie_autoPlay="false"
+                app:lottie_loop="true"
+                app:lottie_url="@string/emptyTransaksi" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

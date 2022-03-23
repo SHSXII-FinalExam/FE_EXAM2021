@@ -1,16 +1,19 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
@@ -19,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,16 +30,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerAdapter;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerItem;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.SimpleItem;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.SpaceItem;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.LoginStaffActivity;
+import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
 import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import java.util.Arrays;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapter.OnItemSelectedListener {
     private static final int POS_SISWA = 0;
@@ -49,7 +64,9 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     private Drawable[] screenIcons;
     private SlidingRootNav slidingRootNav;
     private SharedPreferences sharedprefs;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private boolean doubleBackToExitPressedOnce = false;
+    private String username, password, nama_petugas, rank;
     private FragmentRefreshListener sppRefreshListener, kelasRefreshListener, petugasRefreshListener, siswaRefreshListener;
 
     public interface FragmentRefreshListener {
@@ -93,12 +110,15 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pa_activity_home);
         sharedprefs = getSharedPreferences("myprefs", Context.MODE_PRIVATE);
+        username = sharedprefs.getString("usernameStaff", null);
+        rank = sharedprefs.getString("levelStaff", null);
+        password = sharedprefs.getString("passwordStaff", null);
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
-        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -188,29 +208,66 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        loadProfil();
+    }
+
+    private void loadProfil() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+        Call<PetugasRepository> call = api.viewDataPetugas(username);
+        call.enqueue(new Callback<PetugasRepository>() {
+            @Override
+            public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
+                String value = response.body().getValue();
+                List<Petugas> results = response.body().getResult();
+
+                if (value.equals("1")) {
+                    for (int i = 0; i < results.size(); i++) {
+                        nama_petugas = results.get(i).getNama_petugas();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PetugasRepository> call, Throwable t) {
+                Log.e("DEBUG", "Error: ", t);
+            }
+        });
+    }
+
+    @Override
     public void onItemSelected(int position) {
         if (position == POS_SISWA) {
             Fragment selectedScreen = new DataSiswaFragment();
             showFragment(selectedScreen);
             toolbar.setTitle("Data Siswa");
+            slidingRootNav.closeMenu();
         } else if (position == POS_KELAS) {
             Fragment selectedScreen = new DataKelasFragment();
             showFragment(selectedScreen);
             toolbar.setTitle("Data Kelas");
+            slidingRootNav.closeMenu();
         } else if (position == POS_SPP) {
             Fragment selectedScreen = new DataSPPFragment();
             showFragment(selectedScreen);
             toolbar.setTitle("Data SPP");
+            slidingRootNav.closeMenu();
         } else if (position == POS_PETUGAS) {
             Fragment selectedScreen = new DataPetugasFragment();
             showFragment(selectedScreen);
             toolbar.setTitle("Data Petugas");
+            slidingRootNav.closeMenu();
         } else if (position == POS_LOGOUT) {
             sharedprefs.edit().clear().apply();
             Intent intent = new Intent(HomeAdminActivity.this, LoginChoiceActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
-        slidingRootNav.closeMenu();
     }
 
     @Override
@@ -222,8 +279,53 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.generate_data) {
+        if (id == R.id.action_profile) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
+            View view = LayoutInflater.from(this).inflate(R.layout.dialog_profile, findViewById(R.id.layoutDialogContainer));
+            builder.setView(view);
+            ((TextView) view.findViewById(R.id.tvFillNama2)).setText(nama_petugas);
+            ((TextView) view.findViewById(R.id.tvLevel)).setText("Staff level : " + rank);
+            ((TextView) view.findViewById(R.id.tvPassword2)).setText("Password : " + password);
+            final AlertDialog alertDialog = builder.create();
 
+            view.findViewById(R.id.layoutDialog).setVisibility(View.GONE);
+            view.findViewById(R.id.layoutDialog2).setVisibility(View.VISIBLE);
+
+            view.findViewById(R.id.clear2).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            if (alertDialog.getWindow() != null) {
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            }
+            alertDialog.show();
+        } else if (id == R.id.action_refresh) {
+            swipeRefreshLayout.setRefreshing(true);
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (swipeRefreshLayout.isRefreshing()) {
+                        swipeRefreshLayout.setRefreshing(false);
+                        if (getSiswaRefreshListener() != null) {
+                            getSiswaRefreshListener().onRefresh();
+                        }
+                        if (getKelasRefreshListener() != null) {
+                            getKelasRefreshListener().onRefresh();
+                        }
+                        if (getSPPRefreshListener() != null) {
+                            getSPPRefreshListener().onRefresh();
+                        }
+                        if (getPetugasRefreshListener() != null) {
+                            getPetugasRefreshListener().onRefresh();
+                        }
+                    }
+                }
+            }, 1000);
         }
         return super.onOptionsItemSelected(item);
     }

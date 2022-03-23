@@ -35,7 +35,9 @@
         <activity android:name=".UI.UI.Home.punyaSiswa.HomeSiswaActivity" />
 
         <!--Activity Petugas-->
-        <activity android:name=".UI.UI.Home.punyaPetugas.HomePetugasActivity" />
+        <activity
+            android:name=".UI.UI.Home.punyaPetugas.HomePetugasActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".UI.UI.Home.punyaPetugas.PembayaranActivity" />
 
         <!--Activity Admin-->

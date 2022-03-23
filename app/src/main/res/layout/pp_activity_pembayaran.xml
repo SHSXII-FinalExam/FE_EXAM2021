@@ -75,4 +75,18 @@
             tools:listitem="@layout/pp_container_data_pembayaran" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/emptyTransaksi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="true"
+        app:lottie_url="@string/emptyTransaksi" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

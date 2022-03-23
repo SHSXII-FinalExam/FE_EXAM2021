@@ -20,9 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
-import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
-import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
 
 import java.util.ArrayList;
@@ -39,7 +37,6 @@ import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 public class DataSiswaFragment extends Fragment {
     private DataSiswaAdapter adapter;
     private RecyclerView recyclerView;
-    private ProgressDialog progressbar;
     private List<Siswa> siswa = new ArrayList<>();
 
     public DataSiswaFragment() {
@@ -58,7 +55,7 @@ public class DataSiswaFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         runLayoutAnimation(recyclerView);
 
-        progressbar = new ProgressDialog(getContext());
+        ProgressDialog progressbar = new ProgressDialog(getContext());
         progressbar.setMessage("Loading...");
         progressbar.setCancelable(false);
         progressbar.setIndeterminate(true);
@@ -182,8 +179,6 @@ public class DataSiswaFragment extends Fragment {
     }
 
     public void loadDataSiswa() {
-        progressbar.show();
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -195,7 +190,6 @@ public class DataSiswaFragment extends Fragment {
             public void onResponse(Call<SiswaRepository> call, Response<SiswaRepository> response) {
                 String value = response.body().getValue();
                 if (value.equals("1")) {
-                    progressbar.dismiss();
                     siswa = response.body().getResult();
                     adapter = new DataSiswaAdapter(getActivity(), siswa);
                     recyclerView.setAdapter(adapter);
@@ -205,7 +199,6 @@ public class DataSiswaFragment extends Fragment {
 
             @Override
             public void onFailure(Call<SiswaRepository> call, Throwable t) {
-                progressbar.dismiss();
                 Toast.makeText(getContext(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
                 Log.e("DEBUG", "Error: ", t);
             }

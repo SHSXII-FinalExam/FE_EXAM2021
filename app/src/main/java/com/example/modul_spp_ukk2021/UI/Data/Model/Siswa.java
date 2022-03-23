@@ -5,9 +5,9 @@ public class Siswa {
     String nis;
     String nama;
     String id_kelas;
-    String id_spp;
     String alamat;
     String no_telp;
+    String password;
     String nama_kelas;
     String jurusan;
     String angkatan;
@@ -28,16 +28,16 @@ public class Siswa {
         return id_kelas;
     }
 
-    public String getId_spp() {
-        return id_spp;
-    }
-
     public String getAlamat() {
         return alamat;
     }
 
     public String getNo_telp() {
         return no_telp;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getNama_kelas() {

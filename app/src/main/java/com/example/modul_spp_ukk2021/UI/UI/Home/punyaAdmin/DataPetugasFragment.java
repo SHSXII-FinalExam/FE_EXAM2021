@@ -12,11 +12,9 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -27,9 +25,7 @@ import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
-import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
-import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
@@ -46,7 +42,6 @@ import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 public class DataPetugasFragment extends Fragment {
     private RecyclerView recyclerView;
     private DataPetugasAdapter adapter;
-    private ProgressDialog progressbar;
     private List<Petugas> petugas = new ArrayList<>();
 
     public DataPetugasFragment() {
@@ -65,7 +60,7 @@ public class DataPetugasFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         runLayoutAnimation(recyclerView);
 
-        progressbar = new ProgressDialog(getContext());
+        ProgressDialog progressbar = new ProgressDialog(getContext());
         progressbar.setMessage("Loading...");
         progressbar.setCancelable(false);
         progressbar.setIndeterminate(true);
@@ -124,12 +119,12 @@ public class DataPetugasFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Utils.preventTwoClick(v);
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogTheme);
-                View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_petugas, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity(), R.style.AlertDialogTheme);
+                View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_petugas, v.findViewById(R.id.layoutDialogContainer));
                 builder.setView(view);
-                final EditText nama_petugas = (EditText) view.findViewById(R.id.nama_petugas);
-                final EditText username_petugas = (EditText) view.findViewById(R.id.username_petugas);
-                final EditText password_petugas = (EditText) view.findViewById(R.id.password_petugas);
+                final EditText nama_petugas = view.findViewById(R.id.nama_petugas);
+                final EditText username_petugas = view.findViewById(R.id.username_petugas);
+                final EditText password_petugas = view.findViewById(R.id.password_petugas);
                 final AlertDialog alertDialog = builder.create();
 
                 view.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
@@ -198,8 +193,6 @@ public class DataPetugasFragment extends Fragment {
     }
 
     public void loadDataPetugas() {
-        progressbar.show();
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -211,7 +204,6 @@ public class DataPetugasFragment extends Fragment {
             public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
                 String value = response.body().getValue();
                 if (value.equals("1")) {
-                    progressbar.dismiss();
                     petugas = response.body().getResult();
                     adapter = new DataPetugasAdapter(getActivity(), petugas);
                     recyclerView.setAdapter(adapter);
@@ -221,7 +213,6 @@ public class DataPetugasFragment extends Fragment {
 
             @Override
             public void onFailure(Call<PetugasRepository> call, Throwable t) {
-                progressbar.dismiss();
                 Toast.makeText(getContext(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
                 Log.e("DEBUG", "Error: ", t);
             }

@@ -1,6 +1,7 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,10 +18,13 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
+import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.LoginStaffActivity;
+import com.google.android.material.card.MaterialCardView;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -36,9 +40,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class TagihanSiswaFragment extends Fragment {
+    private String nisnSiswa;
     private RecyclerView recyclerView;
     private TagihanSiswaAdapter adapter;
+    private SharedPreferences sharedprefs;
     private TextView nominal, tagihan_count;
+    private LottieAnimationView emptyTransaksi;
+    private MaterialCardView materialCardView5;
     private List<Pembayaran> pembayaran = new ArrayList<>();
 
     public TagihanSiswaFragment() {
@@ -48,9 +56,13 @@ public class TagihanSiswaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.ps_fragment_tagihan, container, false);
+        sharedprefs = requireActivity().getSharedPreferences("myprefs", Context.MODE_PRIVATE);
+        nisnSiswa = sharedprefs.getString("nisnSiswa", null);
 
         nominal = view.findViewById(R.id.nominal);
         tagihan_count = view.findViewById(R.id.tagihan_count);
+        emptyTransaksi = view.findViewById(R.id.emptyTransaksi);
+        materialCardView5 = view.findViewById(R.id.materialCardView5);
 
         adapter = new TagihanSiswaAdapter(getActivity(), pembayaran);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -86,8 +98,6 @@ public class TagihanSiswaFragment extends Fragment {
     }
 
     private void loadDataTagihan() {
-        String nisnSiswa = getActivity().getIntent().getStringExtra("nisnSiswa");
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -99,10 +109,15 @@ public class TagihanSiswaFragment extends Fragment {
             public void onResponse(Call<PembayaranRepository> call, Response<PembayaranRepository> response) {
                 String value = response.body().getValue();
                 List<Pembayaran> results = response.body().getResult();
-                String message = response.body().getMessage();
 
                 Log.e("value", value);
                 if (value.equals("1")) {
+                    materialCardView5.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.VISIBLE);
+
+                    emptyTransaksi.pauseAnimation();
+                    emptyTransaksi.setVisibility(LottieAnimationView.GONE);
+
                     pembayaran = response.body().getResult();
                     adapter = new TagihanSiswaAdapter(getActivity(), pembayaran);
                     recyclerView.setAdapter(adapter);
@@ -126,12 +141,21 @@ public class TagihanSiswaFragment extends Fragment {
                     nominal.setText(format.format(total_sum));
                     tagihan_count.setText("(" + String.valueOf(i) + ")");
                 } else {
-                    Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                    tagihan_count.setText("(0)");
+                    materialCardView5.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.GONE);
+
+                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                    emptyTransaksi.playAnimation();
                 }
             }
 
             @Override
             public void onFailure(Call<PembayaranRepository> call, Throwable t) {
+                recyclerView.setVisibility(View.GONE);
+                emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                emptyTransaksi.playAnimation();
+                Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
                 Log.e("DEBUG", "Error: ", t);
             }
         });

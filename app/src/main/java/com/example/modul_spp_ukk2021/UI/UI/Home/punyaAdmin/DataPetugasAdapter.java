@@ -1,7 +1,6 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -18,6 +17,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -42,9 +42,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.ViewHolder> {
-    private Context context;
-    private List<Petugas> petugas;
-    private SharedPreferences sharedprefs;
+    private final Context context;
+    private final List<Petugas> petugas;
     private static OnRecyclerViewItemClickListener mListener;
 
     public interface OnRecyclerViewItemClickListener {
@@ -60,6 +59,7 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
         this.petugas = petugas;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pa_container_data_petugas, parent, false);
@@ -71,14 +71,15 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         Petugas petugas = this.petugas.get(position);
 
-        Intent intent = ((HomeAdminActivity) context).getIntent();
-        String username = intent.getStringExtra("username");
+        SharedPreferences sharedprefs = context.getSharedPreferences("myprefs", Context.MODE_PRIVATE);
+        String usernameStaff = sharedprefs.getString("usernameStaff", null);
+        String passwordStaff = sharedprefs.getString("passwordStaff", null);
 
         holder.tvNamaPetugas.setText(petugas.getNama_petugas());
         holder.tvLevel.setText("Staff level: " + petugas.getLevel());
         holder.tvUsername.setText("Username: " + petugas.getUsername());
 
-        if (petugas.getUsername().equals(username)) {
+        if (petugas.getUsername().equals(usernameStaff)) {
             holder.tvNamaPetugas.setText("Anda");
             holder.deleteData.setVisibility(View.GONE);
             holder.container_layout.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient_grey));
@@ -106,7 +107,7 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
         holder.detailStaff.setOnClickListener(v -> {
             Utils.preventTwoClick(v);
             AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
-            View view = LayoutInflater.from(context).inflate(R.layout.pa_dialog_view_petugas, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
+            View view = LayoutInflater.from(context).inflate(R.layout.pa_dialog_view_petugas, v.findViewById(R.id.layoutDialogContainer));
             builder.setView(view);
             ((TextView) view.findViewById(R.id.tvFillNama)).setText(petugas.getNama_petugas());
             ((TextView) view.findViewById(R.id.tvFillUsername)).setText(petugas.getUsername());
@@ -120,20 +121,25 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
                 }
             });
 
-            if (petugas.getUsername().equals(username) || petugas.getLevel().equals("Admin")) {
+            if (petugas.getUsername().equals(usernameStaff)) {
+                final TextView tvPassword = view.findViewById(R.id.tvPassword);
+                tvPassword.setText("Password  : " + passwordStaff);
+
+            } else if (petugas.getLevel().equals("Admin")) {
                 view.findViewById(R.id.buttonEdit).setVisibility(View.INVISIBLE);
+
             } else {
                 view.findViewById(R.id.buttonEdit).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         alertDialog.dismiss();
                         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
-                        View view2 = LayoutInflater.from(context).inflate(R.layout.pa_dialog_tambah_petugas, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
+                        View view2 = LayoutInflater.from(context).inflate(R.layout.pa_dialog_tambah_petugas, v.findViewById(R.id.layoutDialogContainer));
                         builder.setView(view2);
-                        final TextView textTitle = (TextView) view2.findViewById(R.id.textTitle);
-                        final EditText nama_petugas = (EditText) view2.findViewById(R.id.nama_petugas);
-                        final EditText username_petugas = (EditText) view2.findViewById(R.id.username_petugas);
-                        final EditText password_petugas = (EditText) view2.findViewById(R.id.password_petugas);
+                        final TextView textTitle = view2.findViewById(R.id.textTitle);
+                        final EditText nama_petugas = view2.findViewById(R.id.nama_petugas);
+                        final EditText username_petugas = view2.findViewById(R.id.username_petugas);
+                        final EditText password_petugas = view2.findViewById(R.id.password_petugas);
                         final AlertDialog alertDialog2 = builder.create();
 
                         textTitle.setText("Edit Petugas");

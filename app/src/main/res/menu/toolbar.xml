@@ -4,10 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.toolbar.MainActivity" >
 
-    <item android:id="@+id/profile"
+    <item android:id="@+id/action_profile"
         android:icon="@drawable/bg_profilepict"
         android:title=""
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_refresh"
+        android:title="Refresh"
+        app:showAsAction="never"/>
 
     <item android:id="@+id/generate_data"
         android:title="Save as"

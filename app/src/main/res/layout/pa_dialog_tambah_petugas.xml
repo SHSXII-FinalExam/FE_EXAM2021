@@ -114,7 +114,7 @@
             android:layout_marginBottom="60dp"
             android:textColorHint="#9A9EA7"
             android:theme="@style/EditText"
-            app:boxBackgroundColor="#F6F8FE"
+            app:boxBackgroundColor="@color/white"
             app:boxStrokeColor="@color/colorNeutral"
             app:hintEnabled="false"
             app:layout_constraintBottom_toBottomOf="parent"

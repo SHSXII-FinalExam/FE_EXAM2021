@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/avenir_demi"
-        android:text="+Rp.0"
+        android:text="Rp"
         android:textColor="@color/lunas"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/tanggal"

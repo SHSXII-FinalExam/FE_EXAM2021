@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -32,10 +30,7 @@ import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Kelas;
-import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
-import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.KelasRepository;
-import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
@@ -52,7 +47,6 @@ import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 public class DataKelasFragment extends Fragment {
     private DataKelasAdapter adapter;
     private RecyclerView recyclerView;
-    private ProgressDialog progressbar;
     private String nama_kelas, jurusan_kelas;
     private List<Kelas> kelas = new ArrayList<>();
 
@@ -72,7 +66,7 @@ public class DataKelasFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         runLayoutAnimation(recyclerView);
 
-        progressbar = new ProgressDialog(getContext());
+        ProgressDialog progressbar = new ProgressDialog(getContext());
         progressbar.setMessage("Loading...");
         progressbar.setCancelable(false);
         progressbar.setIndeterminate(true);
@@ -119,7 +113,7 @@ public class DataKelasFragment extends Fragment {
             }
         });
 
-        ((HomeAdminActivity) getActivity()).setKelasRefreshListener(new HomeAdminActivity.FragmentRefreshListener() {
+        ((HomeAdminActivity) requireActivity()).setKelasRefreshListener(new HomeAdminActivity.FragmentRefreshListener() {
             @Override
             public void onRefresh() {
                 loadDataKelas();
@@ -131,14 +125,14 @@ public class DataKelasFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Utils.preventTwoClick(v);
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogTheme);
-                View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_kelas, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity(), R.style.AlertDialogTheme);
+                View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_kelas, v.findViewById(R.id.layoutDialogContainer));
                 builder.setView(view);
-                final Button nama = (Button) view.findViewById(R.id.nama_kelas);
-                final EditText namanomor = (EditText) view.findViewById(R.id.namanomor_kelas);
-                final EditText angkatan = (EditText) view.findViewById(R.id.angkatan_kelas);
-                final RadioGroup jurusan = (RadioGroup) view.findViewById(R.id.jurusan_kelas);
-                final TextView namajurusan = (TextView) view.findViewById(R.id.namajurusan_kelas);
+                final Button nama = view.findViewById(R.id.nama_kelas);
+                final EditText namanomor = view.findViewById(R.id.namanomor_kelas);
+                final EditText angkatan = view.findViewById(R.id.angkatan_kelas);
+                final RadioGroup jurusan = view.findViewById(R.id.jurusan_kelas);
+                final TextView namajurusan = view.findViewById(R.id.namajurusan_kelas);
                 final AlertDialog alertDialog = builder.create();
 
                 jurusan.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -269,8 +263,6 @@ public class DataKelasFragment extends Fragment {
     }
 
     public void loadDataKelas() {
-        progressbar.show();
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -282,7 +274,6 @@ public class DataKelasFragment extends Fragment {
             public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
                 String value = response.body().getValue();
                 if (value.equals("1")) {
-                    progressbar.dismiss();
                     kelas = response.body().getResult();
                     adapter = new DataKelasAdapter(getActivity(), kelas);
                     recyclerView.setAdapter(adapter);
@@ -292,7 +283,6 @@ public class DataKelasFragment extends Fragment {
 
             @Override
             public void onFailure(Call<KelasRepository> call, Throwable t) {
-                progressbar.dismiss();
                 Toast.makeText(getContext(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
                 Log.e("DEBUG", "Error: ", t);
             }

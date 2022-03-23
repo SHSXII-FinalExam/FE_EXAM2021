@@ -15,7 +15,6 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface ApiEndPoints {
-    // Login
     @FormUrlEncoded
     @POST("dbLoginSiswa.php")
     Call<LoginSiswaRepository> loginSiswa(
@@ -27,6 +26,11 @@ public interface ApiEndPoints {
     Call<LoginStaffRepository> loginStaff(
             @Field("username") String username,
             @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("dbReadSiswa.php")
+    Call<SiswaRepository> viewProfile(
+            @Field("nisn") String nisn);
 
     // [PS] Punya Siswa
     // Read
@@ -73,7 +77,6 @@ public interface ApiEndPoints {
             @Field("nis") String nis,
             @Field("nama") String nama,
             @Field("id_kelas") String id_kelas,
-            @Field("id_spp") String id_spp,
             @Field("alamat") String alamat,
             @Field("no_telp") String no_telp,
             @Field("password") String password,
@@ -102,7 +105,7 @@ public interface ApiEndPoints {
             @Field("nama_petugas") String nama_petugas);
 
     // Read
-    @GET("dbReadSiswa.php")
+    @GET("dbReadAllSiswa.php")
     Call<SiswaRepository> viewDataSiswa();
 
     @GET("dbReadKelas.php")

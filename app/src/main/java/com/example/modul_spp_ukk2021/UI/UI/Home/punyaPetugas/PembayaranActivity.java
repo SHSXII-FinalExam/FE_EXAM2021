@@ -1,6 +1,5 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -31,12 +30,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.InputFilterMinMax;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
-import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 public class PembayaranActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PembayaranAdapter adapter;
-    private ProgressDialog progressbar;
+    private LottieAnimationView emptyTransaksi;
     private List<Pembayaran> pembayaran = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
@@ -65,6 +65,7 @@ public class PembayaranActivity extends AppCompatActivity {
 
         ImageView back = findViewById(R.id.back);
         ImageView refresh = findViewById(R.id.refresh);
+        emptyTransaksi = findViewById(R.id.emptyTransaksi);
         SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -83,12 +84,6 @@ public class PembayaranActivity extends AppCompatActivity {
                 }, 500);
             }
         });
-
-        progressbar = new ProgressDialog(this);
-        progressbar.setMessage("Loading...");
-        progressbar.setCancelable(false);
-        progressbar.setIndeterminate(true);
-        progressbar.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
 
         recyclerView = findViewById(R.id.recyclerTagihanSiswa);
         adapter = new PembayaranAdapter(this, pembayaran);
@@ -173,18 +168,7 @@ public class PembayaranActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        progressbar.show();
         loadDataPembayaran();
-
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (progressbar.isShowing()) {
-                    progressbar.dismiss();
-                }
-            }
-        }, 500);
     }
 
     private void runLayoutAnimation(final RecyclerView recyclerView) {
@@ -211,15 +195,26 @@ public class PembayaranActivity extends AppCompatActivity {
                 String value = response.body().getValue();
 
                 if (value.equals("1")) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    emptyTransaksi.pauseAnimation();
+                    emptyTransaksi.setVisibility(LottieAnimationView.GONE);
+
                     pembayaran = response.body().getResult();
                     adapter = new PembayaranAdapter(PembayaranActivity.this, pembayaran);
                     recyclerView.setAdapter(adapter);
                     runLayoutAnimation(recyclerView);
+                } else {
+                    recyclerView.setVisibility(View.GONE);
+                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                    emptyTransaksi.playAnimation();
                 }
             }
 
             @Override
             public void onFailure(Call<PembayaranRepository> call, Throwable t) {
+                recyclerView.setVisibility(View.GONE);
+                emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                emptyTransaksi.playAnimation();
                 Toast.makeText(PembayaranActivity.this, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
                 Log.e("DEBUG", "Error: ", t);
             }

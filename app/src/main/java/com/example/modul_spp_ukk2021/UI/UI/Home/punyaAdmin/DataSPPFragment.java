@@ -12,12 +12,9 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -29,8 +26,6 @@ import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
 import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.PembayaranActivity;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.HomeSiswaActivity;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
@@ -47,7 +42,6 @@ import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 public class DataSPPFragment extends Fragment {
     private DataSPPAdapter adapter;
     private RecyclerView recyclerView;
-    private ProgressDialog progressbar;
     private List<SPP> spp = new ArrayList<>();
 
     public DataSPPFragment() {
@@ -66,7 +60,7 @@ public class DataSPPFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         runLayoutAnimation(recyclerView);
 
-        progressbar = new ProgressDialog(getContext());
+        ProgressDialog progressbar = new ProgressDialog(getContext());
         progressbar.setMessage("Loading...");
         progressbar.setCancelable(false);
         progressbar.setIndeterminate(true);
@@ -125,12 +119,12 @@ public class DataSPPFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Utils.preventTwoClick(v);
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogTheme);
-                View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_spp, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity(), R.style.AlertDialogTheme);
+                View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_spp, v.findViewById(R.id.layoutDialogContainer));
                 builder.setView(view);
-                final EditText angkatan = (EditText) view.findViewById(R.id.angkatan_spp);
-                final EditText tahun = (EditText) view.findViewById(R.id.tahun_spp);
-                final EditText nominal = (EditText) view.findViewById(R.id.nominal_spp);
+                final EditText angkatan = view.findViewById(R.id.angkatan_spp);
+                final EditText tahun = view.findViewById(R.id.tahun_spp);
+                final EditText nominal = view.findViewById(R.id.nominal_spp);
                 final AlertDialog alertDialog = builder.create();
                 view.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -197,8 +191,6 @@ public class DataSPPFragment extends Fragment {
     }
 
     public void loadDataSPP() {
-        progressbar.show();
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -210,7 +202,6 @@ public class DataSPPFragment extends Fragment {
             public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
                 String value = response.body().getValue();
                 if (value.equals("1")) {
-                    progressbar.dismiss();
                     spp = response.body().getResult();
                     adapter = new DataSPPAdapter(getActivity(), spp);
                     recyclerView.setAdapter(adapter);
@@ -220,7 +211,6 @@ public class DataSPPFragment extends Fragment {
 
             @Override
             public void onFailure(Call<SPPRepository> call, Throwable t) {
-                progressbar.dismiss();
                 Toast.makeText(getContext(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
                 Log.e("DEBUG", "Error: ", t);
             }

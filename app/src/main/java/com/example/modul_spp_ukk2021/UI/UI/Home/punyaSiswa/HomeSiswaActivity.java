@@ -35,12 +35,15 @@ import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerAdapter;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerItem;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.SimpleItem;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
+import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
 import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -62,8 +65,11 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
     private Drawable[] screenIcons;
     private SlidingRootNav slidingRootNav;
     private SharedPreferences sharedprefs;
+    private String nisnSiswa, passwordSiswa;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private List<Siswa> siswa = new ArrayList<>();
     private boolean doubleBackToExitPressedOnce = false;
+    private String tvFillNama, tvNIS, tvKelas, tvFillAlamat, tvNoTelp;
     private FragmentRefreshListener historyRefreshListener, tagihanRefreshListener;
 
     public interface FragmentRefreshListener {
@@ -91,6 +97,8 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ps_activity_home);
         sharedprefs = getSharedPreferences("myprefs", Context.MODE_PRIVATE);
+        nisnSiswa = sharedprefs.getString("nisnSiswa", null);
+        passwordSiswa = sharedprefs.getString("passwordSiswa", null);
 
         nama = findViewById(R.id.nama);
         kelas = findViewById(R.id.kelas);
@@ -203,8 +211,8 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
             sharedprefs.edit().clear().apply();
             Intent intent = new Intent(HomeSiswaActivity.this, LoginChoiceActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
-        slidingRootNav.closeMenu();
     }
 
     @Override
@@ -216,22 +224,20 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.profile) {
+        if (id == R.id.action_profile) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
-            View view = LayoutInflater.from(this).inflate(R.layout.pa_dialog_view_siswa, (ConstraintLayout) findViewById(R.id.layoutDialogContainer));
+            View view = LayoutInflater.from(this).inflate(R.layout.dialog_profile, (ConstraintLayout) findViewById(R.id.layoutDialogContainer));
             builder.setView(view);
-//            ((TextView) view.findViewById(R.id.tvFillNama)).setText(siswa.getNama());
-//            ((TextView) view.findViewById(R.id.tvNISN)).setText("NISN                 : " + siswa.getNisn());
-//            ((TextView) view.findViewById(R.id.tvNIS)).setText("NIS                    : " + siswa.getNis());
-//            ((TextView) view.findViewById(R.id.tvKelas)).setText("Kelas                 : " + siswa.getNama_kelas());
-//            ((TextView) view.findViewById(R.id.tvFillAlamat)).setText(siswa.getAlamat());
-//            ((TextView) view.findViewById(R.id.tvNoTelp)).setText("Nomor Ponsel : " + siswa.getNo_telp());
+            ((TextView) view.findViewById(R.id.tvFillNama)).setText(tvFillNama);
+            ((TextView) view.findViewById(R.id.tvNISN)).setText("NISN    : " + nisnSiswa);
+            ((TextView) view.findViewById(R.id.tvNIS)).setText("NIS                    : " + tvNIS);
+            ((TextView) view.findViewById(R.id.tvKelas)).setText("Kelas                 : " + tvKelas);
+            ((TextView) view.findViewById(R.id.tvFillAlamat)).setText(tvFillAlamat);
+            ((TextView) view.findViewById(R.id.tvNoTelp)).setText("Nomor Ponsel : " + tvNoTelp);
+            ((TextView) view.findViewById(R.id.tvPassword)).setText("Password          : " + passwordSiswa);
             final AlertDialog alertDialog = builder.create();
 
-            view.findViewById(R.id.buttonTransaksi).setVisibility(View.INVISIBLE);
-            view.findViewById(R.id.edit_siswa).setVisibility(View.INVISIBLE);
-
-            view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
+            view.findViewById(R.id.clear).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     alertDialog.dismiss();
@@ -242,6 +248,22 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
                 alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
             }
             alertDialog.show();
+        } else if (id == R.id.action_refresh) {
+            swipeRefreshLayout.setRefreshing(true);
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (swipeRefreshLayout.isRefreshing()) {
+                        swipeRefreshLayout.setRefreshing(false);
+                        if (getHistoryRefreshListener() != null && getTagihanRefreshListener() != null) {
+                            getHistoryRefreshListener().onRefresh();
+                            getTagihanRefreshListener().onRefresh();
+                        }
+                    }
+                }
+            }, 1000);
         }
 
         return super.onOptionsItemSelected(item);
@@ -271,12 +293,11 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
     @Override
     public void onResume() {
         super.onResume();
+        loadPembayaran();
         loadProfil();
     }
 
-    private void loadProfil() {
-        String nisnSiswa = this.getIntent().getStringExtra("nisnSiswa");
-
+    private void loadPembayaran() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -291,6 +312,8 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
 
                 Log.e("value", value);
                 if (value.equals("1")) {
+                    loadProfil();
+
                     int i;
                     int total_sum = 0;
                     for (i = 0; i < results.size(); i++) {
@@ -309,6 +332,43 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
 
             @Override
             public void onFailure(Call<PembayaranRepository> call, Throwable t) {
+                Log.e("DEBUG", "Error: ", t);
+            }
+        });
+    }
+
+    private void loadProfil() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+        Call<SiswaRepository> call = api.viewProfile(nisnSiswa);
+        call.enqueue(new Callback<SiswaRepository>() {
+            @Override
+            public void onResponse(Call<SiswaRepository> call, Response<SiswaRepository> response) {
+                String value = response.body().getValue();
+                List<Siswa> results = response.body().getResult();
+                String message = response.body().getMessage();
+
+                Log.e("value", value);
+                if (value.equals("1")) {
+                    siswa = response.body().getResult();
+
+                    for (int i = 0; i < results.size(); i++) {
+                        tvFillNama = results.get(i).getNama();
+                        tvNIS = results.get(i).getNis();
+                        tvKelas = results.get(i).getNama_kelas();
+                        tvFillAlamat = results.get(i).getAlamat();
+                        tvNoTelp = results.get(i).getNo_telp();
+                    }
+                } else {
+                    Toast.makeText(HomeSiswaActivity.this, message, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SiswaRepository> call, Throwable t) {
                 Log.e("DEBUG", "Error: ", t);
             }
         });
