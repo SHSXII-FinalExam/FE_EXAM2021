@@ -25,7 +25,8 @@ public class LoginChoiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent;
-                intent = new Intent(LoginChoiceActivity.this, LoginSiswaActivity.class);
+                intent = new Intent(LoginChoiceActivity.this,
+                        LoginSiswaActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -34,7 +35,9 @@ public class LoginChoiceActivity extends AppCompatActivity {
         btnLoginPetugas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginChoiceActivity.this, LoginPetugasActivity.class);
+                Intent intent;
+                intent = new Intent(LoginChoiceActivity.this,
+                        LoginPetugasActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -43,7 +46,9 @@ public class LoginChoiceActivity extends AppCompatActivity {
         btnLoginAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginChoiceActivity.this, LoginAdminActivity.class);
+                Intent intent;
+                intent = new Intent(LoginChoiceActivity.this,
+                        LoginAdminActivity.class);
                 startActivity(intent);
                 finish();
             }

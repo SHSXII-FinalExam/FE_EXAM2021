@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="textView19" type="id" />
+    <item name="card" type="id" />
+    <item name="recyclerHistory" type="id" />
+    <item name="nav_status" type="id" />
+    <item name="nav_chats" type="id" />
+    <item name="bottom_navigation" type="id" />
+</resources>
