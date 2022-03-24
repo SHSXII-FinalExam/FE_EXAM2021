@@ -42,6 +42,7 @@
 
         <!--Activity Admin-->
         <activity android:name=".UI.UI.Home.punyaAdmin.HomeAdminActivity" />
+        <activity android:name=".UI.UI.Home.punyaAdmin.DataSiswaActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

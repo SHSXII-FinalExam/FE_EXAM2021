@@ -1,6 +1,7 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Handler;
@@ -104,13 +105,23 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
                     ((TextView) view.findViewById(R.id.tvJurusan)).setText("Jurusan    : " + kelas.getJurusan());
                     ((TextView) view.findViewById(R.id.tvAngkatan)).setText("Angkatan : " + kelas.getAngkatan());
                     final AlertDialog alertDialog = builder.create();
+
+                    view.findViewById(R.id.buttonSiswa).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(context, DataSiswaActivity.class);
+                            intent.putExtra("idKelas", kelas.getId_kelas());
+                            context.startActivity(intent);
+                            alertDialog.dismiss();
+                        }
+                    });
                     view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             alertDialog.dismiss();
                         }
                     });
-                    view.findViewById(R.id.buttonEdit).setOnClickListener(new View.OnClickListener() {
+                    view.findViewById(R.id.edit_kelas).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             alertDialog.dismiss();

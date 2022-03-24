@@ -2,26 +2,43 @@ package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
+import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
+import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.HomeSiswaActivity;
+import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.LoginSiswaActivity;
+import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,28 +51,50 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
-public class DataSiswaFragment extends Fragment {
+public class DataSiswaActivity extends AppCompatActivity {
     private DataSiswaAdapter adapter;
     private RecyclerView recyclerView;
     private List<Siswa> siswa = new ArrayList<>();
 
-    public DataSiswaFragment() {
+    public DataSiswaActivity() {
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = inflater.inflate(R.layout.pa_fragment_data_siswa, container, false);
+        setContentView(R.layout.pa_activity_data_siswa);
 
-        adapter = new DataSiswaAdapter(getActivity(), siswa);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView = view.findViewById(R.id.recycler_siswa);
+        ImageView IvBack = findViewById(R.id.back);
+        ImageView IvRefresh = findViewById(R.id.refresh);
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadDataSiswa();
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (swipeRefreshLayout.isRefreshing()) {
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                    }
+                }, 500);
+            }
+        });
+
+        adapter = new DataSiswaAdapter(this, siswa);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        recyclerView = findViewById(R.id.recycler_siswa);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         runLayoutAnimation(recyclerView);
 
-        ProgressDialog progressbar = new ProgressDialog(getContext());
+        ProgressDialog progressbar = new ProgressDialog(this);
         progressbar.setMessage("Loading...");
         progressbar.setCancelable(false);
         progressbar.setIndeterminate(true);
@@ -94,15 +133,40 @@ public class DataSiswaFragment extends Fragment {
             }
         });
 
-        NestedScrollView scrollView = view.findViewById(R.id.scroll_data);
-        scrollView.post(new Runnable() {
-            @Override
-            public void run() {
-                scrollView.scrollTo(0, 0);
-            }
+        IvBack.setOnClickListener(v -> {
+            onBackPressed();
         });
 
-        ((HomeAdminActivity) getActivity()).setSiswaRefreshListener(new HomeAdminActivity.FragmentRefreshListener() {
+        IvRefresh.setOnClickListener(v -> {
+            Utils.preventTwoClick(v);
+            PopupMenu popup = new PopupMenu(this, v, Gravity.END, R.attr.popupMenuStyle, 0);
+            MenuInflater inflater = popup.getMenuInflater();
+            inflater.inflate(R.menu.menu_refresh, popup.getMenu());
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if (item.getItemId() == R.id.action_refresh) {
+                        swipeRefreshLayout.setRefreshing(true);
+
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (swipeRefreshLayout.isRefreshing()) {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                    loadDataSiswa();
+                                }
+                            }
+                        }, 1000);
+                    }
+                    return true;
+                }
+            });
+            popup.show();
+        });
+
+        HomeAdminActivity homeAdminActivity = new HomeAdminActivity();
+        homeAdminActivity.setSiswaRefreshListener(new HomeAdminActivity.FragmentRefreshListener() {
             @Override
             public void onRefresh() {
                 loadDataSiswa();
@@ -159,8 +223,12 @@ public class DataSiswaFragment extends Fragment {
 //                alertDialog.show();
 //            }
 //        });
+    }
 
-        return view;
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     @Override
@@ -179,19 +247,22 @@ public class DataSiswaFragment extends Fragment {
     }
 
     public void loadDataSiswa() {
+        Intent intent = getIntent();
+        String id_kelas = intent.getStringExtra("idKelas");
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-        Call<SiswaRepository> call = api.viewDataSiswa();
+        Call<SiswaRepository> call = api.viewDataSiswaKelas(id_kelas);
         call.enqueue(new Callback<SiswaRepository>() {
             @Override
             public void onResponse(Call<SiswaRepository> call, Response<SiswaRepository> response) {
                 String value = response.body().getValue();
                 if (value.equals("1")) {
                     siswa = response.body().getResult();
-                    adapter = new DataSiswaAdapter(getActivity(), siswa);
+                    adapter = new DataSiswaAdapter(DataSiswaActivity.this, siswa);
                     recyclerView.setAdapter(adapter);
                     runLayoutAnimation(recyclerView);
                 }
@@ -199,7 +270,7 @@ public class DataSiswaFragment extends Fragment {
 
             @Override
             public void onFailure(Call<SiswaRepository> call, Throwable t) {
-                Toast.makeText(getContext(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DataSiswaActivity.this, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
                 Log.e("DEBUG", "Error: ", t);
             }
         });

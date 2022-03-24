@@ -22,7 +22,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,6 +36,8 @@ import com.example.modul_spp_ukk2021.UI.Data.Helper.SimpleItem;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.SpaceItem;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
+import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.PembayaranActivity;
+import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.HomeSiswaActivity;
 import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
@@ -53,11 +54,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapter.OnItemSelectedListener {
-    private static final int POS_SISWA = 0;
-    private static final int POS_KELAS = 1;
-    private static final int POS_SPP = 2;
-    private static final int POS_PETUGAS = 3;
-    private static final int POS_LOGOUT = 5;
+    private static final int POS_KELAS = 0;
+    private static final int POS_SPP = 1;
+    private static final int POS_PETUGAS = 2;
+    private static final int POS_LOGOUT = 4;
 
     private Toolbar toolbar;
     private String[] screenTitles;
@@ -147,9 +147,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
             }
         });
 
-        slidingRootNav = new
-
-                SlidingRootNavBuilder(this)
+        slidingRootNav = new SlidingRootNavBuilder(this)
                 .withToolbarMenuToggle(toolbar)
                 .withMenuOpened(true)
                 .withContentClickableWhenMenuOpened(false)
@@ -159,17 +157,11 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
                 .withRootViewElevation(5)
                 .inject();
 
-        screenIcons =
-
-                loadScreenIcons();
-
-        screenTitles =
-
-                loadScreenTitles();
+        screenIcons = loadScreenIcons();
+        screenTitles = loadScreenTitles();
 
         DrawerAdapter adapter = new DrawerAdapter(Arrays.asList(
-                createItemFor(POS_SISWA).setChecked(true),
-                createItemFor(POS_KELAS),
+                createItemFor(POS_KELAS).setChecked(true),
                 createItemFor(POS_SPP),
                 createItemFor(POS_PETUGAS),
                 new SpaceItem(48),
@@ -178,12 +170,10 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
 
         RecyclerView list = findViewById(R.id.list);
         list.setNestedScrollingEnabled(false);
-        list.setLayoutManager(new
-
-                LinearLayoutManager(this));
+        list.setLayoutManager(new LinearLayoutManager(this));
         list.setAdapter(adapter);
 
-        adapter.setSelected(POS_SISWA);
+        adapter.setSelected(POS_KELAS);
     }
 
     @Override
@@ -242,12 +232,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
 
     @Override
     public void onItemSelected(int position) {
-        if (position == POS_SISWA) {
-            Fragment selectedScreen = new DataSiswaFragment();
-            showFragment(selectedScreen);
-            toolbar.setTitle("Data Siswa");
-            slidingRootNav.closeMenu();
-        } else if (position == POS_KELAS) {
+        if (position == POS_KELAS) {
             Fragment selectedScreen = new DataKelasFragment();
             showFragment(selectedScreen);
             toolbar.setTitle("Data Kelas");
