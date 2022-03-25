@@ -67,7 +67,7 @@ public class HomePetugasActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         logout.setOnClickListener(v -> {
-            Intent intent = new Intent(HomePetugasActivity.this, LoginStaffActivity.class);
+            Intent intent = new Intent(HomePetugasActivity.this, LoginChoiceActivity.class);
             startActivity(intent);
         });
 
@@ -124,7 +124,7 @@ public class HomePetugasActivity extends AppCompatActivity {
                 .setMessage("Apakah anda yakin ingin keluar dari akun ini?")
                 .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent intent = new Intent(HomePetugasActivity.this, LoginStaffActivity.class);
+                        Intent intent = new Intent(HomePetugasActivity.this, LoginChoiceActivity.class);
                         startActivity(intent);
                     }
                 })

@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -66,7 +67,7 @@ public class HomeSiswaActivity extends AppCompatActivity {
 
         logout.setOnClickListener(v -> {
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeSiswaActivity.this, logout, ViewCompat.getTransitionName(logout));
-            Intent intent = new Intent(HomeSiswaActivity.this, LoginSiswaActivity.class);
+            Intent intent = new Intent(HomeSiswaActivity.this, LoginChoiceActivity.class);
             startActivity(intent, options.toBundle());
         });
     }
@@ -78,7 +79,7 @@ public class HomeSiswaActivity extends AppCompatActivity {
                 .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeSiswaActivity.this, logout, ViewCompat.getTransitionName(logout));
-                        Intent intent = new Intent(HomeSiswaActivity.this, LoginSiswaActivity.class);
+                        Intent intent = new Intent(HomeSiswaActivity.this, LoginChoiceActivity.class);
                         startActivity(intent, options.toBundle());
                     }
                 })
