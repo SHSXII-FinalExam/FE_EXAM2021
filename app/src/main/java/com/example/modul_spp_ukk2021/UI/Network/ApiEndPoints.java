@@ -30,7 +30,7 @@ public interface ApiEndPoints {
 
     @FormUrlEncoded
     @POST("dbReadHistory.php")
-    Call<PembayaranRepository> viewHistory(
+    retrofit2.Call<PembayaranRepository> viewHistory(
             @Field("nisn") String nisn);
 
     @FormUrlEncoded

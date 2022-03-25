@@ -1,7 +1,6 @@
 package com.example.modul_spp_ukk2021.UI.Splash;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -9,8 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Splash.ChatsFragment;
-import com.example.modul_spp_ukk2021.UI.Splash.StatusFragment;
+import com.example.modul_spp_ukk2021.UI.StatusFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -29,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (item.getItemId()){
                     case R.id.nav_chats:
-                        selectedFragment = new ChatsFragment();
+                        selectedFragment = new Fragment();
                         break;
                     case R.id.nav_status:
                         selectedFragment = new StatusFragment();
