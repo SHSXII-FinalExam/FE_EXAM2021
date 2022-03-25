@@ -1,6 +1,6 @@
 package com.example.modul_spp_ukk2021.UI.Data.Repository;
 
-import com.example.modul_spp_ukk2021.UI.Network.LoginSiswa;
+import com.example.modul_spp_ukk2021.UI.Data.Model.LoginSiswa;
 
 import java.util.List;
 
