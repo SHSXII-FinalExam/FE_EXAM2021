@@ -3,7 +3,6 @@ package com.example.modul_spp_ukk2021.UI.Splash;
 import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
 
 import android.os.Bundle;
-import android.telecom.Call;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +21,11 @@ import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.security.auth.callback.Callback;
-
+import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.converter.gson.GsonConverterFactory;
+
 
 /**
  * A simple {@link Fragment} subclass.

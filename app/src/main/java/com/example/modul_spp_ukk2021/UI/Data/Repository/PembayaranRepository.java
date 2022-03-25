@@ -1,6 +1,6 @@
 package com.example.modul_spp_ukk2021.UI.Data.Repository;
 
-import com.example.modul_spp_ukk2021.UI.Network.Pembayaran;
+import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 
 import java.util.List;
 
