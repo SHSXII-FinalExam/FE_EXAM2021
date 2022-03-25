@@ -9,6 +9,7 @@ import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
 
 public interface ApiEndPoints {
+
     @GET("dbReadSiswa.php")
     Call<SiswaRepository> viewSiswa();
     @GET("dbReadPetugas.php")
@@ -25,7 +26,7 @@ public interface ApiEndPoints {
             @Field("password") String password);
     @FormUrlEncoded
     @POST("dbReadTagihan.php")
-    Call<PembayaranRepository> viewTagihan(
+    retrofit2.Call<PembayaranRepository> viewTagihan(
             @Field("nisn") String nisn);
 
     @FormUrlEncoded
