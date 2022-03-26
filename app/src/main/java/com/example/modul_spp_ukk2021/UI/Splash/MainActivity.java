@@ -12,6 +12,8 @@ import com.example.modul_spp_ukk2021.UI.StatusFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigation;
     @Override
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                         selectedFragment = new StatusFragment();
                         break;
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Objects.requireNonNull(selectedFragment)).commit();
                 return true;
             }
         });

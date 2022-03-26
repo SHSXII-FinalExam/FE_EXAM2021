@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -34,20 +33,13 @@ public class LoginSiswaActivity extends AppCompatActivity {
         ImageView btnBack = findViewById(R.id.imageView);
         textInputLayout2 = findViewById(R.id.textInputLayout2);
 
-        btnSignInSiswa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validateForm();
-            }
-        });
+        btnSignInSiswa.setOnClickListener(v -> validateForm());
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginSiswaActivity.this, LoginChoiceActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        btnBack.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginSiswaActivity.this,
+                    LoginChoiceActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 

@@ -17,10 +17,6 @@ public class LoginChoiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_choice);
 
-        MaterialButton btnLoginAdmin = findViewById(R.id.btn_admin);
-        MaterialButton btnLoginPetugas = findViewById(R.id.btn_petugas);
-        MaterialButton btnLoginSiswa = findViewById(R.id.btn_siswa);
-
         btnLoginSiswa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
