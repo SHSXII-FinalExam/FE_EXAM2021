@@ -8,6 +8,11 @@ import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
 
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+
 public interface ApiEndPoints {
 
     @GET("dbReadSiswa.php")

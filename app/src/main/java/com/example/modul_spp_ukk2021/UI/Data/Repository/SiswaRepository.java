@@ -4,6 +4,7 @@ import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
 
 import java.util.List;
 
+
 public class SiswaRepository {
     String value;
     String message;
