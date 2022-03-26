@@ -27,7 +27,9 @@ public class HomeAdminFragment extends AppCompatActivity {
         logoutAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeAdminFragment.this, LoginChoiceActivity.class);
+                Intent intent;
+                intent = new Intent(HomeAdminFragment.this,
+                        LoginChoiceActivity.class);
                 fragment.startActivity();
             }
         });
@@ -38,7 +40,8 @@ public class HomeAdminFragment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 fragmentManager = getSupportFragmentManager();
-                int commit = fragmentManager.beginTransaction().replace(R.id.fragment_container,
+                int commit;
+                commit = fragmentManager.beginTransaction().replace(R.id.fragment_container,
                         new DataSiswaFragment()).commit();
             }
         });
@@ -48,7 +51,9 @@ public class HomeAdminFragment extends AppCompatActivity {
         dataPetugas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeAdminFragment.this, DataPetugasActivity.class);
+                Intent intent;
+                intent = new Intent(HomeAdminFragment.this,
+                        DataPetugasActivity.class);
                 fragment.startActivity();
             }
         });
@@ -59,7 +64,8 @@ public class HomeAdminFragment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent;
-                intent = new Intent(HomeAdminFragment.this, DataKelasActivity.class);
+                intent = new Intent(HomeAdminFragment.this,
+                        DataKelasActivity.class);
                 fragment.startActivity();
             }
         });
@@ -70,7 +76,8 @@ public class HomeAdminFragment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent;
-                intent = new Intent(HomeAdminFragment.this, DataSPPActivity.class);
+                intent = new Intent(HomeAdminFragment.this,
+                        DataSPPActivity.class);
                 fragment.startActivity();
             }
         });
