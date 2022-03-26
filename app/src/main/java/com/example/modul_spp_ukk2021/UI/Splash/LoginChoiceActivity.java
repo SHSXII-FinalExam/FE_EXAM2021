@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Home.punyaAdmin.LoginAdminActivity;
 import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.LoginPetugasActivity;
@@ -17,12 +19,14 @@ public class LoginChoiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_choice);
 
+        MaterialButton btnLoginAdmin = findViewById(R.id.btn_admin);
+        MaterialButton btnLoginPetugas = findViewById(R.id.btn_petugas);
+        MaterialButton btnLoginSiswa = findViewById(R.id.btn_siswa);
+
         btnLoginSiswa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent;
-                intent = new Intent(LoginChoiceActivity.this,
-                        LoginSiswaActivity.class);
+                Intent intent = new Intent(LoginChoiceActivity.this, LoginSiswaActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -31,9 +35,7 @@ public class LoginChoiceActivity extends AppCompatActivity {
         btnLoginPetugas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent;
-                intent = new Intent(LoginChoiceActivity.this,
-                        LoginPetugasActivity.class);
+                Intent intent = new Intent(LoginChoiceActivity.this, LoginPetugasActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -42,28 +44,10 @@ public class LoginChoiceActivity extends AppCompatActivity {
         btnLoginAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent;
-                intent = new Intent(LoginChoiceActivity.this,
-                        LoginAdminActivity.class);
+                Intent intent = new Intent(LoginChoiceActivity.this, LoginAdminActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
-    }
-
-    private void finish() {
-
-    }
-
-    private void startActivity(Intent intent) {
-
-    }
-
-    private MaterialButton findViewById(int btn_admin) {
-        
-    }
-
-    private void setContentView(int activity_login_choice) {
-        
     }
 }
