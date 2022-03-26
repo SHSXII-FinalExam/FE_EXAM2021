@@ -70,7 +70,8 @@ public interface ApiEndPoints {
     @POST("dbUpdatePembayaran.php")
     Call<PembayaranRepository> updatePembayaran(
             @Field("id_pembayaran") String id_pembayaran,
-            @Field("jumlah_bayar") String jumlah_bayar);
+            @Field("jumlah_bayar") String jumlah_bayar,
+            @Field("id_petugas") String id_petugas);
 
 
     // [PA] Punya Admin
@@ -82,6 +83,7 @@ public interface ApiEndPoints {
             @Field("nis") String nis,
             @Field("nama") String nama,
             @Field("id_kelas") String id_kelas,
+            @Field("id_spp") Integer id_spp,
             @Field("alamat") String alamat,
             @Field("no_telp") String no_telp,
             @Field("password") String password,
@@ -114,6 +116,11 @@ public interface ApiEndPoints {
     Call<SiswaRepository> viewDataSiswaKelas(
             @Field("id_kelas") String id_kelas);
 
+    @FormUrlEncoded
+    @POST("dbReadSPPAngkatan.php")
+    Call<SPPRepository> viewDataSPPAngkatan(
+            @Field("angkatan") String angkatan);
+
     // Read
     @GET("dbReadKelas.php")
     Call<KelasRepository> viewDataKelas();
@@ -126,6 +133,18 @@ public interface ApiEndPoints {
 
     // Update
     @FormUrlEncoded
+    @POST("dbUpdateSiswa.php")
+    Call<SiswaRepository> updateSiswa(
+            @Field("nisn") String nisn,
+            @Field("nama") String nama,
+            @Field("id_kelas") String id_kelas,
+            @Field("id_spp") Integer id_spp,
+            @Field("alamat") String alamat,
+            @Field("no_telp") String no_telp,
+            @Field("password") String password,
+            @Field("id_petugas") String id_petugas);
+
+    @FormUrlEncoded
     @POST("dbUpdateKelas.php")
     Call<KelasRepository> updateKelas(
             @Field("id_kelas") String id_kelas,
@@ -136,7 +155,7 @@ public interface ApiEndPoints {
     @FormUrlEncoded
     @POST("dbUpdateSPP.php")
     Call<SPPRepository> updateSPP(
-            @Field("id_spp") String id_spp,
+            @Field("id_spp") Integer id_spp,
             @Field("nominal") String nominal);
 
     @FormUrlEncoded
@@ -162,7 +181,7 @@ public interface ApiEndPoints {
     @FormUrlEncoded
     @POST("dbDeleteSPP.php")
     Call<SPPRepository> deleteSPP(
-            @Field("id_spp") String id_spp);
+            @Field("id_spp") Integer id_spp);
 
     @FormUrlEncoded
     @POST("dbDeletePetugas.php")

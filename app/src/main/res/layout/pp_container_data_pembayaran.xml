@@ -8,7 +8,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardPembayaran"
-        android:layout_width="152dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
         android:backgroundTint="#F6F8FE"
@@ -70,7 +70,7 @@
                 android:id="@+id/nominal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="@font/avenir_regular"
                 android:text="Rp.0"
                 android:textColor="#41E46F"
@@ -79,12 +79,31 @@
                 app:layout_constraintStart_toStartOf="@+id/status"
                 app:layout_constraintTop_toBottomOf="@+id/status" />
 
+            <ImageView
+                android:id="@+id/download"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:elevation="1dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:src="@drawable/ic_download"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nominal"
+                app:tint="#251F39" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/updateData"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/button1_gradient"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/gradient_red"
+                android:elevation="0dp"
                 app:backgroundTint="@null"
                 app:cornerRadius="8dp"
                 app:icon="@drawable/ic_play"

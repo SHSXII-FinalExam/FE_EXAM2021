@@ -14,8 +14,4 @@
         android:title="Refresh"
         app:showAsAction="never"/>
 
-    <item android:id="@+id/generate_data"
-        android:title="Save as"
-        app:showAsAction="never" />
-
 </menu>

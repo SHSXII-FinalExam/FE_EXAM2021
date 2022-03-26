@@ -3,12 +3,16 @@ package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -66,8 +70,26 @@ public class LoginSiswaActivity extends AppCompatActivity {
         startActivity(intent, options.toBundle());
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
+    }
+
     private void validateForm(String nisn, String password) {
         if (nisn.length() < 10) {
+            textInputLayout2.setErrorEnabled(true);
             textInputLayout.setError("NISN kurang/salah");
             editNISN.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -85,6 +107,7 @@ public class LoginSiswaActivity extends AppCompatActivity {
             });
 
         } else if (password.isEmpty()) {
+            textInputLayout2.setErrorEnabled(true);
             textInputLayout2.setError("Password kosong/salah");
             editPassword.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -102,11 +125,11 @@ public class LoginSiswaActivity extends AppCompatActivity {
             });
 
         } else {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-            loadingProgress.setVisibility(LottieAnimationView.VISIBLE);
-            loadingProgress.playAnimation();
             loginSiswa(nisn, password);
             textInputLayout2.setErrorEnabled(false);
+            loadingProgress.playAnimation();
+            loadingProgress.setVisibility(LottieAnimationView.VISIBLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         }
     }
 
@@ -116,6 +139,7 @@ public class LoginSiswaActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+
         Call<LoginSiswaRepository> call = api.loginSiswa(nisn, password);
         call.enqueue(new Callback<LoginSiswaRepository>() {
             @Override
@@ -123,41 +147,33 @@ public class LoginSiswaActivity extends AppCompatActivity {
                 String value = response.body().getValue();
                 String message = response.body().getMessage();
 
-                if (value.equals("1")) {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (value.equals("1")) {
                             sharedprefs.edit().putString("nisnSiswa", nisn).apply();
                             sharedprefs.edit().putString("passwordSiswa", password).apply();
+                            Log.e("DEBUG", "NISN:" + nisn);
 
                             Intent intent = new Intent(LoginSiswaActivity.this, HomeSiswaActivity.class);
                             startActivity(intent);
-                        }
-                    }, 2000);
 
-                } else {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        } else {
                             loadingProgress.pauseAnimation();
                             loadingProgress.setVisibility(LottieAnimationView.GONE);
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             Toast.makeText(LoginSiswaActivity.this, message, Toast.LENGTH_SHORT).show();
                         }
-                    }, 2000);
-                }
-
+                    }
+                }, 2000);
             }
 
             @Override
             public void onFailure(Call<LoginSiswaRepository> call, Throwable t) {
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                loadingProgress.pauseAnimation();
-                loadingProgress.setVisibility(LottieAnimationView.GONE);
-                Toast.makeText(LoginSiswaActivity.this, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginSiswaActivity.this, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
                 Log.e("DEBUG", "Error: ", t);
             }
-
         });
     }
 }

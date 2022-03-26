@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,16 +35,13 @@ import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerAdapter;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerItem;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.SimpleItem;
-import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
-import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
 import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -63,11 +61,10 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
     private TextView nama, kelas;
     private String[] screenTitles;
     private Drawable[] screenIcons;
-    private SlidingRootNav slidingRootNav;
     private SharedPreferences sharedprefs;
+    private SlidingRootNav slidingRootNav;
     private String nisnSiswa, passwordSiswa;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private List<Siswa> siswa = new ArrayList<>();
     private boolean doubleBackToExitPressedOnce = false;
     private String tvFillNama, tvNIS, tvKelas, tvFillAlamat, tvNoTelp;
     private FragmentRefreshListener historyRefreshListener, tagihanRefreshListener;
@@ -110,31 +107,61 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (getHistoryRefreshListener() != null && getTagihanRefreshListener() != null) {
-                    getHistoryRefreshListener().onRefresh();
-                    getTagihanRefreshListener().onRefresh();
-                }
-
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (swipeRefreshLayout.isRefreshing()) {
-                            swipeRefreshLayout.setRefreshing(false);
-                        }
-                    }
-                }, 500);
+                Refreshing();
             }
         });
 
-        SliderSetup(mTabs, mIndicator, mViewPager);
         SideNavSetup();
+        SliderSetup(mTabs, mIndicator, mViewPager);
     }
 
-    public void toggleRefreshing(boolean enabled) {
-        if (swipeRefreshLayout != null) {
-            swipeRefreshLayout.setEnabled(enabled);
+    public void Refreshing() {
+        swipeRefreshLayout.setRefreshing(true);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        if (getHistoryRefreshListener() != null && getTagihanRefreshListener() != null) {
+            getHistoryRefreshListener().onRefresh();
+            getTagihanRefreshListener().onRefresh();
         }
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (swipeRefreshLayout.isRefreshing()) {
+                    swipeRefreshLayout.setRefreshing(false);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
+            }
+        }, 1000);
+    }
+
+    public void SideNavSetup() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+
+        slidingRootNav = new SlidingRootNavBuilder(this)
+                .withToolbarMenuToggle(toolbar)
+                .withMenuOpened(false)
+                .withContentClickableWhenMenuOpened(false)
+                .withMenuLayout(R.layout.activity_sidenav)
+                .withDragDistance(120)
+                .withRootViewScale(0.7f)
+                .withRootViewElevation(5)
+                .inject();
+
+        screenIcons = loadScreenIcons();
+        screenTitles = loadScreenTitles();
+
+        DrawerAdapter adapter = new DrawerAdapter(Arrays.asList(
+                createItemFor(POS_DASHBOARD).setChecked(true),
+                createItemFor(POS_LOGOUT)));
+        adapter.setListener(this);
+        adapter.setSelected(POS_DASHBOARD);
+
+        RecyclerView list = findViewById(R.id.list);
+        list.setNestedScrollingEnabled(false);
+        list.setLayoutManager(new LinearLayoutManager(this));
+        list.setAdapter(adapter);
     }
 
     public void SliderSetup(TabLayout mTabs, View mIndicator, ViewPager mViewPager) {
@@ -174,35 +201,10 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
         });
     }
 
-    public void SideNavSetup() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("");
-        setSupportActionBar(toolbar);
-
-        slidingRootNav = new SlidingRootNavBuilder(this)
-                .withToolbarMenuToggle(toolbar)
-                .withMenuOpened(false)
-                .withContentClickableWhenMenuOpened(false)
-                .withMenuLayout(R.layout.activity_sidenav)
-                .withDragDistance(120)
-                .withRootViewScale(0.7f)
-                .withRootViewElevation(5)
-                .inject();
-
-        screenIcons = loadScreenIcons();
-        screenTitles = loadScreenTitles();
-
-        DrawerAdapter adapter = new DrawerAdapter(Arrays.asList(
-                createItemFor(POS_DASHBOARD).setChecked(true),
-                createItemFor(POS_LOGOUT)));
-        adapter.setListener(this);
-
-        RecyclerView list = findViewById(R.id.list);
-        list.setNestedScrollingEnabled(false);
-        list.setLayoutManager(new LinearLayoutManager(this));
-        list.setAdapter(adapter);
-
-        adapter.setSelected(POS_DASHBOARD);
+    public void toggleRefreshing(boolean enabled) {
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setEnabled(enabled);
+        }
     }
 
     @Override
@@ -213,6 +215,71 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadProfil();
+    }
+
+    @Override
+    public void onBackPressed() {
+        slidingRootNav.openMenu();
+        if (slidingRootNav.isMenuOpened()) {
+            if (doubleBackToExitPressedOnce) {
+                finishAffinity();
+                return;
+            }
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Tekan lagi untuk keluar...", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        }
+    }
+
+    private void loadProfil() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+
+        Call<SiswaRepository> call = api.viewProfile(nisnSiswa);
+        call.enqueue(new Callback<SiswaRepository>() {
+            @Override
+            public void onResponse(Call<SiswaRepository> call, Response<SiswaRepository> response) {
+                String value = response.body().getValue();
+                String message = response.body().getMessage();
+                List<Siswa> results = response.body().getResult();
+
+                if (value.equals("1")) {
+                    for (int i = 0; i < results.size(); i++) {
+                        nama.setText(results.get(i).getNama());
+                        kelas.setText("Siswa " + results.get(i).getNama_kelas());
+
+                        tvFillNama = results.get(i).getNama();
+                        tvNIS = results.get(i).getNis();
+                        tvKelas = results.get(i).getNama_kelas();
+                        tvFillAlamat = results.get(i).getAlamat();
+                        tvNoTelp = results.get(i).getNo_telp();
+                    }
+
+                } else {
+                    Toast.makeText(HomeSiswaActivity.this, message, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SiswaRepository> call, Throwable t) {
+                Log.e("DEBUG", "Error: ", t);
+            }
+        });
     }
 
     @Override
@@ -228,6 +295,8 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
             AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
             View view = LayoutInflater.from(this).inflate(R.layout.dialog_profile, (ConstraintLayout) findViewById(R.id.layoutDialogContainer));
             builder.setView(view);
+            final AlertDialog alertDialog = builder.create();
+
             ((TextView) view.findViewById(R.id.tvFillNama)).setText(tvFillNama);
             ((TextView) view.findViewById(R.id.tvNISN)).setText("NISN    : " + nisnSiswa);
             ((TextView) view.findViewById(R.id.tvNIS)).setText("NIS                    : " + tvNIS);
@@ -235,7 +304,6 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
             ((TextView) view.findViewById(R.id.tvFillAlamat)).setText(tvFillAlamat);
             ((TextView) view.findViewById(R.id.tvNoTelp)).setText("Nomor Ponsel : " + tvNoTelp);
             ((TextView) view.findViewById(R.id.tvPassword)).setText("Password          : " + passwordSiswa);
-            final AlertDialog alertDialog = builder.create();
 
             view.findViewById(R.id.clear).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -248,130 +316,12 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
                 alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
             }
             alertDialog.show();
-        } else if (id == R.id.action_refresh) {
-            swipeRefreshLayout.setRefreshing(true);
 
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (swipeRefreshLayout.isRefreshing()) {
-                        swipeRefreshLayout.setRefreshing(false);
-                        if (getHistoryRefreshListener() != null && getTagihanRefreshListener() != null) {
-                            getHistoryRefreshListener().onRefresh();
-                            getTagihanRefreshListener().onRefresh();
-                        }
-                    }
-                }
-            }, 1000);
+        } else if (id == R.id.action_refresh) {
+            Refreshing();
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        slidingRootNav.openMenu();
-        if (slidingRootNav.isMenuOpened()) {
-            if (doubleBackToExitPressedOnce) {
-                finishAffinity();
-                return;
-            }
-
-            this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "Tekan lagi untuk keluar...", Toast.LENGTH_SHORT).show();
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    doubleBackToExitPressedOnce = false;
-                }
-            }, 2000);
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadPembayaran();
-        loadProfil();
-    }
-
-    private void loadPembayaran() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-        Call<PembayaranRepository> call = api.viewTagihan(nisnSiswa);
-        call.enqueue(new Callback<PembayaranRepository>() {
-            @Override
-            public void onResponse(Call<PembayaranRepository> call, Response<PembayaranRepository> response) {
-                String value = response.body().getValue();
-                List<Pembayaran> results = response.body().getResult();
-
-                Log.e("value", value);
-                if (value.equals("1")) {
-                    loadProfil();
-
-                    int i;
-                    int total_sum = 0;
-                    for (i = 0; i < results.size(); i++) {
-                        int total_Kurang = results.get(i).getKurang_bayar();
-                        int belum_Bayar = results.get(i).getNominal();
-                        nama.setText(results.get(i).getNama());
-                        kelas.setText("Siswa " + results.get(i).getNama_kelas());
-
-                        if (results.get(i).getKurang_bayar() == 0) {
-                            total_sum += belum_Bayar;
-                        }
-                        total_sum += total_Kurang;
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PembayaranRepository> call, Throwable t) {
-                Log.e("DEBUG", "Error: ", t);
-            }
-        });
-    }
-
-    private void loadProfil() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-        Call<SiswaRepository> call = api.viewProfile(nisnSiswa);
-        call.enqueue(new Callback<SiswaRepository>() {
-            @Override
-            public void onResponse(Call<SiswaRepository> call, Response<SiswaRepository> response) {
-                String value = response.body().getValue();
-                List<Siswa> results = response.body().getResult();
-                String message = response.body().getMessage();
-
-                Log.e("value", value);
-                if (value.equals("1")) {
-                    siswa = response.body().getResult();
-
-                    for (int i = 0; i < results.size(); i++) {
-                        tvFillNama = results.get(i).getNama();
-                        tvNIS = results.get(i).getNis();
-                        tvKelas = results.get(i).getNama_kelas();
-                        tvFillAlamat = results.get(i).getAlamat();
-                        tvNoTelp = results.get(i).getNo_telp();
-                    }
-                } else {
-                    Toast.makeText(HomeSiswaActivity.this, message, Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SiswaRepository> call, Throwable t) {
-                Log.e("DEBUG", "Error: ", t);
-            }
-        });
     }
 
     @SuppressWarnings("rawtypes")

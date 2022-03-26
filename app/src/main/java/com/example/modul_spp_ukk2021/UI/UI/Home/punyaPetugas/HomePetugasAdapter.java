@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
@@ -18,14 +19,15 @@ import com.google.android.material.button.MaterialButton;
 import java.util.List;
 
 public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.ViewHolder> {
-    private Context context;
-    private List<Siswa> siswa;
+    private final Context context;
+    private final List<Siswa> siswa;
 
     public HomePetugasAdapter(Context context, List<Siswa> siswa) {
         this.siswa = siswa;
         this.context = context;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pp_container_data_siswa, parent, false);
@@ -57,7 +59,7 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
         return siswa.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         MaterialButton btnSiswa;
         TextView tvNama, tvKelas;
 
@@ -65,7 +67,7 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
             super(itemView);
             tvKelas = itemView.findViewById(R.id.kelas);
             tvNama = itemView.findViewById(R.id.namaSiswa);
-            btnSiswa = itemView.findViewById(R.id.detailSiswa);
+            btnSiswa = itemView.findViewById(R.id.btnSiswa);
         }
     }
 }

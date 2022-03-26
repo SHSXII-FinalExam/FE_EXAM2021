@@ -1,12 +1,12 @@
 package com.example.modul_spp_ukk2021.UI.Data.Model;
 
 public class SPP {
-    String id_spp;
+    Integer id_spp;
     String angkatan;
     String tahun;
     Integer nominal;
 
-    public String getId_spp() {
+    public Integer getId_spp() {
         return id_spp;
     }
 

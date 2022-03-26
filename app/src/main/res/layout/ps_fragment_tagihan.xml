@@ -5,8 +5,7 @@
     android:id="@+id/constraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:overScrollMode="never">
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -62,7 +61,6 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/avenir_demi"
-                    android:text="Rp."
                     android:textColor="@color/white"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toTopOf="@+id/textView13"
@@ -103,12 +101,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
             android:nestedScrollingEnabled="false"
             android:overScrollMode="never"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tagihan"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tagihan"
             tools:listitem="@layout/ps_container_data_tagihan" />
 
@@ -124,6 +120,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tagihan"
             app:lottie_autoPlay="false"
             app:lottie_loop="true"
-            app:lottie_url="@string/emptyTransaksi" />
+            app:lottie_rawRes="@raw/nodata" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

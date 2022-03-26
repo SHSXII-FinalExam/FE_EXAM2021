@@ -135,8 +135,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
                     getPetugasRefreshListener().onRefresh();
                 }
 
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+                new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         if (swipeRefreshLayout.isRefreshing()) {
@@ -270,7 +269,8 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
             builder.setView(view);
             ((TextView) view.findViewById(R.id.tvFillNama2)).setText(nama_petugas);
             ((TextView) view.findViewById(R.id.tvLevel)).setText("Staff level : " + rank);
-            ((TextView) view.findViewById(R.id.tvPassword2)).setText("Password : " + password);
+            ((TextView) view.findViewById(R.id.tvUsername)).setText("Username : " + username);
+            ((TextView) view.findViewById(R.id.tvPassword2)).setText("Password  : " + password);
             final AlertDialog alertDialog = builder.create();
 
             view.findViewById(R.id.layoutDialog).setVisibility(View.GONE);
@@ -290,8 +290,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
         } else if (id == R.id.action_refresh) {
             swipeRefreshLayout.setRefreshing(true);
 
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
+            new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     if (swipeRefreshLayout.isRefreshing()) {

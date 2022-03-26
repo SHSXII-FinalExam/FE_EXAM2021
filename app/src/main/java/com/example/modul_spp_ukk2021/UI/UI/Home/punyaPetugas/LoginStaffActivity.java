@@ -3,12 +3,16 @@ package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -51,9 +55,9 @@ public class LoginStaffActivity extends AppCompatActivity {
         sharedprefs = getSharedPreferences("myprefs", Context.MODE_PRIVATE);
 
         card = findViewById(R.id.card);
-        MaterialButton masuk = findViewById(R.id.masuk);
         editUsername = findViewById(R.id.username);
         editPassword = findViewById(R.id.password);
+        MaterialButton masuk = findViewById(R.id.masuk);
         MaterialButton kembali = findViewById(R.id.kembali);
         textInputLayout = findViewById(R.id.textInputLayout);
         loadingProgress = findViewById(R.id.loadingProgress);
@@ -70,8 +74,26 @@ public class LoginStaffActivity extends AppCompatActivity {
         startActivity(intent, options.toBundle());
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if ( v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
+    }
+
     private void validateForm(String username, String password) {
         if (username.isEmpty()) {
+            textInputLayout2.setErrorEnabled(true);
             textInputLayout.setError("Username salah");
             editUsername.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -89,6 +111,7 @@ public class LoginStaffActivity extends AppCompatActivity {
             });
 
         } else if (password.isEmpty()) {
+            textInputLayout2.setErrorEnabled(true);
             textInputLayout2.setError("Password kosong/salah");
             editPassword.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -106,17 +129,12 @@ public class LoginStaffActivity extends AppCompatActivity {
             });
 
         } else {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-            loadingProgress.setVisibility(LottieAnimationView.VISIBLE);
-            loadingProgress.playAnimation();
             loginStaff(username, password);
             textInputLayout2.setErrorEnabled(false);
+            loadingProgress.playAnimation();
+            loadingProgress.setVisibility(LottieAnimationView.VISIBLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         }
-    }
-
-    private List<LoginStaff> fetchResults(Response<LoginStaffRepository> response) {
-        LoginStaffRepository loginStaffRepository = response.body();
-        return loginStaffRepository.getResult();
     }
 
     private void loginStaff(String username, String password) {
@@ -125,62 +143,51 @@ public class LoginStaffActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+
         Call<LoginStaffRepository> call = api.loginStaff(username, password);
         call.enqueue(new Callback<LoginStaffRepository>() {
             @Override
             public void onResponse(Call<LoginStaffRepository> call, Response<LoginStaffRepository> response) {
                 String value = response.body().getValue();
-                List<LoginStaff> results = fetchResults(response);
                 String message = response.body().getMessage();
+                List<LoginStaff> results = response.body().getResult();
 
-                if (value.equals("1")) {
-                    for (int i = 0; i < results.size(); i++) {
-                        String level = results.get(i).getLevel();
-                        Log.e("DEBUG", "Staff level:" + level);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (value.equals("1")) {
+                            for (int i = 0; i < results.size(); i++) {
+                                String level = results.get(i).getLevel();
+                                sharedprefs.edit().putString("levelStaff", level).apply();
+                                sharedprefs.edit().putString("usernameStaff", username).apply();
+                                sharedprefs.edit().putString("passwordStaff", password).apply();
+                                sharedprefs.edit().putString("idStaff", results.get(i).getId_petugas()).apply();
+                                Log.e("DEBUG", "Staff level:" + level);
 
-                        sharedprefs.edit().putString("usernameStaff", username).apply();
-                        sharedprefs.edit().putString("levelStaff", level).apply();
-                        sharedprefs.edit().putString("passwordStaff", password).apply();
-
-                        if (level.equals("Petugas")) {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
+                                if (level.equals("Petugas")) {
                                     Intent intent = new Intent(LoginStaffActivity.this, HomePetugasActivity.class);
                                     startActivity(intent);
-                                }
-                            }, 2000);
 
-                        } else if (level.equals("Admin")) {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
+                                } else if (level.equals("Admin")) {
                                     Intent intent = new Intent(LoginStaffActivity.this, HomeAdminActivity.class);
                                     startActivity(intent);
                                 }
-                            }, 2000);
-                        }
-                    }
+                            }
 
-                } else {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        } else {
                             loadingProgress.pauseAnimation();
                             loadingProgress.setVisibility(LottieAnimationView.GONE);
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             Toast.makeText(LoginStaffActivity.this, message, Toast.LENGTH_SHORT).show();
                         }
-                    }, 2000);
-                }
+                    }
+                }, 2000);
             }
 
             @Override
             public void onFailure(Call<LoginStaffRepository> call, Throwable t) {
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                loadingProgress.pauseAnimation();
-                loadingProgress.setVisibility(LottieAnimationView.GONE);
-                Toast.makeText(LoginStaffActivity.this, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginStaffActivity.this, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
                 Log.e("DEBUG", "Error: ", t);
             }
         });

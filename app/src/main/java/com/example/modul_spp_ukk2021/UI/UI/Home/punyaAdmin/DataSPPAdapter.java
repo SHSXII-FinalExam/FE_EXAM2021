@@ -47,7 +47,7 @@ public class DataSPPAdapter extends RecyclerView.Adapter<DataSPPAdapter.ViewHold
     private static OnRecyclerViewItemClickListener mListener;
 
     public interface OnRecyclerViewItemClickListener {
-        void onItemClicked(String id_spp, String refresh);
+        void onItemClicked(Integer id_spp, String refresh);
     }
 
     public void setOnRecyclerViewItemClickListener(DataSPPAdapter.OnRecyclerViewItemClickListener listener) {

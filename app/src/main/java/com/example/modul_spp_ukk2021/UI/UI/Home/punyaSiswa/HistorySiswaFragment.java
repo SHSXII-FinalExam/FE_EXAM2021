@@ -16,17 +16,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
-import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,7 +39,6 @@ public class HistorySiswaFragment extends Fragment {
     private TextView tagihan_count;
     private RecyclerView recyclerView;
     private HistorySiswaAdapter adapter;
-    private SharedPreferences sharedprefs;
     private LottieAnimationView emptyTransaksi;
     private List<Pembayaran> pembayaran = new ArrayList<>();
 
@@ -52,7 +49,7 @@ public class HistorySiswaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.ps_fragment_history, container, false);
-        sharedprefs = requireActivity().getSharedPreferences("myprefs", Context.MODE_PRIVATE);
+        SharedPreferences sharedprefs = requireActivity().getSharedPreferences("myprefs", Context.MODE_PRIVATE);
         nisnSiswa = sharedprefs.getString("nisnSiswa", null);
 
         tagihan_count = view.findViewById(R.id.tagihan_count);
@@ -63,8 +60,6 @@ public class HistorySiswaFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerHistory);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-        runLayoutAnimation(recyclerView);
 
         ((HomeSiswaActivity) getActivity()).setHistoryRefreshListener(new HomeSiswaActivity.FragmentRefreshListener() {
             @Override
@@ -87,7 +82,6 @@ public class HistorySiswaFragment extends Fragment {
         LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_from_bottom);
 
         recyclerView.setLayoutAnimation(controller);
-        recyclerView.getAdapter().notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
     }
 
@@ -97,6 +91,7 @@ public class HistorySiswaFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+
         Call<PembayaranRepository> call = api.viewHistory(nisnSiswa);
         call.enqueue(new Callback<PembayaranRepository>() {
             @Override
@@ -104,10 +99,8 @@ public class HistorySiswaFragment extends Fragment {
                 String value = response.body().getValue();
                 List<Pembayaran> results = response.body().getResult();
 
-                Log.e("value", value);
                 if (value.equals("1")) {
                     recyclerView.setVisibility(View.VISIBLE);
-
                     emptyTransaksi.pauseAnimation();
                     emptyTransaksi.setVisibility(LottieAnimationView.GONE);
 
@@ -118,24 +111,24 @@ public class HistorySiswaFragment extends Fragment {
 
                     int i;
                     for (i = 0; i < results.size(); i++) {
-                        int a = results.get(i).getNominal();
+                        String debug = results.get(i).getStatus_bayar();
                     }
                     tagihan_count.setText("(" + String.valueOf(i) + ")");
+
                 } else {
                     tagihan_count.setText("(0)");
                     recyclerView.setVisibility(View.GONE);
-
-                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                     emptyTransaksi.playAnimation();
+                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Call<PembayaranRepository> call, Throwable t) {
+                tagihan_count.setText("(0)");
                 recyclerView.setVisibility(View.GONE);
-                emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                 emptyTransaksi.playAnimation();
-                Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
+                emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                 Log.e("DEBUG", "Error: ", t);
             }
         });

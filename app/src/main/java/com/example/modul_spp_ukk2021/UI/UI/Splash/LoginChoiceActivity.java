@@ -46,6 +46,7 @@ public class LoginChoiceActivity extends AppCompatActivity {
             startActivity(intent, options.toBundle());
             getWindow().setExitTransition(null);
         });
+
         btnLoginPetugas.setOnClickListener(v -> {
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginChoiceActivity.this, card, ViewCompat.getTransitionName(card));
             Intent intent = new Intent(LoginChoiceActivity.this, LoginStaffActivity.class);
@@ -60,7 +61,6 @@ public class LoginChoiceActivity extends AppCompatActivity {
             finishAffinity();
             return;
         }
-
         this.doubleBackToExitPressedOnce = true;
         Toast.makeText(this, "Tekan tombol kembali lagi untuk keluar", Toast.LENGTH_SHORT).show();
 

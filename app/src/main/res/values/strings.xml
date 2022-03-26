@@ -1,7 +1,3 @@
 <resources>
     <string name="app_name">Modul-SPP_UKK2021</string>
-
-    <string name="loadingProgress">https://assets2.lottiefiles.com/packages/lf20_U8TCRG.json</string>
-    <string name="emptyTransaksi">https://assets4.lottiefiles.com/packages/lf20_0zomy8eb.json</string>
-    <string name="noInternet">https://assets4.lottiefiles.com/packages/lf20_0zomy8eb.json</string>
 </resources>

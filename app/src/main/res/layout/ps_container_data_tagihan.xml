@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
     app:cardElevation="0dp"
     app:rippleColor="@android:color/transparent">
 

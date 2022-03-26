@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,10 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
-import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.LoginStaffActivity;
 import com.google.android.material.card.MaterialCardView;
 
 import java.text.NumberFormat;
@@ -43,7 +41,6 @@ public class TagihanSiswaFragment extends Fragment {
     private String nisnSiswa;
     private RecyclerView recyclerView;
     private TagihanSiswaAdapter adapter;
-    private SharedPreferences sharedprefs;
     private TextView nominal, tagihan_count;
     private LottieAnimationView emptyTransaksi;
     private MaterialCardView materialCardView5;
@@ -56,7 +53,7 @@ public class TagihanSiswaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.ps_fragment_tagihan, container, false);
-        sharedprefs = requireActivity().getSharedPreferences("myprefs", Context.MODE_PRIVATE);
+        SharedPreferences sharedprefs = requireActivity().getSharedPreferences("myprefs", Context.MODE_PRIVATE);
         nisnSiswa = sharedprefs.getString("nisnSiswa", null);
 
         nominal = view.findViewById(R.id.nominal);
@@ -69,8 +66,6 @@ public class TagihanSiswaFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerTagihan);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-        runLayoutAnimation(recyclerView);
 
         ((HomeSiswaActivity) getActivity()).setTagihanRefreshListener(new HomeSiswaActivity.FragmentRefreshListener() {
             @Override
@@ -93,7 +88,6 @@ public class TagihanSiswaFragment extends Fragment {
         LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_from_bottom);
 
         recyclerView.setLayoutAnimation(controller);
-        recyclerView.getAdapter().notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
     }
 
@@ -103,6 +97,7 @@ public class TagihanSiswaFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+
         Call<PembayaranRepository> call = api.viewTagihan(nisnSiswa);
         call.enqueue(new Callback<PembayaranRepository>() {
             @Override
@@ -110,11 +105,9 @@ public class TagihanSiswaFragment extends Fragment {
                 String value = response.body().getValue();
                 List<Pembayaran> results = response.body().getResult();
 
-                Log.e("value", value);
                 if (value.equals("1")) {
-                    materialCardView5.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.VISIBLE);
-
+                    materialCardView5.setVisibility(View.VISIBLE);
                     emptyTransaksi.pauseAnimation();
                     emptyTransaksi.setVisibility(LottieAnimationView.GONE);
 
@@ -140,22 +133,24 @@ public class TagihanSiswaFragment extends Fragment {
                     format.setMaximumFractionDigits(0);
                     nominal.setText(format.format(total_sum));
                     tagihan_count.setText("(" + String.valueOf(i) + ")");
+
                 } else {
                     tagihan_count.setText("(0)");
-                    materialCardView5.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.GONE);
-
-                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                    materialCardView5.setVisibility(View.GONE);
                     emptyTransaksi.playAnimation();
+                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Call<PembayaranRepository> call, Throwable t) {
+                tagihan_count.setText("(0)");
                 recyclerView.setVisibility(View.GONE);
-                emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                materialCardView5.setVisibility(View.GONE);
                 emptyTransaksi.playAnimation();
-                Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_SHORT).show();
+                emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
                 Log.e("DEBUG", "Error: ", t);
             }
         });

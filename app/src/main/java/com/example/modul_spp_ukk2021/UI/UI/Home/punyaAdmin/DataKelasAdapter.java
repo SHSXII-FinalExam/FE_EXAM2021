@@ -110,7 +110,9 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
                         @Override
                         public void onClick(View view) {
                             Intent intent = new Intent(context, DataSiswaActivity.class);
-                            intent.putExtra("idKelas", kelas.getId_kelas());
+                            intent.putExtra("id_kelas", kelas.getId_kelas());
+                            intent.putExtra("nama_kelas", kelas.getNama_kelas());
+                            intent.putExtra("angkatan", kelas.getAngkatan());
                             context.startActivity(intent);
                             alertDialog.dismiss();
                         }
@@ -128,12 +130,12 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
                             AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
                             View view2 = LayoutInflater.from(context).inflate(R.layout.pa_dialog_tambah_kelas, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
                             builder.setView(view2);
-                            final TextView textTitle = (TextView) view2.findViewById(R.id.textTitle);
-                            final Button nama_kelas = (Button) view2.findViewById(R.id.nama_kelas);
-                            final EditText namanomor = (EditText) view2.findViewById(R.id.namanomor_kelas);
-                            final EditText angkatan = (EditText) view2.findViewById(R.id.angkatan_kelas);
-                            final RadioGroup jurusan = (RadioGroup) view2.findViewById(R.id.jurusan_kelas);
-                            final TextView namajurusan = (TextView) view2.findViewById(R.id.namajurusan_kelas);
+                            final TextView textTitle = view2.findViewById(R.id.textTitle);
+                            final Button nama_kelas = view2.findViewById(R.id.nama_kelas);
+                            final EditText namanomor = view2.findViewById(R.id.namanomor_kelas);
+                            final EditText angkatan = view2.findViewById(R.id.angkatan_kelas);
+                            final RadioGroup jurusan = view2.findViewById(R.id.jurusan_kelas);
+                            final TextView namajurusan = view2.findViewById(R.id.namajurusan_kelas);
                             final AlertDialog alertDialog2 = builder.create();
 
                             nama = kelas.getNama_kelas().substring(0, kelas.getNama_kelas().indexOf(' '));

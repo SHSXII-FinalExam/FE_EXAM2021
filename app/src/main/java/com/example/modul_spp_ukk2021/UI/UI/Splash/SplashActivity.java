@@ -27,6 +27,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
         ImageView logo = findViewById(R.id.logo_ts);
 
         SharedPreferences sharedprefs = getSharedPreferences("myprefs", Context.MODE_PRIVATE);

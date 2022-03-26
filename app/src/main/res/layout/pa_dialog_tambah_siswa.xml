@@ -35,7 +35,7 @@
             android:fontFamily="@font/avenir_demi"
             android:gravity="center_vertical"
             android:padding="16dp"
-            android:text="Tambah Petugas"
+            android:text="Tambah Siswa"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,21 +44,21 @@
 
         <TextView
             android:id="@+id/tvNama"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:fontFamily="@font/avenir_demi"
-            android:text="Nama         :"
+            android:text="Nama                  :"
             android:textColor="#251F39"
-            app:layout_constraintBottom_toBottomOf="@+id/nama_petugas"
+            app:layout_constraintBottom_toBottomOf="@+id/nama_siswa"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/nama_petugas" />
+            app:layout_constraintTop_toTopOf="@+id/nama_siswa" />
 
         <EditText
-            android:id="@+id/nama_petugas"
+            android:id="@+id/nama_siswa"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="24dp"
             android:fontFamily="@font/avenir_medium"
             android:inputType="text"
@@ -70,39 +70,154 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
         <TextView
-            android:id="@+id/tvUsername"
-            android:layout_width="0dp"
+            android:id="@+id/tvNIS"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/avenir_demi"
-            android:text="Username :"
+            android:text="NIS                      :"
             android:textColor="#251F39"
-            app:layout_constraintBottom_toBottomOf="@+id/username_petugas"
+            app:layout_constraintBottom_toBottomOf="@+id/NIS_siswa"
             app:layout_constraintStart_toStartOf="@+id/tvNama"
-            app:layout_constraintTop_toTopOf="@+id/username_petugas" />
+            app:layout_constraintTop_toTopOf="@+id/NIS_siswa" />
 
         <EditText
-            android:id="@+id/username_petugas"
+            android:id="@+id/NIS_siswa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/avenir_medium"
+            android:inputType="number"
+            android:maxLength="8"
+            android:singleLine="true"
+            android:textColor="#0D0A19"
+            app:layout_constraintEnd_toEndOf="@+id/nama_siswa"
+            app:layout_constraintStart_toEndOf="@+id/tvNIS"
+            app:layout_constraintTop_toBottomOf="@+id/NISN_siswa" />
+
+        <TextView
+            android:id="@+id/tvNISN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenir_demi"
+            android:text="NISN                   :"
+            android:textColor="#251F39"
+            app:layout_constraintBottom_toBottomOf="@+id/NISN_siswa"
+            app:layout_constraintStart_toStartOf="@+id/tvNIS"
+            app:layout_constraintTop_toTopOf="@+id/NISN_siswa" />
+
+        <EditText
+            android:id="@+id/NISN_siswa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/avenir_medium"
+            android:inputType="number"
+            android:maxLength="10"
+            android:singleLine="true"
+            android:textColor="#0D0A19"
+            app:layout_constraintEnd_toEndOf="@+id/nama_siswa"
+            app:layout_constraintStart_toEndOf="@+id/tvNISN"
+            app:layout_constraintTop_toBottomOf="@+id/nama_siswa" />
+
+        <TextView
+            android:id="@+id/tvKelas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/avenir_demi"
+            android:text="Kelas                  : "
+            android:textColor="#251F39"
+            app:layout_constraintEnd_toEndOf="@+id/nama_siswa"
+            app:layout_constraintStart_toStartOf="@+id/tvNIS"
+            app:layout_constraintTop_toBottomOf="@+id/NIS_siswa" />
+
+        <TextView
+            android:id="@+id/tvSpp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenir_demi"
+            android:text="SPP Angkatan  :"
+            android:textColor="#251F39"
+            app:layout_constraintBottom_toBottomOf="@+id/spp_siswa"
+            app:layout_constraintStart_toStartOf="@+id/tvNIS"
+            app:layout_constraintTop_toTopOf="@+id/spp_siswa" />
+
+        <Button
+            android:id="@+id/spp_siswa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/dialog_background"
+            android:drawableEnd="@drawable/ic_arrow_down"
+            android:drawableTint="#251F39"
+            android:elevation="0dp"
+            android:fontFamily="@font/avenir_medium"
+            android:text="Pilih Tahun SPP"
+            android:textAllCaps="false"
+            android:textColor="#251F39"
+            app:backgroundTint="@null"
+            app:layout_constraintStart_toEndOf="@+id/tvSpp"
+            app:layout_constraintTop_toBottomOf="@+id/tvKelas" />
+
+        <TextView
+            android:id="@+id/tvAlamat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenir_demi"
+            android:text="Alamat               :"
+            android:textColor="#251F39"
+            app:layout_constraintBottom_toBottomOf="@+id/alamat_siswa"
+            app:layout_constraintStart_toStartOf="@+id/tvNIS"
+            app:layout_constraintTop_toTopOf="@+id/alamat_siswa" />
+
+        <EditText
+            android:id="@+id/alamat_siswa"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/avenir_medium"
             android:inputType="text"
-            android:maxLength="25"
             android:singleLine="true"
             android:textColor="#0D0A19"
-            app:layout_constraintEnd_toEndOf="@+id/nama_petugas"
-            app:layout_constraintStart_toEndOf="@+id/tvUsername"
-            app:layout_constraintTop_toBottomOf="@+id/nama_petugas" />
+            app:layout_constraintEnd_toEndOf="@+id/nama_siswa"
+            app:layout_constraintStart_toEndOf="@+id/tvAlamat"
+            app:layout_constraintTop_toBottomOf="@+id/spp_siswa" />
+
+        <TextView
+            android:id="@+id/tvPonsel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenir_demi"
+            android:text="Nomor Ponsel :"
+            android:textColor="#251F39"
+            app:layout_constraintBottom_toBottomOf="@+id/ponsel_siswa"
+            app:layout_constraintStart_toStartOf="@+id/tvNIS"
+            app:layout_constraintTop_toTopOf="@+id/ponsel_siswa" />
+
+        <EditText
+            android:id="@+id/ponsel_siswa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/avenir_medium"
+            android:inputType="number"
+            android:maxLength="13"
+            android:singleLine="true"
+            android:textColor="#0D0A19"
+            app:layout_constraintEnd_toEndOf="@+id/nama_siswa"
+            app:layout_constraintStart_toEndOf="@+id/tvPonsel"
+            app:layout_constraintTop_toBottomOf="@+id/alamat_siswa" />
 
         <TextView
             android:id="@+id/tvPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/avenir_demi"
-            android:text="Password  :"
+            android:text="Password          :"
             android:textColor="#251F39"
             app:layout_constraintBottom_toBottomOf="@+id/layout_password"
-            app:layout_constraintStart_toStartOf="@+id/tvUsername"
+            app:layout_constraintStart_toStartOf="@+id/tvNIS"
             app:layout_constraintTop_toTopOf="@+id/layout_password" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -118,13 +233,13 @@
             app:boxStrokeColor="@color/colorNeutral"
             app:hintEnabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/nama_petugas"
+            app:layout_constraintEnd_toEndOf="@+id/nama_siswa"
             app:layout_constraintStart_toEndOf="@+id/tvPassword"
-            app:layout_constraintTop_toBottomOf="@+id/username_petugas"
+            app:layout_constraintTop_toBottomOf="@+id/ponsel_siswa"
             app:passwordToggleEnabled="true">
 
             <EditText
-                android:id="@+id/password_petugas"
+                android:id="@+id/password_siswa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/avenir_medium"

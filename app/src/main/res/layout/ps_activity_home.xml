@@ -66,7 +66,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/avenir_medium"
-                android:text="Siswa"
                 android:textColor="#8A959E"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/profile_frame"
@@ -109,7 +108,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
                 android:overScrollMode="never"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -117,5 +115,4 @@
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

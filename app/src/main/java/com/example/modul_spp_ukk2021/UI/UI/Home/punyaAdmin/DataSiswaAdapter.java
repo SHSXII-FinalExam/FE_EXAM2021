@@ -1,19 +1,26 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
@@ -21,17 +28,33 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
+import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
 import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.PembayaranActivity;
 import com.google.android.material.card.MaterialCardView;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.ViewHolder> {
-    private List<Siswa> siswa;
+    private Integer id_spp;
     private Context context;
+    private List<Siswa> siswa;
     private static OnRecyclerViewItemClickListener mListener;
+    private String id_kelas, id_petugas, nama_kelas, angkatan;
 
     public interface OnRecyclerViewItemClickListener {
         void onItemClicked(String nisn, String refresh);
@@ -56,6 +79,24 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Siswa siswa = this.siswa.get(position);
+
+        SharedPreferences sharedprefs = context.getSharedPreferences("myprefs", Context.MODE_PRIVATE);
+        id_petugas = sharedprefs.getString("idStaff", null);
+
+        Intent intent = ((Activity) context).getIntent();
+        id_kelas = intent.getStringExtra("id_kelas");
+        angkatan = intent.getStringExtra("angkatan");
+        nama_kelas = intent.getStringExtra("nama_kelas");
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
+        format.setMaximumFractionDigits(0);
 
         holder.tvNama.setText(siswa.getNama());
         holder.tvNISN.setText(siswa.getNisn());
@@ -111,59 +152,124 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
                     }, 400);
                 }
             });
-//                    view.findViewById(R.id.buttonEdit).setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            alertDialog.dismiss();
-//                            AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
-//                            View view2 = LayoutInflater.from(context).inflate(R.layout.pa_dialog_edit_spp, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
-//                            builder.setView(view2);
-//                            final TextView angkatan = (TextView) view2.findViewById(R.id.angkatan_spp);
-//                            final TextView tahun = (TextView) view2.findViewById(R.id.tahun_spp);
-//                            final EditText nominal = (EditText) view2.findViewById(R.id.nominal_spp);
-//                            angkatan.setText(" " + spp.getAngkatan());
-//                            tahun.setText(" " + spp.getTahun());
-//                            nominal.setText(spp.getNominal().toString());
-//                            final AlertDialog alertDialog2 = builder.create();
-//                            view2.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View view) {
-//                                    Retrofit retrofit = new Retrofit.Builder()
-//                                            .baseUrl(url)
-//                                            .addConverterFactory(GsonConverterFactory.create())
-//                                            .build();
-//                                    ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-//                                    Call<SPPRepository> call = api.updateSPP(spp.getId_spp(), nominal.toString());
-//                                    call.enqueue(new Callback<SPPRepository>() {
-//                                        @Override
-//                                        public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
-//                                            String value = response.body().getValue();
-//                                            String message = response.body().getMessage();
-//                                            if (value.equals("1")) {
-//                                                alertDialog2.dismiss();
-//                                                mListener.onItemClicked(null, "1");
-//                                            }
-//                                        }
-//
-//                                        @Override
-//                                        public void onFailure(Call<SPPRepository> call, Throwable t) {
-//                                            Log.e("DEBUG", "Error: ", t);
-//                                        }
-//                                    });
-//                                }
-//                            });
-//                            view2.findViewById(R.id.buttonBatal).setOnClickListener(new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View view) {
-//                                    alertDialog2.dismiss();
-//                                }
-//                            });
-//                            if (alertDialog2.getWindow() != null) {
-//                                alertDialog2.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-//                            }
-//                            alertDialog2.show();
-//                        }
-//                    });
+            view.findViewById(R.id.edit_siswa).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
+                    View view2 = LayoutInflater.from(context).inflate(R.layout.pa_dialog_tambah_siswa, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
+                    builder.setView(view2);
+                    AlertDialog alertDialog = builder.create();
+
+                    TextView textTitle = view2.findViewById(R.id.textTitle);
+                    EditText nama_siswa = view2.findViewById(R.id.nama_siswa);
+                    EditText NISN_siswa = view2.findViewById(R.id.NISN_siswa);
+                    EditText NIS_siswa = view2.findViewById(R.id.NIS_siswa);
+                    TextView tvKelas = view2.findViewById(R.id.tvKelas);
+                    Button spp_siswa = view2.findViewById(R.id.spp_siswa);
+                    EditText alamat_siswa = view2.findViewById(R.id.alamat_siswa);
+                    EditText ponsel_siswa = view2.findViewById(R.id.ponsel_siswa);
+                    EditText password_siswa = view2.findViewById(R.id.password_siswa);
+
+                    NISN_siswa.setEnabled(false);
+                    NIS_siswa.setEnabled(false);
+
+                    textTitle.setText("Edit Siswa");
+                    nama_siswa.setText(siswa.getNama());
+                    NISN_siswa.setText(siswa.getNisn());
+                    NIS_siswa.setText(siswa.getNis());
+                    tvKelas.setText("Kelas                  : " + nama_kelas);
+                    alamat_siswa.setText(siswa.getAlamat());
+                    ponsel_siswa.setText(siswa.getNo_telp());
+                    password_siswa.setHint("New password");
+
+                    spp_siswa.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            PopupMenu dropDownMenu = new PopupMenu(context, spp_siswa);
+
+                            Call<SPPRepository> call = api.viewDataSPPAngkatan(angkatan);
+                            call.enqueue(new Callback<SPPRepository>() {
+                                @Override
+                                public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
+                                    String value = response.body().getValue();
+                                    String message = response.body().getMessage();
+                                    List<SPP> results = response.body().getResult();
+
+                                    if (value.equals("1")) {
+                                        for (int i = 0; i < results.size(); i++) {
+                                            dropDownMenu.getMenu().add(Menu.NONE, results.get(i).getId_spp(), Menu.NONE, results.get(i).getTahun() + "[" + format.format(results.get(i).getNominal()) + "]");
+                                        }
+                                    } else {
+                                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    dropDownMenu.show();
+                                }
+
+                                @Override
+                                public void onFailure(Call<SPPRepository> call, Throwable t) {
+                                    Toast.makeText(context, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
+                                    Log.e("DEBUG", "Error: ", t);
+                                }
+                            });
+
+                            dropDownMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                @Override
+                                public boolean onMenuItemClick(MenuItem menuItem) {
+                                    spp_siswa.setText(menuItem.getTitle().toString());
+                                    id_spp = menuItem.getItemId();
+                                    return true;
+                                }
+                            });
+                        }
+                    });
+
+                    view2.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Call<SiswaRepository> call = api.updateSiswa(
+                                    NISN_siswa.getText().toString(),
+                                    nama_siswa.getText().toString(),
+                                    id_kelas,
+                                    id_spp,
+                                    alamat_siswa.getText().toString(),
+                                    ponsel_siswa.getText().toString(),
+                                    password_siswa.getText().toString(),
+                                    id_petugas);
+                            call.enqueue(new Callback<SiswaRepository>() {
+                                @Override
+                                public void onResponse(Call<SiswaRepository> call, Response<SiswaRepository> response) {
+                                    String value = response.body().getValue();
+                                    String message = response.body().getMessage();
+                                    if (value.equals("1")) {
+                                        alertDialog.dismiss();
+                                        mListener.onItemClicked(null, "1");
+                                    } else {
+                                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<SiswaRepository> call, Throwable t) {
+                                    Log.e("DEBUG", "Error: ", t);
+                                }
+                            });
+                        }
+                    });
+
+                    view2.findViewById(R.id.buttonBatal).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alertDialog.dismiss();
+                        }
+                    });
+                    if (alertDialog.getWindow() != null) {
+                        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                    }
+                    alertDialog.show();
+                }
+            });
             if (alertDialog.getWindow() != null) {
                 alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
             }

@@ -2,12 +2,12 @@ package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,14 +22,15 @@ import java.util.List;
 import java.util.Locale;
 
 public class TagihanSiswaAdapter extends RecyclerView.Adapter<TagihanSiswaAdapter.ViewHolder> {
-    private Context context;
-    private List<Pembayaran> pembayaran;
+    private final Context context;
+    private final List<Pembayaran> pembayaran;
 
     public TagihanSiswaAdapter(Context context, List<Pembayaran> pembayaran) {
         this.context = context;
         this.pembayaran = pembayaran;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ps_container_data_tagihan, parent, false);
@@ -74,7 +75,7 @@ public class TagihanSiswaAdapter extends RecyclerView.Adapter<TagihanSiswaAdapte
         return pembayaran.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         MaterialCardView materialCardView;
         TextView tvBulan, tvNominal, tvStatus, tvTanggal;
 
