@@ -30,26 +30,26 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
 
-public class LoginPetugasActivity extends AppCompatActivity {
+public class LoginStaffActivity extends AppCompatActivity {
     private EditText edtUsername, edtPassword;
     TextInputLayout textInputLayout2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_petugasadmin);
+        setContentView(R.layout.activity_login_staff);
 
         LoginForm();
     }
 
     private void LoginForm() {
-        edtUsername = findViewById(R.id.login_PetugasUsername);
-        edtPassword = findViewById(R.id.login_PetugasPass);
-        MaterialButton btnSignInSiswa = findViewById(R.id.signin_petugas);
+        edtUsername = findViewById(R.id.login_StaffUsername);
+        edtPassword = findViewById(R.id.login_StaffPass);
+        MaterialButton btnLoginStaff = findViewById(R.id.signin_staff);
         ImageView btnBack = findViewById(R.id.imageView);
         textInputLayout2 = findViewById(R.id.textInputLayout2);
 
-        btnSignInSiswa.setOnClickListener(new View.OnClickListener() {
+        btnLoginStaff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validateForm();
@@ -59,7 +59,7 @@ public class LoginPetugasActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginPetugasActivity.this, LoginChoiceActivity.class);
+                Intent intent = new Intent(LoginStaffActivity.this, LoginChoiceActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -119,12 +119,12 @@ public class LoginPetugasActivity extends AppCompatActivity {
                     Log.e("keshav", "Level ->" + level);
 
                     if (value.equals("1") && level.equals("petugas")) {
-                        Intent intent = new Intent(LoginPetugasActivity.this, BottomNavigationPetugas.class);
+                        Intent intent = new Intent(LoginStaffActivity.this, BottomNavigationPetugas.class);
                         intent.putExtra("username", username);
                         startActivity(intent);
                         finish();
                     } else if (value.equals("1") && level.equals("admin")) {
-                        Intent intent = new Intent(LoginPetugasActivity.this, HomeAdminFragment.class);
+                        Intent intent = new Intent(LoginStaffActivity.this, HomeAdminFragment.class);
                         intent.putExtra("username", username);
                         startActivity(intent);
                         finish();

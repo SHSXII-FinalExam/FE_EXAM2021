@@ -11,39 +11,25 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="36dp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Welcome to "
+        android:text="Anda Sebagai . . ."
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="espepe."
-        android:textColor="#C62828"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
-
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="260dp"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
-        android:background="@drawable/lg_login"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        android:background="@drawable/choice_login"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 

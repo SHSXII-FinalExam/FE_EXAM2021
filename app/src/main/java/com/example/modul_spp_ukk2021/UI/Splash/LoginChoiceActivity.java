@@ -7,8 +7,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Home.punyaAdmin.LoginAdminActivity;
-import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.LoginPetugasActivity;
+import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.LoginStaffActivity;
 import com.example.modul_spp_ukk2021.UI.Home.punyaSiswa.LoginSiswaActivity;
 import com.google.android.material.button.MaterialButton;
 
@@ -18,6 +17,9 @@ public class LoginChoiceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_choice);
+
+        MaterialButton btnLoginStaff = findViewById(R.id.btn_staff);
+        MaterialButton btnLoginSiswa = findViewById(R.id.btn_siswa);
 
         btnLoginSiswa.setOnClickListener(new View.OnClickListener() {
             @Override

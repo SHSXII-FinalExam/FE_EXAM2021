@@ -2,11 +2,8 @@ package com.example.modul_spp_ukk2021.UI.Home.punyaAdmin;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -24,7 +21,7 @@ public class HomeAdminFragment extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_home_admin);
+        setContentView(R.layout.petugas_activity_home);
 
         MaterialButton logoutAdmin = findViewById(R.id.logoutAdmin);
         logoutAdmin.setOnClickListener(new View.OnClickListener() {
