@@ -92,7 +92,7 @@ public class LoginStaffActivity extends AppCompatActivity {
             });
 
         } else {
-            loadDataPembayaran(username, password);
+            loginStaff(username, password);
         }
     }
 
@@ -101,7 +101,7 @@ public class LoginStaffActivity extends AppCompatActivity {
         return loginStaffRepository.getResult();
     }
 
-    private void loadDataPembayaran(String username, String password) {
+    private void loginStaff(String username, String password) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
