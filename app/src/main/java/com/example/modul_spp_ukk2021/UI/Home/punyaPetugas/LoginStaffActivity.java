@@ -107,6 +107,7 @@ public class LoginStaffActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+
         Call<LoginStaffRepository> call = api.loginStaff(username, password);
         call.enqueue(new Callback<LoginStaffRepository>() {
             @Override
@@ -118,12 +119,12 @@ public class LoginStaffActivity extends AppCompatActivity {
                     String level = results.get(i).getLevel();
                     Log.e("keshav", "Level ->" + level);
 
-                    if (value.equals("1") && level.equals("petugas")) {
+                    if (value.equals("1") && level.equals("Petugas")) {
                         Intent intent = new Intent(LoginStaffActivity.this, BottomNavigationPetugas.class);
                         intent.putExtra("username", username);
                         startActivity(intent);
                         finish();
-                    } else if (value.equals("1") && level.equals("admin")) {
+                    } else if (value.equals("1") && level.equals("Admin")) {
                         Intent intent = new Intent(LoginStaffActivity.this, HomeAdminFragment.class);
                         intent.putExtra("username", username);
                         startActivity(intent);
