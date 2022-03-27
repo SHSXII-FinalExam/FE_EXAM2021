@@ -103,6 +103,7 @@ public class TagihanSiswaFragment extends Fragment {
             @Override
             public void onResponse(Call<PembayaranRepository> call, Response<PembayaranRepository> response) {
                 String value = response.body().getValue();
+                String message = response.body().getMessage();
                 List<Pembayaran> results = response.body().getResult();
 
                 if (value.equals("1")) {
@@ -111,7 +112,7 @@ public class TagihanSiswaFragment extends Fragment {
                     emptyTransaksi.pauseAnimation();
                     emptyTransaksi.setVisibility(LottieAnimationView.GONE);
 
-                    pembayaran = response.body().getResult();
+                    pembayaran = results;
                     adapter = new TagihanSiswaAdapter(getActivity(), pembayaran);
                     recyclerView.setAdapter(adapter);
                     runLayoutAnimation(recyclerView);
@@ -135,11 +136,7 @@ public class TagihanSiswaFragment extends Fragment {
                     tagihan_count.setText("(" + String.valueOf(i) + ")");
 
                 } else {
-                    tagihan_count.setText("(0)");
-                    recyclerView.setVisibility(View.GONE);
-                    materialCardView5.setVisibility(View.GONE);
-                    emptyTransaksi.playAnimation();
-                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                    Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -22,9 +22,9 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
@@ -51,8 +51,8 @@ import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.ViewHolder> {
     private Integer id_spp;
-    private Context context;
-    private List<Siswa> siswa;
+    private final Context context;
+    private final List<Siswa> siswa;
     private static OnRecyclerViewItemClickListener mListener;
     private String id_kelas, id_petugas, nama_kelas, angkatan;
 
@@ -69,6 +69,7 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
         this.siswa = siswa;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pa_container_data_siswa, parent, false);
@@ -107,6 +108,7 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
             PopupMenu popup = new PopupMenu(context, v, Gravity.END, R.attr.popupMenuStyle, 0);
             MenuInflater inflater = popup.getMenuInflater();
             inflater.inflate(R.menu.menu_customcard, popup.getMenu());
+
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
@@ -122,25 +124,22 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
         holder.detailSiswa.setOnClickListener(v -> {
             Utils.preventTwoClick(v);
             AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
-            View view = LayoutInflater.from(context).inflate(R.layout.pa_dialog_view_siswa, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
+            View view = LayoutInflater.from(context).inflate(R.layout.pa_dialog_view_siswa, v.findViewById(R.id.layoutDialogContainer));
             builder.setView(view);
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
             ((TextView) view.findViewById(R.id.tvFillNama)).setText(siswa.getNama());
             ((TextView) view.findViewById(R.id.tvNISN)).setText("NISN                 : " + siswa.getNisn());
             ((TextView) view.findViewById(R.id.tvNIS)).setText("NIS                    : " + siswa.getNis());
             ((TextView) view.findViewById(R.id.tvKelas)).setText("Kelas                 : " + siswa.getNama_kelas());
             ((TextView) view.findViewById(R.id.tvFillAlamat)).setText(siswa.getAlamat());
             ((TextView) view.findViewById(R.id.tvNoTelp)).setText("Nomor Ponsel : " + siswa.getNo_telp());
-            final AlertDialog alertDialog = builder.create();
 
-            view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    alertDialog.dismiss();
-                }
-            });
             view.findViewById(R.id.buttonTransaksi).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Utils.preventTwoClick(view);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -152,14 +151,17 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
                     }, 400);
                 }
             });
+
             view.findViewById(R.id.edit_siswa).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Utils.preventTwoClick(v);
                     alertDialog.dismiss();
                     AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
-                    View view2 = LayoutInflater.from(context).inflate(R.layout.pa_dialog_tambah_siswa, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
+                    View view2 = LayoutInflater.from(context).inflate(R.layout.pa_dialog_tambah_siswa, v.findViewById(R.id.layoutDialogContainer));
                     builder.setView(view2);
                     AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
 
                     TextView textTitle = view2.findViewById(R.id.textTitle);
                     EditText nama_siswa = view2.findViewById(R.id.nama_siswa);
@@ -183,37 +185,44 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
                     ponsel_siswa.setText(siswa.getNo_telp());
                     password_siswa.setHint("New password");
 
+                    PopupMenu dropDownMenu = new PopupMenu(context, spp_siswa);
+
+                    Call<SPPRepository> call = api.viewDataSPPAngkatan(angkatan);
+                    call.enqueue(new Callback<SPPRepository>() {
+                        @Override
+                        public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
+                            String value = response.body().getValue();
+                            String message = response.body().getMessage();
+                            List<SPP> results = response.body().getResult();
+
+                            Locale localeID = new Locale("in", "ID");
+                            NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
+                            format.setMaximumFractionDigits(0);
+
+                            if (value.equals("1")) {
+                                for (int i = 0; i < results.size(); i++) {
+                                    dropDownMenu.getMenu().add(Menu.NONE, results.get(i).getId_spp(), Menu.NONE, results.get(i).getTahun() + " (" + format.format(results.get(i).getNominal()) + ")");
+                                }
+
+                            } else {
+                                spp_siswa.setEnabled(false);
+                                spp_siswa.setText("SPP Kosong");
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<SPPRepository> call, Throwable t) {
+                            alertDialog.dismiss();
+                            Toast.makeText(context, "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
+                            Log.e("DEBUG", "Error: ", t);
+                        }
+                    });
+
                     spp_siswa.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            PopupMenu dropDownMenu = new PopupMenu(context, spp_siswa);
-
-                            Call<SPPRepository> call = api.viewDataSPPAngkatan(angkatan);
-                            call.enqueue(new Callback<SPPRepository>() {
-                                @Override
-                                public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
-                                    String value = response.body().getValue();
-                                    String message = response.body().getMessage();
-                                    List<SPP> results = response.body().getResult();
-
-                                    if (value.equals("1")) {
-                                        for (int i = 0; i < results.size(); i++) {
-                                            dropDownMenu.getMenu().add(Menu.NONE, results.get(i).getId_spp(), Menu.NONE, results.get(i).getTahun() + "[" + format.format(results.get(i).getNominal()) + "]");
-                                        }
-                                    } else {
-                                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-                                    }
-
-                                    dropDownMenu.show();
-                                }
-
-                                @Override
-                                public void onFailure(Call<SPPRepository> call, Throwable t) {
-                                    Toast.makeText(context, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
-                                    Log.e("DEBUG", "Error: ", t);
-                                }
-                            });
-
+                            dropDownMenu.show();
                             dropDownMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                                 @Override
                                 public boolean onMenuItemClick(MenuItem menuItem) {
@@ -228,33 +237,42 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
                     view2.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Call<SiswaRepository> call = api.updateSiswa(
-                                    NISN_siswa.getText().toString(),
-                                    nama_siswa.getText().toString(),
-                                    id_kelas,
-                                    id_spp,
-                                    alamat_siswa.getText().toString(),
-                                    ponsel_siswa.getText().toString(),
-                                    password_siswa.getText().toString(),
-                                    id_petugas);
-                            call.enqueue(new Callback<SiswaRepository>() {
-                                @Override
-                                public void onResponse(Call<SiswaRepository> call, Response<SiswaRepository> response) {
-                                    String value = response.body().getValue();
-                                    String message = response.body().getMessage();
-                                    if (value.equals("1")) {
-                                        alertDialog.dismiss();
-                                        mListener.onItemClicked(null, "1");
-                                    } else {
-                                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-                                    }
-                                }
+                            if (id_spp != null && password_siswa.getText().toString().trim().length() > 0) {
+                                Call<SiswaRepository> call = api.updateSiswa(
+                                        NISN_siswa.getText().toString(),
+                                        nama_siswa.getText().toString(),
+                                        id_kelas,
+                                        id_spp,
+                                        alamat_siswa.getText().toString(),
+                                        ponsel_siswa.getText().toString(),
+                                        password_siswa.getText().toString(),
+                                        id_petugas);
+                                call.enqueue(new Callback<SiswaRepository>() {
+                                    @Override
+                                    public void onResponse(Call<SiswaRepository> call, Response<SiswaRepository> response) {
+                                        String value = response.body().getValue();
+                                        String message = response.body().getMessage();
 
-                                @Override
-                                public void onFailure(Call<SiswaRepository> call, Throwable t) {
-                                    Log.e("DEBUG", "Error: ", t);
-                                }
-                            });
+                                        if (value.equals("1")) {
+                                            alertDialog.dismiss();
+                                            mListener.onItemClicked(null, "1");
+
+                                        } else {
+                                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<SiswaRepository> call, Throwable t) {
+                                        alertDialog.dismiss();
+                                        Toast.makeText(context, "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
+                                        Log.e("DEBUG", "Error: ", t);
+                                    }
+                                });
+
+                            } else {
+                                Toast.makeText(context, "Data belum lengkap, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
 
@@ -267,13 +285,18 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
                     if (alertDialog.getWindow() != null) {
                         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
                     }
-                    alertDialog.show();
+                }
+            });
+
+            view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.dismiss();
                 }
             });
             if (alertDialog.getWindow() != null) {
                 alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
             }
-            alertDialog.show();
         });
     }
 
@@ -282,7 +305,7 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
         return siswa.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView deleteData;
         MaterialCardView detailSiswa;
         TextView tvNama, tvNISN, tvKelas;
@@ -292,8 +315,8 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
             tvNama = itemView.findViewById(R.id.tvNama);
             tvNISN = itemView.findViewById(R.id.tvNISN);
             tvKelas = itemView.findViewById(R.id.tvKelas);
-            detailSiswa = itemView.findViewById(R.id.detailSiswa);
             deleteData = itemView.findViewById(R.id.deleteData);
+            detailSiswa = itemView.findViewById(R.id.detailSiswa);
         }
     }
 }

@@ -23,7 +23,6 @@ import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -115,6 +114,32 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
         SliderSetup(mTabs, mIndicator, mViewPager);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadProfil();
+    }
+
+    @Override
+    public void onBackPressed() {
+        slidingRootNav.openMenu();
+        if (slidingRootNav.isMenuOpened()) {
+            if (doubleBackToExitPressedOnce) {
+                finishAffinity();
+                return;
+            }
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Tekan lagi untuk keluar...", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        }
+    }
+
     public void Refreshing() {
         swipeRefreshLayout.setRefreshing(true);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -168,8 +193,8 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new TagihanSiswaFragment(), "Tagihan");
         adapter.addFragment(new HistorySiswaFragment(), "Riwayat");
-
         mViewPager.setAdapter(adapter);
+
         mTabs.setupWithViewPager(mViewPager);
         mTabs.post(new Runnable() {
             @Override
@@ -218,29 +243,43 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        loadProfil();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        return true;
     }
 
     @Override
-    public void onBackPressed() {
-        slidingRootNav.openMenu();
-        if (slidingRootNav.isMenuOpened()) {
-            if (doubleBackToExitPressedOnce) {
-                finishAffinity();
-                return;
-            }
-            this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "Tekan lagi untuk keluar...", Toast.LENGTH_SHORT).show();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_profile) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
+            View view = LayoutInflater.from(this).inflate(R.layout.dialog_profile, findViewById(R.id.layoutDialogContainer));
+            builder.setView(view);
+            AlertDialog alertDialog = builder.create();
 
-            new Handler().postDelayed(new Runnable() {
+            ((TextView) view.findViewById(R.id.tvFillNama)).setText(tvFillNama);
+            ((TextView) view.findViewById(R.id.tvNISN)).setText("NISN    : " + nisnSiswa);
+            ((TextView) view.findViewById(R.id.tvNIS)).setText("NIS                    : " + tvNIS);
+            ((TextView) view.findViewById(R.id.tvKelas)).setText("Kelas                 : " + tvKelas);
+            ((TextView) view.findViewById(R.id.tvFillAlamat)).setText(tvFillAlamat);
+            ((TextView) view.findViewById(R.id.tvNoTelp)).setText("Nomor Ponsel : " + tvNoTelp);
+            ((TextView) view.findViewById(R.id.tvPassword)).setText("Password          : " + passwordSiswa);
+
+            view.findViewById(R.id.clear).setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void run() {
-                    doubleBackToExitPressedOnce = false;
+                public void onClick(View view) {
+                    alertDialog.dismiss();
                 }
-            }, 2000);
+            });
+            if (alertDialog.getWindow() != null) {
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            }
+            alertDialog.show();
+
+        } else if (id == R.id.action_refresh) {
+            Refreshing();
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private void loadProfil() {
@@ -280,48 +319,6 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
                 Log.e("DEBUG", "Error: ", t);
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_profile) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
-            View view = LayoutInflater.from(this).inflate(R.layout.dialog_profile, (ConstraintLayout) findViewById(R.id.layoutDialogContainer));
-            builder.setView(view);
-            final AlertDialog alertDialog = builder.create();
-
-            ((TextView) view.findViewById(R.id.tvFillNama)).setText(tvFillNama);
-            ((TextView) view.findViewById(R.id.tvNISN)).setText("NISN    : " + nisnSiswa);
-            ((TextView) view.findViewById(R.id.tvNIS)).setText("NIS                    : " + tvNIS);
-            ((TextView) view.findViewById(R.id.tvKelas)).setText("Kelas                 : " + tvKelas);
-            ((TextView) view.findViewById(R.id.tvFillAlamat)).setText(tvFillAlamat);
-            ((TextView) view.findViewById(R.id.tvNoTelp)).setText("Nomor Ponsel : " + tvNoTelp);
-            ((TextView) view.findViewById(R.id.tvPassword)).setText("Password          : " + passwordSiswa);
-
-            view.findViewById(R.id.clear).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    alertDialog.dismiss();
-                }
-            });
-
-            if (alertDialog.getWindow() != null) {
-                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-            }
-            alertDialog.show();
-
-        } else if (id == R.id.action_refresh) {
-            Refreshing();
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("rawtypes")

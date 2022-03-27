@@ -186,6 +186,8 @@ public class LoginStaffActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginStaffRepository> call, Throwable t) {
+                loadingProgress.pauseAnimation();
+                loadingProgress.setVisibility(LottieAnimationView.GONE);
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 Toast.makeText(LoginStaffActivity.this, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
                 Log.e("DEBUG", "Error: ", t);

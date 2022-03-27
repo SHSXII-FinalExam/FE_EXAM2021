@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,6 +19,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -43,8 +43,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.ViewHolder> {
-    private Context context;
-    private List<Kelas> kelas;
+    private final Context context;
+    private final List<Kelas> kelas;
     private String nama, jurusan_kelas;
     private static OnRecyclerViewItemClickListener mListener;
 
@@ -61,6 +61,7 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
         this.kelas = kelas;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pa_container_data_kelas, parent, false);
@@ -81,6 +82,7 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
             PopupMenu popup = new PopupMenu(context, v, Gravity.END, R.attr.popupMenuStyle, 0);
             MenuInflater inflater = popup.getMenuInflater();
             inflater.inflate(R.menu.menu_customcard, popup.getMenu());
+
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
@@ -95,150 +97,155 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
 
         holder.detailKelas.setOnClickListener(v -> {
             Utils.preventTwoClick(v);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
-                    View view = LayoutInflater.from(context).inflate(R.layout.pa_dialog_view_kelas, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
-                    builder.setView(view);
-                    ((TextView) view.findViewById(R.id.tvNamaKelas)).setText("Kelas         : " + kelas.getNama_kelas());
-                    ((TextView) view.findViewById(R.id.tvJurusan)).setText("Jurusan    : " + kelas.getJurusan());
-                    ((TextView) view.findViewById(R.id.tvAngkatan)).setText("Angkatan : " + kelas.getAngkatan());
-                    final AlertDialog alertDialog = builder.create();
+            AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
+            View view = LayoutInflater.from(context).inflate(R.layout.pa_dialog_view_kelas, v.findViewById(R.id.layoutDialogContainer));
+            builder.setView(view);
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
 
-                    view.findViewById(R.id.buttonSiswa).setOnClickListener(new View.OnClickListener() {
+            ((TextView) view.findViewById(R.id.tvNamaKelas)).setText("Kelas         : " + kelas.getNama_kelas());
+            ((TextView) view.findViewById(R.id.tvJurusan)).setText("Jurusan    : " + kelas.getJurusan());
+            ((TextView) view.findViewById(R.id.tvAngkatan)).setText("Angkatan : " + kelas.getAngkatan());
+
+            view.findViewById(R.id.buttonSiswa).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.dismiss();
+                    Intent intent = new Intent(context, DataSiswaActivity.class);
+                    intent.putExtra("id_kelas", kelas.getId_kelas());
+                    intent.putExtra("nama_kelas", kelas.getNama_kelas());
+                    intent.putExtra("angkatan", kelas.getAngkatan());
+                    context.startActivity(intent);
+                }
+            });
+
+            view.findViewById(R.id.buttonEdit).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
+                    View view2 = LayoutInflater.from(context).inflate(R.layout.pa_dialog_tambah_kelas, v.findViewById(R.id.layoutDialogContainer));
+                    builder.setView(view2);
+                    AlertDialog alertDialog2 = builder.create();
+                    alertDialog2.show();
+
+                    TextView textTitle = view2.findViewById(R.id.textTitle);
+                    Button nama_kelas = view2.findViewById(R.id.nama_kelas);
+                    EditText namanomor = view2.findViewById(R.id.namanomor_kelas);
+                    EditText angkatan = view2.findViewById(R.id.angkatan_kelas);
+                    RadioGroup jurusan = view2.findViewById(R.id.jurusan_kelas);
+                    TextView namajurusan = view2.findViewById(R.id.namajurusan_kelas);
+
+                    nama = kelas.getNama_kelas().substring(0, kelas.getNama_kelas().indexOf(' '));
+
+                    nama_kelas.setText(nama);
+                    textTitle.setText("Edit Kelas");
+                    angkatan.setText(kelas.getAngkatan());
+                    namajurusan.setText(kelas.getJurusan());
+                    namanomor.setText(kelas.getNama_kelas().replaceAll("[^0-9]", ""));
+
+                    if (kelas.getJurusan().equals("RPL")) {
+                        jurusan_kelas = "RPL";
+                        jurusan.check(R.id.RPL);
+                    } else if (kelas.getJurusan().equals("TKJ")) {
+                        jurusan_kelas = "TKJ";
+                        jurusan.check(R.id.TKJ);
+                    }
+
+                    jurusan.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                         @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(context, DataSiswaActivity.class);
-                            intent.putExtra("id_kelas", kelas.getId_kelas());
-                            intent.putExtra("nama_kelas", kelas.getNama_kelas());
-                            intent.putExtra("angkatan", kelas.getAngkatan());
-                            context.startActivity(intent);
-                            alertDialog.dismiss();
+                        public void onCheckedChanged(RadioGroup radioGroup, int id) {
+                            switch (id) {
+                                case R.id.RPL:
+                                    jurusan_kelas = "RPL";
+                                    namajurusan.setText(jurusan_kelas);
+                                    break;
+                                case R.id.TKJ:
+                                    jurusan_kelas = "TKJ";
+                                    namajurusan.setText(jurusan_kelas);
+                                    break;
+                            }
                         }
                     });
-                    view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            alertDialog.dismiss();
-                        }
-                    });
-                    view.findViewById(R.id.edit_kelas).setOnClickListener(new View.OnClickListener() {
+
+                    nama_kelas.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            alertDialog.dismiss();
-                            AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
-                            View view2 = LayoutInflater.from(context).inflate(R.layout.pa_dialog_tambah_kelas, (ConstraintLayout) v.findViewById(R.id.layoutDialogContainer));
-                            builder.setView(view2);
-                            final TextView textTitle = view2.findViewById(R.id.textTitle);
-                            final Button nama_kelas = view2.findViewById(R.id.nama_kelas);
-                            final EditText namanomor = view2.findViewById(R.id.namanomor_kelas);
-                            final EditText angkatan = view2.findViewById(R.id.angkatan_kelas);
-                            final RadioGroup jurusan = view2.findViewById(R.id.jurusan_kelas);
-                            final TextView namajurusan = view2.findViewById(R.id.namajurusan_kelas);
-                            final AlertDialog alertDialog2 = builder.create();
-
-                            nama = kelas.getNama_kelas().substring(0, kelas.getNama_kelas().indexOf(' '));
-
-                            textTitle.setText("Edit Kelas");
-                            angkatan.setText(kelas.getAngkatan());
-                            nama_kelas.setText(nama);
-                            namajurusan.setText(kelas.getJurusan());
-                            namanomor.setText(kelas.getNama_kelas().replaceAll("[^0-9]", ""));
-
-                            if (kelas.getJurusan().equals("RPL")) {
-                                jurusan_kelas = "RPL";
-                                jurusan.check(R.id.RPL);
-                            } else if (kelas.getJurusan().equals("TKJ")) {
-                                jurusan_kelas = "TKJ";
-                                jurusan.check(R.id.TKJ);
-                            }
-
-                            jurusan.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                            PopupMenu dropDownMenu = new PopupMenu(context, nama_kelas);
+                            dropDownMenu.getMenuInflater().inflate(R.menu.dropdown_kelas, dropDownMenu.getMenu());
+                            dropDownMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                                 @Override
-                                public void onCheckedChanged(RadioGroup radioGroup, int id) {
-                                    switch (id) {
-                                        case R.id.RPL:
-                                            jurusan_kelas = "RPL";
-                                            namajurusan.setText(jurusan_kelas);
-                                            break;
-                                        case R.id.TKJ:
-                                            jurusan_kelas = "TKJ";
-                                            namajurusan.setText(jurusan_kelas);
-                                            break;
-                                    }
+                                public boolean onMenuItemClick(MenuItem menuItem) {
+                                    nama_kelas.setText(menuItem.getTitle().toString());
+                                    nama = menuItem.getTitle().toString();
+                                    return true;
                                 }
                             });
-
-                            nama_kelas.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    PopupMenu dropDownMenu = new PopupMenu(context, nama_kelas);
-                                    dropDownMenu.getMenuInflater().inflate(R.menu.dropdown_kelas, dropDownMenu.getMenu());
-
-                                    dropDownMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                                        @Override
-                                        public boolean onMenuItemClick(MenuItem menuItem) {
-                                            nama_kelas.setText(menuItem.getTitle().toString());
-                                            nama = menuItem.getTitle().toString();
-                                            return true;
-                                        }
-                                    });
-                                    dropDownMenu.show();
-                                }
-                            });
-
-                            view2.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    if (nama_kelas != null && jurusan_kelas != null && angkatan.getText().toString().trim().length() > 0) {
-                                        Retrofit retrofit = new Retrofit.Builder()
-                                                .baseUrl(url)
-                                                .addConverterFactory(GsonConverterFactory.create())
-                                                .build();
-                                        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-                                        Call<KelasRepository> call = api.updateKelas(kelas.getId_kelas(), nama + " " + jurusan_kelas + " " + namanomor.getText().toString(), jurusan_kelas, angkatan.getText().toString());
-                                        call.enqueue(new Callback<KelasRepository>() {
-                                            @Override
-                                            public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
-                                                String value = response.body().getValue();
-                                                String message = response.body().getMessage();
-                                                if (value.equals("1")) {
-                                                    alertDialog2.dismiss();
-                                                    mListener.onItemClicked(null, "1");
-                                                } else {
-                                                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onFailure(Call<KelasRepository> call, Throwable t) {
-                                                Log.e("DEBUG", "Error: ", t);
-                                            }
-                                        });
-                                    } else {
-                                        Toast.makeText(context, "Data belum lengkap, silahkan coba lagi", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                            view2.findViewById(R.id.buttonBatal).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    alertDialog2.dismiss();
-                                }
-                            });
-                            if (alertDialog2.getWindow() != null) {
-                                alertDialog2.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-                            }
-                            alertDialog2.show();
+                            dropDownMenu.show();
                         }
                     });
-                    if (alertDialog.getWindow() != null) {
-                        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+
+                    view2.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (nama != null && jurusan_kelas != null && angkatan.getText().toString().trim().length() > 0) {
+                                Retrofit retrofit = new Retrofit.Builder()
+                                        .baseUrl(url)
+                                        .addConverterFactory(GsonConverterFactory.create())
+                                        .build();
+                                ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+
+                                Call<KelasRepository> call = api.updateKelas(kelas.getId_kelas(), nama + " " + jurusan_kelas + " " + namanomor.getText().toString(), jurusan_kelas, angkatan.getText().toString());
+                                call.enqueue(new Callback<KelasRepository>() {
+                                    @Override
+                                    public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
+                                        String value = response.body().getValue();
+                                        String message = response.body().getMessage();
+
+                                        if (value.equals("1")) {
+                                            alertDialog2.dismiss();
+                                            mListener.onItemClicked(null, "1");
+
+                                        } else {
+                                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<KelasRepository> call, Throwable t) {
+                                        alertDialog2.dismiss();
+                                        Toast.makeText(context, "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
+                                        Log.e("DEBUG", "Error: ", t);
+                                    }
+                                });
+
+                            } else {
+                                Toast.makeText(context, "Data belum lengkap, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                    view2.findViewById(R.id.buttonBatal).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alertDialog2.dismiss();
+                        }
+                    });
+                    if (alertDialog2.getWindow() != null) {
+                        alertDialog2.getWindow().setBackgroundDrawable(new ColorDrawable(0));
                     }
-                    alertDialog.show();
                 }
-            }, 400);
+            });
+
+            view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.dismiss();
+                }
+            });
+            if (alertDialog.getWindow() != null) {
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            }
         });
     }
 
@@ -247,7 +254,7 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
         return kelas.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView deleteData;
         MaterialCardView detailKelas;
         TextView tvNamaKelas, tvJurusan, tvAngkatan;
@@ -257,8 +264,8 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
             tvNamaKelas = itemView.findViewById(R.id.Kelas);
             tvJurusan = itemView.findViewById(R.id.Jurusan);
             tvAngkatan = itemView.findViewById(R.id.Angkatan);
-            detailKelas = itemView.findViewById(R.id.detailKelas);
             deleteData = itemView.findViewById(R.id.deleteData);
+            detailKelas = itemView.findViewById(R.id.detailKelas);
         }
     }
 }

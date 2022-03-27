@@ -1,10 +1,8 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +19,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
@@ -40,9 +39,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class DataPetugasFragment extends Fragment {
+    private ApiEndPoints api;
     private RecyclerView recyclerView;
     private DataPetugasAdapter adapter;
-    private List<Petugas> petugas = new ArrayList<>();
+    private LottieAnimationView emptyTransaksi;
+    private final List<Petugas> petugas = new ArrayList<>();
 
     public DataPetugasFragment() {
     }
@@ -52,48 +53,50 @@ public class DataPetugasFragment extends Fragment {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.pa_fragment_data_petugas, container, false);
 
+        emptyTransaksi = view.findViewById(R.id.emptyTransaksi);
+
         adapter = new DataPetugasAdapter(getActivity(), petugas);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView = view.findViewById(R.id.recycler_petugas);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-        runLayoutAnimation(recyclerView);
 
-        ProgressDialog progressbar = new ProgressDialog(getContext());
-        progressbar.setMessage("Loading...");
-        progressbar.setCancelable(false);
-        progressbar.setIndeterminate(true);
-        progressbar.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
-        progressbar.dismiss();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(ApiEndPoints.class);
 
         adapter.setOnRecyclerViewItemClickListener((id_petugas, refresh) -> {
-            if (id_petugas != null && refresh == null) {
-                new Handler().postDelayed(new Runnable() {
+            if (refresh == null) {
+                Call<PetugasRepository> call = api.deletePetugas(id_petugas);
+                call.enqueue(new Callback<PetugasRepository>() {
                     @Override
-                    public void run() {
-                        Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl(url)
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .build();
-                        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-                        Call<PetugasRepository> call = api.deletePetugas(id_petugas);
-                        call.enqueue(new Callback<PetugasRepository>() {
-                            @Override
-                            public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
-                                String value = response.body().getValue();
-                                if (value.equals("1")) {
-                                    loadDataPetugas();
-                                }
-                            }
+                    public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
+                        String value = response.body().getValue();
+                        String message = response.body().getMessage();
 
-                            @Override
-                            public void onFailure(Call<PetugasRepository> call, Throwable t) {
-                                Log.e("DEBUG", "Error: ", t);
-                            }
-                        });
+                        if (value.equals("1")) {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyTransaksi.pauseAnimation();
+                            emptyTransaksi.setVisibility(LottieAnimationView.GONE);
+                            loadDataPetugas();
+
+                        } else {
+                            Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }, 500);
+
+                    @Override
+                    public void onFailure(Call<PetugasRepository> call, Throwable t) {
+                        recyclerView.setVisibility(View.GONE);
+                        emptyTransaksi.playAnimation();
+                        emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                        Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
+                        Log.e("DEBUG", "Error: ", t);
+                    }
+                });
+
             } else {
                 loadDataPetugas();
             }
@@ -122,41 +125,50 @@ public class DataPetugasFragment extends Fragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity(), R.style.AlertDialogTheme);
                 View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_petugas, v.findViewById(R.id.layoutDialogContainer));
                 builder.setView(view);
-                final EditText nama_petugas = view.findViewById(R.id.nama_petugas);
-                final EditText username_petugas = view.findViewById(R.id.username_petugas);
-                final EditText password_petugas = view.findViewById(R.id.password_petugas);
-                final AlertDialog alertDialog = builder.create();
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+                EditText nama_petugas = view.findViewById(R.id.nama_petugas);
+                EditText username_petugas = view.findViewById(R.id.username_petugas);
+                EditText password_petugas = view.findViewById(R.id.password_petugas);
 
                 view.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (password_petugas.getText().toString().trim().length() > 0) {
-                            Retrofit retrofit = new Retrofit.Builder()
-                                    .baseUrl(url)
-                                    .addConverterFactory(GsonConverterFactory.create())
-                                    .build();
-                            ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+                        if (nama_petugas.getText().toString().trim().length() > 0 && username_petugas.getText().toString().trim().length() > 0 && password_petugas.getText().toString().trim().length() > 0) {
                             Call<PetugasRepository> call = api.createPetugas("Petugas", username_petugas.getText().toString(), password_petugas.getText().toString(), nama_petugas.getText().toString());
                             call.enqueue(new Callback<PetugasRepository>() {
                                 @Override
                                 public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
                                     String value = response.body().getValue();
                                     String message = response.body().getMessage();
+
                                     if (value.equals("1")) {
-                                        loadDataPetugas();
                                         alertDialog.dismiss();
+                                        recyclerView.setVisibility(View.VISIBLE);
+                                        emptyTransaksi.pauseAnimation();
+                                        emptyTransaksi.setVisibility(LottieAnimationView.GONE);
+                                        loadDataPetugas();
+
                                     } else {
-                                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                                        alertDialog.dismiss();
+                                        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
                                     }
                                 }
 
                                 @Override
                                 public void onFailure(Call<PetugasRepository> call, Throwable t) {
+                                    alertDialog.dismiss();
+                                    recyclerView.setVisibility(View.GONE);
+                                    emptyTransaksi.playAnimation();
+                                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                                    Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
                                     Log.e("DEBUG", "Error: ", t);
                                 }
                             });
+
                         } else {
-                            Toast.makeText(getContext(), "Data belum lengkap, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireActivity(), "Data belum lengkap, silahkan coba lagi", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -170,10 +182,8 @@ public class DataPetugasFragment extends Fragment {
                 if (alertDialog.getWindow() != null) {
                     alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
                 }
-                alertDialog.show();
             }
         });
-
         return view;
     }
 
@@ -188,32 +198,41 @@ public class DataPetugasFragment extends Fragment {
         LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_from_bottom);
 
         recyclerView.setLayoutAnimation(controller);
-        recyclerView.getAdapter().notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
     }
 
     public void loadDataPetugas() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
         Call<PetugasRepository> call = api.viewDataAllPetugas();
         call.enqueue(new Callback<PetugasRepository>() {
             @Override
             public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
                 String value = response.body().getValue();
+                String message = response.body().getMessage();
+                List<Petugas> petugas = response.body().getResult();
+
                 if (value.equals("1")) {
-                    petugas = response.body().getResult();
+                    recyclerView.setVisibility(View.VISIBLE);
+                    emptyTransaksi.pauseAnimation();
+                    emptyTransaksi.setVisibility(LottieAnimationView.GONE);
+
                     adapter = new DataPetugasAdapter(getActivity(), petugas);
                     recyclerView.setAdapter(adapter);
                     runLayoutAnimation(recyclerView);
+
+                } else {
+                    recyclerView.setVisibility(View.GONE);
+                    emptyTransaksi.playAnimation();
+                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                    Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<PetugasRepository> call, Throwable t) {
-                Toast.makeText(getContext(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
+                recyclerView.setVisibility(View.GONE);
+                emptyTransaksi.playAnimation();
+                emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
                 Log.e("DEBUG", "Error: ", t);
             }
         });

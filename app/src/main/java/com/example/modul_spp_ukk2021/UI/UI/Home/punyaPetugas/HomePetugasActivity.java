@@ -30,7 +30,6 @@ import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,6 +38,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerAdapter;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerItem;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.SimpleItem;
@@ -46,7 +46,6 @@ import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
-import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
@@ -85,8 +84,8 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pp_activity_home);
         sharedprefs = getSharedPreferences("myprefs", Context.MODE_PRIVATE);
-        username = sharedprefs.getString("usernameStaff", null);
         rank = sharedprefs.getString("levelStaff", null);
+        username = sharedprefs.getString("usernameStaff", null);
         password = sharedprefs.getString("passwordStaff", null);
 
         nama = findViewById(R.id.nama);
@@ -101,8 +100,6 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        SideNavSetup();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -119,14 +116,13 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() >= 1) {
-                    String newText = s.toString().trim();
-
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(url)
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
                     ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-                    Call<SiswaRepository> call = api.searchDataSiswa(newText);
+
+                    Call<SiswaRepository> call = api.searchDataSiswa(s.toString().trim());
                     call.enqueue(new Callback<SiswaRepository>() {
                         @Override
                         public void onResponse(Call<SiswaRepository> call, Response<SiswaRepository> response) {
@@ -144,10 +140,10 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
 
                                 int i = results.size();
                                 tagihan_count.setText("(" + String.valueOf(i) + ")");
+
                             } else {
                                 tagihan_count.setText("(0)");
                                 recyclerView.setVisibility(View.GONE);
-
                                 emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                                 emptyTransaksi.playAnimation();
                             }
@@ -161,6 +157,7 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
                             Log.e("DEBUG", "Error: ", t);
                         }
                     });
+
                 } else {
                     loadDataSiswa();
                 }
@@ -170,6 +167,36 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
             public void afterTextChanged(Editable s) {
             }
         });
+
+        SideNavSetup();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadProfil();
+        loadDataSiswa();
+    }
+
+    @Override
+    public void onBackPressed() {
+        slidingRootNav.openMenu();
+        if (slidingRootNav.isMenuOpened()) {
+            if (doubleBackToExitPressedOnce) {
+                finishAffinity();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Tekan lagi untuk keluar...", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        }
     }
 
     public void Refreshing() {
@@ -210,15 +237,12 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
                 createItemFor(POS_DASHBOARD).setChecked(true),
                 createItemFor(POS_LOGOUT)));
         adapter.setListener(this);
+        adapter.setSelected(POS_DASHBOARD);
 
         RecyclerView list = findViewById(R.id.list);
         list.setNestedScrollingEnabled(false);
         list.setLayoutManager(new LinearLayoutManager(this));
         list.setAdapter(adapter);
-
-        adapter.setSelected(POS_DASHBOARD);
-
-        invalidateOptionsMenu();
     }
 
     @Override
@@ -242,24 +266,23 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
         int id = item.getItemId();
         if (id == R.id.action_profile) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
-            View view = LayoutInflater.from(this).inflate(R.layout.dialog_profile, (ConstraintLayout) findViewById(R.id.layoutDialogContainer));
+            View view = LayoutInflater.from(this).inflate(R.layout.dialog_profile, findViewById(R.id.layoutDialogContainer));
             builder.setView(view);
+            AlertDialog alertDialog = builder.create();
+
             ((TextView) view.findViewById(R.id.tvFillNama2)).setText(nama_petugas);
             ((TextView) view.findViewById(R.id.tvLevel)).setText("Staff level : " + rank);
             ((TextView) view.findViewById(R.id.tvUsername)).setText("Username : " + username);
             ((TextView) view.findViewById(R.id.tvPassword2)).setText("Password : " + password);
-            final AlertDialog alertDialog = builder.create();
 
             view.findViewById(R.id.layoutDialog).setVisibility(View.GONE);
             view.findViewById(R.id.layoutDialog2).setVisibility(View.VISIBLE);
-
             view.findViewById(R.id.clear2).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     alertDialog.dismiss();
                 }
             });
-
             if (alertDialog.getWindow() != null) {
                 alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
             }
@@ -268,36 +291,7 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
         } else if (id == R.id.action_refresh) {
             Refreshing();
         }
-
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadProfil();
-        loadDataSiswa();
-    }
-
-    @Override
-    public void onBackPressed() {
-        slidingRootNav.openMenu();
-        if (slidingRootNav.isMenuOpened()) {
-            if (doubleBackToExitPressedOnce) {
-                finishAffinity();
-                return;
-            }
-
-            this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "Tekan lagi untuk keluar...", Toast.LENGTH_SHORT).show();
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    doubleBackToExitPressedOnce = false;
-                }
-            }, 2000);
-        }
     }
 
     @Override
@@ -342,8 +336,8 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
                 if (value.equals("1")) {
                     for (int i = 0; i < results.size(); i++) {
                         nama_petugas = results.get(i).getNama_petugas();
+                        nama.setText(results.get(i).getNama_petugas());
                     }
-                    nama.setText(nama_petugas);
                     level.setText("Staff level: " + rank);
                 }
             }
@@ -378,10 +372,7 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
                     recyclerView.setAdapter(adapter);
                     runLayoutAnimation(recyclerView);
 
-                    int i;
-                    for (i = 0; i < results.size(); i++) {
-                        String a = results.get(i).getNisn();
-                    }
+                    int i = results.size();
                     tagihan_count.setText("(" + String.valueOf(i) + ")");
 
                 } else {

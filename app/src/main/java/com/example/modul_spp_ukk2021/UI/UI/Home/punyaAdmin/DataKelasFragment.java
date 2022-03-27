@@ -1,10 +1,8 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -26,6 +24,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
@@ -45,10 +44,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class DataKelasFragment extends Fragment {
+    private ApiEndPoints api;
     private DataKelasAdapter adapter;
     private RecyclerView recyclerView;
     private String nama_kelas, jurusan_kelas;
-    private List<Kelas> kelas = new ArrayList<>();
+    private LottieAnimationView emptyTransaksi;
+    private final List<Kelas> kelas = new ArrayList<>();
 
     public DataKelasFragment() {
     }
@@ -58,48 +59,50 @@ public class DataKelasFragment extends Fragment {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.pa_fragment_data_kelas, container, false);
 
+        emptyTransaksi = view.findViewById(R.id.emptyTransaksi);
+
         adapter = new DataKelasAdapter(getActivity(), kelas);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView = view.findViewById(R.id.recycler_kelas);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-        runLayoutAnimation(recyclerView);
 
-        ProgressDialog progressbar = new ProgressDialog(getContext());
-        progressbar.setMessage("Loading...");
-        progressbar.setCancelable(false);
-        progressbar.setIndeterminate(true);
-        progressbar.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
-        progressbar.dismiss();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(ApiEndPoints.class);
 
         adapter.setOnRecyclerViewItemClickListener((id_kelas, refresh) -> {
-            if (id_kelas != null && refresh == null) {
-                new Handler().postDelayed(new Runnable() {
+            if (refresh == null) {
+                Call<KelasRepository> call = api.deleteKelas(id_kelas);
+                call.enqueue(new Callback<KelasRepository>() {
                     @Override
-                    public void run() {
-                        Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl(url)
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .build();
-                        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-                        Call<KelasRepository> call = api.deleteKelas(id_kelas);
-                        call.enqueue(new Callback<KelasRepository>() {
-                            @Override
-                            public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
-                                String value = response.body().getValue();
-                                if (value.equals("1")) {
-                                    loadDataKelas();
-                                }
-                            }
+                    public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
+                        String value = response.body().getValue();
+                        String message = response.body().getMessage();
 
-                            @Override
-                            public void onFailure(Call<KelasRepository> call, Throwable t) {
-                                Log.e("DEBUG", "Error: ", t);
-                            }
-                        });
+                        if (value.equals("1")) {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyTransaksi.pauseAnimation();
+                            emptyTransaksi.setVisibility(LottieAnimationView.GONE);
+                            loadDataKelas();
+
+                        } else {
+                            Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }, 500);
+
+                    @Override
+                    public void onFailure(Call<KelasRepository> call, Throwable t) {
+                        recyclerView.setVisibility(View.GONE);
+                        emptyTransaksi.playAnimation();
+                        emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                        Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
+                        Log.e("DEBUG", "Error: ", t);
+                    }
+                });
+
             } else {
                 loadDataKelas();
             }
@@ -128,12 +131,14 @@ public class DataKelasFragment extends Fragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity(), R.style.AlertDialogTheme);
                 View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_kelas, v.findViewById(R.id.layoutDialogContainer));
                 builder.setView(view);
-                final Button nama = view.findViewById(R.id.nama_kelas);
-                final EditText namanomor = view.findViewById(R.id.namanomor_kelas);
-                final EditText angkatan = view.findViewById(R.id.angkatan_kelas);
-                final RadioGroup jurusan = view.findViewById(R.id.jurusan_kelas);
-                final TextView namajurusan = view.findViewById(R.id.namajurusan_kelas);
-                final AlertDialog alertDialog = builder.create();
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+                Button nama = view.findViewById(R.id.nama_kelas);
+                EditText angkatan = view.findViewById(R.id.angkatan_kelas);
+                RadioGroup jurusan = view.findViewById(R.id.jurusan_kelas);
+                EditText namanomor = view.findViewById(R.id.namanomor_kelas);
+                TextView namajurusan = view.findViewById(R.id.namajurusan_kelas);
 
                 jurusan.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     @Override
@@ -174,35 +179,43 @@ public class DataKelasFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         if (nama_kelas != null && jurusan_kelas != null && angkatan.getText().toString().trim().length() > 0) {
-                            Retrofit retrofit = new Retrofit.Builder()
-                                    .baseUrl(url)
-                                    .addConverterFactory(GsonConverterFactory.create())
-                                    .build();
-                            ApiEndPoints api = retrofit.create(ApiEndPoints.class);
                             Call<KelasRepository> call = api.createKelas(angkatan.getText().toString(), nama_kelas + " " + jurusan_kelas + " " + namanomor.getText().toString(), jurusan_kelas.trim());
                             call.enqueue(new Callback<KelasRepository>() {
                                 @Override
                                 public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
                                     String value = response.body().getValue();
                                     String message = response.body().getMessage();
+
                                     if (value.equals("1")) {
-                                        loadDataKelas();
                                         alertDialog.dismiss();
+                                        recyclerView.setVisibility(View.VISIBLE);
+                                        emptyTransaksi.pauseAnimation();
+                                        emptyTransaksi.setVisibility(LottieAnimationView.GONE);
+                                        loadDataKelas();
+
                                     } else {
-                                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                                        alertDialog.dismiss();
+                                        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
                                     }
                                 }
 
                                 @Override
                                 public void onFailure(Call<KelasRepository> call, Throwable t) {
+                                    alertDialog.dismiss();
+                                    recyclerView.setVisibility(View.GONE);
+                                    emptyTransaksi.playAnimation();
+                                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                                    Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
                                     Log.e("DEBUG", "Error: ", t);
                                 }
                             });
+
                         } else {
-                            Toast.makeText(getContext(), "Data belum lengkap, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireActivity(), "Data belum lengkap, silahkan coba lagi", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
                 view.findViewById(R.id.buttonBatal).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -212,10 +225,8 @@ public class DataKelasFragment extends Fragment {
                 if (alertDialog.getWindow() != null) {
                     alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
                 }
-                alertDialog.show();
             }
         });
-
         return view;
     }
 
@@ -230,32 +241,41 @@ public class DataKelasFragment extends Fragment {
         LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_from_bottom);
 
         recyclerView.setLayoutAnimation(controller);
-        recyclerView.getAdapter().notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
     }
 
     public void loadDataKelas() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
         Call<KelasRepository> call = api.viewDataKelas();
         call.enqueue(new Callback<KelasRepository>() {
             @Override
             public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
                 String value = response.body().getValue();
+                String message = response.body().getMessage();
+                List<Kelas> kelas = response.body().getResult();
+
                 if (value.equals("1")) {
-                    kelas = response.body().getResult();
+                    recyclerView.setVisibility(View.VISIBLE);
+                    emptyTransaksi.pauseAnimation();
+                    emptyTransaksi.setVisibility(LottieAnimationView.GONE);
+
                     adapter = new DataKelasAdapter(getActivity(), kelas);
                     recyclerView.setAdapter(adapter);
                     runLayoutAnimation(recyclerView);
+
+                } else {
+                    recyclerView.setVisibility(View.GONE);
+                    emptyTransaksi.playAnimation();
+                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                    Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<KelasRepository> call, Throwable t) {
-                Toast.makeText(getContext(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
+                recyclerView.setVisibility(View.GONE);
+                emptyTransaksi.playAnimation();
+                emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
                 Log.e("DEBUG", "Error: ", t);
             }
         });

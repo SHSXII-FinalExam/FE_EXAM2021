@@ -1,10 +1,8 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +19,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
@@ -40,9 +39,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class DataSPPFragment extends Fragment {
+    private ApiEndPoints api;
     private DataSPPAdapter adapter;
     private RecyclerView recyclerView;
-    private List<SPP> spp = new ArrayList<>();
+    private LottieAnimationView emptyTransaksi;
+    private final List<SPP> spp = new ArrayList<>();
 
     public DataSPPFragment() {
     }
@@ -52,48 +53,50 @@ public class DataSPPFragment extends Fragment {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.pa_fragment_data_spp, container, false);
 
+        emptyTransaksi = view.findViewById(R.id.emptyTransaksi);
+
         adapter = new DataSPPAdapter(getActivity(), spp);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView = view.findViewById(R.id.recycler_spp);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-        runLayoutAnimation(recyclerView);
 
-        ProgressDialog progressbar = new ProgressDialog(getContext());
-        progressbar.setMessage("Loading...");
-        progressbar.setCancelable(false);
-        progressbar.setIndeterminate(true);
-        progressbar.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
-        progressbar.dismiss();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(ApiEndPoints.class);
 
         adapter.setOnRecyclerViewItemClickListener((id_spp, refresh) -> {
-            if (id_spp != null && refresh == null) {
-                new Handler().postDelayed(new Runnable() {
+            if (refresh == null) {
+                Call<SPPRepository> call = api.deleteSPP(id_spp);
+                call.enqueue(new Callback<SPPRepository>() {
                     @Override
-                    public void run() {
-                        Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl(url)
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .build();
-                        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-                        Call<SPPRepository> call = api.deleteSPP(id_spp);
-                        call.enqueue(new Callback<SPPRepository>() {
-                            @Override
-                            public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
-                                String value = response.body().getValue();
-                                if (value.equals("1")) {
-                                    loadDataSPP();
-                                }
-                            }
+                    public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
+                        String value = response.body().getValue();
+                        String message = response.body().getMessage();
 
-                            @Override
-                            public void onFailure(Call<SPPRepository> call, Throwable t) {
-                                Log.e("DEBUG", "Error: ", t);
-                            }
-                        });
+                        if (value.equals("1")) {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyTransaksi.pauseAnimation();
+                            emptyTransaksi.setVisibility(LottieAnimationView.GONE);
+                            loadDataSPP();
+
+                        } else {
+                            Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }, 500);
+
+                    @Override
+                    public void onFailure(Call<SPPRepository> call, Throwable t) {
+                        recyclerView.setVisibility(View.GONE);
+                        emptyTransaksi.playAnimation();
+                        emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                        Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
+                        Log.e("DEBUG", "Error: ", t);
+                    }
+                });
+
             } else {
                 loadDataSPP();
             }
@@ -122,43 +125,54 @@ public class DataSPPFragment extends Fragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity(), R.style.AlertDialogTheme);
                 View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_spp, v.findViewById(R.id.layoutDialogContainer));
                 builder.setView(view);
-                final EditText angkatan = view.findViewById(R.id.angkatan_spp);
-                final EditText tahun = view.findViewById(R.id.tahun_spp);
-                final EditText nominal = view.findViewById(R.id.nominal_spp);
-                final AlertDialog alertDialog = builder.create();
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+                EditText angkatan = view.findViewById(R.id.angkatan_spp);
+                EditText tahun = view.findViewById(R.id.tahun_spp);
+                EditText nominal = view.findViewById(R.id.nominal_spp);
+
                 view.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (angkatan.getText().toString().trim().length() > 0 && tahun.getText().toString().trim().length() > 0 && nominal.getText().toString().trim().length() > 0) {
-                            Retrofit retrofit = new Retrofit.Builder()
-                                    .baseUrl(url)
-                                    .addConverterFactory(GsonConverterFactory.create())
-                                    .build();
-                            ApiEndPoints api = retrofit.create(ApiEndPoints.class);
                             Call<SPPRepository> call = api.createSPP(angkatan.getText().toString(), tahun.getText().toString(), nominal.getText().toString());
                             call.enqueue(new Callback<SPPRepository>() {
                                 @Override
                                 public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
                                     String value = response.body().getValue();
                                     String message = response.body().getMessage();
+
                                     if (value.equals("1")) {
-                                        loadDataSPP();
                                         alertDialog.dismiss();
+                                        recyclerView.setVisibility(View.VISIBLE);
+                                        emptyTransaksi.pauseAnimation();
+                                        emptyTransaksi.setVisibility(LottieAnimationView.GONE);
+                                        loadDataSPP();
+
                                     } else {
-                                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                                        alertDialog.dismiss();
+                                        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
                                     }
                                 }
 
                                 @Override
                                 public void onFailure(Call<SPPRepository> call, Throwable t) {
+                                    alertDialog.dismiss();
+                                    recyclerView.setVisibility(View.GONE);
+                                    emptyTransaksi.playAnimation();
+                                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                                    Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
                                     Log.e("DEBUG", "Error: ", t);
                                 }
                             });
+
                         } else {
-                            Toast.makeText(getContext(), "Data belum lengkap, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireActivity(), "Data belum lengkap, silahkan coba lagi", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
                 view.findViewById(R.id.buttonBatal).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -168,10 +182,8 @@ public class DataSPPFragment extends Fragment {
                 if (alertDialog.getWindow() != null) {
                     alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
                 }
-                alertDialog.show();
             }
         });
-
         return view;
     }
 
@@ -186,32 +198,41 @@ public class DataSPPFragment extends Fragment {
         LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_from_bottom);
 
         recyclerView.setLayoutAnimation(controller);
-        recyclerView.getAdapter().notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
     }
 
     public void loadDataSPP() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
         Call<SPPRepository> call = api.viewDataSPP();
         call.enqueue(new Callback<SPPRepository>() {
             @Override
             public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
                 String value = response.body().getValue();
+                String message = response.body().getMessage();
+                List<SPP> spp = response.body().getResult();
+
                 if (value.equals("1")) {
-                    spp = response.body().getResult();
+                    recyclerView.setVisibility(View.VISIBLE);
+                    emptyTransaksi.pauseAnimation();
+                    emptyTransaksi.setVisibility(LottieAnimationView.GONE);
+
                     adapter = new DataSPPAdapter(getActivity(), spp);
                     recyclerView.setAdapter(adapter);
                     runLayoutAnimation(recyclerView);
+
+                } else {
+                    recyclerView.setVisibility(View.GONE);
+                    emptyTransaksi.playAnimation();
+                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                    Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SPPRepository> call, Throwable t) {
-                Toast.makeText(getContext(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
+                recyclerView.setVisibility(View.GONE);
+                emptyTransaksi.playAnimation();
+                emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
                 Log.e("DEBUG", "Error: ", t);
             }
         });

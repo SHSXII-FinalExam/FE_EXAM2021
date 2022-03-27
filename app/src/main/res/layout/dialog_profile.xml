@@ -39,8 +39,8 @@
             android:paddingEnd="8dp"
             android:src="@drawable/ic_clear"
             app:layout_constraintBottom_toBottomOf="@+id/textTitle"
-            app:layout_constraintStart_toStartOf="@+id/textTitle"
-            app:layout_constraintTop_toTopOf="@+id/textTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:tint="#251F39" />
 
         <ImageView

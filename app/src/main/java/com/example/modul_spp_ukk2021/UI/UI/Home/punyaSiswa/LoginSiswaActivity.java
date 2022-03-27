@@ -170,6 +170,8 @@ public class LoginSiswaActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginSiswaRepository> call, Throwable t) {
+                loadingProgress.pauseAnimation();
+                loadingProgress.setVisibility(LottieAnimationView.GONE);
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 Toast.makeText(LoginSiswaActivity.this, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
                 Log.e("DEBUG", "Error: ", t);

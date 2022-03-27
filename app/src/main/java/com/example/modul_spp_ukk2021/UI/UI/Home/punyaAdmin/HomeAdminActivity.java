@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,8 +37,6 @@ import com.example.modul_spp_ukk2021.UI.Data.Helper.SimpleItem;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.SpaceItem;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.PembayaranActivity;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa.HomeSiswaActivity;
 import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
@@ -67,7 +66,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     private SwipeRefreshLayout swipeRefreshLayout;
     private boolean doubleBackToExitPressedOnce = false;
     private String username, password, nama_petugas, rank;
-    private FragmentRefreshListener sppRefreshListener, kelasRefreshListener, petugasRefreshListener, siswaRefreshListener;
+    private FragmentRefreshListener sppRefreshListener, kelasRefreshListener, petugasRefreshListener;
 
     public interface FragmentRefreshListener {
         void onRefresh();
@@ -83,14 +82,6 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
 
     public FragmentRefreshListener getPetugasRefreshListener() {
         return petugasRefreshListener;
-    }
-
-    public FragmentRefreshListener getSiswaRefreshListener() {
-        return siswaRefreshListener;
-    }
-
-    public void setSiswaRefreshListener(FragmentRefreshListener fragmentRefreshListener) {
-        this.siswaRefreshListener = fragmentRefreshListener;
     }
 
     public void setPetugasRefreshListener(FragmentRefreshListener fragmentRefreshListener) {
@@ -110,69 +101,25 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pa_activity_home);
         sharedprefs = getSharedPreferences("myprefs", Context.MODE_PRIVATE);
-        username = sharedprefs.getString("usernameStaff", null);
         rank = sharedprefs.getString("levelStaff", null);
+        username = sharedprefs.getString("usernameStaff", null);
         password = sharedprefs.getString("passwordStaff", null);
-
-        toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("");
-        setSupportActionBar(toolbar);
 
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (getSiswaRefreshListener() != null) {
-                    getSiswaRefreshListener().onRefresh();
-                }
-                if (getKelasRefreshListener() != null) {
-                    getKelasRefreshListener().onRefresh();
-                }
-                if (getSPPRefreshListener() != null) {
-                    getSPPRefreshListener().onRefresh();
-                }
-                if (getPetugasRefreshListener() != null) {
-                    getPetugasRefreshListener().onRefresh();
-                }
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (swipeRefreshLayout.isRefreshing()) {
-                            swipeRefreshLayout.setRefreshing(false);
-                        }
-                    }
-                }, 500);
+                Refreshing();
             }
         });
 
-        slidingRootNav = new SlidingRootNavBuilder(this)
-                .withToolbarMenuToggle(toolbar)
-                .withMenuOpened(true)
-                .withContentClickableWhenMenuOpened(false)
-                .withMenuLayout(R.layout.activity_sidenav)
-                .withDragDistance(120)
-                .withRootViewScale(0.7f)
-                .withRootViewElevation(5)
-                .inject();
+        SideNavSetup();
+    }
 
-        screenIcons = loadScreenIcons();
-        screenTitles = loadScreenTitles();
-
-        DrawerAdapter adapter = new DrawerAdapter(Arrays.asList(
-                createItemFor(POS_KELAS).setChecked(true),
-                createItemFor(POS_SPP),
-                createItemFor(POS_PETUGAS),
-                new SpaceItem(48),
-                createItemFor(POS_LOGOUT)));
-        adapter.setListener(this);
-
-        RecyclerView list = findViewById(R.id.list);
-        list.setNestedScrollingEnabled(false);
-        list.setLayoutManager(new LinearLayoutManager(this));
-        list.setAdapter(adapter);
-
-        adapter.setSelected(POS_KELAS);
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadProfil();
     }
 
     @Override
@@ -196,37 +143,61 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadProfil();
-    }
+    public void Refreshing() {
+        swipeRefreshLayout.setRefreshing(true);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        if (getKelasRefreshListener() != null) {
+            getKelasRefreshListener().onRefresh();
+        }
+        if (getSPPRefreshListener() != null) {
+            getSPPRefreshListener().onRefresh();
+        }
+        if (getPetugasRefreshListener() != null) {
+            getPetugasRefreshListener().onRefresh();
+        }
 
-    private void loadProfil() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-        Call<PetugasRepository> call = api.viewDataPetugas(username);
-        call.enqueue(new Callback<PetugasRepository>() {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
-                String value = response.body().getValue();
-                List<Petugas> results = response.body().getResult();
-
-                if (value.equals("1")) {
-                    for (int i = 0; i < results.size(); i++) {
-                        nama_petugas = results.get(i).getNama_petugas();
-                    }
+            public void run() {
+                if (swipeRefreshLayout.isRefreshing()) {
+                    swipeRefreshLayout.setRefreshing(false);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
             }
+        }, 1000);
+    }
 
-            @Override
-            public void onFailure(Call<PetugasRepository> call, Throwable t) {
-                Log.e("DEBUG", "Error: ", t);
-            }
-        });
+    public void SideNavSetup() {
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+
+        slidingRootNav = new SlidingRootNavBuilder(this)
+                .withToolbarMenuToggle(toolbar)
+                .withMenuOpened(true)
+                .withContentClickableWhenMenuOpened(false)
+                .withMenuLayout(R.layout.activity_sidenav)
+                .withDragDistance(120)
+                .withRootViewScale(0.7f)
+                .withRootViewElevation(5)
+                .inject();
+
+        screenIcons = loadScreenIcons();
+        screenTitles = loadScreenTitles();
+
+        DrawerAdapter adapter = new DrawerAdapter(Arrays.asList(
+                createItemFor(POS_KELAS).setChecked(true),
+                createItemFor(POS_SPP),
+                createItemFor(POS_PETUGAS),
+                new SpaceItem(48),
+                createItemFor(POS_LOGOUT)));
+        adapter.setListener(this);
+        adapter.setSelected(POS_KELAS);
+
+        RecyclerView list = findViewById(R.id.list);
+        list.setNestedScrollingEnabled(false);
+        list.setLayoutManager(new LinearLayoutManager(this));
+        list.setAdapter(adapter);
     }
 
     @Override
@@ -267,49 +238,28 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
             AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
             View view = LayoutInflater.from(this).inflate(R.layout.dialog_profile, findViewById(R.id.layoutDialogContainer));
             builder.setView(view);
+            AlertDialog alertDialog = builder.create();
+
             ((TextView) view.findViewById(R.id.tvFillNama2)).setText(nama_petugas);
             ((TextView) view.findViewById(R.id.tvLevel)).setText("Staff level : " + rank);
             ((TextView) view.findViewById(R.id.tvUsername)).setText("Username : " + username);
             ((TextView) view.findViewById(R.id.tvPassword2)).setText("Password  : " + password);
-            final AlertDialog alertDialog = builder.create();
 
             view.findViewById(R.id.layoutDialog).setVisibility(View.GONE);
             view.findViewById(R.id.layoutDialog2).setVisibility(View.VISIBLE);
-
             view.findViewById(R.id.clear2).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     alertDialog.dismiss();
                 }
             });
-
             if (alertDialog.getWindow() != null) {
                 alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
             }
             alertDialog.show();
-        } else if (id == R.id.action_refresh) {
-            swipeRefreshLayout.setRefreshing(true);
 
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (swipeRefreshLayout.isRefreshing()) {
-                        swipeRefreshLayout.setRefreshing(false);
-                        if (getSiswaRefreshListener() != null) {
-                            getSiswaRefreshListener().onRefresh();
-                        }
-                        if (getKelasRefreshListener() != null) {
-                            getKelasRefreshListener().onRefresh();
-                        }
-                        if (getSPPRefreshListener() != null) {
-                            getSPPRefreshListener().onRefresh();
-                        }
-                        if (getPetugasRefreshListener() != null) {
-                            getPetugasRefreshListener().onRefresh();
-                        }
-                    }
-                }
-            }, 1000);
+        } else if (id == R.id.action_refresh) {
+            Refreshing();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -318,6 +268,34 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
+    }
+
+    private void loadProfil() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+
+        Call<PetugasRepository> call = api.viewDataPetugas(username);
+        call.enqueue(new Callback<PetugasRepository>() {
+            @Override
+            public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
+                String value = response.body().getValue();
+                List<Petugas> results = response.body().getResult();
+
+                if (value.equals("1")) {
+                    for (int i = 0; i < results.size(); i++) {
+                        nama_petugas = results.get(i).getNama_petugas();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PetugasRepository> call, Throwable t) {
+                Log.e("DEBUG", "Error: ", t);
+            }
+        });
     }
 
     @SuppressWarnings("rawtypes")

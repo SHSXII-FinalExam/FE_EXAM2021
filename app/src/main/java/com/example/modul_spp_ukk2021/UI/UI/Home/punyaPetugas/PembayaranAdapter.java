@@ -41,6 +41,7 @@ public class PembayaranAdapter extends RecyclerView.Adapter<PembayaranAdapter.Vi
                            String status,
                            String staff,
                            String nama_kelas,
+                           Integer kurang_bayar,
                            Integer download);
     }
 
@@ -110,6 +111,7 @@ public class PembayaranAdapter extends RecyclerView.Adapter<PembayaranAdapter.Vi
                     null,
                     null,
                     null,
+                    pembayaran.getKurang_bayar(),
                     null);
         });
 
@@ -126,8 +128,19 @@ public class PembayaranAdapter extends RecyclerView.Adapter<PembayaranAdapter.Vi
                     pembayaran.getStatus_bayar(),
                     pembayaran.getNama_petugas(),
                     pembayaran.getNama_kelas(),
+                    pembayaran.getKurang_bayar(),
                     1);
         });
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     @Override

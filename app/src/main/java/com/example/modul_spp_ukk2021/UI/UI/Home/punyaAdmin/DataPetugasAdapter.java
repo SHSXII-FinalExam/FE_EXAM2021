@@ -92,6 +92,7 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
             PopupMenu popup = new PopupMenu(context, v, Gravity.END, R.attr.popupMenuStyle, 0);
             MenuInflater inflater = popup.getMenuInflater();
             inflater.inflate(R.menu.menu_customcard, popup.getMenu());
+
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
@@ -109,21 +110,17 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
             AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
             View view = LayoutInflater.from(context).inflate(R.layout.pa_dialog_view_petugas, v.findViewById(R.id.layoutDialogContainer));
             builder.setView(view);
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
             ((TextView) view.findViewById(R.id.tvFillNama)).setText(petugas.getNama_petugas());
             ((TextView) view.findViewById(R.id.tvFillUsername)).setText(petugas.getUsername());
             ((TextView) view.findViewById(R.id.tvLevel)).setText("Level          : " + petugas.getLevel());
-            final AlertDialog alertDialog = builder.create();
-
-            view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    alertDialog.dismiss();
-                }
-            });
 
             if (petugas.getUsername().equals(usernameStaff)) {
-                final TextView tvPassword = view.findViewById(R.id.tvPassword);
+                TextView tvPassword = view.findViewById(R.id.tvPassword);
                 tvPassword.setText("Password  : " + passwordStaff);
+                view.findViewById(R.id.buttonEdit).setVisibility(View.INVISIBLE);
 
             } else if (petugas.getLevel().equals("Admin")) {
                 view.findViewById(R.id.buttonEdit).setVisibility(View.INVISIBLE);
@@ -136,11 +133,13 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
                         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
                         View view2 = LayoutInflater.from(context).inflate(R.layout.pa_dialog_tambah_petugas, v.findViewById(R.id.layoutDialogContainer));
                         builder.setView(view2);
-                        final TextView textTitle = view2.findViewById(R.id.textTitle);
-                        final EditText nama_petugas = view2.findViewById(R.id.nama_petugas);
-                        final EditText username_petugas = view2.findViewById(R.id.username_petugas);
-                        final EditText password_petugas = view2.findViewById(R.id.password_petugas);
-                        final AlertDialog alertDialog2 = builder.create();
+                        AlertDialog alertDialog2 = builder.create();
+                        alertDialog2.show();
+
+                        TextView textTitle = view2.findViewById(R.id.textTitle);
+                        EditText nama_petugas = view2.findViewById(R.id.nama_petugas);
+                        EditText username_petugas = view2.findViewById(R.id.username_petugas);
+                        EditText password_petugas = view2.findViewById(R.id.password_petugas);
 
                         textTitle.setText("Edit Petugas");
                         nama_petugas.setText(petugas.getNama_petugas());
@@ -150,21 +149,24 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
                         view2.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                if (password_petugas.getText().toString().trim().length() > 0) {
+                                if (nama_petugas.getText().toString().trim().length() > 0 && username_petugas.getText().toString().trim().length() > 0 && password_petugas.getText().toString().trim().length() > 0) {
                                     Retrofit retrofit = new Retrofit.Builder()
                                             .baseUrl(url)
                                             .addConverterFactory(GsonConverterFactory.create())
                                             .build();
                                     ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+
                                     Call<PetugasRepository> call = api.updatePetugas(petugas.getId_petugas(), "Petugas", username_petugas.getText().toString(), password_petugas.getText().toString(), nama_petugas.getText().toString());
                                     call.enqueue(new Callback<PetugasRepository>() {
                                         @Override
                                         public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
                                             String value = response.body().getValue();
                                             String message = response.body().getMessage();
+
                                             if (value.equals("1")) {
                                                 alertDialog2.dismiss();
                                                 mListener.onItemClicked(null, "1");
+
                                             } else {
                                                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
                                             }
@@ -172,9 +174,12 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
 
                                         @Override
                                         public void onFailure(Call<PetugasRepository> call, Throwable t) {
+                                            alertDialog2.dismiss();
+                                            Toast.makeText(context, "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
                                             Log.e("DEBUG", "Error: ", t);
                                         }
                                     });
+
                                 } else {
                                     Toast.makeText(context, "Data belum lengkap, silahkan coba lagi", Toast.LENGTH_SHORT).show();
                                 }
@@ -190,14 +195,19 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
                         if (alertDialog2.getWindow() != null) {
                             alertDialog2.getWindow().setBackgroundDrawable(new ColorDrawable(0));
                         }
-                        alertDialog2.show();
                     }
                 });
             }
+
+            view.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.dismiss();
+                }
+            });
             if (alertDialog.getWindow() != null) {
                 alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
             }
-            alertDialog.show();
         });
     }
 
@@ -206,7 +216,7 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
         return petugas.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView deleteData;
         MaterialCardView detailStaff;
         ConstraintLayout container_layout;
@@ -214,11 +224,11 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvNamaPetugas = itemView.findViewById(R.id.nama_petugas);
             tvLevel = itemView.findViewById(R.id.Level);
             tvUsername = itemView.findViewById(R.id.Username);
-            detailStaff = itemView.findViewById(R.id.detailStaff);
             deleteData = itemView.findViewById(R.id.deleteData);
+            detailStaff = itemView.findViewById(R.id.detailStaff);
+            tvNamaPetugas = itemView.findViewById(R.id.nama_petugas);
             container_layout = itemView.findViewById(R.id.container_layout);
         }
     }

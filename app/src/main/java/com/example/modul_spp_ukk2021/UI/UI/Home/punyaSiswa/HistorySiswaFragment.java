@@ -109,10 +109,7 @@ public class HistorySiswaFragment extends Fragment {
                     recyclerView.setAdapter(adapter);
                     runLayoutAnimation(recyclerView);
 
-                    int i;
-                    for (i = 0; i < results.size(); i++) {
-                        String debug = results.get(i).getStatus_bayar();
-                    }
+                    int i = results.size();
                     tagihan_count.setText("(" + String.valueOf(i) + ")");
 
                 } else {

@@ -8,10 +8,9 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_data"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#FFFFFF"
-        android:overScrollMode="never"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,16 +18,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_spp"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:nestedScrollingEnabled="false"
-                android:overScrollMode="never"
+                android:layout_height="0dp"
+                android:nestedScrollingEnabled="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -59,5 +55,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/emptyTransaksi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/nodata" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
