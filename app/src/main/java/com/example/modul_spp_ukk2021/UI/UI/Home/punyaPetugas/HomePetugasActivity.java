@@ -144,16 +144,18 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
                             } else {
                                 tagihan_count.setText("(0)");
                                 recyclerView.setVisibility(View.GONE);
-                                emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                                emptyTransaksi.setAnimation(R.raw.nodata);
                                 emptyTransaksi.playAnimation();
+                                emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                             }
                         }
 
                         @Override
                         public void onFailure(Call<SiswaRepository> call, Throwable t) {
                             tagihan_count.setText("(0)");
-                            emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                            emptyTransaksi.setAnimation(R.raw.nointernet);
                             emptyTransaksi.playAnimation();
+                            emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                             Log.e("DEBUG", "Error: ", t);
                         }
                     });
@@ -378,8 +380,9 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
                 } else {
                     tagihan_count.setText("(0)");
                     recyclerView.setVisibility(View.GONE);
-                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                    emptyTransaksi.setAnimation(R.raw.nodata);
                     emptyTransaksi.playAnimation();
+                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                 }
             }
 
@@ -387,8 +390,9 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
             public void onFailure(Call<SiswaRepository> call, Throwable t) {
                 tagihan_count.setText("(0)");
                 recyclerView.setVisibility(View.GONE);
-                emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                emptyTransaksi.setAnimation(R.raw.nointernet);
                 emptyTransaksi.playAnimation();
+                emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                 Toast.makeText(HomePetugasActivity.this, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
                 Log.e("DEBUG", "Error: ", t);
             }

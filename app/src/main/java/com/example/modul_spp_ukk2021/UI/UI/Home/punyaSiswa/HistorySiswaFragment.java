@@ -115,6 +115,7 @@ public class HistorySiswaFragment extends Fragment {
                 } else {
                     tagihan_count.setText("(0)");
                     recyclerView.setVisibility(View.GONE);
+                    emptyTransaksi.setAnimation(R.raw.nodata);
                     emptyTransaksi.playAnimation();
                     emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                 }
@@ -124,8 +125,10 @@ public class HistorySiswaFragment extends Fragment {
             public void onFailure(Call<PembayaranRepository> call, Throwable t) {
                 tagihan_count.setText("(0)");
                 recyclerView.setVisibility(View.GONE);
+                emptyTransaksi.setAnimation(R.raw.nointernet);
                 emptyTransaksi.playAnimation();
                 emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
                 Log.e("DEBUG", "Error: ", t);
             }
         });

@@ -148,6 +148,7 @@ public class DataSiswaActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<SiswaRepository> call, Throwable t) {
                         recyclerView.setVisibility(View.GONE);
+                        emptyTransaksi.setAnimation(R.raw.nointernet);
                         emptyTransaksi.playAnimation();
                         emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                         Toast.makeText(DataSiswaActivity.this, "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
@@ -225,6 +226,7 @@ public class DataSiswaActivity extends AppCompatActivity {
 
                 } else {
                     recyclerView.setVisibility(View.GONE);
+                    emptyTransaksi.setAnimation(R.raw.nodata);
                     emptyTransaksi.playAnimation();
                     emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                     Toast.makeText(DataSiswaActivity.this, message, Toast.LENGTH_SHORT).show();
@@ -234,6 +236,7 @@ public class DataSiswaActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<SiswaRepository> call, Throwable t) {
                 recyclerView.setVisibility(View.GONE);
+                emptyTransaksi.setAnimation(R.raw.nointernet);
                 emptyTransaksi.playAnimation();
                 emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                 Toast.makeText(DataSiswaActivity.this, "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();

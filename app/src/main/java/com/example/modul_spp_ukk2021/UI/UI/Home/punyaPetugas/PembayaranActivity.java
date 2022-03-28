@@ -72,8 +72,8 @@ public class PembayaranActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PembayaranAdapter adapter;
     private String id_pembayaran, id_petugas;
-    private LottieAnimationView emptyTransaksi;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private LottieAnimationView emptyTransaksi, success;
     private final List<Pembayaran> pembayaran = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
@@ -88,6 +88,7 @@ public class PembayaranActivity extends AppCompatActivity {
         StrictMode.setVmPolicy(builder.build());
         builder.detectFileUriExposure();
 
+        success = findViewById(R.id.success);
         ImageView back = findViewById(R.id.back);
         ImageView refresh = findViewById(R.id.refresh);
         emptyTransaksi = findViewById(R.id.emptyTransaksi);
@@ -202,8 +203,9 @@ public class PembayaranActivity extends AppCompatActivity {
 
                 } else {
                     recyclerView.setVisibility(View.GONE);
-                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                    emptyTransaksi.setAnimation(R.raw.nodata);
                     emptyTransaksi.playAnimation();
+                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                     Toast.makeText(PembayaranActivity.this, message, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -211,8 +213,9 @@ public class PembayaranActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<PembayaranRepository> call, Throwable t) {
                 recyclerView.setVisibility(View.GONE);
-                emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                emptyTransaksi.setAnimation(R.raw.nointernet);
                 emptyTransaksi.playAnimation();
+                emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                 Toast.makeText(PembayaranActivity.this, "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
                 Log.e("DEBUG", "Error: ", t);
             }
@@ -258,7 +261,20 @@ public class PembayaranActivity extends AppCompatActivity {
 
                         if (value.equals("1")) {
                             alertDialog.dismiss();
-                            loadDataPembayaran();
+                            success.setAnimation(R.raw.success);
+                            success.playAnimation();
+                            success.setVisibility(LottieAnimationView.VISIBLE);
+                            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    success.pauseAnimation();
+                                    success.setVisibility(LottieAnimationView.GONE);
+                                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    loadDataPembayaran();
+                                }
+                            }, 2000);
 
                         } else {
                             Toast.makeText(PembayaranActivity.this, message, Toast.LENGTH_SHORT).show();
@@ -268,8 +284,21 @@ public class PembayaranActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<PembayaranRepository> call, Throwable t) {
                         alertDialog.dismiss();
+                        success.setAnimation(R.raw.failed);
+                        success.playAnimation();
+                        success.setVisibility(LottieAnimationView.VISIBLE);
+                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         Toast.makeText(PembayaranActivity.this, "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
                         Log.e("DEBUG", "Error: ", t);
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                success.pauseAnimation();
+                                success.setVisibility(LottieAnimationView.GONE);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                        }, 3000);
                     }
                 });
             }
@@ -287,7 +316,20 @@ public class PembayaranActivity extends AppCompatActivity {
 
                         if (value.equals("1")) {
                             alertDialog.dismiss();
-                            loadDataPembayaran();
+                            success.setAnimation(R.raw.success);
+                            success.playAnimation();
+                            success.setVisibility(LottieAnimationView.VISIBLE);
+                            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    success.pauseAnimation();
+                                    success.setVisibility(LottieAnimationView.GONE);
+                                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    loadDataPembayaran();
+                                }
+                            }, 2000);
 
                         } else {
                             Toast.makeText(PembayaranActivity.this, message, Toast.LENGTH_SHORT).show();
@@ -297,8 +339,21 @@ public class PembayaranActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<PembayaranRepository> call, Throwable t) {
                         alertDialog.dismiss();
+                        success.setAnimation(R.raw.failed);
+                        success.playAnimation();
+                        success.setVisibility(LottieAnimationView.VISIBLE);
+                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         Toast.makeText(PembayaranActivity.this, "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
                         Log.e("DEBUG", "Error: ", t);
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                success.pauseAnimation();
+                                success.setVisibility(LottieAnimationView.GONE);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                        }, 3000);
                     }
                 });
             }
@@ -384,7 +439,7 @@ public class PembayaranActivity extends AppCompatActivity {
         document.finishPage(page);
 
         // write the document content
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + id_pembayaran + ".pdf");
+        File file = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/" + id_pembayaran + ".pdf");
         try {
             document.writeTo(new FileOutputStream(file));
         } catch (IOException e) {
@@ -397,7 +452,7 @@ public class PembayaranActivity extends AppCompatActivity {
     }
 
     private void openPdf() {
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + id_pembayaran + ".pdf");
+        File file = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/" + id_pembayaran + ".pdf");
         if (file.exists()) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             Uri uri = Uri.fromFile(file);

@@ -167,7 +167,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/dataSiswa"
                 app:lottie_autoPlay="false"
                 app:lottie_loop="true"
-                app:lottie_rawRes="@raw/nodata" />
+                app:lottie_rawRes="@raw/nointernet" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

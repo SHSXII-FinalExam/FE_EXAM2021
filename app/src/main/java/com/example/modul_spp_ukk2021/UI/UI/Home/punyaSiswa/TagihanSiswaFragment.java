@@ -136,7 +136,12 @@ public class TagihanSiswaFragment extends Fragment {
                     tagihan_count.setText("(" + String.valueOf(i) + ")");
 
                 } else {
-                    Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
+                    tagihan_count.setText("(0)");
+                    recyclerView.setVisibility(View.GONE);
+                    materialCardView5.setVisibility(View.GONE);
+                    emptyTransaksi.setAnimation(R.raw.nodata);
+                    emptyTransaksi.playAnimation();
+                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                 }
             }
 
@@ -145,6 +150,7 @@ public class TagihanSiswaFragment extends Fragment {
                 tagihan_count.setText("(0)");
                 recyclerView.setVisibility(View.GONE);
                 materialCardView5.setVisibility(View.GONE);
+                emptyTransaksi.setAnimation(R.raw.nointernet);
                 emptyTransaksi.playAnimation();
                 emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                 Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();

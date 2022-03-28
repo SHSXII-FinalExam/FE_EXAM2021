@@ -2,20 +2,20 @@
     <!-- Base application theme. -->
     <style name="Theme.ModulSPP_UKK2021" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#e3262c</item>
-        <item name="colorPrimaryVariant">#C4C4C4</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/grey</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#b72023</item>
-        <item name="colorSecondaryVariant">#C4C4C4</item>
+        <item name="colorSecondary">@color/colorPrimaryDark</item>
+        <item name="colorSecondaryVariant">@color/grey</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/black</item>
+
         <!-- Customize your theme here. -->
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
-        <!-- <item name="android:colorEdgeEffect">#E4E4E4</item> -->
-        <item name="android:colorEdgeEffect">#C4C4C4</item>
+        <item name="android:colorEdgeEffect">@color/grey</item>
         <item name="actionOverflowMenuStyle">@style/OverflowMenu</item>
         <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
     </style>

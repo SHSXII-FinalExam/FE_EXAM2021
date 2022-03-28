@@ -96,6 +96,7 @@ public class DataKelasFragment extends Fragment {
                     @Override
                     public void onFailure(Call<KelasRepository> call, Throwable t) {
                         recyclerView.setVisibility(View.GONE);
+                        emptyTransaksi.setAnimation(R.raw.nointernet);
                         emptyTransaksi.playAnimation();
                         emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                         Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
@@ -203,6 +204,7 @@ public class DataKelasFragment extends Fragment {
                                 public void onFailure(Call<KelasRepository> call, Throwable t) {
                                     alertDialog.dismiss();
                                     recyclerView.setVisibility(View.GONE);
+                                    emptyTransaksi.setAnimation(R.raw.nointernet);
                                     emptyTransaksi.playAnimation();
                                     emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                                     Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
@@ -264,6 +266,7 @@ public class DataKelasFragment extends Fragment {
 
                 } else {
                     recyclerView.setVisibility(View.GONE);
+                    emptyTransaksi.setAnimation(R.raw.nodata);
                     emptyTransaksi.playAnimation();
                     emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                     Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
@@ -273,6 +276,7 @@ public class DataKelasFragment extends Fragment {
             @Override
             public void onFailure(Call<KelasRepository> call, Throwable t) {
                 recyclerView.setVisibility(View.GONE);
+                emptyTransaksi.setAnimation(R.raw.nointernet);
                 emptyTransaksi.playAnimation();
                 emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                 Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();

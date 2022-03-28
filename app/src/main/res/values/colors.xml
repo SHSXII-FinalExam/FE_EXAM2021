@@ -6,6 +6,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="cyan">#2EDCB5</color>
+    <color name="grey">#C4C4C4</color>
 
     <color name="lunas">#41E46F</color>
     <color name="kurang">#FFC700</color>

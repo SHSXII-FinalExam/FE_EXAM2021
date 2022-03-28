@@ -44,6 +44,7 @@ public class DataPetugasFragment extends Fragment {
     private DataPetugasAdapter adapter;
     private LottieAnimationView emptyTransaksi;
     private final List<Petugas> petugas = new ArrayList<>();
+    RecyclerView.LayoutManager mLayoutManager;
 
     public DataPetugasFragment() {
     }
@@ -56,7 +57,7 @@ public class DataPetugasFragment extends Fragment {
         emptyTransaksi = view.findViewById(R.id.emptyTransaksi);
 
         adapter = new DataPetugasAdapter(getActivity(), petugas);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView = view.findViewById(R.id.recycler_petugas);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -90,6 +91,7 @@ public class DataPetugasFragment extends Fragment {
                     @Override
                     public void onFailure(Call<PetugasRepository> call, Throwable t) {
                         recyclerView.setVisibility(View.GONE);
+                        emptyTransaksi.setAnimation(R.raw.nointernet);
                         emptyTransaksi.playAnimation();
                         emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                         Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
@@ -160,6 +162,7 @@ public class DataPetugasFragment extends Fragment {
                                 public void onFailure(Call<PetugasRepository> call, Throwable t) {
                                     alertDialog.dismiss();
                                     recyclerView.setVisibility(View.GONE);
+                                    emptyTransaksi.setAnimation(R.raw.nointernet);
                                     emptyTransaksi.playAnimation();
                                     emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                                     Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
@@ -221,6 +224,7 @@ public class DataPetugasFragment extends Fragment {
 
                 } else {
                     recyclerView.setVisibility(View.GONE);
+                    emptyTransaksi.setAnimation(R.raw.nodata);
                     emptyTransaksi.playAnimation();
                     emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                     Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
@@ -230,6 +234,7 @@ public class DataPetugasFragment extends Fragment {
             @Override
             public void onFailure(Call<PetugasRepository> call, Throwable t) {
                 recyclerView.setVisibility(View.GONE);
+                emptyTransaksi.setAnimation(R.raw.nointernet);
                 emptyTransaksi.playAnimation();
                 emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                 Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
