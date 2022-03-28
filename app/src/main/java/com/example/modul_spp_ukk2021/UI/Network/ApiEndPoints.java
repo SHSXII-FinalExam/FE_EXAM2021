@@ -13,20 +13,21 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface ApiEndPoints {
-    @GET("dbReadSiswa.php")
-    Call<SiswaRepository> viewSiswa();
-    @GET("dbReadPetugas.php")
-    Call<PetugasRepository> viewPetugas();
+    // Login
     @FormUrlEncoded
     @POST("dbLoginSiswa.php")
     Call<LoginSiswaRepository> loginSiswa(
             @Field("nisn") String nisn,
             @Field("password") String password);
+
     @FormUrlEncoded
     @POST("dbLoginStaffLevel.php")
     Call<LoginStafRepository> loginStaf(
             @Field("username") String username,
             @Field("password") String password);
+
+    // Punya Siswa
+    // Read
     @FormUrlEncoded
     @POST("dbReadTagihan.php")
     Call<PembayaranRepository> viewTagihan(
@@ -36,14 +37,36 @@ public interface ApiEndPoints {
     @POST("dbReadHistory.php")
     Call<PembayaranRepository> viewHistory(
             @Field("nisn") String nisn);
+
+    // Punya Petugas
+    // Read
     @FormUrlEncoded
     @POST("dbReadPetugas.php")
     Call<PetugasRepository> viewDataPetugas(
             @Field("username") String username);
-    @GET("dbReadSiswa.php")
-    Call<SiswaRepository> viewDataSiswa();
+
+    @FormUrlEncoded
+    @POST("dbReadPembayaran.php")
+    Call<PembayaranRepository> viewPembayaran(
+            @Field("nisn") String nisn);
+
     @FormUrlEncoded
     @POST("dbSearchSiswa.php")
     Call<SiswaRepository> searchDataSiswa(
             @Field("search") String search);
+
+    // Read
+    @GET("dbReadPetugas.php")
+    Call<PetugasRepository> viewPetugas();
+
+    @GET("dbReadSiswa.php")
+    Call<SiswaRepository> viewDataSiswa();
+
+    // Update
+    @FormUrlEncoded
+    @POST("dbUpdatePembayaran.php")
+    Call<PembayaranRepository> updatePembayaran(
+            @Field("id_pembayaran") String id_pembayaran,
+            @Field("jumlah_bayar") String jumlah_bayar);
+
 }

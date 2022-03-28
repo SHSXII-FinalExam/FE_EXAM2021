@@ -45,7 +45,7 @@ public class TagihanSiswaAdapter extends RecyclerView.Adapter<TagihanSiswaAdapte
 
         DateFormatSymbols symbols = new DateFormatSymbols(localeID);
         String[] monthNames = symbols.getMonths();
-        holder.tvBulan.setText(monthNames[pembayaran.getBulan_bayar() - 1]);
+        holder.tvBulan.setText(monthNames[pembayaran.getBulan_bayar() - 1] + " " + pembayaran.getTahun_bayar());
 
         if (pembayaran.getTgl_bayar() != null) {
             SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy", localeID);
@@ -58,9 +58,13 @@ public class TagihanSiswaAdapter extends RecyclerView.Adapter<TagihanSiswaAdapte
         if (pembayaran.getKurang_bayar() == 0) {
             holder.tvStatus.setText(pembayaran.getStatus_bayar());
             holder.tvNominal.setText(format.format(pembayaran.getNominal()));
+            holder.tvNominal.setTextColor(Color.parseColor("#FF4646"));
+            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#FF4646")));
         } else {
             holder.tvStatus.setText("Kurang");
             holder.tvNominal.setText(format.format(pembayaran.getKurang_bayar()));
+            holder.tvNominal.setTextColor(Color.parseColor("#FFC700"));
+            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#FFC700")));
         }
     }
 
@@ -75,11 +79,11 @@ public class TagihanSiswaAdapter extends RecyclerView.Adapter<TagihanSiswaAdapte
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvStatus = itemView.findViewById(R.id.textView2);
-            tvBulan = itemView.findViewById(R.id.textView);
-            tvNominal = itemView.findViewById(R.id.textView19);
-            tvTanggal = itemView.findViewById(R.id.textView3);
-            materialCardView = itemView.findViewById(R.id.card);
+            tvStatus = itemView.findViewById(R.id.status);
+            tvBulan = itemView.findViewById(R.id.namaBulan);
+            tvNominal = itemView.findViewById(R.id.nominal);
+            tvTanggal = itemView.findViewById(R.id.tanggal);
+            materialCardView = itemView.findViewById(R.id.materialCardView);
         }
     }
 }

@@ -44,9 +44,9 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
                 @Override
                 public void run() {
 
-//                    Intent intent = new Intent(context, PembayaranActivity.class);
-//                    intent.putExtra("nisnSiswa", siswa.getNisn());
-//                    context.startActivity(intent);
+                    Intent intent = new Intent(context, PembayaranActivity.class);
+                    intent.putExtra("nisnSiswa", siswa.getNisn());
+                    context.startActivity(intent);
                 }
             }, 400);
         });

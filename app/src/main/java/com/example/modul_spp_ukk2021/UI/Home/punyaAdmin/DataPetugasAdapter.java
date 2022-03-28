@@ -13,8 +13,8 @@ import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 
 public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.ViewHolder> {
     private Context context;
@@ -52,12 +52,12 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.namaPetugas)
+//        @BindView(R.id.namaPetugas)
         TextView textViewNama;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+//            ButterKnife.bind(this, itemView);
         }
     }
 }
