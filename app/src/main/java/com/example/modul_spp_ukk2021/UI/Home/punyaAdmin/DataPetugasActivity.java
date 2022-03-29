@@ -39,7 +39,7 @@ public class DataPetugasActivity extends AppCompatActivity {
     @BindView(R.id.recycler_petugas)
     RecyclerView recyclerView;
 
-//    @BindView(R.id.tambah_petugas)
+//    @BindView(R.id.tamba[h_petugas)
 //    MaterialCardView tambahPetugas;
 
     @Override

@@ -46,4 +46,6 @@ public interface ApiEndPoints {
             @Field("username") String username);
     @GET("dbReadSiswa.php")
     Call<SiswaRepository> viewDataSiswa();
+
+    Call<PetugasRepository> viewDataPetugas();
 }
