@@ -27,10 +27,10 @@ public class HomeSiswaActivity extends AppCompatActivity implements HomeSiswaAda
 
         // data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();
-        animalNames.add("Gregorius Devon");
-        animalNames.add("Gregorius Devon");
-        animalNames.add("Gregorius Devon");
-        animalNames.add("Gregorius Devon");
+        animalNames.add("Alfian Nurditariyono");
+        animalNames.add("Alfian Nurditariyono");
+        animalNames.add("Alfian Nurditariyono");
+        animalNames.add("Alfian Nurditariyono");
 
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.recyclerHomeSiswa);
