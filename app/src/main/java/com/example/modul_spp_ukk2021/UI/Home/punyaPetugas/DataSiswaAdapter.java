@@ -13,6 +13,7 @@ import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
 import com.google.android.material.card.MaterialCardView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,6 +27,10 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
     public DataSiswaAdapter(Context context, List<Siswa> siswa) {
         this.context = context;
         this.siswa = siswa;
+    }
+
+    public DataSiswaAdapter(Context context, ArrayList<String> animalNames) {
+
     }
 
     // inflates the row layout from xml when needed
@@ -60,8 +65,21 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
         return siswa.size();
     }
 
+    public void setClickListener(DataSiswaFragment dataSiswaFragment) {
+    }
+
+    public String getItem(int position) {
+
+
+        return null;
+    }
+
+    public interface ItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
     // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.namaSiswa)
         TextView textViewNama;
         @BindView(R.id.textView3)
