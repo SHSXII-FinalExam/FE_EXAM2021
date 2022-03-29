@@ -150,7 +150,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
-                android:text=": Gregorius Devon "
+                android:text=": Alfian Nurditariyono "
                 android:textAlignment="textEnd"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/textView5"

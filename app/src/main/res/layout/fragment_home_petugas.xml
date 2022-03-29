@@ -19,7 +19,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="40dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="Halo Alfian"
+            android:text="Halo Gregorius"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logoutPetugas"
-            tools:listitem="@layout/container_nama_tagihan" />
+            tools:listitem="@layout/container_data_siswa" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
