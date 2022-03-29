@@ -1,8 +1,6 @@
 package com.example.modul_spp_ukk2021.UI.Home.punyaSiswa;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
-import com.google.android.material.card.MaterialCardView;
 
 import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -31,7 +27,7 @@ public class TagihanSiswaAdapter extends RecyclerView.Adapter<TagihanSiswaAdapte
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.siswa_container_data_tagihan, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.siswa_container_tagihan, parent, false);
         return new ViewHolder(view);
     }
 

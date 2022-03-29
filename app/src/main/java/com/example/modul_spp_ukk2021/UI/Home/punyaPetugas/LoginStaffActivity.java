@@ -15,7 +15,7 @@ import static com.example.modul_spp_ukk2021.UI.Network.BaseURL.url;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.LoginStaff;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStaffRepository;
-import com.example.modul_spp_ukk2021.UI.Home.punyaAdmin.HomeAdminFragment;
+import com.example.modul_spp_ukk2021.UI.Home.punyaAdmin.HomeAdminActivity;
 import com.example.modul_spp_ukk2021.UI.Network.APIEndPoints;
 import com.example.modul_spp_ukk2021.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
@@ -126,7 +126,7 @@ public class LoginStaffActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else if (value.equals("1") && level.equals("Admin")) {
-                        Intent intent = new Intent(LoginStaffActivity.this, HomeAdminFragment.class);
+                        Intent intent = new Intent(LoginStaffActivity.this, HomeAdminActivity.class);
                         intent.putExtra("level", level);
                         intent.putExtra("username", username);
                         startActivity(intent);

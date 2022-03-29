@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/CardSiswa"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
-    app:cardBackgroundColor="#F7F7F7"
-    app:cardCornerRadius="15dp"
+    app:cardBackgroundColor="#40C4C4C4"
+    app:cardCornerRadius="20dp"
     app:cardElevation="0dp"
     app:rippleColor="@android:color/transparent">
 
@@ -13,30 +15,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/kelas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:alpha="0.6"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="2021"
-            android:textColor="#000000"
+            android:text="Dummy Tahun"
+            android:textColor="#121212"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/nominal"
+            android:id="@+id/namaSiswa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:alpha="0.4"
-            android:fontFamily="@font/poppins"
-            android:text="Rp 500.000,00"
-            android:textColor="#000000"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Rp 0,00"
+            android:maxEms="10"
+            android:textColor="#121212"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/kelas"
+            app:layout_constraintTop_toBottomOf="@+id/kelas" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

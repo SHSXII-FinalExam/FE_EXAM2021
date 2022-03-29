@@ -59,7 +59,7 @@ public interface APIEndPoints {
     Call<SiswaRepository> searchDataSiswa(
             @Field("search") String search);
 
-    @GET("dbReadSiswa.php")
+    @GET("dbReadAllSiswa.php")
     Call<SiswaRepository> viewDataSiswa();
 
     @FormUrlEncoded
