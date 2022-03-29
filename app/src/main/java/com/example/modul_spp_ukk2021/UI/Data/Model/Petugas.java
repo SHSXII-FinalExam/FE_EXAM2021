@@ -5,6 +5,7 @@ public class Petugas {
     String password;
     String nama_petugas;
     String level;
+    String id_petugas;
 
     public String getUsername() {
         return username;
@@ -20,5 +21,9 @@ public class Petugas {
 
     public String getLevel() {
         return level;
+    }
+
+    public String getId_petugas() {
+        return id_petugas;
     }
 }

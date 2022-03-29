@@ -3,29 +3,65 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/button2_gradient.xml" value="0.23177083333333334" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/button_neutral_background.xml" value="0.23177083333333334" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/card_gradient_grey.xml" value="0.23177083333333334" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/dialog_background.xml" value="0.23177083333333334" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/gradient_button1.xml" value="0.23177083333333334" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/gradient_grey.xml" value="0.23177083333333334" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/ic_play.xml" value="0.23177083333333334" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/ic_refresh.xml" value="0.23177083333333334" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/font/poppins.xml" value="0.24583333333333332" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/font/poppins_medium.xml" value="0.24583333333333332" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_bottom_navigation.xml" value="0.1" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_konfirmasi_petugas.xml" value="0.16983695652173914" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_pembayaran.xml" value="0.1" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/container_data_pembayaran.xml" value="0.215625" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/container_data_siswa.xml" value="0.16983695652173914" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/container_data_tagihan.xml" value="0.16983695652173914" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/container_nama_tagihan.xml" value="0.16983695652173914" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/container_sidenav.xml" value="0.215625" />
+        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable-v24/ic_back.xml" value="0.16354166666666667" />
+        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable-v24/ic_download.xml" value="0.16354166666666667" />
+        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/gradient_yellow.xml" value="0.23177083333333334" />
+        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_pembayaran.xml" value="0.2" />
+        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/container_data_pembayaran.xml" value="0.2" />
+        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/container_data_siswa.xml" value="0.2" />
         <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/dialog_update_pembayaran.xml" value="0.1" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/fragment_chats.xml" value="0.16983695652173914" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/fragment_data_siswa.xml" value="0.16983695652173914" />
-        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/fragment_status.xml" value="0.16983695652173914" />
+        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/fragment_home_petugas.xml" value="0.16983695652173914" />
+        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/pp_activity_home.xml" value="0.16983695652173914" />
+        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/pp_activity_pembayaran.xml" value="0.215625" />
+        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/pp_container_data_pembayaran.xml" value="0.16983695652173914" />
+        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/pp_container_data_siswa.xml" value="0.215625" />
+        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/pp_dialog_update_pembayaran.xml" value="0.215625" />
+        <entry key="..\:/Users/62822/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/ps_container_data_tagihan.xml" value="0.215625" />
       </map>
+    </option>
+  </component>
+  <component name="NullableNotNullManager">
+    <option name="myDefaultNullable" value="org.jetbrains.annotations.Nullable" />
+    <option name="myDefaultNotNull" value="androidx.annotation.NonNull" />
+    <option name="myNullables">
+      <value>
+        <list size="14">
+          <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.Nullable" />
+          <item index="1" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.Nullable" />
+          <item index="2" class="java.lang.String" itemvalue="android.support.annotation.Nullable" />
+          <item index="3" class="java.lang.String" itemvalue="androidx.annotation.Nullable" />
+          <item index="4" class="java.lang.String" itemvalue="androidx.annotation.RecentlyNullable" />
+          <item index="5" class="java.lang.String" itemvalue="com.android.annotations.Nullable" />
+          <item index="6" class="java.lang.String" itemvalue="javax.annotation.Nullable" />
+          <item index="7" class="java.lang.String" itemvalue="javax.annotation.CheckForNull" />
+          <item index="8" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.Nullable" />
+          <item index="9" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableDecl" />
+          <item index="10" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableType" />
+          <item index="11" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.Nullable" />
+          <item index="12" class="java.lang.String" itemvalue="io.reactivex.annotations.Nullable" />
+          <item index="13" class="java.lang.String" itemvalue="io.reactivex.rxjava3.annotations.Nullable" />
+        </list>
+      </value>
+    </option>
+    <option name="myNotNulls">
+      <value>
+        <list size="14">
+          <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.NotNull" />
+          <item index="1" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.NonNull" />
+          <item index="2" class="java.lang.String" itemvalue="android.support.annotation.NonNull" />
+          <item index="3" class="java.lang.String" itemvalue="androidx.annotation.NonNull" />
+          <item index="4" class="java.lang.String" itemvalue="androidx.annotation.RecentlyNonNull" />
+          <item index="5" class="java.lang.String" itemvalue="com.android.annotations.NonNull" />
+          <item index="6" class="java.lang.String" itemvalue="javax.annotation.Nonnull" />
+          <item index="7" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.NonNull" />
+          <item index="8" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullDecl" />
+          <item index="9" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullType" />
+          <item index="10" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.NonNull" />
+          <item index="11" class="java.lang.String" itemvalue="io.reactivex.annotations.NonNull" />
+          <item index="12" class="java.lang.String" itemvalue="io.reactivex.rxjava3.annotations.NonNull" />
+          <item index="13" class="java.lang.String" itemvalue="lombok.NonNull" />
+        </list>
+      </value>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">

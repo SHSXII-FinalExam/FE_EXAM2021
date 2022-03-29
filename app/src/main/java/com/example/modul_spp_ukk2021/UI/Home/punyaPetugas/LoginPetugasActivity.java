@@ -117,11 +117,13 @@ public class LoginPetugasActivity extends AppCompatActivity {
 
                 for (int i = 0; i < results.size(); i++) {
                     String level = results.get(i).getLevel();
+                    String idstaff = results.get(i).getId_petugas();
                     Log.e("keshav", "Level ->" + level);
 
                     if (value.equals("1") && level.equals("Petugas")) {
                         Intent intent = new Intent(LoginPetugasActivity.this, HomePetugasActivity.class);
                         intent.putExtra("username", username);
+                        intent.putExtra("idstaff", idstaff);
                         startActivity(intent);
                         finish();
                     } else if (value.equals("1") && level.equals("Admin")) {

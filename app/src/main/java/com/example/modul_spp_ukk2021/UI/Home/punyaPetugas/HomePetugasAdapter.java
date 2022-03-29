@@ -1,4 +1,5 @@
 package com.example.modul_spp_ukk2021.UI.Home.punyaPetugas;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -43,9 +44,11 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-
                     Intent intent = new Intent(context, PembayaranActivity.class);
+                    String idstaff = intent.getStringExtra("idstaff");
                     intent.putExtra("nisnSiswa", siswa.getNisn());
+                    intent.putExtra("idstaff", "2");
+
                     context.startActivity(intent);
                 }
             }, 400);
@@ -63,7 +66,7 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvKelas = itemView.findViewById(R.id.textView3);
+            tvKelas = itemView.findViewById(R.id.kelas);
             tvNama = itemView.findViewById(R.id.namaSiswa);
             cardSiswa = itemView.findViewById(R.id.CardSiswa);
         }

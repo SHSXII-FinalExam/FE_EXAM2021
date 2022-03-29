@@ -67,6 +67,8 @@ public interface ApiEndPoints {
     @POST("dbUpdatePembayaran.php")
     Call<PembayaranRepository> updatePembayaran(
             @Field("id_pembayaran") String id_pembayaran,
-            @Field("jumlah_bayar") String jumlah_bayar);
+            @Field("jumlah_bayar") String jumlah_bayar,
+            @Field("id_petugas") String id_petugas);
+
 
 }

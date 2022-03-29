@@ -7,4 +7,18 @@
     <color name="colorNeutral">#434343</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="cyan">#2EDCB5</color>
+
+    <color name="lunas">#41E46F</color>
+    <color name="kurang">#FFC700</color>
+    <color name="belum">#e3262c</color>
+
+
+    <color name="colorSuccess">#41E46F</color>
+    <color name="colorWarning">#FFC700</color>
+    <color name="colorError">#e3262c</color>
+    <color name="colorTextPrimary">#212121</color>
+
+    <color name="material_grey">#33303030</color>
+    <color name="mtrl_textinput_default_box_stroke_color">#E4E6E8</color>
 </resources>

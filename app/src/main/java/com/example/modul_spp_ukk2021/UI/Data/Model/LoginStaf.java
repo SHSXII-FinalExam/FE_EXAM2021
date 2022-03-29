@@ -5,6 +5,7 @@ public class LoginStaf {
     String nama_petugas;
     String password;
     String level;
+    String id_petugas;
 
     public String getusename() {
         return username;
@@ -20,5 +21,9 @@ public class LoginStaf {
 
     public String getLevel() {
         return level;
+    }
+
+    public String getId_petugas() {
+        return id_petugas;
     }
 }
