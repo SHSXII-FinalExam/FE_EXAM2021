@@ -11,7 +11,7 @@ public class DataSPPActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_spp);
+        setContentView(R.layout.data_spp_activity);
 
     }
 }

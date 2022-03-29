@@ -25,7 +25,7 @@ public class HomePetugasFragment extends Fragment implements HomePetugasAdapter.
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View v = inflater.inflate(R.layout.fragment_home_petugas, container, false);
+        View v = inflater.inflate(R.layout.petugas_home_fragment, container, false);
 
         // data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();

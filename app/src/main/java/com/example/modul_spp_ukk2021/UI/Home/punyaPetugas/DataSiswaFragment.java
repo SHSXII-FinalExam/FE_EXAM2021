@@ -1,16 +1,11 @@
 package com.example.modul_spp_ukk2021.UI.Home.punyaPetugas;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -45,7 +40,7 @@ public class DataSiswaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View v = inflater.inflate(R.layout.fragment_data_siswa, container, false);
+        View v = inflater.inflate(R.layout.admin_fragment_data_siswa, container, false);
         ButterKnife.bind(v);
 
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerDataSiswa);

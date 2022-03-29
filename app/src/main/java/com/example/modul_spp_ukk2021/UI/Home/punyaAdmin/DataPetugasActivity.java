@@ -3,9 +3,6 @@ package com.example.modul_spp_ukk2021.UI.Home.punyaAdmin;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +14,6 @@ import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Model.Petugas;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Repository.PetugasRepository;
-import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +44,7 @@ public class DataPetugasActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_petugas);
+        setContentView(R.layout.admin_data_petugas_activity);
         ButterKnife.bind(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_petugas);

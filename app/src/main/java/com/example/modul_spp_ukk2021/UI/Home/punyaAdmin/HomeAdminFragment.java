@@ -21,7 +21,7 @@ public class HomeAdminFragment extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.petugas_activity_home);
+        setContentView(R.layout.admin_fragment_activity);
 
         MaterialButton logoutAdmin = findViewById(R.id.logoutAdmin);
         logoutAdmin.setOnClickListener(new View.OnClickListener() {
@@ -32,14 +32,14 @@ public class HomeAdminFragment extends AppCompatActivity {
             }
         });
 
-        MaterialCardView dataSiswa = findViewById(R.id.dataSiswa);
-        dataSiswa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.fragment_container, new DataSiswaFragment()).commit();
-            }
-        });
+//        MaterialCardView dataSiswa = findViewById(R.id.dataSiswa);
+//        dataSiswa.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                fragmentManager = getSupportFragmentManager();
+//                fragmentManager.beginTransaction().replace(R.id.fragment_container, new DataSiswaFragment()).commit();
+//            }
+//        });
 
         MaterialCardView dataPetugas = findViewById(R.id.dataPetugas);
         dataPetugas.setOnClickListener(new View.OnClickListener() {
