@@ -23,7 +23,7 @@
             android:layout_marginBottom="20dp"
             android:alpha="0.6"
             android:fontFamily="@font/poppins_medium"
-            android:text="Gregorius Devon"
+            android:text="Alfian Nurditariyono"
             android:textColor="@color/black"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="parent"
