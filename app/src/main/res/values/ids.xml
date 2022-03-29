@@ -6,4 +6,5 @@
     <item name="nav_status" type="id" />
     <item name="nav_chats" type="id" />
     <item name="bottom_navigation" type="id" />
+    <item name="searchSiswa" type="id" />
 </resources>
