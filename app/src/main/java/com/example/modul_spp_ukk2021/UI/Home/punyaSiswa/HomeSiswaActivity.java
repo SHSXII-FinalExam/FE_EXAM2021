@@ -3,13 +3,16 @@ package com.example.modul_spp_ukk2021.UI.Home.punyaSiswa;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.modul_spp_ukk2021.R;
@@ -18,18 +21,48 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 
 public class HomeSiswaActivity extends AppCompatActivity {
-    private MaterialButton logout;
     private int indicatorWidth;
+    private MaterialButton logout;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private FragmentRefreshListener historyRefreshListener, tagihanRefreshListener;
+
+    public interface FragmentRefreshListener {
+        void onRefresh();
+    }
+
+    public FragmentRefreshListener getHistoryRefreshListener() {
+        return historyRefreshListener;
+    }
+
+    public FragmentRefreshListener getTagihanRefreshListener() {
+        return tagihanRefreshListener;
+    }
+
+    public void setTagihanRefreshListener(FragmentRefreshListener fragmentRefreshListener) {
+        this.tagihanRefreshListener = fragmentRefreshListener;
+    }
+
+    public void setHistoryRefreshListener(FragmentRefreshListener fragmentRefreshListener) {
+        this.historyRefreshListener = fragmentRefreshListener;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.siswa_activity_home);
 
+        logout = findViewById(R.id.logout);
         TabLayout mTabs = findViewById(R.id.tab);
         View mIndicator = findViewById(R.id.indicator);
-        logout = findViewById(R.id.logout);
         ViewPager mViewPager = findViewById(R.id.viewPager);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Refreshing();
+            }
+        });
 
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new TagihanSiswaFragment(), "Tagihan");
@@ -62,14 +95,20 @@ public class HomeSiswaActivity extends AppCompatActivity {
 
             @Override
             public void onPageScrollStateChanged(int i) {
+                toggleRefreshing(i == ViewPager.SCROLL_STATE_IDLE);
             }
         });
 
         logout.setOnClickListener(v -> {
-            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeSiswaActivity.this, logout, ViewCompat.getTransitionName(logout));
             Intent intent = new Intent(HomeSiswaActivity.this, LoginChoiceActivity.class);
-            startActivity(intent, options.toBundle());
+            startActivity(intent);
         });
+    }
+
+    public void toggleRefreshing(boolean enabled) {
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setEnabled(enabled);
+        }
     }
 
     @Override
@@ -85,5 +124,24 @@ public class HomeSiswaActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Tidak", null)
                 .show();
+    }
+
+    public void Refreshing() {
+        swipeRefreshLayout.setRefreshing(true);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        if (getHistoryRefreshListener() != null && getTagihanRefreshListener() != null) {
+            getHistoryRefreshListener().onRefresh();
+            getTagihanRefreshListener().onRefresh();
+        }
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (swipeRefreshLayout.isRefreshing()) {
+                    swipeRefreshLayout.setRefreshing(false);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
+            }
+        }, 1000);
     }
 }

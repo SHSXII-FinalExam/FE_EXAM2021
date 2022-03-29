@@ -9,8 +9,8 @@
         android:id="@+id/imageView2"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/chevron_left"
         android:backgroundTint="#C62828"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="48dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Nominal Pembayaran"
         android:textColor="#121212"
@@ -43,42 +43,42 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:textColorHint="#9A9EA7"
-        app:boxBackgroundColor="#F7F7F7"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@android:color/transparent"
+        app:boxBackgroundColor="@android:color/transparent"
         app:boxCornerRadiusBottomEnd="15dp"
         app:boxCornerRadiusBottomStart="15dp"
         app:boxCornerRadiusTopEnd="15dp"
         app:boxCornerRadiusTopStart="15dp"
+        app:hintAnimationEnabled="false"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView13"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13">
 
         <EditText
             android:id="@+id/nominal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/poppins_semibold"
-            android:hint="Nominal max. Rp 300.000,00"
-            android:inputType="number"
-            android:maxLength="10"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:focusableInTouchMode="true"
+            android:fontFamily="@font/poppins_medium"
+            android:imeOptions="actionSearch"
+            android:paddingTop="11dp"
+            android:paddingBottom="11dp"
             android:singleLine="true"
-            android:textColor="#99121212"
-            android:textSize="14sp" />
+            android:textColorHint="#C62828" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/materialButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="48dp"
         android:backgroundTint="#28C641"
         android:fontFamily="@font/poppins_semibold"
         android:paddingLeft="45dp"
@@ -98,7 +98,6 @@
         android:id="@+id/materialButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
         android:backgroundTint="#C62828"
         android:fontFamily="@font/poppins_semibold"
         android:paddingLeft="45dp"
@@ -110,9 +109,10 @@
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:cornerRadius="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/materialButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/materialButton"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        app:layout_constraintTop_toTopOf="@+id/materialButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

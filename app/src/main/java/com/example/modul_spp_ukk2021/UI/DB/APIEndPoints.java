@@ -1,4 +1,4 @@
-package com.example.modul_spp_ukk2021.UI.Network;
+package com.example.modul_spp_ukk2021.UI.DB;
 
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStaffRepository;
@@ -23,6 +23,18 @@ public interface APIEndPoints {
     Call<LoginSiswaRepository> loginSiswa(
             @Field("nisn") String nisn,
             @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("dbUpdatePembayaran.php")
+    Call<PembayaranRepository> updatePembayaran(
+            @Field("id_pembayaran") String id_pembayaran,
+            @Field("jumlah_bayar") String jumlah_bayar,
+            @Field("id_petugas") String id_petugas);
+
+    @FormUrlEncoded
+    @POST("dbReadPembayaran.php")
+    Call<PembayaranRepository> viewPembayaran(
+            @Field("nisn") String nisn);
 
     @FormUrlEncoded
     @POST("dbLoginStaffLevel.php")

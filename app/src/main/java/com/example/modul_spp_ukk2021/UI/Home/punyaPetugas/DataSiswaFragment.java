@@ -5,9 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 
-import static com.example.modul_spp_ukk2021.UI.Network.BaseURL.url;
+import static com.example.modul_spp_ukk2021.UI.DB.BaseURL.url;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -17,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
-import com.example.modul_spp_ukk2021.UI.Network.APIEndPoints;
+import com.example.modul_spp_ukk2021.UI.DB.APIEndPoints;
 
 import java.util.ArrayList;
 import java.util.List;

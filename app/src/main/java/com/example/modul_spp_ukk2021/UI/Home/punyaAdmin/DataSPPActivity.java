@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
-import com.example.modul_spp_ukk2021.UI.Network.APIEndPoints;
+import com.example.modul_spp_ukk2021.UI.DB.APIEndPoints;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.modul_spp_ukk2021.UI.Network.BaseURL.url;
+import static com.example.modul_spp_ukk2021.UI.DB.BaseURL.url;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -9,7 +9,7 @@
         android:id="@+id/imageView7"
         android:layout_width="86dp"
         android:layout_height="84dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/logo"
         android:transitionName="logo"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,8 +20,8 @@
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Selamat datang di"
         android:textColor="#121212"
@@ -55,7 +55,7 @@
         android:id="@+id/imageView9"
         android:layout_width="322dp"
         android:layout_height="268dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="48dp"
         android:background="@drawable/illustration1"
         app:layout_constraintEnd_toEndOf="@+id/imageView7"
         app:layout_constraintStart_toStartOf="@+id/imageView7"
@@ -65,7 +65,7 @@
         android:id="@+id/btnSplash"
         android:layout_width="223dp"
         android:layout_height="56dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="48dp"
         android:background="@drawable/button"
         android:backgroundTint="@null"
         android:fontFamily="@font/poppins_semibold"
@@ -77,9 +77,7 @@
         app:iconGravity="end"
         app:iconSize="32dp"
         app:iconTint="#F7F7F7"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView9"
-        app:layout_constraintStart_toStartOf="@+id/imageView9"
-        app:layout_constraintTop_toBottomOf="@+id/imageView9" />
-
-
+        app:layout_constraintStart_toStartOf="@+id/imageView9" />
 </androidx.constraintlayout.widget.ConstraintLayout>

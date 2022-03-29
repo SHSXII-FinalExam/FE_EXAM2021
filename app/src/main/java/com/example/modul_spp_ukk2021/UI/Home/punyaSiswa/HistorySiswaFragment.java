@@ -7,16 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.DB.APIEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
-import com.example.modul_spp_ukk2021.UI.Network.APIEndPoints;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -25,13 +23,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.modul_spp_ukk2021.UI.Network.BaseURL.url;
+import static com.example.modul_spp_ukk2021.UI.DB.BaseURL.url;
 
 public class HistorySiswaFragment extends Fragment {
-    private View view;
     private RecyclerView recyclerView;
     private HistorySiswaAdapter adapter;
-    private List<Pembayaran> pembayaran = new ArrayList<>();
 
     public HistorySiswaFragment() {
     }
@@ -39,14 +35,18 @@ public class HistorySiswaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        view = inflater.inflate(R.layout.siswa_fragment_history, container, false);
+        View view = inflater.inflate(R.layout.siswa_fragment_history, container, false);
 
-        adapter = new HistorySiswaAdapter(getActivity(), pembayaran);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView = view.findViewById(R.id.recyclerHistory);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
+
+        ((HomeSiswaActivity) getActivity()).setHistoryRefreshListener(new HomeSiswaActivity.FragmentRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadDataHistory();
+            }
+        });
 
         return view;
     }
@@ -58,13 +58,14 @@ public class HistorySiswaFragment extends Fragment {
     }
 
     private void loadDataHistory() {
-        String nisnSiswa = getActivity().getIntent().getStringExtra("nisnSiswa");
+        String nisnSiswa = requireActivity().getIntent().getStringExtra("nisnSiswa");
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         APIEndPoints api = retrofit.create(APIEndPoints.class);
+
         Call<PembayaranRepository> call = api.viewHistory(nisnSiswa);
         call.enqueue(new Callback<PembayaranRepository>() {
             @Override
@@ -74,8 +75,7 @@ public class HistorySiswaFragment extends Fragment {
 
                 Log.e("value", value);
                 if (value.equals("1")) {
-                    pembayaran = response.body().getResult();
-                    adapter = new HistorySiswaAdapter(getActivity(), pembayaran);
+                    adapter = new HistorySiswaAdapter(getActivity(), results);
                     recyclerView.setAdapter(adapter);
                 }
             }

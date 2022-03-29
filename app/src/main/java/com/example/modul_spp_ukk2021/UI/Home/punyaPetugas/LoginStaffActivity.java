@@ -8,20 +8,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import static com.example.modul_spp_ukk2021.UI.Network.BaseURL.url;
 
 import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.DB.APIEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Model.LoginStaff;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStaffRepository;
 import com.example.modul_spp_ukk2021.UI.Home.punyaAdmin.HomeAdminActivity;
-import com.example.modul_spp_ukk2021.UI.Network.APIEndPoints;
 import com.example.modul_spp_ukk2021.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,25 +29,22 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.example.modul_spp_ukk2021.UI.DB.BaseURL.url;
+
 public class LoginStaffActivity extends AppCompatActivity {
+    private TextInputLayout textInputLayout2;
     private EditText edtUsername, edtPassword;
-    TextInputLayout textInputLayout2;
-    private List<LoginStaff> loginStaff = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_staff);
 
-        LoginForm();
-    }
-
-    private void LoginForm() {
-        edtUsername = findViewById(R.id.login_PetugasUsername);
         edtPassword = findViewById(R.id.login_PetugasPass);
-        MaterialButton btnLoginStaff = findViewById(R.id.signin_petugas);
         ImageView btnBack = findViewById(R.id.imageView11);
+        edtUsername = findViewById(R.id.login_PetugasUsername);
         textInputLayout2 = findViewById(R.id.textInputLayout2);
+        MaterialButton btnLoginStaff = findViewById(R.id.signin_petugas);
 
         btnLoginStaff.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,41 +93,43 @@ public class LoginStaffActivity extends AppCompatActivity {
         }
     }
 
-    private List<LoginStaff> fetchResults(Response<LoginStaffRepository> response) {
-        LoginStaffRepository loginStaffRepository = response.body();
-        return loginStaffRepository.getResult();
-    }
-
     private void loadDataPembayaran(String username, String password) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         APIEndPoints api = retrofit.create(APIEndPoints.class);
+
         Call<LoginStaffRepository> call = api.loginStaff(username, password);
         call.enqueue(new Callback<LoginStaffRepository>() {
             @Override
             public void onResponse(Call<LoginStaffRepository> call, Response<LoginStaffRepository> response) {
                 String value = response.body().getValue();
-                List<LoginStaff> results = fetchResults(response);
+                String message = response.body().getMessage();
+                List<LoginStaff> results = response.body().getResult();
 
-                for (int i = 0; i < results.size(); i++) {
-                    String level = results.get(i).getLevel();
-                    Log.e("keshav", "Level ->" + level);
+                if (value.equals("1")) {
+                    for (int i = 0; i < results.size(); i++) {
+                        String level = results.get(i).getLevel();
+                        String id_petugas = results.get(i).getId_petugas();
+                        Log.e("Level: ", level);
 
-                    if (value.equals("1") && level.equals("Petugas")) {
-                        Intent intent = new Intent(LoginStaffActivity.this, HomePetugasActivity.class);
-                        intent.putExtra("level", level);
-                        intent.putExtra("username", username);
-                        startActivity(intent);
-                        finish();
-                    } else if (value.equals("1") && level.equals("Admin")) {
-                        Intent intent = new Intent(LoginStaffActivity.this, HomeAdminActivity.class);
-                        intent.putExtra("level", level);
-                        intent.putExtra("username", username);
-                        startActivity(intent);
-                        finish();
+                        if (level.equals("Petugas")) {
+                            Intent intent = new Intent(LoginStaffActivity.this, HomePetugasActivity.class);
+                            intent.putExtra("level", level);
+                            intent.putExtra("username", username);
+                            intent.putExtra("id_petugas", id_petugas);
+                            startActivity(intent);
+                        } else if (level.equals("Admin")) {
+                            Intent intent = new Intent(LoginStaffActivity.this, HomeAdminActivity.class);
+                            intent.putExtra("level", level);
+                            intent.putExtra("username", username);
+                            intent.putExtra("id_petugas", id_petugas);
+                            startActivity(intent);
+                        }
                     }
+                } else {
+                    Toast.makeText(LoginStaffActivity.this, message, Toast.LENGTH_LONG).show();
                 }
             }
 

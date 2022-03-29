@@ -7,27 +7,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
-import com.example.modul_spp_ukk2021.UI.Home.punyaAdmin.DataPetugasActivity;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
 public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.ViewHolder> {
-    private Context context;
-    private List<Siswa> siswa;
+    private final Context context;
+    private final List<Siswa> siswa;
 
     public HomePetugasAdapter(Context context, List<Siswa> siswa) {
         this.siswa = siswa;
         this.context = context;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_container_data_siswa, parent, false);
@@ -45,9 +44,13 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    Intent intent = new Intent(context, PembayaranActivity.class);
-//                    intent.putExtra("nisnSiswa", siswa.getNisn());
-//                    context.startActivity(intent);
+                    Intent intent = new Intent(context, DataPembayaranActivity.class);
+                    Intent Activity = ((HomePetugasActivity)v.getContext()).getIntent();
+                    String id_petugas = Activity.getStringExtra("id_petugas");
+
+                    intent.putExtra("nisnSiswa", siswa.getNisn());
+                    intent.putExtra("id_petugas", id_petugas);
+                    context.startActivity(intent);
                 }
             }, 400);
         });
@@ -58,7 +61,7 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
         return siswa.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         MaterialCardView btnSiswa;
         TextView tvNama, tvKelas;
 

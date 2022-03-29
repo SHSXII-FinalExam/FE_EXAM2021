@@ -7,12 +7,9 @@ import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.view.ViewCompat;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.LoginStaffActivity;
-import com.example.modul_spp_ukk2021.UI.Home.punyaSiswa.HomeSiswaActivity;
 import com.example.modul_spp_ukk2021.UI.Home.punyaSiswa.LoginSiswaActivity;
 import com.google.android.material.button.MaterialButton;
 
@@ -31,7 +28,6 @@ public class LoginChoiceActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginChoiceActivity.this, LoginSiswaActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -40,13 +36,20 @@ public class LoginChoiceActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginChoiceActivity.this, LoginStaffActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
 
     @Override
     public void onBackPressed() {
-        finishAffinity();
+        new AlertDialog.Builder(this)
+                .setMessage("Apakah anda yakin ingin keluar?")
+                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finishAffinity();
+                    }
+                })
+                .setNegativeButton("Tidak", null)
+                .show();
     }
 }

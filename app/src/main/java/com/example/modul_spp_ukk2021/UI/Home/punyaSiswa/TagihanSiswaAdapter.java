@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
@@ -18,13 +19,14 @@ import java.util.Locale;
 
 public class TagihanSiswaAdapter extends RecyclerView.Adapter<TagihanSiswaAdapter.ViewHolder> {
     private Context context;
-    private List<Pembayaran> pembayaran;
+    private final List<Pembayaran> pembayaran;
 
     public TagihanSiswaAdapter(Context context, List<Pembayaran> pembayaran) {
         this.context = context;
         this.pembayaran = pembayaran;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.siswa_container_tagihan, parent, false);
@@ -57,14 +59,14 @@ public class TagihanSiswaAdapter extends RecyclerView.Adapter<TagihanSiswaAdapte
         return pembayaran.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvBulan, tvNominal, tvStatus;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvStatus = itemView.findViewById(R.id.status);
-            tvBulan = itemView.findViewById(R.id.namaBulan);
             tvNominal = itemView.findViewById(R.id.nominal);
+            tvBulan = itemView.findViewById(R.id.namaBulan);
         }
     }
 }

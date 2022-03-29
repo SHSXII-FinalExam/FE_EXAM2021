@@ -8,14 +8,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-import static com.example.modul_spp_ukk2021.UI.Network.BaseURL.url;
+import static com.example.modul_spp_ukk2021.UI.DB.BaseURL.url;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
-import com.example.modul_spp_ukk2021.UI.Network.APIEndPoints;
+import com.example.modul_spp_ukk2021.UI.DB.APIEndPoints;
 import com.example.modul_spp_ukk2021.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
@@ -28,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginSiswaActivity extends AppCompatActivity {
     private EditText edtNISN, edtPassword;
-    TextInputLayout textInputLayout2;
+    private TextInputLayout textInputLayout2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +38,9 @@ public class LoginSiswaActivity extends AppCompatActivity {
 
         edtNISN = findViewById(R.id.login_SiswaNISN);
         edtPassword = findViewById(R.id.login_siswaPass);
-        MaterialButton btnSignInSiswa = findViewById(R.id.signin_siswa);
         ImageView btnBack = findViewById(R.id.imageView11);
         textInputLayout2 = findViewById(R.id.textInputLayout2);
+        MaterialButton btnSignInSiswa = findViewById(R.id.signin_siswa);
 
         btnSignInSiswa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +54,6 @@ public class LoginSiswaActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginSiswaActivity.this, LoginChoiceActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -94,17 +94,20 @@ public class LoginSiswaActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         APIEndPoints api = retrofit.create(APIEndPoints.class);
+
         Call<LoginSiswaRepository> call = api.loginSiswa(nisn, password);
         call.enqueue(new Callback<LoginSiswaRepository>() {
             @Override
             public void onResponse(Call<LoginSiswaRepository> call, Response<LoginSiswaRepository> response) {
                 String value = response.body().getValue();
+                String message = response.body().getMessage();
 
                 if (value.equals("1")) {
                     Intent intent = new Intent(LoginSiswaActivity.this, HomeSiswaActivity.class);
                     intent.putExtra("nisnSiswa", nisn);
                     startActivity(intent);
-                    finish();
+                } else {
+                    Toast.makeText(LoginSiswaActivity.this, message, Toast.LENGTH_LONG).show();
                 }
             }
 

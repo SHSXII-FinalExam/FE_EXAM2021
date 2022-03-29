@@ -18,10 +18,8 @@
         <activity
             android:name=".UI.Splash.LaunchActivity"
             android:noHistory="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -36,8 +34,11 @@
 
         <!--Activity Petugas-->
         <activity android:name=".UI.Home.punyaPetugas.LoginStaffActivity" />
-        <activity android:name=".UI.Home.punyaPetugas.KonfirmasiPetugasActivity" />
-        <activity android:name=".UI.Home.punyaPetugas.HomePetugasActivity" />
+        <activity
+            android:name=".UI.Home.punyaPetugas.HomePetugasActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".UI.Home.punyaPetugas.DataPembayaranActivity" />
+        <activity android:name=".UI.Home.punyaPetugas.PembayaranActivity" />
 
         <!--Activity Admin-->
         <activity android:name=".UI.Home.punyaAdmin.HomeAdminActivity" />

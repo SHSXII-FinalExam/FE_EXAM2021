@@ -1,19 +1,12 @@
 package com.example.modul_spp_ukk2021.UI.Home.punyaAdmin;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import static com.example.modul_spp_ukk2021.UI.Network.BaseURL.url;
+import static com.example.modul_spp_ukk2021.UI.DB.BaseURL.url;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
-import com.example.modul_spp_ukk2021.UI.Network.APIEndPoints;
+import com.example.modul_spp_ukk2021.UI.DB.APIEndPoints;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;

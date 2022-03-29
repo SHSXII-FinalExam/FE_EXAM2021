@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
@@ -15,28 +16,22 @@ import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.ViewHolder> {
     private Context context;
-    private List<Siswa> siswa;
+    private final List<Siswa> siswa;
 
-    // data is passed into the constructor
     public DataSiswaAdapter(Context context, List<Siswa> siswa) {
         this.context = context;
         this.siswa = siswa;
     }
 
-    // inflates the row layout from xml when needed
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_container_data_siswa, parent, false);
-
         return new ViewHolder(view);
     }
 
-    // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Siswa siswa = this.siswa.get(position);
@@ -47,7 +42,7 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
         holder.cardSiswa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, KonfirmasiPetugasActivity.class);
+                Intent intent = new Intent(context, PembayaranActivity.class);
                 intent.putExtra("siswaNama", siswa.getNama());
                 context.startActivity(intent);
             }
@@ -61,17 +56,15 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
     }
 
     // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.namaSiswa)
-        TextView textViewNama;
-        @BindView(R.id.textView3)
-        TextView textViewKelas;
-        @BindView(R.id.CardSiswa)
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         MaterialCardView cardSiswa;
+        TextView textViewNama, textViewKelas;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            cardSiswa = itemView.findViewById(R.id.tanggal);
+            textViewKelas = itemView.findViewById(R.id.nominal);
+            textViewNama = itemView.findViewById(R.id.namaBulan);
         }
     }
 }

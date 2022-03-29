@@ -1,13 +1,12 @@
 package com.example.modul_spp_ukk2021.UI.Home.punyaSiswa;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
@@ -21,14 +20,15 @@ import java.util.List;
 import java.util.Locale;
 
 public class HistorySiswaAdapter extends RecyclerView.Adapter<HistorySiswaAdapter.ViewHolder> {
-    private Context context;
-    private List<Pembayaran> pembayaran;
+    private final Context context;
+    private final List<Pembayaran> pembayaran;
 
     public HistorySiswaAdapter(Context context, List<Pembayaran> pembayaran) {
         this.context = context;
         this.pembayaran = pembayaran;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.siswa_container_history, parent, false);
@@ -61,7 +61,8 @@ public class HistorySiswaAdapter extends RecyclerView.Adapter<HistorySiswaAdapte
         return pembayaran.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        MaterialCardView layout_container;
         TextView tvBulan, tvNominal, tvStatus, tvTanggal;
 
         public ViewHolder(View itemView) {
@@ -70,6 +71,7 @@ public class HistorySiswaAdapter extends RecyclerView.Adapter<HistorySiswaAdapte
             tvBulan = itemView.findViewById(R.id.namaBulan);
             tvNominal = itemView.findViewById(R.id.nominal);
             tvTanggal = itemView.findViewById(R.id.tanggal);
+            layout_container = itemView.findViewById(R.id.layout_container);
         }
     }
 }
