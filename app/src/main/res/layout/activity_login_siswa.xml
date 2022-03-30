@@ -170,13 +170,16 @@
         android:layout_height="59dp"
         android:layout_marginBottom="48dp"
         android:background="@drawable/button"
+        android:clickable="true"
+        android:focusable="true"
         android:fontFamily="@font/poppins_semibold"
         android:text="Masuk"
         android:textAllCaps="false"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/materialCardView6"
-        app:layout_constraintStart_toStartOf="@+id/materialCardView6" />
+        app:layout_constraintStart_toStartOf="@+id/materialCardView6"
+        app:rippleColor="@null" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

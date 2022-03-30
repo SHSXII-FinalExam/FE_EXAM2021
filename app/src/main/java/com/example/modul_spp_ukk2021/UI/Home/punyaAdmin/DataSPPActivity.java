@@ -1,9 +1,9 @@
 package com.example.modul_spp_ukk2021.UI.Home.punyaAdmin;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -11,75 +11,82 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.DB.APIEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
-import com.example.modul_spp_ukk2021.UI.DB.APIEndPoints;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.modul_spp_ukk2021.UI.DB.BaseURL.url;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.example.modul_spp_ukk2021.UI.DB.BaseURL.url;
+
 public class DataSPPActivity extends AppCompatActivity {
-
-    final Context context = this;
-    private TextView result;
-
+    private APIEndPoints api;
     private DataSPPAdapter adapter;
-    private List<SPP> spp = new ArrayList<>();
-
-    @BindView(R.id.recycler_spp)
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
+    private final List<SPP> spp = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_activity_data_spp);
-        ButterKnife.bind(this);
 
-        adapter = new DataSPPAdapter(this, spp);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        adapter = new DataSPPAdapter(DataSPPActivity.this, spp);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(DataSPPActivity.this);
+        recyclerView = findViewById(R.id.recycler_spp);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setHasFixedSize(false);
-        recyclerView.setAdapter(new DataSPPAdapter(this, new ArrayList<SPP>()));
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(APIEndPoints.class);
+
+        findViewById(R.id.imageView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        loadDataPembayaran();
+        loadDataSPP();
     }
 
-    private void loadDataPembayaran() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        APIEndPoints api = retrofit.create(APIEndPoints.class);
+    public void loadDataSPP() {
         Call<SPPRepository> call = api.viewDataSPP();
         call.enqueue(new Callback<SPPRepository>() {
             @Override
             public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
                 String value = response.body().getValue();
+                String message = response.body().getMessage();
+                List<SPP> spp = response.body().getResult();
+
                 if (value.equals("1")) {
-                    spp = response.body().getResult();
+                    recyclerView.setVisibility(View.VISIBLE);
                     adapter = new DataSPPAdapter(DataSPPActivity.this, spp);
                     recyclerView.setAdapter(adapter);
+
+                } else {
+                    recyclerView.setVisibility(View.GONE);
+                    Toast.makeText(DataSPPActivity.this, message, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SPPRepository> call, Throwable t) {
+                recyclerView.setVisibility(View.GONE);
+                Toast.makeText(DataSPPActivity.this, "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
                 Log.e("DEBUG", "Error: ", t);
             }
         });

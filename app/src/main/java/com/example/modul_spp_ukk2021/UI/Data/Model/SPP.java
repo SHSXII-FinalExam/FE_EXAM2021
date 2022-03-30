@@ -1,9 +1,14 @@
 package com.example.modul_spp_ukk2021.UI.Data.Model;
 
 public class SPP {
+    Integer id_spp;
     String angkatan;
     String tahun;
-    String nominal;
+    Integer nominal;
+
+    public Integer getId_spp() {
+        return id_spp;
+    }
 
     public String getAngkatan() {
         return angkatan;
@@ -13,7 +18,7 @@ public class SPP {
         return tahun;
     }
 
-    public String getNominal() {
+    public Integer getNominal() {
         return nominal;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.modul_spp_ukk2021.UI.DB;
 
+import com.example.modul_spp_ukk2021.UI.Data.Repository.KelasRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStaffRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
@@ -15,8 +16,14 @@ import retrofit2.http.POST;
 
 public interface APIEndPoints {
 
+    @GET("dbReadKelas.php")
+    Call<KelasRepository> viewDataKelas();
+
     @GET("dbReadSiswa.php")
     Call<SiswaRepository> viewSiswa();
+
+    @GET("dbReadAllPetugas.php")
+    Call<PetugasRepository> viewDataAllPetugas();
 
     @FormUrlEncoded
     @POST("dbLoginSiswa.php")
