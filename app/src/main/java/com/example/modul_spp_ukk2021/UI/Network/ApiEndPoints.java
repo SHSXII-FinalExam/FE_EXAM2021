@@ -48,4 +48,6 @@ public interface ApiEndPoints {
     Call<SiswaRepository> viewDataSiswa();
 
     Call<PetugasRepository> viewDataPetugas();
+
+    Call<SiswaRepository> updateSiswa(String toString, String toString1, String id_kelas, Integer id_spp, String toString2, String toString3, String toString4, String id_petugas);
 }
