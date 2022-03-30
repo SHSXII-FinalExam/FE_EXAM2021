@@ -30,7 +30,6 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
     }
 
     public DataSiswaAdapter(Context context, ArrayList<String> animalNames) {
-
     }
 
     // inflates the row layout from xml when needed
@@ -66,20 +65,14 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
     }
 
     public void setClickListener(DataSiswaFragment dataSiswaFragment) {
-    }
 
-    public String getItem(int position) {
-
-
-        return null;
     }
 
     public interface ItemClickListener {
-        void onItemClick(View view, int position);
     }
 
     // stores and recycles views as they are scrolled off screen
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.namaSiswa)
         TextView textViewNama;
         @BindView(R.id.textView3)
