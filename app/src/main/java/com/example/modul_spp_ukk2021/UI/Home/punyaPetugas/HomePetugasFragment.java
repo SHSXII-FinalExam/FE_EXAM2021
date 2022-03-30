@@ -47,7 +47,7 @@ public class HomePetugasFragment extends Fragment implements HomePetugasAdapter.
         ScrollView scrollView = v.findViewById(R.id.scroll_homepetugas);
         scrollView.post(new Runnable() {
             @Override
-            public void run() {
+             public void run() {
                 scrollView.scrollTo(0, 0);
             }
         });
