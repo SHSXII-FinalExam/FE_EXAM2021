@@ -9,19 +9,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.DataSiswaFragment;
 import com.example.modul_spp_ukk2021.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
-public class HomeAdminFragment extends AppCompatActivity {
+public class HomeAdminActivity extends AppCompatActivity {
     private Fragment fragment;
     private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_fragment_activity);
+        setContentView(R.layout.admin_home_activity);
 
         MaterialButton logoutAdmin = findViewById(R.id.logoutAdmin);
         logoutAdmin.setOnClickListener(new View.OnClickListener() {

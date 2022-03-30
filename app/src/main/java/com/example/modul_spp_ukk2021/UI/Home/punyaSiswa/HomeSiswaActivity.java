@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.HomePetugasAdapter;
 import com.example.modul_spp_ukk2021.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
 
@@ -23,7 +22,7 @@ public class HomeSiswaActivity extends AppCompatActivity implements HomeSiswaAda
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_siswa);
+        setContentView(R.layout.siswa_home_activity);
 
         // data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();
