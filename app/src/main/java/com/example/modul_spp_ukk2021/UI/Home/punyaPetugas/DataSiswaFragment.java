@@ -34,7 +34,7 @@ import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
 import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.PembayaranActivity;
-import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.SPPRepository;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
 import com.google.android.material.card.MaterialCardView;
 
