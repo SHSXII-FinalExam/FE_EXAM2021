@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
 
 import java.util.List;
 
@@ -21,6 +22,10 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
     HomePetugasAdapter(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+    }
+
+    public HomePetugasAdapter(HomePetugasActivity context, List<Siswa> siswa) {
+
     }
 
     // inflates the row layout from xml when needed

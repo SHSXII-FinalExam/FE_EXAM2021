@@ -1,11 +1,12 @@
 package com.example.modul_spp_ukk2021.UI.Network;
 
 
-
+import com.example.modul_spp_ukk2021.UI.Data.Repository.KelasRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStafRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
 
 import retrofit2.Call;
@@ -50,4 +51,10 @@ public interface ApiEndPoints {
     Call<PetugasRepository> viewDataPetugas();
 
     Call<SiswaRepository> updateSiswa(String toString, String toString1, String id_kelas, Integer id_spp, String toString2, String toString3, String toString4, String id_petugas);
+
+    Call<KelasRepository> updateKelas(String id_kelas, String s, String jurusan_kelas, String toString);
+
+    Call<SPPRepository> viewDataSPPngkatan(String angkatan);
+
+    Call<KelasRepository> deleteKelas(String id_kelas);
 }

@@ -185,7 +185,7 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
 
                         PopupMenu dropDownMenu = new PopupMenu(context, spp_siswa);
 
-                        Call<SPPRepository> call = api.viewDataSPPAngkatan(angkatan);
+                        Call<SPPRepository> call = api.viewDataSPPngkatan(angkatan);
                         call.enqueue(new Callback<SPPRepository>() {
                             @Override
                             public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {

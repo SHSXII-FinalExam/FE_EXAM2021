@@ -11,7 +11,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.DataSiswaFragment;
-import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.HomePetugasFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BottomNavigationPetugas extends AppCompatActivity {
