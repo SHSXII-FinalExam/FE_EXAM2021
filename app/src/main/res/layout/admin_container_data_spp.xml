@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
-    app:cardBackgroundColor="#40C4C4C4"
+    app:cardBackgroundColor="#99C62828"
     app:cardCornerRadius="20dp"
     app:cardElevation="0dp"
     app:rippleColor="@android:color/transparent">
@@ -22,26 +22,54 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="Dummy Tahun"
-            android:textColor="#121212"
-            android:textSize="16sp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Angkatan Dummy"
+            android:textColor="#F7F7F7"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Edit"
+            android:textColor="#F7F7F7"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/kelas"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/kelas" />
+
+        <TextView
+            android:id="@+id/tahunSPP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Tahun Dummy"
+            android:textColor="#F7F7F7"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/kelas"
+            app:layout_constraintTop_toBottomOf="@+id/kelas"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/namaSiswa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="Rp 0,00"
             android:maxEms="10"
-            android:textColor="#121212"
+            android:text="Rp 0,00"
+            android:textColor="#F7F7F7"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/kelas"
-            app:layout_constraintTop_toBottomOf="@+id/kelas" />
+            app:layout_constraintTop_toBottomOf="@+id/tahunSPP" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

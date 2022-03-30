@@ -7,7 +7,7 @@
     android:layout_marginStart="24dp"
     android:layout_marginEnd="24dp"
     android:layout_marginBottom="12dp"
-    app:cardBackgroundColor="#40C4C4C4"
+    app:cardBackgroundColor="#99C62828"
     app:cardCornerRadius="15dp"
     app:cardElevation="0dp"
     app:rippleColor="@android:color/transparent">
@@ -16,34 +16,56 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <TextView
-            android:id="@+id/kelas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="Kelas Siswa"
-            android:textColor="#C62828"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/namaSiswa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="@font/poppins_medium"
-            android:maxEms="10"
-            android:text="Dummy Name"
-            android:textColor="#121212"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/kelas"
-            app:layout_constraintTop_toBottomOf="@+id/kelas" />
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Nama Dummy"
+            android:textColor="#F7F7F7"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/siswaNISN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="0040914785"
+            android:textColor="#F7F7F7"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/namaSiswa"
+            app:layout_constraintTop_toBottomOf="@+id/namaSiswa" />
+
+        <TextView
+            android:id="@+id/angkatan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Angkatan Dummy"
+            android:textColor="#F7F7F7"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/siswaNISN"
+            app:layout_constraintTop_toBottomOf="@+id/siswaNISN" />
+
+        <TextView
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Edit"
+            android:textColor="#F7F7F7"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/namaSiswa"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/namaSiswa" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
