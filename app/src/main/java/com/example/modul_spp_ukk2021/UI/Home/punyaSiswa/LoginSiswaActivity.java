@@ -63,9 +63,9 @@ public class LoginSiswaActivity extends AppCompatActivity {
         String password = edtPassword.getText().toString().trim();
 
         if (nisn.length() < 10) {
-            edtNISN.setError("NISN kosong/salah");
+            edtNISN.setError("NISN Kurang, silahkan coba lagi...");
         } else if (password.isEmpty()) {
-            edtPassword.setError("Password kosong/salah");
+            edtPassword.setError("Password Kurang, silahkan coba lagi...");
             textInputLayout2.setEndIconVisible(false);
 
             edtPassword.addTextChangedListener(new TextWatcher() {

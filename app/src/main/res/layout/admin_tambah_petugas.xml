@@ -61,7 +61,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView21">
 
                 <EditText
-                    android:id="@+id/tambah_SiswaNISN"
+                    android:id="@+id/tambah_Username"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/poppins_semibold"
@@ -105,7 +105,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView22">
 
                 <EditText
-                    android:id="@+id/tambah_SiswaNama"
+                    android:id="@+id/tambah_Nama"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/poppins_semibold"
@@ -149,7 +149,7 @@
                 app:passwordToggleEnabled="true">
 
                 <EditText
-                    android:id="@+id/tambah_SiswaPass"
+                    android:id="@+id/tambah_Password"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/poppins_semibold"

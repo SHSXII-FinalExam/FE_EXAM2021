@@ -68,9 +68,9 @@ public class LoginStaffActivity extends AppCompatActivity {
         String password = edtPassword.getText().toString().trim();
 
         if (username.isEmpty()) {
-            edtUsername.setError("Username kosong/salah");
+            edtUsername.setError("Username Kurang, silahkan coba lagi...");
         } else if (password.isEmpty()) {
-            edtPassword.setError("Password kosong/salah");
+            edtPassword.setError("Password Kurang, silahkan coba lagi...");
             textInputLayout2.setEndIconVisible(false);
 
             edtPassword.addTextChangedListener(new TextWatcher() {

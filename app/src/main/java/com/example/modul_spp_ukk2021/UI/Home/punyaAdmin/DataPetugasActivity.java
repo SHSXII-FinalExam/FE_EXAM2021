@@ -1,5 +1,6 @@
 package com.example.modul_spp_ukk2021.UI.Home.punyaAdmin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -48,6 +49,12 @@ public class DataPetugasActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(APIEndPoints.class);
+
+
+        findViewById(R.id.tambahPetugas).setOnClickListener(v -> {
+            Intent intent = new Intent(DataPetugasActivity.this, TambahPetugasActivity.class);
+            startActivity(intent);
+        });
 
         findViewById(R.id.imageView).setOnClickListener(new View.OnClickListener() {
             @Override

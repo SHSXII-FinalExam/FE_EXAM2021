@@ -35,7 +35,7 @@ public class PembayaranActivity extends AppCompatActivity {
         String id_petugas = getIntent().getStringExtra("id_petugas");
         String id_pembayaran = getIntent().getStringExtra("id_pembayaran");
         Integer nominal = getIntent().getIntExtra("nominal", 0);
-        Integer kurang_bayar = getIntent().getIntExtra("kurang_bayar", 0);
+        int kurang_bayar = getIntent().getIntExtra("kurang_bayar", 0);
 
         EditText nominal_bayar = findViewById(R.id.nominal);
 

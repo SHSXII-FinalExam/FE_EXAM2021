@@ -45,6 +45,7 @@
         <activity android:name=".UI.Home.punyaAdmin.DataPetugasActivity" />
         <activity android:name=".UI.Home.punyaAdmin.DataKelasActivity" />
         <activity android:name=".UI.Home.punyaAdmin.DataSPPActivity" />
+        <activity android:name=".UI.Home.punyaAdmin.TambahPetugasActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

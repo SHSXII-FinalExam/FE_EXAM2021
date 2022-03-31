@@ -49,16 +49,13 @@ public interface APIEndPoints {
             @Field("username") String username,
             @Field("password") String password);
 
-    @GET("dbReadPetugas.php")
-    Call<PetugasRepository> viewPetugas();
-
     @FormUrlEncoded
     @POST("dbCreatePetugas.php")
-    Call<PetugasRepository> createStaff(
+    Call<PetugasRepository> createPetugas(
+            @Field("level") String level,
             @Field("username") String username,
             @Field("password") String password,
-            @Field("nama_petugas") String nama_petugas,
-            @Field("level") String level);
+            @Field("nama_petugas") String nama_petugas);
 
     @GET("dbReadSPP.php")
     Call<SPPRepository> viewDataSPP();
