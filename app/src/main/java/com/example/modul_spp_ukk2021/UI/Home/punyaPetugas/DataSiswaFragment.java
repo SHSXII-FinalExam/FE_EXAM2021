@@ -119,7 +119,7 @@ public class DataSiswaFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
-        Call<SiswaRepository> call = api.viewSiswa();
+        Call<SiswaRepository> call = api.viewDataSiswa();
         call.enqueue(new Callback<SiswaRepository>() {
             @Override
             public void onResponse(Call<SiswaRepository> call, Response<SiswaRepository> response) {

@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Home.punyaAdmin.HomeAdminFragment;
+import com.example.modul_spp_ukk2021.UI.Home.punyaAdmin.HomeAdminActivity;
 import com.example.modul_spp_ukk2021.UI.Model.LoginStaff;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Repository.LoginStaffRepository;
@@ -120,12 +120,12 @@ public class LoginStaffActivity extends AppCompatActivity {
                     Log.e("keshav", "Level ->" + level);
 
                     if (value.equals("1") && level.equals("Petugas")) {
-                        Intent intent = new Intent(LoginStaffActivity.this, BottomNavigationPetugas.class);
+                        Intent intent = new Intent(LoginStaffActivity.this, HomePetugasActivity.class);
                         intent.putExtra("username", username);
                         startActivity(intent);
                         finish();
                     } else if (value.equals("1") && level.equals("Admin")) {
-                        Intent intent = new Intent(LoginStaffActivity.this, HomeAdminFragment.class);
+                        Intent intent = new Intent(LoginStaffActivity.this, HomeAdminActivity.class);
                         intent.putExtra("username", username);
                         startActivity(intent);
                         finish();

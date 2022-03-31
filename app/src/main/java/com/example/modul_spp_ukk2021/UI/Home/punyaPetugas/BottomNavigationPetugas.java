@@ -21,31 +21,31 @@ public class BottomNavigationPetugas extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_navigation);
 
-        BottomNavLogic();
+//        BottomNavLogic();
     }
 
-    private void BottomNavLogic() {
-        fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, new HomePetugasActivity()).commit();
-
-        BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
-        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                switch (id) {
-                    case R.id.navigation_home:
-                        fragment = new HomePetugasActivity();
-                        break;
-
-                    case R.id.navigation_dashboard:
-                        fragment = new DataSiswaFragment();
-                        break;
-                }
-                final FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.fragment_container, fragment).commit();
-                return true;
-            }
-        });
-    }
+//    private void BottomNavLogic() {
+//        fragmentManager = getSupportFragmentManager();
+//        fragmentManager.beginTransaction().replace(R.id.fragment_container, new HomePetugasActivity()).commit();
+//
+//        BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
+//        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                int id = item.getItemId();
+//                switch (id) {
+//                    case R.id.navigation_home:
+//                        fragment = new HomePetugasActivity();
+//                        break;
+//
+//                    case R.id.navigation_tambahdata:
+//                        fragment = new DataSiswaFragment();
+//                        break;
+//                }
+//                final FragmentTransaction transaction = fragmentManager.beginTransaction();
+//                transaction.replace(R.id.fragment_container, fragment).commit();
+//                return true;
+//            }
+//        });
+//    }
 }

@@ -25,6 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
 import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
 
 public class DataPetugasActivity extends AppCompatActivity {
@@ -47,9 +48,9 @@ public class DataPetugasActivity extends AppCompatActivity {
         setContentView(R.layout.admin_data_petugas_activity);
         ButterKnife.bind(this);
 
+        adapter = new DataPetugasAdapter(DataPetugasActivity.this, petugas);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(DataPetugasActivity.this);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_petugas);
-        adapter = new DataPetugasAdapter(this, petugas);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(false);

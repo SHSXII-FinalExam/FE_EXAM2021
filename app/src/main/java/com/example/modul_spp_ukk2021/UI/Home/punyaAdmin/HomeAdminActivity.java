@@ -26,7 +26,7 @@ public class HomeAdminActivity extends AppCompatActivity {
         logoutAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeAdminFragment.this, LoginChoiceActivity.class);
+                Intent intent = new Intent(HomeAdminActivity.this, LoginChoiceActivity.class);
                 startActivity(intent);
             }
         });
@@ -44,7 +44,7 @@ public class HomeAdminActivity extends AppCompatActivity {
         dataPetugas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeAdminFragment.this, DataPetugasActivity.class);
+                Intent intent = new Intent(HomeAdminActivity.this, DataPetugasActivity.class);
                 startActivity(intent);
             }
         });
@@ -53,7 +53,7 @@ public class HomeAdminActivity extends AppCompatActivity {
         dataKelas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeAdminFragment.this, DataKelasActivity.class);
+                Intent intent = new Intent(HomeAdminActivity.this, DataKelasActivity.class);
                 startActivity(intent);
             }
         });
@@ -62,7 +62,7 @@ public class HomeAdminActivity extends AppCompatActivity {
         dataSPP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeAdminFragment.this, DataSPPActivity.class);
+                Intent intent = new Intent(HomeAdminActivity.this, DataSPPActivity.class);
                 startActivity(intent);
             }
         });

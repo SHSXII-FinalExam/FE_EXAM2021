@@ -9,69 +9,60 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
+import com.example.modul_spp_ukk2021.UI.Model.Siswa;
 
 import java.util.List;
 
 public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.ViewHolder> {
-    private List<String> mData;
-    private LayoutInflater mInflater;
-    private ItemClickListener mClickListener;
+    private Context context;
+    private List<Siswa> siswa;
 
     // data is passed into the constructor
-    HomePetugasAdapter(Context context, List<String> data) {
-        this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+    HomePetugasAdapter(Context context, List<Siswa> siswa) {
+        this.siswa = siswa;
+        this.context = context;
     }
 
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.container_nama_tagihan, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.container_data_siswa, parent, false);
         return new ViewHolder(view);
     }
 
-    // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String animal = mData.get(position);
-        holder.myTextView.setText(animal);
+        Siswa siswa = this.siswa.get(position);
+
+        holder.tvNama.setText(siswa.getNama());
+        holder.tvKelas.setText(siswa.getNama_kelas());
+
+//        holder.btnSiswa.setOnClickListener(v -> {
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+////                    Intent intent = new Intent(context, PembayaranActivity.class);
+////                    intent.putExtra("nisnSiswa", siswa.getNisn());
+////                    context.startActivity(intent);
+//                }
+//            }, 400);
+//        });
     }
 
-    // total number of rows
     @Override
     public int getItemCount() {
-        return mData.size();
+        return siswa.size();
     }
 
+    public class ViewHolder extends RecyclerView.ViewHolder {
+//        MaterialCardView btnSiswa;
+        TextView tvNama, tvKelas;
 
-    // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView;
-
-        ViewHolder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.textView);
-            itemView.setOnClickListener(this);
+            tvKelas = itemView.findViewById(R.id.kelas);
+            tvNama = itemView.findViewById(R.id.namaSiswa);
+//            btnSiswa = itemView.findViewById(R.id.CardSiswa);
         }
-
-        @Override
-        public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
-        }
-    }
-
-    // convenience method for getting data at click position
-    String getItem(int id) {
-        return mData.get(id);
-    }
-
-    // allows clicks events to be caught
-    void setClickListener(ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
-
-    // parent activity will implement this method to respond to click events
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
     }
 }
