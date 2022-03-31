@@ -57,4 +57,9 @@ public interface ApiEndPoints {
     Call<SPPRepository> viewDataSPPngkatan(String angkatan);
 
     Call<KelasRepository> deleteKelas(String id_kelas);
+
+    Call<KelasRepository> createKelas(String toString, String s, String trim);
+
+    Call<KelasRepository> viewDataKelas();
+
 }

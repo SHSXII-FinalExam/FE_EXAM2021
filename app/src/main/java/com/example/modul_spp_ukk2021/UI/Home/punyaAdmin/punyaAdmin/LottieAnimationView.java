@@ -1,4 +1,4 @@
-package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
+package com.example.modul_spp_ukk2021.UI.Home.punyaAdmin.punyaAdmin;
 
 public class LottieAnimationView {
     public static final int GONE;

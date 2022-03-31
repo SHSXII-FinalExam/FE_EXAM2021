@@ -1,9 +1,6 @@
-package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
+package com.example.modul_spp_ukk2021.UI.Home.punyaAdmin.punyaAdmin;
 
-import static android.view.View.GONE;
-import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
-import static com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin.LottieAnimationView.GONE;
-import static com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin.LottieAnimationView.getVISIBLE;
+import static com.example.modul_spp_ukk2021.UI.Home.punyaAdmin.punyaAdmin.LottieAnimationView.getVISIBLE;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -33,6 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Kelas;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.KelasRepository;
+import com.example.modul_spp_ukk2021.UI.Helper.Utils;
 import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.DataKelasAdapter;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
 import com.google.android.material.button.MaterialButton;
@@ -104,7 +102,7 @@ public class DataKelasFragment extends Fragment {
                         recyclerView.setVisibility(View.GONE);
                         emptyTransaksi.setAnimation(R.raw.nointernet);
                         emptyTransaksi.playAnimation();
-                        emptyTransaksi.setVisibility(LottieAnimationView.getVISIBLE());
+                        emptyTransaksi.setVisibility(getVISIBLE());
                         Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
                         Log.e("DEBUG", "Error: ", t);
                     }
@@ -197,7 +195,7 @@ public class DataKelasFragment extends Fragment {
                                         alertDialog.dismiss();
                                         recyclerView.setVisibility(View.VISIBLE);
                                         emptyTransaksi.pauseAnimation();
-                                        emptyTransaksi.setVisibility(LottieAnimationView.GONE);
+                                        emptyTransaksi.setVisibility(View.GONE);
                                         loadDataKelas();
 
                                     } else {
@@ -212,7 +210,7 @@ public class DataKelasFragment extends Fragment {
                                     recyclerView.setVisibility(View.GONE);
                                     emptyTransaksi.setAnimation(R.raw.nointernet);
                                     emptyTransaksi.playAnimation();
-                                    emptyTransaksi.setVisibility(getVISIBLE());
+                                    emptyTransaksi.setVisibility(View.VISIBLE);
                                     Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
                                     Log.e("DEBUG", "Error: ", t);
                                 }
