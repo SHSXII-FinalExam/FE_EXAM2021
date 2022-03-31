@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="buttonEdit" type="id" />
+    <item name="buttonSiswa" type="id" />
+    <item name="tvNamaKelas" type="id" />
+    <item name="tvJurusan" type="id" />
+    <item name="tvAngkatan" type="id" />
+    <item name="layoutDialogContainer" type="id" />
+    <item name="textTitle" type="id" />
+    <item name="nama_kelas" type="id" />
+    <item name="namanomor_kelas" type="id" />
+    <item name="angkatan_kelas" type="id" />
+    <item name="jurusan_kelas" type="id" />
+    <item name="namajurusan_kelas" type="id" />
+    <item name="RPL" type="id" />
+    <item name="TKJ" type="id" />
+    <item name="buttonOK" type="id" />
+    <item name="buttonBatal" type="id" />
+    <item name="buttonKirim" type="id" />
+    <item name="action_delete" type="id" />
+</resources>

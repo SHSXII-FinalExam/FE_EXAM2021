@@ -116,7 +116,8 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
                 }
             });
 
-            view.findViewById(R.id.buttonEdit).setOnClickListener(new View.OnClickListener() {
+            view.findViewById(R.id.buttonEdit);
+            view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     alertDialog.dismiss();
