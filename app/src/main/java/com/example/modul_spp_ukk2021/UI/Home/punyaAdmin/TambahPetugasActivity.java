@@ -25,7 +25,7 @@ public class TambahPetugasActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_tambah_kelas);
+        setContentView(R.layout.admin_tambah_petugas);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
