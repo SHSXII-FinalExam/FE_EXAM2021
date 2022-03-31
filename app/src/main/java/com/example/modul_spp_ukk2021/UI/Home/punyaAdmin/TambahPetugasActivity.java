@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.DB.BaseURL.url;
 
 public class TambahPetugasActivity extends AppCompatActivity {
+    private Call<PetugasRepository> call;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +35,31 @@ public class TambahPetugasActivity extends AppCompatActivity {
                 .build();
         APIEndPoints api = retrofit.create(APIEndPoints.class);
 
+        TextView textView11 = findViewById(R.id.textView11);
         EditText nama_petugas = findViewById(R.id.tambah_Nama);
         EditText username_petugas = findViewById(R.id.tambah_Username);
         EditText password_petugas = findViewById(R.id.tambah_Password);
+
+        if (getIntent().getStringExtra("nama_petugas") != null && getIntent().getStringExtra("username_petugas") != null) {
+            textView11.setText("Edit Petugas");
+            nama_petugas.setEnabled(false);
+            username_petugas.setEnabled(false);
+            nama_petugas.setText(getIntent().getStringExtra("nama_petugas"));
+            username_petugas.setText(getIntent().getStringExtra("username_petugas"));
+            password_petugas.setHint("New password");
+        }
 
         findViewById(R.id.simpan).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (nama_petugas.getText().toString().trim().length() > 0 && username_petugas.getText().toString().trim().length() > 0 && password_petugas.getText().toString().trim().length() > 0) {
-                    Call<PetugasRepository> call = api.createPetugas("Petugas", username_petugas.getText().toString(), password_petugas.getText().toString(), nama_petugas.getText().toString());
+
+                    if (getIntent().getStringExtra("id_petugas") != null) {
+                        call = api.updatePetugas(getIntent().getStringExtra("id_petugas"), "Petugas", username_petugas.getText().toString(), password_petugas.getText().toString(), nama_petugas.getText().toString());
+                    } else {
+                        call = api.createPetugas("Petugas", username_petugas.getText().toString(), password_petugas.getText().toString(), nama_petugas.getText().toString());
+                    }
+
                     call.enqueue(new Callback<PetugasRepository>() {
                         @Override
                         public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {

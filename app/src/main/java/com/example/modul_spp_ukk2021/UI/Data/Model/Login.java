@@ -1,7 +1,6 @@
 package com.example.modul_spp_ukk2021.UI.Data.Model;
 
-public class LoginSiswa {
-
+public class Login {
     String nisn;
     String nama;
     String password;

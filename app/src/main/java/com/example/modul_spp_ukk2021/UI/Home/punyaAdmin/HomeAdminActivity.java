@@ -56,6 +56,8 @@ public class HomeAdminActivity extends AppCompatActivity {
 
         constraintLayout2.setOnClickListener(v -> {
             Intent intent = new Intent(HomeAdminActivity.this, DataPetugasActivity.class);
+            intent.putExtra("id_petugas", getIntent().getStringExtra("id_petugas"));
+            intent.putExtra("username", getIntent().getStringExtra("username"));
             startActivity(intent);
         });
 
@@ -91,8 +93,8 @@ public class HomeAdminActivity extends AppCompatActivity {
     }
 
     private void loadDataPetugas() {
-        String username = getIntent().getStringExtra("username");
         String rank = getIntent().getStringExtra("level");
+        String username = getIntent().getStringExtra("username");
 
         Call<PetugasRepository> call = api.viewDataPetugas(username);
         call.enqueue(new Callback<PetugasRepository>() {

@@ -7,6 +7,7 @@ public class Siswa {
     String id_kelas;
     String alamat;
     String no_telp;
+    String password;
     String nama_kelas;
     String jurusan;
     String angkatan;
@@ -33,6 +34,10 @@ public class Siswa {
 
     public String getNo_telp() {
         return no_telp;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getNama_kelas() {

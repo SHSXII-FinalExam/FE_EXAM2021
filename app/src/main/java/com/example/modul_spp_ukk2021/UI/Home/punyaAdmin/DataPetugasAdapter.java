@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
-import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
@@ -48,12 +47,24 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         Petugas petugas = this.petugas.get(position);
 
+        Intent intent = new Intent(context, TambahPetugasActivity.class);
+        Intent emailIntent = ((DataPetugasActivity) context).getIntent();
+        String usernameStaff = emailIntent.getStringExtra("username");
+
         holder.tvNamaPetugas.setText(petugas.getNama_petugas());
         holder.tvLevel.setText("Staff level: " + petugas.getLevel());
 
-//        if (petugas.getUsername().equals(usernameStaff)) {
-//            holder.tvNamaPetugas.setText("Anda");
-//        }
+        if (petugas.getUsername().equals(usernameStaff)) {
+            holder.editPetugas.setVisibility(View.INVISIBLE);
+            holder.tvNamaPetugas.setText("Anda");
+        } else {
+            holder.editPetugas.setOnClickListener(v -> {
+                intent.putExtra("nama_petugas", petugas.getNama_petugas());
+                intent.putExtra("username_petugas", petugas.getUsername());
+                intent.putExtra("id_petugas", petugas.getId_petugas());
+                context.startActivity(intent);
+            });
+        }
     }
 
     @Override
@@ -63,10 +74,11 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvNamaPetugas, tvLevel;
-        MaterialCardView tambahPetugas;
+        TextView editPetugas;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            editPetugas = itemView.findViewById(R.id.edit);
             tvLevel = itemView.findViewById(R.id.levelStaff);
             tvNamaPetugas = itemView.findViewById(R.id.namaPetugas);
         }
