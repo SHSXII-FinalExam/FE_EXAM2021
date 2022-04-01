@@ -181,7 +181,7 @@
         android:id="@+id/simpan"
         android:layout_width="248dp"
         android:layout_height="59dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/button"
         android:fontFamily="@font/poppins_semibold"
         android:text="Simpan"

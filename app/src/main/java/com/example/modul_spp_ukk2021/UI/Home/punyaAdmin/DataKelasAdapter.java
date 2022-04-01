@@ -1,14 +1,13 @@
 package com.example.modul_spp_ukk2021.UI.Home.punyaAdmin;
 
 import android.content.Context;
-import android.os.Build;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
@@ -20,16 +19,6 @@ import java.util.List;
 public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.ViewHolder> {
     private final Context context;
     private final List<Kelas> kelas;
-    private String nama, jurusan_kelas;
-    private static OnRecyclerViewItemClickListener mListener;
-
-    public interface OnRecyclerViewItemClickListener {
-        void onItemClicked(String id_spp, String refresh);
-    }
-
-    public void setOnRecyclerViewItemClickListener(DataKelasAdapter.OnRecyclerViewItemClickListener listener) {
-        mListener = listener;
-    }
 
     public DataKelasAdapter(Context context, List<Kelas> kelas) {
         this.context = context;
@@ -43,12 +32,31 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
         return new ViewHolder(view);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Kelas kelas = this.kelas.get(position);
 
         holder.tvNamaKelas.setText(kelas.getNama_kelas());
+        holder.tvJurusan.setText("Jurusan " + kelas.getJurusan());
+        holder.tvAngkatan.setText("Angkatan " + kelas.getAngkatan());
+
+        holder.tvEdit.setOnClickListener(v -> {
+            Intent intent = new Intent(context, TambahKelasActivity.class);
+            intent.putExtra("id_kelas", kelas.getId_kelas());
+            intent.putExtra("jurusan", kelas.getJurusan());
+            intent.putExtra("angkatan", kelas.getAngkatan());
+            intent.putExtra("nama_kelas", kelas.getNama_kelas());
+            context.startActivity(intent);
+        });
+
+        holder.CardKelas.setOnClickListener(v -> {
+            Intent intent = new Intent(context, DataSiswaActivity.class);
+            intent.putExtra("id_petugas", ((DataKelasActivity) context).getIntent().getStringExtra("id_petugas"));
+            intent.putExtra("id_kelas", kelas.getId_kelas());
+            intent.putExtra("nama_kelas", kelas.getNama_kelas());
+            intent.putExtra("angkatan", kelas.getAngkatan());
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -57,13 +65,16 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNamaKelas;
-        MaterialCardView tambahPetugas;
+        MaterialCardView CardKelas;
+        TextView tvNamaKelas, tvJurusan, tvAngkatan, tvEdit;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvNamaKelas = itemView.findViewById(R.id.textView24);
-            tambahPetugas = itemView.findViewById(R.id.tambahPetugas);
+            tvEdit = itemView.findViewById(R.id.edit);
+            CardKelas = itemView.findViewById(R.id.CardKelas);
+            tvNamaKelas = itemView.findViewById(R.id.namaKelas);
+            tvJurusan = itemView.findViewById(R.id.jurusan);
+            tvAngkatan = itemView.findViewById(R.id.angkatan);
         }
     }
 }

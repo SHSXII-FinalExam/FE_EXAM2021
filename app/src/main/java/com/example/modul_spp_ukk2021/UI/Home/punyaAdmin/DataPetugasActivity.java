@@ -50,7 +50,6 @@ public class DataPetugasActivity extends AppCompatActivity {
                 .build();
         api = retrofit.create(APIEndPoints.class);
 
-
         findViewById(R.id.tambahPetugas).setOnClickListener(v -> {
             Intent intent = new Intent(DataPetugasActivity.this, TambahPetugasActivity.class);
             startActivity(intent);

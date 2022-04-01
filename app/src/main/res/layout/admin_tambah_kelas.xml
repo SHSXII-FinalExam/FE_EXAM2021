@@ -59,7 +59,6 @@
         app:iconGravity="end"
         app:iconSize="32dp"
         app:iconTint="#99121212"
-        app:layout_constraintEnd_toEndOf="@+id/materialCardView6"
         app:layout_constraintStart_toStartOf="@+id/textView24"
         app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
@@ -208,7 +207,7 @@
         android:id="@+id/simpan"
         android:layout_width="248dp"
         android:layout_height="59dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/button"
         android:fontFamily="@font/poppins_semibold"
         android:text="Simpan"

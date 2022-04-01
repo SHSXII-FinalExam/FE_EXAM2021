@@ -53,7 +53,6 @@ public class DataPembayaranActivity extends AppCompatActivity {
     private SwipeRefreshLayout swipeRefreshLayout;
     private final List<Pembayaran> pembayaran = new ArrayList<>();
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

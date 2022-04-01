@@ -45,7 +45,11 @@
         <activity android:name=".UI.Home.punyaAdmin.DataPetugasActivity" />
         <activity android:name=".UI.Home.punyaAdmin.DataKelasActivity" />
         <activity android:name=".UI.Home.punyaAdmin.DataSPPActivity" />
+        <activity android:name=".UI.Home.punyaAdmin.DataSiswaActivity" />
         <activity android:name=".UI.Home.punyaAdmin.TambahPetugasActivity" />
+        <activity android:name=".UI.Home.punyaAdmin.TambahSPPActivity" />
+        <activity android:name=".UI.Home.punyaAdmin.TambahKelasActivity" />
+        <activity android:name=".UI.Home.punyaAdmin.TambahSiswaActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

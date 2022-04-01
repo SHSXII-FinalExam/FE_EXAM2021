@@ -63,6 +63,7 @@ public class HomeAdminActivity extends AppCompatActivity {
 
         constraintLayout3.setOnClickListener(v -> {
             Intent intent = new Intent(HomeAdminActivity.this, DataKelasActivity.class);
+            intent.putExtra("id_petugas", getIntent().getStringExtra("id_petugas"));
             startActivity(intent);
         });
 

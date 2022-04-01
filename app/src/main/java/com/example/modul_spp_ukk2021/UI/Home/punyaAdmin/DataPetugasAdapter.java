@@ -20,15 +20,6 @@ import java.util.List;
 public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.ViewHolder> {
     private final Context context;
     private final List<Petugas> petugas;
-    private static OnRecyclerViewItemClickListener mListener;
-
-    public interface OnRecyclerViewItemClickListener {
-        void onItemClicked(String id_petugas, String refresh);
-    }
-
-    public void setOnRecyclerViewItemClickListener(DataPetugasAdapter.OnRecyclerViewItemClickListener listener) {
-        mListener = listener;
-    }
 
     public DataPetugasAdapter(Context context, List<Petugas> petugas) {
         this.context = context;
@@ -42,14 +33,11 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
         return new ViewHolder(view);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Petugas petugas = this.petugas.get(position);
 
-        Intent intent = new Intent(context, TambahPetugasActivity.class);
-        Intent emailIntent = ((DataPetugasActivity) context).getIntent();
-        String usernameStaff = emailIntent.getStringExtra("username");
+        String usernameStaff = ((DataPetugasActivity) context).getIntent().getStringExtra("username");
 
         holder.tvNamaPetugas.setText(petugas.getNama_petugas());
         holder.tvLevel.setText("Staff level: " + petugas.getLevel());
@@ -57,8 +45,11 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
         if (petugas.getUsername().equals(usernameStaff)) {
             holder.editPetugas.setVisibility(View.INVISIBLE);
             holder.tvNamaPetugas.setText("Anda");
+        } else if (petugas.getLevel().equalsIgnoreCase("admin")) {
+            holder.editPetugas.setVisibility(View.INVISIBLE);
         } else {
             holder.editPetugas.setOnClickListener(v -> {
+                Intent intent = new Intent(context, TambahPetugasActivity.class);
                 intent.putExtra("nama_petugas", petugas.getNama_petugas());
                 intent.putExtra("username_petugas", petugas.getUsername());
                 intent.putExtra("id_petugas", petugas.getId_petugas());

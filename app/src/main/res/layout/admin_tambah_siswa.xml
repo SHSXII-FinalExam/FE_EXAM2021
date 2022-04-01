@@ -8,8 +8,8 @@
         android:id="@+id/textView10"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/chevron_left"
         android:backgroundTint="#C62828"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,8 +31,11 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="12dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="12dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="NISN"
                 android:textColor="#121212"
@@ -58,7 +61,7 @@
                 android:layout_width="0dp"
                 android:layout_height="56dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="24dp"
                 android:textColorHint="#9A9EA7"
                 app:boxBackgroundColor="#F7F7F7"
                 app:boxCornerRadiusBottomEnd="15dp"
@@ -102,7 +105,6 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="56dp"
-                android:layout_marginEnd="32dp"
                 android:textColorHint="#9A9EA7"
                 app:boxBackgroundColor="#F7F7F7"
                 app:boxCornerRadiusBottomEnd="15dp"
@@ -110,7 +112,7 @@
                 app:boxCornerRadiusTopEnd="15dp"
                 app:boxCornerRadiusTopStart="15dp"
                 app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
                 app:layout_constraintStart_toStartOf="@+id/textView26"
                 app:layout_constraintTop_toBottomOf="@+id/textView26">
 
@@ -121,7 +123,7 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:hint="Masukkan NIS"
                     android:inputType="number"
-                    android:maxLength="10"
+                    android:maxLength="8"
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
                     android:singleLine="true"
@@ -146,7 +148,6 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="56dp"
-                android:layout_marginEnd="32dp"
                 android:textColorHint="#9A9EA7"
                 app:boxBackgroundColor="#F7F7F7"
                 app:boxCornerRadiusBottomEnd="15dp"
@@ -154,7 +155,7 @@
                 app:boxCornerRadiusTopEnd="15dp"
                 app:boxCornerRadiusTopStart="15dp"
                 app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
                 app:layout_constraintStart_toStartOf="@+id/textView22"
                 app:layout_constraintTop_toBottomOf="@+id/textView22">
 
@@ -190,7 +191,6 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="56dp"
-                android:layout_marginEnd="32dp"
                 android:textColorHint="#9A9EA7"
                 app:boxBackgroundColor="#F7F7F7"
                 app:boxCornerRadiusBottomEnd="15dp"
@@ -198,7 +198,7 @@
                 app:boxCornerRadiusTopEnd="15dp"
                 app:boxCornerRadiusTopStart="15dp"
                 app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textInputLayout1"
                 app:layout_constraintStart_toStartOf="@+id/textView23"
                 app:layout_constraintTop_toBottomOf="@+id/textView23">
 
@@ -233,7 +233,6 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="56dp"
-                android:layout_marginEnd="32dp"
                 android:textColorHint="#9A9EA7"
                 app:boxBackgroundColor="#F7F7F7"
                 app:boxCornerRadiusBottomEnd="15dp"
@@ -241,7 +240,7 @@
                 app:boxCornerRadiusTopEnd="15dp"
                 app:boxCornerRadiusTopStart="15dp"
                 app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
                 app:layout_constraintStart_toStartOf="@+id/textView27"
                 app:layout_constraintTop_toBottomOf="@+id/textView27">
 
@@ -261,6 +260,49 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="No Telp"
+                android:textColor="#121212"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/textView21"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout6"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:textColorHint="#9A9EA7"
+                app:boxBackgroundColor="#F7F7F7"
+                app:boxCornerRadiusBottomEnd="15dp"
+                app:boxCornerRadiusBottomStart="15dp"
+                app:boxCornerRadiusTopEnd="15dp"
+                app:boxCornerRadiusTopStart="15dp"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
+                app:layout_constraintStart_toStartOf="@+id/textView27"
+                app:layout_constraintTop_toBottomOf="@+id/textView28">
+
+                <EditText
+                    android:id="@+id/tambah_SiswaTelp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:hint="Masukkan Nama Lengkap"
+                    android:inputType="number"
+                    android:maxLength="32"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textColor="#99121212"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
                 android:id="@+id/textView24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -270,7 +312,7 @@
                 android:textColor="#121212"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/textView23"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/pilihSPP"
@@ -289,7 +331,7 @@
                 app:iconGravity="end"
                 app:iconSize="32dp"
                 app:iconTint="#99121212"
-                app:layout_constraintEnd_toEndOf="@+id/materialCardView6"
+                app:layout_constraintEnd_toEndOf="@+id/textInputLayout6"
                 app:layout_constraintStart_toStartOf="@+id/textView24"
                 app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
@@ -310,6 +352,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="56dp"
+                android:layout_marginBottom="176dp"
                 android:textColorHint="#9A9EA7"
                 app:boxBackgroundColor="#F7F7F7"
                 app:boxCornerRadiusBottomEnd="15dp"
@@ -317,7 +360,8 @@
                 app:boxCornerRadiusTopEnd="15dp"
                 app:boxCornerRadiusTopStart="15dp"
                 app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textInputLayout6"
                 app:layout_constraintStart_toStartOf="@+id/textView25"
                 app:layout_constraintTop_toBottomOf="@+id/textView25"
                 app:passwordToggleEnabled="true">
@@ -358,7 +402,7 @@
         android:id="@+id/simpan"
         android:layout_width="248dp"
         android:layout_height="59dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/button"
         android:fontFamily="@font/poppins_semibold"
         android:text="Simpan"
