@@ -32,8 +32,9 @@
         <!--Activity Petugas-->
         <activity android:name=".UI.Home.punyaPetugas.HomePetugasActivity"/>
         <activity android:name=".UI.Home.punyaPetugas.LoginStaffActivity" />
-        <activity android:name=".UI.Home.punyaPetugas.BottomNavigationPetugas" />
         <activity android:name=".UI.Home.punyaPetugas.KonfirmasiPetugasActivity" />
+        <activity android:name=".UI.Home.punyaPetugas.PembayaranActivity"/>
+        <activity android:name=".UI.Home.punyaPetugas.DataPembayaranActivity"/>
 
         <!--Activity Admin-->
         <activity android:name=".UI.Home.punyaAdmin.HomeAdminActivity" />

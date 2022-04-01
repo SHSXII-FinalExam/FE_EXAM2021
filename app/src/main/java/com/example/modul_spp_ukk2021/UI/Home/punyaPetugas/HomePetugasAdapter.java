@@ -1,6 +1,8 @@
 package com.example.modul_spp_ukk2021.UI.Home.punyaPetugas;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Model.Siswa;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
@@ -37,16 +40,19 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
         holder.tvNama.setText(siswa.getNama());
         holder.tvKelas.setText(siswa.getNama_kelas());
 
-//        holder.btnSiswa.setOnClickListener(v -> {
-//            new Handler().postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-////                    Intent intent = new Intent(context, PembayaranActivity.class);
-////                    intent.putExtra("nisnSiswa", siswa.getNisn());
-////                    context.startActivity(intent);
-//                }
-//            }, 400);
-//        });
+        holder.btnSiswa.setOnClickListener(v -> {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(context, DataPembayaranActivity.class);
+                    String id_petugas = ((HomePetugasActivity) v.getContext()).getIntent().getStringExtra("id_petugas");
+
+                    intent.putExtra("nisnSiswa", siswa.getNisn());
+                    intent.putExtra("id_petugas", id_petugas);
+                    context.startActivity(intent);
+                }
+            }, 400);
+        });
     }
 
     @Override
@@ -55,14 +61,14 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-//        MaterialCardView btnSiswa;
+        MaterialCardView btnSiswa;
         TextView tvNama, tvKelas;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvKelas = itemView.findViewById(R.id.kelas);
             tvNama = itemView.findViewById(R.id.namaSiswa);
-//            btnSiswa = itemView.findViewById(R.id.CardSiswa);
+            btnSiswa = itemView.findViewById(R.id.CardSiswa);
         }
     }
 }

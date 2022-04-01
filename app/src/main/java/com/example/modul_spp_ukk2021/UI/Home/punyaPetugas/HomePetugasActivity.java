@@ -134,7 +134,7 @@ public class HomePetugasActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
-                .setMessage("Apakah anda yakin ingin keluar dari akun ini?")
+                .setMessage("Apakah anda yakin ingin keluar?")
                 .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent intent = new Intent(HomePetugasActivity.this, LoginStaffActivity.class);

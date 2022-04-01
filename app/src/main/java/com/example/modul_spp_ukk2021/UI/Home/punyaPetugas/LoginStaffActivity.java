@@ -122,11 +122,13 @@ public class LoginStaffActivity extends AppCompatActivity {
                     if (value.equals("1") && level.equals("Petugas")) {
                         Intent intent = new Intent(LoginStaffActivity.this, HomePetugasActivity.class);
                         intent.putExtra("username", username);
+                        intent.putExtra("id_petugas", results.get(i).getId_petugas());
                         startActivity(intent);
                         finish();
                     } else if (value.equals("1") && level.equals("Admin")) {
                         Intent intent = new Intent(LoginStaffActivity.this, HomeAdminActivity.class);
                         intent.putExtra("username", username);
+                        intent.putExtra("id_petugas", results.get(i).getId_petugas());
                         startActivity(intent);
                         finish();
                     }
