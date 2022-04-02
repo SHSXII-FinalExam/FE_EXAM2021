@@ -5,22 +5,25 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -33,8 +36,10 @@ import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -96,10 +101,9 @@ public class DataPembayaranActivity extends AppCompatActivity {
                 intent.putExtra("kurang_bayar", kurang_bayar);
                 startActivity(intent);
 
+            } else {
+                GeneratePembayaran(nama_siswa, nisn, id_pembayaran, jumlah_bayar, tanggalTagihan, tanggalBayar, status, nama_staff, nama_kelas);
             }
-//            else {
-//                GeneratePembayaran(nama_siswa, nisn, id_pembayaran, jumlah_bayar, tanggalTagihan, tanggalBayar, status, nama_staff, nama_kelas);
-//            }
         });
     }
 
@@ -160,54 +164,54 @@ public class DataPembayaranActivity extends AppCompatActivity {
         });
     }
 
-//    private void GeneratePembayaran(String nama_siswa, String nisn, String id_pembayaran, Integer jumlah_bayar, String tanggalTagihan, String tanggalBayar, String status, String nama_staff, String nama_kelas) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(PembayaranActivity.this, R.style.AlertDialogTheme);
-//        View view = LayoutInflater.from(PembayaranActivity.this).inflate(R.layout.dialog_generate_laporan, findViewById(R.id.layoutDialogContainer));
-//        builder.setView(view);
-//        final AlertDialog alertDialog = builder.create();
-//
-//        TextView tvFillNama = view.findViewById(R.id.tvFillNama);
-//        TextView tvNISN = view.findViewById(R.id.tvNISN);
-//        TextView nomor_pembayaran = view.findViewById(R.id.nomor_pembayaran);
-//        TextView nominal = view.findViewById(R.id.nominal);
-//        TextView tanggal_tagihan = view.findViewById(R.id.tanggal_tagihan);
-//        TextView tanggal_bayar = view.findViewById(R.id.tanggal_bayar);
-//        TextView status_pembayaran = view.findViewById(R.id.status_pembayaran);
-//        TextView dilayaniOleh = view.findViewById(R.id.dilayaniOleh);
-//        TextView kelas = view.findViewById(R.id.kelas);
-//
-//        Locale localeID = new Locale("in", "ID");
-//        NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
-//        format.setMaximumFractionDigits(0);
-//
-//        tvFillNama.setText(nama_siswa);
-//        tvNISN.setText("NISN    : " + nisn);
-//        nomor_pembayaran.setText("#" + id_pembayaran.toUpperCase());
-//        nominal.setText(format.format(jumlah_bayar));
-//        tanggal_tagihan.setText(tanggalTagihan);
-//        tanggal_bayar.setText(tanggalBayar);
-//        status_pembayaran.setText(status);
-//        dilayaniOleh.setText(nama_staff);
-//        kelas.setText(nama_kelas);
-//
-//        this.id_pembayaran = id_pembayaran;
-//
-//        ConstraintLayout layoutToPdf = view.findViewById(R.id.layoutDialog);
-//        view.findViewById(R.id.buttonDownload).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                alertDialog.dismiss();
-//                bitmap = LoadBitmap(layoutToPdf, layoutToPdf.getWidth(), layoutToPdf.getHeight());
-//                Log.e("size", "" + layoutToPdf.getWidth() + " " + layoutToPdf.getWidth());
-//                createPdf();
-//            }
-//        });
-//
-//        if (alertDialog.getWindow() != null) {
-//            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-//        }
-//        alertDialog.show();
-//    }
+    private void GeneratePembayaran(String nama_siswa, String nisn, String id_pembayaran, Integer jumlah_bayar, String tanggalTagihan, String tanggalBayar, String status, String nama_staff, String nama_kelas) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(DataPembayaranActivity.this, R.style.AlertDialogTheme);
+        View view = LayoutInflater.from(DataPembayaranActivity.this).inflate(R.layout.activity_generate_laporan, findViewById(R.id.layoutDialogContainer));
+        builder.setView(view);
+        final AlertDialog alertDialog = builder.create();
+
+        TextView tvFillNama = view.findViewById(R.id.tvFillNama);
+        TextView tvNISN = view.findViewById(R.id.tvNISN);
+        TextView nomor_pembayaran = view.findViewById(R.id.nomor_pembayaran);
+        TextView nominal = view.findViewById(R.id.nominal);
+        TextView tanggal_tagihan = view.findViewById(R.id.tanggal_tagihan);
+        TextView tanggal_bayar = view.findViewById(R.id.tanggal_bayar);
+        TextView status_pembayaran = view.findViewById(R.id.status_pembayaran);
+        TextView dilayaniOleh = view.findViewById(R.id.dilayaniOleh);
+        TextView kelas = view.findViewById(R.id.kelas);
+
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
+        format.setMaximumFractionDigits(0);
+
+        tvFillNama.setText(nama_siswa);
+        tvNISN.setText("NISN    : " + nisn);
+        nomor_pembayaran.setText("#" + id_pembayaran.toUpperCase());
+        nominal.setText(format.format(jumlah_bayar));
+        tanggal_tagihan.setText(tanggalTagihan);
+        tanggal_bayar.setText(tanggalBayar);
+        status_pembayaran.setText(status);
+        dilayaniOleh.setText(nama_staff);
+        kelas.setText(nama_kelas);
+
+        this.id_pembayaran = id_pembayaran;
+
+        ConstraintLayout layoutToPdf = view.findViewById(R.id.layoutDialog);
+        view.findViewById(R.id.buttonDownload).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                bitmap = LoadBitmap(layoutToPdf, layoutToPdf.getWidth(), layoutToPdf.getHeight());
+                Log.e("size", "" + layoutToPdf.getWidth() + " " + layoutToPdf.getWidth());
+                createPdf();
+            }
+        });
+
+        if (alertDialog.getWindow() != null) {
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+        alertDialog.show();
+    }
 
     private Bitmap LoadBitmap(View v, int width, int height) {
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);

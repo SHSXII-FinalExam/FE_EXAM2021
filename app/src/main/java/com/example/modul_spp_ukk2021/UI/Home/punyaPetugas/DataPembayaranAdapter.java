@@ -17,10 +17,12 @@ import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
 
 import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
 public class DataPembayaranAdapter extends RecyclerView.Adapter<DataPembayaranAdapter.ViewHolder> {
+    private String strDt;
     private final Context context;
     private final List<Pembayaran> listPembayaran;
     private static OnRecyclerViewItemClickListener mListener;
@@ -68,6 +70,11 @@ public class DataPembayaranAdapter extends RecyclerView.Adapter<DataPembayaranAd
         String[] monthNames = symbols.getMonths();
         holder.tvBulan.setText(monthNames[pembayaran.getBulan_bayar() - 1] + " " + pembayaran.getTahun_bayar());
 
+        if (pembayaran.getTgl_bayar() != null) {
+            SimpleDateFormat simpleDate = new SimpleDateFormat("d MMMM yyyy", localeID);
+            strDt = simpleDate.format(pembayaran.getTgl_bayar());
+        }
+
         if (pembayaran.getJumlah_bayar() < pembayaran.getNominal() && pembayaran.getJumlah_bayar() > 0) {
             holder.tvStatus.setText("Kurang");
             holder.tvNominal.setText(format.format(pembayaran.getKurang_bayar()));
@@ -84,10 +91,22 @@ public class DataPembayaranAdapter extends RecyclerView.Adapter<DataPembayaranAd
             holder.tvNominal.setText(format.format(pembayaran.getNominal()));
         }
 
-        if (pembayaran.getJumlah_bayar().equals(pembayaran.getNominal())) {
-            holder.layout_container.setOnClickListener(null);
-        } else {
-            holder.layout_container.setOnClickListener(v -> {
+        holder.layout_container.setOnClickListener(v -> {
+            if (pembayaran.getJumlah_bayar().equals(pembayaran.getNominal())) {
+                mListener.onItemClicked(
+                        pembayaran.getNama(),
+                        pembayaran.getNisn(),
+                        monthNames[pembayaran.getBulan_bayar() - 1].substring(0, 3) + pembayaran.getTahun_bayar() + pembayaran.getId_pembayaran(),
+                        pembayaran.getJumlah_bayar(),
+                        null,
+                        "SPP " + monthNames[pembayaran.getBulan_bayar() - 1] + " " + pembayaran.getTahun_bayar(),
+                        strDt,
+                        pembayaran.getStatus_bayar(),
+                        pembayaran.getNama_petugas(),
+                        pembayaran.getNama_kelas(),
+                        pembayaran.getKurang_bayar(),
+                        1);
+            } else {
                 mListener.onItemClicked(null,
                         null,
                         pembayaran.getId_pembayaran(),
@@ -100,25 +119,8 @@ public class DataPembayaranAdapter extends RecyclerView.Adapter<DataPembayaranAd
                         null,
                         pembayaran.getKurang_bayar(),
                         null);
-            });
-        }
-
-
-//        holder.download.setOnClickListener(v -> {
-//            mListener.onItemClicked(
-//                    pembayaran.getNama(),
-//                    pembayaran.getNisn(),
-//                    monthNames[pembayaran.getBulan_bayar() - 1].substring(0, 3) + pembayaran.getTahun_bayar() + pembayaran.getId_pembayaran(),
-//                    pembayaran.getJumlah_bayar(),
-//                    null,
-//                    "SPP " + monthNames[pembayaran.getBulan_bayar() - 1] + " " + pembayaran.getTahun_bayar(),
-//                    strDt,
-//                    pembayaran.getStatus_bayar(),
-//                    pembayaran.getNama_petugas(),
-//                    pembayaran.getNama_kelas(),
-//                    pembayaran.getKurang_bayar(),
-//                    1);
-//        });
+            }
+        });
     }
 
     @Override

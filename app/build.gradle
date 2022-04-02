@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.espepe"
+        applicationId "com.example.modul_spp_ukk2021"
         minSdkVersion 21
         targetSdkVersion 31
         versionCode 1
