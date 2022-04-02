@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/logo_ts"
-        android:layout_width="131dp"
-        android:layout_height="128dp"
+        android:layout_width="111dp"
+        android:layout_height="115dp"
         android:background="@drawable/logo"
         android:transitionName="logo"
         app:layout_constraintBottom_toBottomOf="parent"

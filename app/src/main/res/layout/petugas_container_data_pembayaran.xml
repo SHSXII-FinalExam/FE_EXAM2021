@@ -19,7 +19,7 @@
         android:fontFamily="@font/poppins"
         android:text="Bulan Dummy"
         android:textColor="#121212"
-        android:textSize="22sp"
+        android:textSize="18sp"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +32,7 @@
         android:fontFamily="@font/poppins_bold"
         android:text="RP 0,00"
         android:textColor="#121212"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="@+id/textView23"
         app:layout_constraintTop_toBottomOf="@+id/textView23" />
@@ -45,8 +45,8 @@
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Dummy"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp"
+        android:textColor="#99C62828"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="@+id/textView23"

@@ -79,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:backgroundTint="#28C641"
+        android:backgroundTint="#40C62828"
         android:fontFamily="@font/poppins_semibold"
         android:paddingLeft="45dp"
         android:paddingTop="15dp"
@@ -90,7 +90,6 @@
         android:textSize="16sp"
         app:cornerRadius="30sp"
         app:layout_constraintEnd_toStartOf="@+id/materialButton2"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
@@ -111,7 +110,6 @@
         app:cornerRadius="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/materialButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/materialButton"
         app:layout_constraintTop_toTopOf="@+id/materialButton" />
 

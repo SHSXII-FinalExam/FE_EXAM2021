@@ -24,7 +24,7 @@
         android:id="@+id/imageView10"
         android:layout_width="263dp"
         android:layout_height="201dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="80dp"
         android:background="@drawable/illustration2"
         app:layout_constraintEnd_toEndOf="@+id/textView17"
         app:layout_constraintStart_toStartOf="@+id/textView17"
@@ -36,6 +36,7 @@
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/button"
         android:fontFamily="@font/poppins_semibold"
         android:text="Masuk Sebagai SISWA"
@@ -49,7 +50,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView10"
         app:layout_constraintVertical_chainStyle="packed"
         app:rippleColor="@null" />
 
@@ -57,7 +57,7 @@
         android:id="@+id/btn_staff"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginBottom="48dp"
         android:background="@drawable/button"
         android:fontFamily="@font/poppins_semibold"
         android:text="Masuk Sebagai STAFF"
@@ -71,6 +71,5 @@
         app:layout_constraintEnd_toEndOf="@+id/btn_siswa"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/btn_siswa"
-        app:layout_constraintTop_toBottomOf="@+id/btn_siswa"
         app:rippleColor="@null" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,18 +2,23 @@ package com.example.modul_spp_ukk2021.UI.Home.punyaAdmin;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
@@ -45,8 +50,14 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
         if (petugas.getUsername().equals(usernameStaff)) {
             holder.editPetugas.setVisibility(View.INVISIBLE);
             holder.tvNamaPetugas.setText("Anda");
+            holder.tvNamaPetugas.setTextColor(ContextCompat.getColor(context, R.color.black));
+            holder.tvLevel.setTextColor(ContextCompat.getColor(context, R.color.black));
+            holder.container_layout.setBackground(ContextCompat.getDrawable(context, R.drawable.container));
         } else if (petugas.getLevel().equalsIgnoreCase("admin")) {
             holder.editPetugas.setVisibility(View.INVISIBLE);
+            holder.container_layout.setBackground(ContextCompat.getDrawable(context, R.drawable.container));
+            holder.tvNamaPetugas.setTextColor(ContextCompat.getColor(context, R.color.black));
+            holder.tvLevel.setTextColor(ContextCompat.getColor(context, R.color.black));
         } else {
             holder.editPetugas.setOnClickListener(v -> {
                 Intent intent = new Intent(context, TambahPetugasActivity.class);
@@ -66,12 +77,14 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvNamaPetugas, tvLevel;
         TextView editPetugas;
+        MaterialCardView container_layout;
 
         public ViewHolder(View itemView) {
             super(itemView);
             editPetugas = itemView.findViewById(R.id.edit);
             tvLevel = itemView.findViewById(R.id.levelStaff);
             tvNamaPetugas = itemView.findViewById(R.id.namaPetugas);
+            container_layout = itemView.findViewById(R.id.container_petugas);
         }
     }
 }
