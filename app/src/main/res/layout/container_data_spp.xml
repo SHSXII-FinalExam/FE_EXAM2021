@@ -2,31 +2,32 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/CardSiswa"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="24dp"
     android:layout_marginRight="24dp"
     android:layout_marginBottom="12dp"
     app:cardBackgroundColor="#99C62828"
-    app:cardCornerRadius="15dp"
+    app:cardCornerRadius="20dp"
     app:cardElevation="0dp"
     app:rippleColor="@android:color/transparent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/edit_Layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/namaPetugas"
+            android:id="@+id/angkatan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Petugas Dummy"
+            android:text="Angkatan Dummy"
             android:textColor="#F7F7F7"
             android:textSize="18sp"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,24 +40,38 @@
             android:text="Edit"
             android:textColor="#F7F7F7"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/namaPetugas"
+            app:layout_constraintBottom_toBottomOf="@+id/angkatan"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/namaPetugas" />
+            app:layout_constraintTop_toTopOf="@+id/angkatan" />
 
         <TextView
-            android:id="@+id/levelStaff"
+            android:id="@+id/tahunSPP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="Level Dummy"
+            android:text="Tahun Dummy"
             android:textColor="#F7F7F7"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/namaPetugas"
-            app:layout_constraintTop_toBottomOf="@+id/namaPetugas" />
+            app:layout_constraintStart_toStartOf="@+id/angkatan"
+            app:layout_constraintTop_toBottomOf="@+id/angkatan"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/namaSiswa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/poppins_medium"
+            android:maxEms="10"
+            android:text="Rp 0,00"
+            android:textColor="#F7F7F7"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/angkatan"
+            app:layout_constraintTop_toBottomOf="@+id/tahunSPP" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

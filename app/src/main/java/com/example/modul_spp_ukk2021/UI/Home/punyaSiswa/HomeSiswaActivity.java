@@ -51,7 +51,7 @@ public class HomeSiswaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.siswa_home_activity);
 
-        logout = findViewById(R.id.logout);
+        logout = findViewById(R.id.logoutSiswa);
         TabLayout mTabs = findViewById(R.id.tab);
         View mIndicator = findViewById(R.id.indicator);
         ViewPager mViewPager = findViewById(R.id.viewPager);

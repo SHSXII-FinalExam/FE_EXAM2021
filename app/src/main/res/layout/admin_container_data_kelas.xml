@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/CardKelas"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="24dp"
-    android:layout_marginRight="24dp"
+    android:layout_marginStart="24dp"
+    android:layout_marginEnd="24dp"
     android:layout_marginBottom="12dp"
     app:cardBackgroundColor="#99C62828"
     app:cardCornerRadius="15dp"
@@ -17,18 +17,42 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/namaPetugas"
+            android:id="@+id/namaKelas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Petugas Dummy"
+            android:text="Kelas Dummy"
             android:textColor="#F7F7F7"
             android:textSize="18sp"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/jurusan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Jurusan Dummy"
+            android:textColor="#F7F7F7"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/namaKelas"
+            app:layout_constraintTop_toBottomOf="@+id/namaKelas" />
+
+        <TextView
+            android:id="@+id/angkatan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Angkatan Dummy"
+            android:textColor="#F7F7F7"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/jurusan"
+            app:layout_constraintTop_toBottomOf="@+id/jurusan" />
 
         <TextView
             android:id="@+id/edit"
@@ -39,24 +63,9 @@
             android:text="Edit"
             android:textColor="#F7F7F7"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/namaPetugas"
+            app:layout_constraintBottom_toBottomOf="@+id/namaKelas"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/namaPetugas" />
-
-        <TextView
-            android:id="@+id/levelStaff"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="Level Dummy"
-            android:textColor="#F7F7F7"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/namaPetugas"
-            app:layout_constraintTop_toBottomOf="@+id/namaPetugas" />
+            app:layout_constraintTop_toTopOf="@+id/namaKelas" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
