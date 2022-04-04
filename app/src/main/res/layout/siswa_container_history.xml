@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="Rp 200.000,00"
+            android:text="Rp 0,00"
             android:textColor="#121212"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/tanggal"
