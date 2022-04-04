@@ -75,7 +75,7 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
         holder.tvJurusan.setText(kelas.getJurusan());
 
         holder.deleteData.setOnClickListener(v -> {
-            Utils.preventTwoClick(v);
+            Utils.Utils.preventTwoClick(v);
             PopupMenu popup = new PopupMenu(context, v, Gravity.END, R.attr.popupMenuStyle, 0);
             MenuInflater inflater = popup.getMenuInflater();
             inflater.inflate(R.menu.menu_customcard, popup.getMenu());
@@ -93,7 +93,7 @@ public class DataKelasAdapter extends RecyclerView.Adapter<DataKelasAdapter.View
         });
 
         holder.detailKelas.setOnClickListener(v -> {
-            Utils.preventTwoClick(v);
+            Utils.Utils.preventTwoClick(v);
             AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
             View view = LayoutInflater.from(context).inflate(R.layout.pa_dialog_view_kelas, v.findViewById(R.id.layoutDialogContainer));
             builder.setView(view);

@@ -132,7 +132,7 @@ public class DataKelasFragment extends Fragment {
         tambahKelas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.preventTwoClick(v);
+                Utils.Utils.preventTwoClick(v);
                 AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity(), R.style.AlertDialogTheme);
                 View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_kelas, v.findViewById(R.id.layoutDialogContainer));
                 builder.setView(view);
