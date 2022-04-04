@@ -30,7 +30,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Kelas;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.KelasRepository;
-import com.example.modul_spp_ukk2021.UI.Helper.Utils;
 import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.DataKelasAdapter;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
 import com.google.android.material.button.MaterialButton;
@@ -38,6 +37,7 @@ import com.google.android.material.button.MaterialButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.internal.Utils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -132,7 +132,7 @@ public class DataKelasFragment extends Fragment {
         tambahKelas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.Utils.preventTwoClick(v);
+                Utils.preventTwoClick(v);
                 AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity(), R.style.AlertDialogTheme);
                 View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_kelas, v.findViewById(R.id.layoutDialogContainer));
                 builder.setView(view);
