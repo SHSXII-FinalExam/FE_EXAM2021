@@ -29,9 +29,9 @@
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:background="@drawable/choice_login"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintEnd_toEndOf="@id/textView"
+        app:layout_constraintStart_toStartOf="@id/textView"
+        app:layout_constraintTop_toBottomOf="@id/textView" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_siswa"
@@ -48,7 +48,7 @@
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@id/imageView3"
         app:rippleColor="#FF6565" />
 
     <com.google.android.material.button.MaterialButton
@@ -62,16 +62,15 @@
         android:textAllCaps="false"
         android:textSize="12sp"
         app:cornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/btn_siswa"
-        app:layout_constraintStart_toStartOf="@+id/btn_siswa"
-        app:layout_constraintTop_toBottomOf="@+id/btn_siswa"
+        app:layout_constraintEnd_toEndOf="@id/btn_siswa"
+        app:layout_constraintStart_toStartOf="@id/btn_siswa"
+        app:layout_constraintTop_toBottomOf="@id/btn_siswa"
         app:rippleColor="#FF6565" />
 
     <TextView
         android:id="@+id/powered"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/espepe"
         android:layout_marginTop="700dp"
         android:fontFamily="@font/poppins"
         android:text="Powered by SMK Telkom"

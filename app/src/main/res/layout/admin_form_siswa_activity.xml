@@ -69,7 +69,7 @@
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nisn">
+        app:layout_constraintTop_toBottomOf="@id/nisn">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_NISN"
@@ -114,7 +114,7 @@
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/kelas"
+        app:layout_constraintTop_toBottomOf="@id/kelas"
         tools:ignore="DuplicateIds">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -160,7 +160,7 @@
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_pembayaran">
+        app:layout_constraintTop_toBottomOf="@id/id_pembayaran">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_PetugasUsername2"
@@ -205,7 +205,7 @@
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tgl_pembayaran">
+        app:layout_constraintTop_toBottomOf="@id/tgl_pembayaran">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_PetugasUsername"
@@ -250,7 +250,7 @@
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/jml_pembayaran">
+        app:layout_constraintTop_toBottomOf="@id/jml_pembayaran">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_PetugasUsername4"
@@ -275,7 +275,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+        app:layout_constraintTop_toBottomOf="@id/textInputLayout2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

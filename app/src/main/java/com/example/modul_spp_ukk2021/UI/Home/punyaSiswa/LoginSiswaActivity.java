@@ -42,7 +42,7 @@ public class LoginSiswaActivity extends AppCompatActivity {
         edtNISN = findViewById(R.id.login_SiswaNISN);
         edtPassword = findViewById(R.id.login_siswaPass);
         MaterialButton btnSignInSiswa = findViewById(R.id.signin_siswa);
-        ImageView btnBack = findViewById(R.id.imageView);
+        ImageView btnBack = findViewById(R.id.back);
         textInputLayout2 = findViewById(R.id.textInputLayout2);
 
         btnSignInSiswa.setOnClickListener(new View.OnClickListener() {

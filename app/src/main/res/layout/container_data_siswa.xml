@@ -40,9 +40,9 @@
             android:text="XII RPL 3"
             android:textColor="#C62828"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/namaSiswa"
+            app:layout_constraintBottom_toBottomOf="@id/namaSiswa"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/namaSiswa"
+            app:layout_constraintTop_toTopOf="@id/namaSiswa"
             app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

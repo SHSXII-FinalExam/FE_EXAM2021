@@ -5,6 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/logoutSiswa"-->
+<!--        style="@style/Widget.MaterialComponents.Button.OutlinedButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="18dp"-->
+<!--        android:fontFamily="@font/poppins"-->
+<!--        android:paddingHorizontal="24dp"-->
+<!--        android:text="Logout"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textColor="#C62828"-->
+<!--        android:textSize="12sp"-->
+<!--        app:cornerRadius="8dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/nama"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@id/nama"-->
+<!--        app:rippleColor="#FF6565"-->
+<!--        app:strokeColor="#C62828" />-->
+
     <TextView
         android:id="@+id/nama"
         android:layout_width="wrap_content"
@@ -16,7 +35,6 @@
         android:textAlignment="viewEnd"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/logoutSiswa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +48,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nama">
+        app:layout_constraintTop_toBottomOf="@id/nama">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

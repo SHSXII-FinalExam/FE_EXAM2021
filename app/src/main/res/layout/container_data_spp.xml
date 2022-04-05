@@ -40,9 +40,9 @@
             android:text="Edit"
             android:textColor="#F7F7F7"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/angkatan"
+            app:layout_constraintBottom_toBottomOf="@id/angkatan"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/angkatan" />
+            app:layout_constraintTop_toTopOf="@id/angkatan" />
 
         <TextView
             android:id="@+id/tahunSPP"
@@ -54,8 +54,8 @@
             android:textColor="#F7F7F7"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/angkatan"
-            app:layout_constraintTop_toBottomOf="@+id/angkatan"
+            app:layout_constraintStart_toStartOf="@id/angkatan"
+            app:layout_constraintTop_toBottomOf="@id/angkatan"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
@@ -70,8 +70,8 @@
             android:textColor="#F7F7F7"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/angkatan"
-            app:layout_constraintTop_toBottomOf="@+id/tahunSPP" />
+            app:layout_constraintStart_toStartOf="@id/angkatan"
+            app:layout_constraintTop_toBottomOf="@id/tahunSPP" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

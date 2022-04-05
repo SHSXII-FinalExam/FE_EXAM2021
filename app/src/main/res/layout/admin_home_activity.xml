@@ -31,9 +31,9 @@
         android:textColor="#C62828"
         android:textSize="14sp"
         app:cornerRadius="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/nama"
+        app:layout_constraintBottom_toBottomOf="@id/nama"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/nama"
+        app:layout_constraintTop_toTopOf="@id/nama"
         app:rippleColor="#FF6565"
         app:strokeColor="#C62828" />
 
@@ -78,7 +78,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.881"
-                app:layout_constraintStart_toEndOf="@+id/textViewSPP"
+                app:layout_constraintStart_toEndOf="@id/textViewSPP"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -98,7 +98,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dataSPP"
+        app:layout_constraintTop_toBottomOf="@id/dataSPP"
         app:layout_constraintVertical_chainStyle="packed">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -126,7 +126,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.881"
-                app:layout_constraintStart_toEndOf="@+id/textViewKelas"
+                app:layout_constraintStart_toEndOf="@id/textViewKelas"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -145,7 +145,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dataKelas"
+        app:layout_constraintTop_toBottomOf="@id/dataKelas"
         app:layout_constraintVertical_chainStyle="packed">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -173,7 +173,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.881"
-                app:layout_constraintStart_toEndOf="@+id/textViewPetugas"
+                app:layout_constraintStart_toEndOf="@id/textViewPetugas"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

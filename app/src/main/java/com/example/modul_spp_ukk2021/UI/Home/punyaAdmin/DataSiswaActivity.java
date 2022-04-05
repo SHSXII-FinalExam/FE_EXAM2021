@@ -66,7 +66,7 @@ public class DataSiswaActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        findViewById(R.id.imageView).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();

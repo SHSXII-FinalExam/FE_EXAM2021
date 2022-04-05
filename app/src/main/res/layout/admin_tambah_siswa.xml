@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/textView10"
+        android:id="@+id/back"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginStart="24dp"
@@ -23,10 +23,10 @@
         android:text="Tambah Siswa"
         android:textColor="#121212"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView10"
+        app:layout_constraintBottom_toBottomOf="@id/back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView10" />
+        app:layout_constraintTop_toTopOf="@id/back" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11">
+        app:layout_constraintTop_toBottomOf="@id/textView11">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -70,8 +70,8 @@
                 app:boxCornerRadiusTopStart="15dp"
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView21"
-                app:layout_constraintTop_toBottomOf="@+id/textView21">
+                app:layout_constraintStart_toStartOf="@id/textView21"
+                app:layout_constraintTop_toBottomOf="@id/textView21">
 
                 <EditText
                     android:id="@+id/tambah_SiswaNISN"
@@ -97,8 +97,8 @@
                 android:text="NIS"
                 android:textColor="#121212"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/textView21"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+                app:layout_constraintStart_toStartOf="@id/textView21"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout3"
@@ -112,9 +112,9 @@
                 app:boxCornerRadiusTopEnd="15dp"
                 app:boxCornerRadiusTopStart="15dp"
                 app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-                app:layout_constraintStart_toStartOf="@+id/textView26"
-                app:layout_constraintTop_toBottomOf="@+id/textView26">
+                app:layout_constraintEnd_toEndOf="@id/textInputLayout"
+                app:layout_constraintStart_toStartOf="@id/textView26"
+                app:layout_constraintTop_toBottomOf="@id/textView26">
 
                 <EditText
                     android:id="@+id/tambah_SiswaNIS"
@@ -140,8 +140,8 @@
                 android:text="Nama Lengkap"
                 android:textColor="#121212"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/textView21"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+                app:layout_constraintStart_toStartOf="@id/textView21"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout3" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout1"
@@ -155,9 +155,9 @@
                 app:boxCornerRadiusTopEnd="15dp"
                 app:boxCornerRadiusTopStart="15dp"
                 app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
-                app:layout_constraintStart_toStartOf="@+id/textView22"
-                app:layout_constraintTop_toBottomOf="@+id/textView22">
+                app:layout_constraintEnd_toEndOf="@id/textInputLayout3"
+                app:layout_constraintStart_toStartOf="@id/textView22"
+                app:layout_constraintTop_toBottomOf="@id/textView22">
 
                 <EditText
                     android:id="@+id/tambah_SiswaNama"
@@ -183,8 +183,8 @@
                 android:text="Kelas"
                 android:textColor="#121212"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/textView22"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout1" />
+                app:layout_constraintStart_toStartOf="@id/textView22"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout1" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout2"
@@ -198,9 +198,9 @@
                 app:boxCornerRadiusTopEnd="15dp"
                 app:boxCornerRadiusTopStart="15dp"
                 app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout1"
-                app:layout_constraintStart_toStartOf="@+id/textView23"
-                app:layout_constraintTop_toBottomOf="@+id/textView23">
+                app:layout_constraintEnd_toEndOf="@id/textInputLayout1"
+                app:layout_constraintStart_toStartOf="@id/textView23"
+                app:layout_constraintTop_toBottomOf="@id/textView23">
 
                 <EditText
                     android:id="@+id/tambah_SiswaKelas"
@@ -225,8 +225,8 @@
                 android:text="Alamat"
                 android:textColor="#121212"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/textView21"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+                app:layout_constraintStart_toStartOf="@id/textView21"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout2" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout5"
@@ -240,9 +240,9 @@
                 app:boxCornerRadiusTopEnd="15dp"
                 app:boxCornerRadiusTopStart="15dp"
                 app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
-                app:layout_constraintStart_toStartOf="@+id/textView27"
-                app:layout_constraintTop_toBottomOf="@+id/textView27">
+                app:layout_constraintEnd_toEndOf="@id/textInputLayout2"
+                app:layout_constraintStart_toStartOf="@id/textView27"
+                app:layout_constraintTop_toBottomOf="@id/textView27">
 
                 <EditText
                     android:id="@+id/tambah_SiswaAlamat"
@@ -268,8 +268,8 @@
                 android:text="No Telp"
                 android:textColor="#121212"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/textView21"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
+                app:layout_constraintStart_toStartOf="@id/textView21"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout5" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout6"
@@ -283,9 +283,9 @@
                 app:boxCornerRadiusTopEnd="15dp"
                 app:boxCornerRadiusTopStart="15dp"
                 app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
-                app:layout_constraintStart_toStartOf="@+id/textView27"
-                app:layout_constraintTop_toBottomOf="@+id/textView28">
+                app:layout_constraintEnd_toEndOf="@id/textInputLayout5"
+                app:layout_constraintStart_toStartOf="@id/textView27"
+                app:layout_constraintTop_toBottomOf="@id/textView28">
 
                 <EditText
                     android:id="@+id/tambah_SiswaTelp"
@@ -311,8 +311,8 @@
                 android:text="SPP Angkatan"
                 android:textColor="#121212"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/textView23"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
+                app:layout_constraintStart_toStartOf="@id/textView23"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout6" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/pilihSPP"
@@ -331,9 +331,9 @@
                 app:iconGravity="end"
                 app:iconSize="32dp"
                 app:iconTint="#99121212"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout6"
-                app:layout_constraintStart_toStartOf="@+id/textView24"
-                app:layout_constraintTop_toBottomOf="@+id/textView24" />
+                app:layout_constraintEnd_toEndOf="@id/textInputLayout6"
+                app:layout_constraintStart_toStartOf="@id/textView24"
+                app:layout_constraintTop_toBottomOf="@id/textView24" />
 
             <TextView
                 android:id="@+id/textView25"
@@ -344,8 +344,8 @@
                 android:text="Kata Sandi"
                 android:textColor="#121212"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/textView24"
-                app:layout_constraintTop_toBottomOf="@+id/pilihSPP" />
+                app:layout_constraintStart_toStartOf="@id/textView24"
+                app:layout_constraintTop_toBottomOf="@id/pilihSPP" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout4"
@@ -361,9 +361,9 @@
                 app:boxCornerRadiusTopStart="15dp"
                 app:hintEnabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout6"
-                app:layout_constraintStart_toStartOf="@+id/textView25"
-                app:layout_constraintTop_toBottomOf="@+id/textView25"
+                app:layout_constraintEnd_toEndOf="@id/textInputLayout6"
+                app:layout_constraintStart_toStartOf="@id/textView25"
+                app:layout_constraintTop_toBottomOf="@id/textView25"
                 app:passwordToggleEnabled="true">
 
                 <EditText
@@ -387,13 +387,13 @@
         style="@style/MyButton"
         android:layout_width="248dp"
         android:layout_height="59dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="12dp"
         android:fontFamily="@font/poppins_medium"
         android:text="Hapus"
         android:textAllCaps="false"
         android:textSize="18sp"
         app:cornerRadius="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/simpan"
+        app:layout_constraintBottom_toTopOf="@id/simpan"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="@color/colorPrimary" />

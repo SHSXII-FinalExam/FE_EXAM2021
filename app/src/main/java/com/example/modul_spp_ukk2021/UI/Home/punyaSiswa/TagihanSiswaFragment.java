@@ -16,6 +16,7 @@ import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Model.Pembayaran;
 import com.example.modul_spp_ukk2021.UI.Repository.PembayaranRepository;
+import com.google.android.material.button.MaterialButton;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -31,6 +32,7 @@ import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
 
 public class TagihanSiswaFragment extends Fragment {
     private TextView nama;
+    private MaterialButton logoutSiswa;
     private RecyclerView recyclerView;
     private TagihanSiswaAdapter adapter;
 
@@ -42,12 +44,15 @@ public class TagihanSiswaFragment extends Fragment {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.siswa_fragment_tagihan, container, false);
 
+        logoutSiswa = view.findViewById(R.id.logoutSiswa);
         nama = view.findViewById(R.id.nama);
 //        kelas = view.findViewById(R.id.kelas);
 
         recyclerView = view.findViewById(R.id.recyclerTagihan);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
+
+
 
         ((HomeSiswaActivity) getActivity()).setTagihanRefreshListener(new HomeSiswaActivity.FragmentRefreshListener() {
             @Override

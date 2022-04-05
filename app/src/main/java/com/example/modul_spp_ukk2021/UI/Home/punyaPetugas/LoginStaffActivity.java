@@ -45,8 +45,8 @@ public class LoginStaffActivity extends AppCompatActivity {
     private void LoginForm() {
         edtUsername = findViewById(R.id.login_StaffUsername);
         edtPassword = findViewById(R.id.login_StaffPass);
-        MaterialButton btnLoginStaff = findViewById(R.id.signin_staff);
-        ImageView btnBack = findViewById(R.id.imageView);
+        MaterialButton btnLoginStaff = findViewById(R.id.signin);
+        ImageView btnBack = findViewById(R.id.back);
         textInputLayout2 = findViewById(R.id.textInputLayout2);
 
         btnLoginStaff.setOnClickListener(new View.OnClickListener() {

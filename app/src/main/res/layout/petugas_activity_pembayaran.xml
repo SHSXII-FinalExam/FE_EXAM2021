@@ -24,10 +24,10 @@
         android:text="Input Pembayaran"
         android:textColor="#121212"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintBottom_toBottomOf="@id/back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+        app:layout_constraintTop_toTopOf="@id/back" />
 
     <TextView
         android:id="@+id/textView13"
@@ -38,8 +38,8 @@
         android:text="Nominal Pembayaran"
         android:textColor="#121212"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintStart_toStartOf="@id/back"
+        app:layout_constraintTop_toBottomOf="@id/textView12" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
@@ -59,7 +59,7 @@
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13">
+        app:layout_constraintTop_toBottomOf="@id/textView13">
 
         <EditText
             android:id="@+id/nominal"
@@ -89,10 +89,10 @@
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:cornerRadius="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_simpan"
+        app:layout_constraintEnd_toStartOf="@id/btn_simpan"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        app:layout_constraintTop_toBottomOf="@id/textInputLayout" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_simpan"
@@ -109,10 +109,10 @@
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:cornerRadius="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_lunas"
+        app:layout_constraintBottom_toBottomOf="@id/btn_lunas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_lunas"
-        app:layout_constraintTop_toTopOf="@+id/btn_lunas" />
+        app:layout_constraintStart_toEndOf="@id/btn_lunas"
+        app:layout_constraintTop_toTopOf="@id/btn_lunas" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

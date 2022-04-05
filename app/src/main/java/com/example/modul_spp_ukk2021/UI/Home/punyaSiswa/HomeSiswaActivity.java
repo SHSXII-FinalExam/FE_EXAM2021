@@ -22,7 +22,7 @@ import com.google.android.material.tabs.TabLayout;
 
 public class HomeSiswaActivity extends AppCompatActivity {
     private int indicatorWidth;
-    private MaterialButton logout;
+    private MaterialButton logoutSiswa;
     private SwipeRefreshLayout swipeRefreshLayout;
     private FragmentRefreshListener historyRefreshListener, tagihanRefreshListener;
 
@@ -51,7 +51,7 @@ public class HomeSiswaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.siswa_home_activity);
 
-        logout = findViewById(R.id.logoutSiswa);
+        logoutSiswa = findViewById(R.id.logoutSiswa);
         TabLayout mTabs = findViewById(R.id.tab);
         View mIndicator = findViewById(R.id.indicator);
         ViewPager mViewPager = findViewById(R.id.viewPager);
@@ -99,7 +99,7 @@ public class HomeSiswaActivity extends AppCompatActivity {
             }
         });
 
-        logout.setOnClickListener(v -> {
+        logoutSiswa.setOnClickListener(v -> {
             Intent intent = new Intent(HomeSiswaActivity.this, LoginChoiceActivity.class);
             startActivity(intent);
         });
@@ -117,7 +117,7 @@ public class HomeSiswaActivity extends AppCompatActivity {
                 .setMessage("Apakah anda yakin ingin keluar dari akun ini?")
                 .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeSiswaActivity.this, logout, ViewCompat.getTransitionName(logout));
+                        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeSiswaActivity.this, logoutSiswa, ViewCompat.getTransitionName(logoutSiswa));
                         Intent intent = new Intent(HomeSiswaActivity.this, LoginChoiceActivity.class);
                         startActivity(intent, options.toBundle());
                     }

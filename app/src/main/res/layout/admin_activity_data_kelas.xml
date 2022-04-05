@@ -24,10 +24,10 @@
         android:text="Data Kelas"
         android:textColor="#121212"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@id/backAdmin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintTop_toTopOf="@id/backAdmin" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/tambahPetugas"
@@ -69,7 +69,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@id/textView"
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/admin_container_data_kelas" />
 
