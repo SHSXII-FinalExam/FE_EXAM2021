@@ -43,7 +43,8 @@
     <View
         android:layout_width="240dp"
         android:layout_height="18dp"
-        android:background="@drawable/highlight"
+        android:alpha="0.5"
+        android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/textView16"
         app:layout_constraintEnd_toEndOf="@+id/textView16"
         app:layout_constraintStart_toStartOf="@+id/textView16"

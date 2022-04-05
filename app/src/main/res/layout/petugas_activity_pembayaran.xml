@@ -67,7 +67,7 @@
             android:layout_height="match_parent"
             android:focusableInTouchMode="true"
             android:fontFamily="@font/poppins_medium"
-            android:imeOptions="actionSearch"
+            android:inputType="number"
             android:paddingTop="11dp"
             android:paddingBottom="11dp"
             android:singleLine="true"

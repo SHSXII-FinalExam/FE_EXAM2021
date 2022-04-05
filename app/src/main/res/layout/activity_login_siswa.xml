@@ -155,6 +155,7 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:hint="Masukkan Kata Sandi"
                     android:inputType="textPassword"
+                    android:maxLength="34"
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
                     android:singleLine="true"

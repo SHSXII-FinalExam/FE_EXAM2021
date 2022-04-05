@@ -42,38 +42,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:textColorHint="#9A9EA7"
-                app:boxBackgroundColor="#F7F7F7"
-                app:boxCornerRadiusBottomEnd="15dp"
-                app:boxCornerRadiusBottomStart="15dp"
-                app:boxCornerRadiusTopEnd="15dp"
-                app:boxCornerRadiusTopStart="15dp"
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView21"
-                app:layout_constraintTop_toBottomOf="@+id/textView21">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:textColorHint="#9A9EA7"
+        app:boxBackgroundColor="#F7F7F7"
+        app:boxCornerRadiusBottomEnd="15dp"
+        app:boxCornerRadiusBottomStart="15dp"
+        app:boxCornerRadiusTopEnd="15dp"
+        app:boxCornerRadiusTopStart="15dp"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView21"
+        app:layout_constraintTop_toBottomOf="@+id/textView21">
 
-                <EditText
-                    android:id="@+id/tambah_Username"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:hint="Masukkan ID Staff"
-                    android:inputType="text"
-                    android:maxLength="10"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
-                    android:singleLine="true"
-                    android:textColor="#99121212"
-                    android:textSize="14sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+        <EditText
+            android:id="@+id/tambah_Username"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/poppins_semibold"
+            android:hint="Masukkan ID Staff"
+            android:inputType="text"
+            android:maxLength="10"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:singleLine="true"
+            android:textColor="#99121212"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/textView22"
@@ -87,37 +87,37 @@
         app:layout_constraintStart_toStartOf="@+id/textView21"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout1"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_marginEnd="32dp"
-                android:textColorHint="#9A9EA7"
-                app:boxBackgroundColor="#F7F7F7"
-                app:boxCornerRadiusBottomEnd="15dp"
-                app:boxCornerRadiusBottomStart="15dp"
-                app:boxCornerRadiusTopEnd="15dp"
-                app:boxCornerRadiusTopStart="15dp"
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView22"
-                app:layout_constraintTop_toBottomOf="@+id/textView22">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout1"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="32dp"
+        android:textColorHint="#9A9EA7"
+        app:boxBackgroundColor="#F7F7F7"
+        app:boxCornerRadiusBottomEnd="15dp"
+        app:boxCornerRadiusBottomStart="15dp"
+        app:boxCornerRadiusTopEnd="15dp"
+        app:boxCornerRadiusTopStart="15dp"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView22"
+        app:layout_constraintTop_toBottomOf="@+id/textView22">
 
-                <EditText
-                    android:id="@+id/tambah_Nama"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:hint="Masukkan Nama Lengkap"
-                    android:inputType="text"
-                    android:maxLength="32"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
-                    android:singleLine="true"
-                    android:textColor="#99121212"
-                    android:textSize="14sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+        <EditText
+            android:id="@+id/tambah_Nama"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/poppins_semibold"
+            android:hint="Masukkan Nama Lengkap"
+            android:inputType="text"
+            android:maxLength="32"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:singleLine="true"
+            android:textColor="#99121212"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/textView25"
@@ -131,36 +131,36 @@
         app:layout_constraintStart_toStartOf="@+id/textView22"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout1" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout4"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:textColorHint="#9A9EA7"
-                app:boxBackgroundColor="#F7F7F7"
-                app:boxCornerRadiusBottomEnd="15dp"
-                app:boxCornerRadiusBottomStart="15dp"
-                app:boxCornerRadiusTopEnd="15dp"
-                app:boxCornerRadiusTopStart="15dp"
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-                app:layout_constraintStart_toStartOf="@+id/textView25"
-                app:layout_constraintTop_toBottomOf="@+id/textView25"
-                app:passwordToggleEnabled="true">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout4"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:textColorHint="#9A9EA7"
+        app:boxBackgroundColor="#F7F7F7"
+        app:boxCornerRadiusBottomEnd="15dp"
+        app:boxCornerRadiusBottomStart="15dp"
+        app:boxCornerRadiusTopEnd="15dp"
+        app:boxCornerRadiusTopStart="15dp"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/textView25"
+        app:layout_constraintTop_toBottomOf="@+id/textView25"
+        app:passwordToggleEnabled="true">
 
-                <EditText
-                    android:id="@+id/tambah_Password"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:hint="Masukkan Kata Sandi"
-                    android:inputType="textPassword"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
-                    android:singleLine="true"
-                    android:textColor="#99121212"
-                    android:textSize="14sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+        <EditText
+            android:id="@+id/tambah_Password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/poppins_semibold"
+            android:hint="Masukkan Kata Sandi"
+            android:inputType="textPassword"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:singleLine="true"
+            android:textColor="#99121212"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/hapus"
