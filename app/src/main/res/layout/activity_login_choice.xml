@@ -67,4 +67,18 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_siswa"
         app:rippleColor="#FF6565" />
 
+    <TextView
+        android:id="@+id/powered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/espepe"
+        android:layout_marginTop="700dp"
+        android:fontFamily="@font/poppins"
+        android:text="Powered by SMK Telkom"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
