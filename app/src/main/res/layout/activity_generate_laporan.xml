@@ -1,6 +1,320 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutDialogContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_ticket"
+            app:layout_constraintBottom_toBottomOf="@id/constraintLayout"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="32dp"
+            android:paddingTop="32dp"
+            android:paddingEnd="32dp"
+            android:paddingBottom="120dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/logo_ts"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/logo"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/avenir_demi"
+                android:gravity="start"
+                android:text="Laporan Pembayaran"
+                android:textColor="#251F39"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/logo_ts"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/logo_ts"
+                app:layout_constraintTop_toTopOf="@id/logo_ts" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="24dp"
+                android:background="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textTitle" />
+
+            <ImageView
+                android:id="@+id/profile_pict"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/bg_profilepict"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view3" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="32dp"
+                android:background="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvNISN" />
+
+            <TextView
+                android:id="@+id/tvNama"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/avenir_demi"
+                android:text="Nama : "
+                android:textColor="#251F39"
+                app:layout_constraintStart_toEndOf="@id/profile_pict"
+                app:layout_constraintTop_toTopOf="@id/tvFillNama"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tvFillNama"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/avenir_demi"
+                android:text="Dummya"
+                android:textColor="#251F39"
+                app:layout_constraintBottom_toTopOf="@id/tvNISN"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/tvNama"
+                app:layout_constraintTop_toTopOf="@id/profile_pict" />
+
+            <TextView
+                android:id="@+id/tvNISN"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/avenir_medium"
+                android:text="NISN    : NISN"
+                android:textColor="#8A959E"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="@id/profile_pict"
+                app:layout_constraintEnd_toEndOf="@id/tvFillNama"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@id/tvNama"
+                app:layout_constraintTop_toBottomOf="@id/tvFillNama" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/avenir_medium"
+                android:text="Pembayaran untuk"
+                android:textColor="#8A959E"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="@id/tvNISN"
+                app:layout_constraintStart_toStartOf="@id/profile_pict"
+                app:layout_constraintTop_toBottomOf="@id/view" />
+
+            <TextView
+                android:id="@+id/tanggal_tagihan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/avenir_demi"
+                android:text="SPP Juli 2021"
+                android:textColor="#251F39"
+                app:layout_constraintEnd_toEndOf="@id/tvNISN"
+                app:layout_constraintStart_toStartOf="@id/profile_pict"
+                app:layout_constraintTop_toBottomOf="@id/textView" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/avenir_medium"
+                android:text="Dibayar tanggal"
+                android:textColor="#8A959E"
+                android:textSize="12dp"
+                app:layout_constraintStart_toStartOf="@id/profile_pict"
+                app:layout_constraintTop_toBottomOf="@id/tanggal_tagihan" />
+
+            <TextView
+                android:id="@+id/tanggal_bayar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/avenir_demi"
+                android:text="27 Juli 2021"
+                android:textColor="#251F39"
+                app:layout_constraintEnd_toStartOf="@id/nominal"
+                app:layout_constraintStart_toStartOf="@id/profile_pict"
+                app:layout_constraintTop_toBottomOf="@id/textView3" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/avenir_medium"
+                android:text="Jumlah bayar"
+                android:textColor="#8A959E"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="@id/tvFillNama"
+                app:layout_constraintStart_toEndOf="@id/textView3"
+                app:layout_constraintTop_toTopOf="@id/textView3" />
+
+            <TextView
+                android:id="@+id/nominal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/avenir_demi"
+                android:text="Rp300.000"
+                android:textColor="#251F39"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/textView4"
+                app:layout_constraintTop_toBottomOf="@id/textView4" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/avenir_medium"
+                android:text="Status"
+                android:textColor="#8A959E"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="@id/tvFillNama"
+                app:layout_constraintStart_toStartOf="@id/textView4"
+                app:layout_constraintTop_toTopOf="@id/textView8" />
+
+            <TextView
+                android:id="@+id/status_pembayaran"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/avenir_demi"
+                android:text="Lunas"
+                android:textColor="#251F39"
+                app:layout_constraintEnd_toEndOf="@id/tvFillNama"
+                app:layout_constraintStart_toStartOf="@id/textView4"
+                app:layout_constraintTop_toBottomOf="@id/textView6" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/avenir_medium"
+                android:text="Nomor Pembayaran"
+                android:textColor="#8A959E"
+                android:textSize="12dp"
+                app:layout_constraintStart_toStartOf="@id/profile_pict"
+                app:layout_constraintTop_toBottomOf="@id/tanggal_bayar" />
+
+            <TextView
+                android:id="@+id/nomor_pembayaran"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/avenir_demi"
+                android:text="#JUL202161"
+                android:textColor="#251F39"
+                app:layout_constraintEnd_toStartOf="@id/status_pembayaran"
+                app:layout_constraintStart_toStartOf="@id/profile_pict"
+                app:layout_constraintTop_toBottomOf="@id/textView8" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/avenir_medium"
+                android:text="Dilayani oleh"
+                android:textColor="#8A959E"
+                android:textSize="12dp"
+                app:layout_constraintStart_toStartOf="@id/profile_pict"
+                app:layout_constraintTop_toBottomOf="@id/nomor_pembayaran" />
+
+            <TextView
+                android:id="@+id/dilayaniOleh"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/avenir_demi"
+                android:text="Admin MIMIN"
+                android:textColor="#251F39"
+                app:layout_constraintEnd_toEndOf="@id/tanggal_bayar"
+                app:layout_constraintStart_toStartOf="@id/profile_pict"
+                app:layout_constraintTop_toBottomOf="@id/textView10" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/avenir_medium"
+                android:text="Kelas"
+                android:textColor="#8A959E"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="@id/tvFillNama"
+                app:layout_constraintStart_toStartOf="@id/textView4"
+                app:layout_constraintTop_toTopOf="@id/textView10" />
+
+            <TextView
+                android:id="@+id/kelas"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/avenir_demi"
+                android:text="Siswa XII RPL 3"
+                android:textColor="#251F39"
+                app:layout_constraintEnd_toEndOf="@id/tvFillNama"
+                app:layout_constraintStart_toStartOf="@id/textView4"
+                app:layout_constraintTop_toBottomOf="@id/textView12" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/buttonDownload"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="40dp"
+        android:background="@color/colorPrimary"
+        android:fontFamily="@font/avenir_demi"
+        android:text="Simpan &amp; Download"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="@id/layoutDialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
