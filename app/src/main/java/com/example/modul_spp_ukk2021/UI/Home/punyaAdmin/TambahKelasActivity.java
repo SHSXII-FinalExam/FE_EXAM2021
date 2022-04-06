@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
-import com.example.modul_spp_ukk2021.UI.Repository.KelasRepository;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.KelasRepository;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Home.punyaPetugas.DataPembayaranActivity;
-import com.example.modul_spp_ukk2021.UI.Model.Siswa;
+import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
