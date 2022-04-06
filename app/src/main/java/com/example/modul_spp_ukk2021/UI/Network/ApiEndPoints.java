@@ -62,4 +62,29 @@ public interface ApiEndPoints {
 
     Call<KelasRepository> viewDataKelas();
 
+    Call<SiswaRepository> viewDataSiswaKelas(String id_kelas);
+
+    Call<SiswaRepository> searchDataSiswa(String trim);
+
+    Call<SPPRepository> viewDataSPP();
+
+    Call<PetugasRepository> deletePetugas(String id_petugas);
+
+    Call<PetugasRepository> createPetugas(String petugas, String toString, String toString1, String toString2);
+
+    Call<PetugasRepository> updatePetugas(String id_petugas, String petugas, String toString, String toString1, String toString2);
+
+    Call<SPPRepository> viewDataSPPAngkatan(String angkatan);
+
+    Call<SiswaRepository> createSiswa(String toString, String toString1, String toString2, String id_kelas, Integer id_spp, String toString3, String toString4, String toString5, String id_petugas);
+
+    Call<SiswaRepository> deleteSiswa(String nisn);
+
+    Call<SPPRepository> updateSPP(Integer id_spp, String toString);
+
+    Call<SPPRepository> createSPP(String toString, String toString1, String toString2);
+
+    Call<SPPRepository> deleteSPP(Integer id_spp);
+
+
 }
