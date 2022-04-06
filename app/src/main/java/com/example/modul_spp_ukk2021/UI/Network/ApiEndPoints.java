@@ -86,5 +86,6 @@ public interface ApiEndPoints {
 
     Call<SPPRepository> deleteSPP(Integer id_spp);
 
+    Call<PetugasRepository> viewPetugas(String username);
 
 }
