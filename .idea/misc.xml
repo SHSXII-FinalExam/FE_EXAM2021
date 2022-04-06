@@ -32,6 +32,7 @@
         <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_data_kelas.xml" value="0.15555555555555556" />
         <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_data_petugas.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_data_spp.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_generate_laporan.xml" value="0.18840579710144928" />
         <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_home_siswa.xml" value="0.22" />
         <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_konfirmasi_admin.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_konfirmasi_petugas.xml" value="0.25" />
@@ -69,6 +70,7 @@
         <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/pa_dialog_tambah_siswa.xml" value="0.18840579710144928" />
         <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/pa_dialog_view_kelas.xml" value="0.18840579710144928" />
         <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/pa_dialog_view_siswa.xml" value="0.18840579710144928" />
+        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/petugas_activity_data_pembayaran.xml" value="0.18840579710144928" />
         <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/petugas_activity_home.xml" value="0.18840579710144928" />
         <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/menu/bottom_menu.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/menu/bottom_navigation.xml" value="0.19010416666666666" />
