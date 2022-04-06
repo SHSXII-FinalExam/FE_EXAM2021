@@ -70,7 +70,7 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pa_container_data_siswa, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.container_data_siswa, parent, false);
             return new ViewHolder(view);
         }
 
