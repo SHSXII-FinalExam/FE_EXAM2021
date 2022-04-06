@@ -1,6 +1,414 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/arrow_left"
+        android:backgroundTint="#C62828"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Tambah Siswa"
+        android:textColor="#121212"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/back" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView11">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="NISN"
+                android:textColor="#121212"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:textColorHint="#9A9EA7"
+                app:boxBackgroundColor="#F7F7F7"
+                app:boxCornerRadiusBottomEnd="15dp"
+                app:boxCornerRadiusBottomStart="15dp"
+                app:boxCornerRadiusTopEnd="15dp"
+                app:boxCornerRadiusTopStart="15dp"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/textView21"
+                app:layout_constraintTop_toBottomOf="@id/textView21">
+
+                <EditText
+                    android:id="@+id/tambah_SiswaNISN"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:hint="Masukkan NISN"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textColor="#99121212"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="NIS"
+                android:textColor="#121212"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/textView21"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout3"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:textColorHint="#9A9EA7"
+                app:boxBackgroundColor="#F7F7F7"
+                app:boxCornerRadiusBottomEnd="15dp"
+                app:boxCornerRadiusBottomStart="15dp"
+                app:boxCornerRadiusTopEnd="15dp"
+                app:boxCornerRadiusTopStart="15dp"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="@id/textInputLayout"
+                app:layout_constraintStart_toStartOf="@id/textView26"
+                app:layout_constraintTop_toBottomOf="@id/textView26">
+
+                <EditText
+                    android:id="@+id/tambah_SiswaNIS"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:hint="Masukkan NIS"
+                    android:inputType="number"
+                    android:maxLength="8"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textColor="#99121212"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Nama Lengkap"
+                android:textColor="#121212"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/textView21"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout3" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:textColorHint="#9A9EA7"
+                app:boxBackgroundColor="#F7F7F7"
+                app:boxCornerRadiusBottomEnd="15dp"
+                app:boxCornerRadiusBottomStart="15dp"
+                app:boxCornerRadiusTopEnd="15dp"
+                app:boxCornerRadiusTopStart="15dp"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="@id/textInputLayout3"
+                app:layout_constraintStart_toStartOf="@id/textView22"
+                app:layout_constraintTop_toBottomOf="@id/textView22">
+
+                <EditText
+                    android:id="@+id/tambah_SiswaNama"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:hint="Masukkan Nama Lengkap"
+                    android:inputType="text"
+                    android:maxLength="32"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textColor="#99121212"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Kelas"
+                android:textColor="#121212"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/textView22"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout1" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout2"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:textColorHint="#9A9EA7"
+                app:boxBackgroundColor="#F7F7F7"
+                app:boxCornerRadiusBottomEnd="15dp"
+                app:boxCornerRadiusBottomStart="15dp"
+                app:boxCornerRadiusTopEnd="15dp"
+                app:boxCornerRadiusTopStart="15dp"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="@id/textInputLayout1"
+                app:layout_constraintStart_toStartOf="@id/textView23"
+                app:layout_constraintTop_toBottomOf="@id/textView23">
+
+                <EditText
+                    android:id="@+id/tambah_SiswaKelas"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:inputType="text"
+                    android:maxLength="32"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textColor="#99121212"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Alamat"
+                android:textColor="#121212"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/textView21"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout2" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout5"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:textColorHint="#9A9EA7"
+                app:boxBackgroundColor="#F7F7F7"
+                app:boxCornerRadiusBottomEnd="15dp"
+                app:boxCornerRadiusBottomStart="15dp"
+                app:boxCornerRadiusTopEnd="15dp"
+                app:boxCornerRadiusTopStart="15dp"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="@id/textInputLayout2"
+                app:layout_constraintStart_toStartOf="@id/textView27"
+                app:layout_constraintTop_toBottomOf="@id/textView27">
+
+                <EditText
+                    android:id="@+id/tambah_SiswaAlamat"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:hint="Masukkan Nama Lengkap"
+                    android:inputType="text"
+                    android:maxLength="32"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textColor="#99121212"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="No Telp"
+                android:textColor="#121212"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/textView21"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout5" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout6"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:textColorHint="#9A9EA7"
+                app:boxBackgroundColor="#F7F7F7"
+                app:boxCornerRadiusBottomEnd="15dp"
+                app:boxCornerRadiusBottomStart="15dp"
+                app:boxCornerRadiusTopEnd="15dp"
+                app:boxCornerRadiusTopStart="15dp"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="@id/textInputLayout5"
+                app:layout_constraintStart_toStartOf="@id/textView27"
+                app:layout_constraintTop_toBottomOf="@id/textView28">
+
+                <EditText
+                    android:id="@+id/tambah_SiswaTelp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:hint="Masukkan Nama Lengkap"
+                    android:inputType="number"
+                    android:maxLength="32"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textColor="#99121212"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="SPP Angkatan"
+                android:textColor="#121212"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/textView23"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout6" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/pilihSPP"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:background="@drawable/container3"
+                android:fontFamily="@font/poppins_semibold"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:text="Pilih Tahun SPP"
+                android:textAllCaps="false"
+                android:textColor="#99121212"
+                android:textSize="16sp"
+                app:backgroundTint="@null"
+                app:icon="@drawable/chevron_down"
+                app:iconGravity="end"
+                app:iconSize="32dp"
+                app:iconTint="#99121212"
+                app:layout_constraintEnd_toEndOf="@id/textInputLayout6"
+                app:layout_constraintStart_toStartOf="@id/textView24"
+                app:layout_constraintTop_toBottomOf="@id/textView24" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Kata Sandi"
+                android:textColor="#121212"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/textView24"
+                app:layout_constraintTop_toBottomOf="@id/pilihSPP" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout4"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginBottom="176dp"
+                android:textColorHint="#9A9EA7"
+                app:boxBackgroundColor="#F7F7F7"
+                app:boxCornerRadiusBottomEnd="15dp"
+                app:boxCornerRadiusBottomStart="15dp"
+                app:boxCornerRadiusTopEnd="15dp"
+                app:boxCornerRadiusTopStart="15dp"
+                app:hintEnabled="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/textInputLayout6"
+                app:layout_constraintStart_toStartOf="@id/textView25"
+                app:layout_constraintTop_toBottomOf="@id/textView25"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/tambah_SiswaPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:hint="Masukkan Kata Sandi"
+                    android:inputType="textPassword"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textColor="#99121212"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/hapus"
+        style="@style/MyButton"
+        android:layout_width="248dp"
+        android:layout_height="59dp"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Hapus"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        app:cornerRadius="30dp"
+        app:layout_constraintBottom_toTopOf="@id/simpan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/colorPrimary" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/simpan"
+        android:layout_width="248dp"
+        android:layout_height="59dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/button"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Simpan"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
