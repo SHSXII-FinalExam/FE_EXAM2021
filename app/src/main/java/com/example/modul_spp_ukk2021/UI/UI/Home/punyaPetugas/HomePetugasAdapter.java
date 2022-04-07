@@ -2,19 +2,20 @@ package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
-import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
@@ -30,27 +31,35 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pp_container_data_siswa, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pp_container_data, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Siswa siswa = this.siswa.get(position);
+        String romawiKelas = siswa.getNama_kelas().substring(0, siswa.getNama_kelas().indexOf(' '));
 
+        holder.tvInisial.setText(romawiKelas);
         holder.tvNama.setText(siswa.getNama());
         holder.tvKelas.setText(siswa.getNama_kelas());
+        holder.ivMore.setVisibility(View.GONE);
 
-        holder.btnSiswa.setOnClickListener(v -> {
+        if (romawiKelas.equalsIgnoreCase("x")) {
+            holder.tvInisial.setText(romawiKelas + "  ");
+            holder.cardInisial.setCardBackgroundColor(ContextCompat.getColor(context, R.color.color200));
+        } else if (romawiKelas.equalsIgnoreCase("xi")) {
+            holder.tvInisial.setText(romawiKelas + " ");
+            holder.cardInisial.setCardBackgroundColor(ContextCompat.getColor(context, R.color.color300));
+        } else if (romawiKelas.equalsIgnoreCase("xii")) {
+            holder.cardInisial.setCardBackgroundColor(ContextCompat.getColor(context, R.color.color400));
+        }
+
+        holder.cardView.setOnClickListener(v -> {
             Utils.preventTwoClick(v);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(context, PembayaranActivity.class);
-                    intent.putExtra("nisnSiswa", siswa.getNisn());
-                    context.startActivity(intent);
-                }
-            }, 400);
+            Intent intent = new Intent(context, TransaksiActivity.class);
+            intent.putExtra("nisnSiswa", siswa.getNisn());
+            context.startActivity(intent);
         });
     }
 
@@ -60,14 +69,18 @@ public class HomePetugasAdapter extends RecyclerView.Adapter<HomePetugasAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        MaterialButton btnSiswa;
-        TextView tvNama, tvKelas;
+        ImageView ivMore;
+        TextView tvNama, tvKelas, tvInisial;
+        MaterialCardView cardView, cardInisial;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvKelas = itemView.findViewById(R.id.kelas);
-            tvNama = itemView.findViewById(R.id.namaSiswa);
-            btnSiswa = itemView.findViewById(R.id.btnSiswa);
+            tvNama = itemView.findViewById(R.id.tv1);
+            ivMore = itemView.findViewById(R.id.more);
+            tvKelas = itemView.findViewById(R.id.tv2);
+            tvInisial = itemView.findViewById(R.id.inisial);
+            cardView = itemView.findViewById(R.id.cardView);
+            cardInisial = itemView.findViewById(R.id.cardInisial);
         }
     }
 }

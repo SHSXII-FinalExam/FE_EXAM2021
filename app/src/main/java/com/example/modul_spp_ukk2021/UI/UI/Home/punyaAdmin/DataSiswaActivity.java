@@ -1,31 +1,30 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
+import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.Button;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,16 +35,12 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
-import com.example.modul_spp_ukk2021.UI.Data.Model.SPP;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
-import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
 import com.google.android.material.button.MaterialButton;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,14 +51,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class DataSiswaActivity extends AppCompatActivity {
-    private Integer id_spp;
     private ApiEndPoints api;
     private DataSiswaAdapter adapter;
     private RecyclerView recyclerView;
     private LottieAnimationView emptyTransaksi;
+    private String id_kelas, nama_kelas, angkatan;
     private SwipeRefreshLayout swipeRefreshLayout;
     private final List<Siswa> siswa = new ArrayList<>();
-    private String id_kelas, id_petugas, nama_kelas, angkatan;
 
     public DataSiswaActivity() {
     }
@@ -73,15 +67,14 @@ public class DataSiswaActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pa_activity_data_siswa);
-        SharedPreferences sharedprefs = getSharedPreferences("myprefs", Context.MODE_PRIVATE);
-        id_petugas = sharedprefs.getString("idStaff", null);
         id_kelas = getIntent().getStringExtra("id_kelas");
-        angkatan = getIntent().getStringExtra("angkatan");
         nama_kelas = getIntent().getStringExtra("nama_kelas");
+        angkatan = getIntent().getStringExtra("angkatan");
 
         ImageView IvBack = findViewById(R.id.back);
         ImageView IvRefresh = findViewById(R.id.refresh);
         emptyTransaksi = findViewById(R.id.emptyTransaksi);
+        EditText SearchSiswa = findViewById(R.id.searchSiswa);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 
         adapter = new DataSiswaAdapter(this, siswa);
@@ -161,19 +154,75 @@ public class DataSiswaActivity extends AppCompatActivity {
             }
         });
 
+        SearchSiswa.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() >= 1) {
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(url)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+                    ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+
+                    Call<SiswaRepository> call = api.searchSiswaKelas(s.toString().trim(), id_kelas);
+                    call.enqueue(new Callback<SiswaRepository>() {
+                        @Override
+                        public void onResponse(Call<SiswaRepository> call, Response<SiswaRepository> response) {
+                            String value = response.body().getValue();
+                            List<Siswa> results = response.body().getResult();
+
+                            if (value.equals("1")) {
+                                recyclerView.setVisibility(View.VISIBLE);
+                                emptyTransaksi.pauseAnimation();
+                                emptyTransaksi.setVisibility(LottieAnimationView.GONE);
+
+                                adapter = new DataSiswaAdapter(DataSiswaActivity.this, results);
+                                recyclerView.setAdapter(adapter);
+                                runLayoutAnimation(recyclerView);
+
+                            } else {
+                                recyclerView.setVisibility(View.GONE);
+                                emptyTransaksi.setAnimation(R.raw.nodata);
+                                emptyTransaksi.playAnimation();
+                                emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<SiswaRepository> call, Throwable t) {
+                            emptyTransaksi.setAnimation(R.raw.nointernet);
+                            emptyTransaksi.playAnimation();
+                            emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                            Log.e("DEBUG", "Error: ", t);
+                        }
+                    });
+
+                } else {
+                    loadDataSiswa();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
         MaterialButton tambahSiswa = findViewById(R.id.tambah_siswa);
         tambahSiswa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogTambah();
+                Utils.preventTwoClick(v);
+                Intent intent = new Intent(DataSiswaActivity.this, TambahSiswaActivity.class);
+                intent.putExtra("id_kelas", id_kelas);
+                intent.putExtra("nama_kelas", nama_kelas);
+                intent.putExtra("angkatan", angkatan);
+                startActivity(intent);
             }
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     @Override
@@ -198,6 +247,23 @@ public class DataSiswaActivity extends AppCompatActivity {
         }, 1000);
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
+    }
+
     private void runLayoutAnimation(final RecyclerView recyclerView) {
         Context context = recyclerView.getContext();
         LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_from_bottom);
@@ -207,7 +273,7 @@ public class DataSiswaActivity extends AppCompatActivity {
     }
 
     public void loadDataSiswa() {
-        Call<SiswaRepository> call = api.viewDataSiswaKelas(id_kelas);
+        Call<SiswaRepository> call = api.readSiswaKelas(id_kelas);
         call.enqueue(new Callback<SiswaRepository>() {
             @Override
             public void onResponse(Call<SiswaRepository> call, Response<SiswaRepository> response) {
@@ -243,126 +309,5 @@ public class DataSiswaActivity extends AppCompatActivity {
                 Log.e("DEBUG", "Error: ", t);
             }
         });
-    }
-
-    private void DialogTambah() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(DataSiswaActivity.this, R.style.AlertDialogTheme);
-        View view = LayoutInflater.from(DataSiswaActivity.this).inflate(R.layout.pa_dialog_tambah_siswa, findViewById(R.id.layoutDialogContainer));
-        builder.setView(view);
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-
-        EditText nama_siswa = view.findViewById(R.id.nama_siswa);
-        EditText NISN_siswa = view.findViewById(R.id.NISN_siswa);
-        EditText NIS_siswa = view.findViewById(R.id.NIS_siswa);
-        TextView tvKelas = view.findViewById(R.id.tvKelas);
-        Button spp_siswa = view.findViewById(R.id.spp_siswa);
-        EditText alamat_siswa = view.findViewById(R.id.alamat_siswa);
-        EditText ponsel_siswa = view.findViewById(R.id.ponsel_siswa);
-        EditText password_siswa = view.findViewById(R.id.password_siswa);
-
-        tvKelas.setText("Kelas                  : " + nama_kelas);
-
-        PopupMenu dropDownMenu = new PopupMenu(DataSiswaActivity.this, spp_siswa);
-
-        Call<SPPRepository> call = api.viewDataSPPAngkatan(angkatan);
-        call.enqueue(new Callback<SPPRepository>() {
-            @Override
-            public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
-                String value = response.body().getValue();
-                String message = response.body().getMessage();
-                List<SPP> results = response.body().getResult();
-
-                Locale localeID = new Locale("in", "ID");
-                NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
-                format.setMaximumFractionDigits(0);
-
-                if (value.equals("1")) {
-                    for (int i = 0; i < results.size(); i++) {
-                        dropDownMenu.getMenu().add(Menu.NONE, results.get(i).getId_spp(), Menu.NONE, results.get(i).getTahun() + " (" + format.format(results.get(i).getNominal()) + ")");
-                    }
-
-                } else {
-                    spp_siswa.setEnabled(false);
-                    spp_siswa.setText("SPP Kosong");
-                    Toast.makeText(DataSiswaActivity.this, message, Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SPPRepository> call, Throwable t) {
-                alertDialog.dismiss();
-                Toast.makeText(DataSiswaActivity.this, "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
-                Log.e("DEBUG", "Error: ", t);
-            }
-        });
-
-        spp_siswa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dropDownMenu.show();
-                dropDownMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        spp_siswa.setText(menuItem.getTitle().toString());
-                        id_spp = menuItem.getItemId();
-                        return true;
-                    }
-                });
-            }
-        });
-
-        view.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (id_spp != null && nama_siswa.getText().toString().trim().length() > 0 && NISN_siswa.getText().toString().trim().length() == 10 && NIS_siswa.getText().toString().trim().length() == 8 && alamat_siswa.getText().toString().trim().length() > 0 && ponsel_siswa.getText().toString().trim().length() > 0 && password_siswa.getText().toString().trim().length() > 0) {
-                    Call<SiswaRepository> call = api.createSiswa(
-                            NISN_siswa.getText().toString(),
-                            NIS_siswa.getText().toString(),
-                            nama_siswa.getText().toString(),
-                            id_kelas,
-                            id_spp,
-                            alamat_siswa.getText().toString(),
-                            ponsel_siswa.getText().toString(),
-                            password_siswa.getText().toString(),
-                            id_petugas);
-                    call.enqueue(new Callback<SiswaRepository>() {
-                        @Override
-                        public void onResponse(Call<SiswaRepository> call, Response<SiswaRepository> response) {
-                            String value = response.body().getValue();
-                            String message = response.body().getMessage();
-
-                            if (value.equals("1")) {
-                                alertDialog.dismiss();
-                                loadDataSiswa();
-
-                            } else {
-                                Toast.makeText(DataSiswaActivity.this, message, Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<SiswaRepository> call, Throwable t) {
-                            alertDialog.dismiss();
-                            Toast.makeText(DataSiswaActivity.this, "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
-                            Log.e("DEBUG", "Error: ", t);
-                        }
-                    });
-
-                } else {
-                    Toast.makeText(DataSiswaActivity.this, "Data belum lengkap, silahkan coba lagi", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        view.findViewById(R.id.buttonBatal).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog.dismiss();
-            }
-        });
-        if (alertDialog.getWindow() != null) {
-            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        }
     }
 }

@@ -4,178 +4,168 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/logo_backgroundlogin"
+    android:background="@drawable/bg_layoutwhite"
     android:overScrollMode="never">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/kembali"
-        style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:insetLeft="0dp"
-        android:insetTop="0dp"
-        android:insetRight="0dp"
-        android:insetBottom="0dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:elevation="0dp"
         android:padding="0dp"
-        app:backgroundTint="@color/white"
-        app:icon="@drawable/ic_back"
+        app:icon="@drawable/ic_arrow_left"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
-        app:iconSize="16dp"
-        app:iconTint="@color/colorPrimary"
+        app:iconSize="24dp"
+        app:iconTint="@color/grey800"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="#C8C4D9"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle" />
+        app:rippleColor="@null" />
 
-    <com.github.captain_miao.optroundcardview.OptRoundCardView
-        android:id="@+id/card"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:transitionName="card"
-        app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/inter_bold"
+        android:text="Selamat Datang"
+        android:textColor="@color/grey700"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/kembali"
+        app:layout_constraintTop_toBottomOf="@+id/kembali" />
+
+    <TextView
+        android:id="@+id/desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="Masukkan kredensial staff untuk masuk"
+        android:textColor="@color/grey400"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/kembali"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/inter_bold"
+        android:text="Username"
+        android:textColor="@color/grey700"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/kembali"
+        app:layout_constraintTop_toBottomOf="@+id/desc" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:textColorHint="@color/grey400"
+        app:boxBackgroundColor="@null"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxStrokeWidth="1dp"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:optRoundCardBackgroundColor="#F7F7F7"
-        app:optRoundCardCornerRadius="20dp"
-        app:optRoundCardLeftBottomCorner="false"
-        app:optRoundCardRightBottomCorner="false"
-        app:rippleColor="@android:color/transparent">
+        app:layout_constraintStart_toStartOf="@+id/kembali"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:startIconDrawable="@drawable/ic_mail"
+        app:startIconTint="@color/grey300">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <EditText
+            android:id="@+id/username"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:fontFamily="@font/inter_regular"
+            android:hint="Masukkan username"
+            android:inputType="text"
+            android:maxLength="25"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:singleLine="true"
+            android:textColor="@color/grey700"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:fontFamily="@font/avenir_bold"
-                android:text="Selamat Datang"
-                android:textColor="#251F39"
-                android:textSize="32sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/inter_bold"
+        android:text="Password"
+        android:textColor="@color/grey700"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/kembali"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
-            <TextView
-                android:id="@+id/desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/avenir_regular"
-                android:text="Masukkan kredensial untuk masuk"
-                android:textColor="#9A9EA7"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/title"
-                app:layout_constraintStart_toStartOf="@+id/title"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout2"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:textColorHint="@color/grey400"
+        app:boxBackgroundColor="@null"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxStrokeWidth="1dp"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/kembali"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:passwordToggleEnabled="true"
+        app:startIconDrawable="@drawable/ic_lock"
+        app:startIconTint="@color/grey300">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_48sdp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="24dp"
-                android:textColorHint="#9A9EA7"
-                app:boxBackgroundColor="#F7F7F7"
-                app:boxCornerRadiusBottomEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxStrokeColor="#E4E6E8"
-                app:boxStrokeWidth="1dp"
-                app:endIconDrawable="@drawable/ic_mail"
-                app:endIconMode="custom"
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/desc">
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/inter_regular"
+            android:hint="Masukkan password"
+            android:inputType="textPassword"
+            android:maxLength="34"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:singleLine="true"
+            android:textColor="@color/grey700"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/username"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/avenir_medium"
-                    android:hint="Username"
-                    android:inputType="text"
-                    android:maxLength="25"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
-                    android:singleLine="true"
-                    android:textColor="#0D0A19" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout2"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_48sdp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:textColorHint="#9A9EA7"
-                app:boxBackgroundColor="#F7F7F7"
-                app:boxCornerRadiusBottomEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxStrokeColor="#E4E6E8"
-                app:boxStrokeWidth="1dp"
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-                app:passwordToggleDrawable="@drawable/ic_lock"
-                app:passwordToggleEnabled="true">
-
-                <EditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/avenir_medium"
-                    android:hint="Password"
-                    android:inputType="textPassword"
-                    android:maxLength="32"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
-                    android:singleLine="true"
-                    android:textColor="#0D0A19" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/masuk"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="92dp"
-                android:background="@drawable/gradient_red"
-                android:fontFamily="@font/avenir_medium"
-                android:text="Masuk"
-                android:textAllCaps="false"
-                android:textSize="16sp"
-                app:backgroundTint="@null"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.github.captain_miao.optroundcardview.OptRoundCardView>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/masuk"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/red500"
+        android:fontFamily="@font/inter_bold"
+        android:padding="16dp"
+        android:text="Masuk"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/kembali" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/loadingProgress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/material_grey"
-        android:elevation="2dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

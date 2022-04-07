@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerAdapter;
@@ -36,7 +37,7 @@ import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerItem;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.SimpleItem;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Siswa;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
-import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
+import com.example.modul_spp_ukk2021.UI.UI.Splash.OnboardingActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
@@ -62,11 +63,11 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
     private Drawable[] screenIcons;
     private SharedPreferences sharedprefs;
     private SlidingRootNav slidingRootNav;
-    private String nisnSiswa, passwordSiswa;
+    private LottieAnimationView loadingProgress;
     private SwipeRefreshLayout swipeRefreshLayout;
     private boolean doubleBackToExitPressedOnce = false;
-    private String tvFillNama, tvNIS, tvKelas, tvFillAlamat, tvNoTelp;
     private FragmentRefreshListener historyRefreshListener, tagihanRefreshListener;
+    private String nisnSiswa, passwordSiswa, tvFillNama, tvNIS, tvKelas, tvFillAlamat, tvNoTelp;
 
     public interface FragmentRefreshListener {
         void onRefresh();
@@ -101,6 +102,7 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
         TabLayout mTabs = findViewById(R.id.tab);
         View mIndicator = findViewById(R.id.indicator);
         ViewPager mViewPager = findViewById(R.id.viewPager);
+        loadingProgress = findViewById(R.id.loadingProgress);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -117,6 +119,9 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
     @Override
     public void onResume() {
         super.onResume();
+        loadingProgress.playAnimation();
+        loadingProgress.setVisibility(LottieAnimationView.VISIBLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         loadProfil();
     }
 
@@ -147,16 +152,7 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
             getHistoryRefreshListener().onRefresh();
             getTagihanRefreshListener().onRefresh();
         }
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (swipeRefreshLayout.isRefreshing()) {
-                    swipeRefreshLayout.setRefreshing(false);
-                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                }
-            }
-        }, 1000);
+        loadProfil();
     }
 
     public void SideNavSetup() {
@@ -169,8 +165,8 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
                 .withMenuOpened(false)
                 .withContentClickableWhenMenuOpened(false)
                 .withMenuLayout(R.layout.activity_sidenav)
-                .withDragDistance(120)
-                .withRootViewScale(0.7f)
+                .withDragDistance(100)
+                .withRootViewScale(0.8f)
                 .withRootViewElevation(5)
                 .inject();
 
@@ -192,7 +188,7 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
     public void SliderSetup(TabLayout mTabs, View mIndicator, ViewPager mViewPager) {
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new TagihanSiswaFragment(), "Tagihan");
-        adapter.addFragment(new HistorySiswaFragment(), "Riwayat");
+        adapter.addFragment(new RiwayatSiswaFragment(), "Riwayat");
         mViewPager.setAdapter(adapter);
 
         mTabs.setupWithViewPager(mViewPager);
@@ -236,7 +232,8 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
     public void onItemSelected(int position) {
         if (position == POS_LOGOUT) {
             sharedprefs.edit().clear().apply();
-            Intent intent = new Intent(HomeSiswaActivity.this, LoginChoiceActivity.class);
+            Intent intent = new Intent(HomeSiswaActivity.this, OnboardingActivity.class);
+            intent.putExtra("skipBoarding", "skipBoarding");
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
@@ -289,18 +286,20 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
                 .build();
         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
 
-        Call<SiswaRepository> call = api.viewProfile(nisnSiswa);
+        Call<SiswaRepository> call = api.readProfilSiswa(nisnSiswa);
         call.enqueue(new Callback<SiswaRepository>() {
             @Override
             public void onResponse(Call<SiswaRepository> call, Response<SiswaRepository> response) {
                 String value = response.body().getValue();
-                String message = response.body().getMessage();
                 List<Siswa> results = response.body().getResult();
 
                 if (value.equals("1")) {
                     for (int i = 0; i < results.size(); i++) {
-                        nama.setText(results.get(i).getNama());
-                        kelas.setText("Siswa " + results.get(i).getNama_kelas());
+                        String[] strList = results.get(i).getNama().split(" ");
+                        String first2Words = strList[0] + " " + strList[1];
+
+                        nama.setText(first2Words);
+                        kelas.setText("Kelas " + results.get(i).getNama_kelas());
 
                         tvFillNama = results.get(i).getNama();
                         tvNIS = results.get(i).getNis();
@@ -308,14 +307,33 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
                         tvFillAlamat = results.get(i).getAlamat();
                         tvNoTelp = results.get(i).getNo_telp();
                     }
+                    loadingProgress.pauseAnimation();
+                    loadingProgress.setVisibility(LottieAnimationView.GONE);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-                } else {
-                    Toast.makeText(HomeSiswaActivity.this, message, Toast.LENGTH_SHORT).show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (swipeRefreshLayout.isRefreshing()) {
+                                swipeRefreshLayout.setRefreshing(false);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                        }
+                    }, 700);
                 }
             }
 
             @Override
             public void onFailure(Call<SiswaRepository> call, Throwable t) {
+                if (swipeRefreshLayout.isRefreshing()) {
+                    swipeRefreshLayout.setRefreshing(false);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
+
+                loadingProgress.pauseAnimation();
+                loadingProgress.setVisibility(LottieAnimationView.GONE);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                Toast.makeText(HomeSiswaActivity.this, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
                 Log.e("DEBUG", "Error: ", t);
             }
         });
@@ -324,10 +342,10 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
     @SuppressWarnings("rawtypes")
     private DrawerItem createItemFor(int position) {
         return new SimpleItem(screenIcons[position], screenTitles[position])
-                .withIconTint(color(android.R.color.darker_gray))
-                .withTextTint(color(android.R.color.darker_gray))
-                .withSelectedIconTint(color(R.color.colorPrimary))
-                .withSelectedTextTint(color(R.color.colorPrimary));
+                .withIconTint(color(R.color.grey300))
+                .withTextTint(color(R.color.grey300))
+                .withSelectedIconTint(color(R.color.red500))
+                .withSelectedTextTint(color(R.color.red500));
     }
 
     private String[] loadScreenTitles() {

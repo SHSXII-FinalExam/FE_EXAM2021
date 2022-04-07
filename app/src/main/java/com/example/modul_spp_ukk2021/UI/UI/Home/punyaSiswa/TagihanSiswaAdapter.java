@@ -1,7 +1,6 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Data.Model.Pembayaran;
+import com.example.modul_spp_ukk2021.UI.Data.Model.Transaksi;
 import com.google.android.material.card.MaterialCardView;
 
 import java.text.DateFormatSymbols;
@@ -23,69 +22,70 @@ import java.util.Locale;
 
 public class TagihanSiswaAdapter extends RecyclerView.Adapter<TagihanSiswaAdapter.ViewHolder> {
     private final Context context;
-    private final List<Pembayaran> pembayaran;
+    private final List<Transaksi> transaksi;
 
-    public TagihanSiswaAdapter(Context context, List<Pembayaran> pembayaran) {
+    public TagihanSiswaAdapter(Context context, List<Transaksi> transaksi) {
         this.context = context;
-        this.pembayaran = pembayaran;
+        this.transaksi = transaksi;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ps_container_data_tagihan, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ps_container_transaksi, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Pembayaran pembayaran = this.pembayaran.get(position);
+        Transaksi transaksi = this.transaksi.get(position);
 
         Locale localeID = new Locale("in", "ID");
         NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
         format.setMaximumFractionDigits(0);
 
         DateFormatSymbols symbols = new DateFormatSymbols(localeID);
-        String[] monthNames = symbols.getMonths();
-        holder.tvBulan.setText(monthNames[pembayaran.getBulan_bayar() - 1] + " " + pembayaran.getTahun_bayar());
+        String[] bulan = symbols.getMonths();
 
-        if (pembayaran.getTgl_bayar() != null) {
+        holder.tvBulan.setText(bulan[transaksi.getBulan_bayar() - 1] + " " + transaksi.getTahun_bayar());
+        holder.tvInisial.setText(transaksi.getNama_kelas().substring(0, transaksi.getNama_kelas().indexOf(' ')));
+
+        if (transaksi.getTgl_bayar() != null) {
             SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy", localeID);
-            String strDt = simpleDate.format(pembayaran.getTgl_bayar());
+            String strDt = simpleDate.format(transaksi.getTgl_bayar());
             holder.tvTanggal.setText(strDt);
         } else {
             holder.tvTanggal.setText("--/--/----");
         }
 
-        if (pembayaran.getKurang_bayar() == 0) {
-            holder.tvStatus.setText(pembayaran.getStatus_bayar());
-            holder.tvNominal.setText(format.format(pembayaran.getNominal()));
-            holder.tvNominal.setTextColor(ContextCompat.getColor(context, R.color.belum));
-            holder.materialCardView.setCardBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.belum)));
+        if (transaksi.getKurang_bayar() == 0) {
+            holder.tvStatus.setText(transaksi.getStatus_bayar());
+            holder.tvNominal.setText(format.format(transaksi.getNominal()));
+            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.red500));
         } else {
             holder.tvStatus.setText("Kurang");
-            holder.tvNominal.setText(format.format(pembayaran.getKurang_bayar()));
-            holder.tvNominal.setTextColor(ContextCompat.getColor(context, R.color.kurang));
-            holder.materialCardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.kurang));
+            holder.tvNominal.setText(format.format(transaksi.getKurang_bayar()));
+            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorYellow));
         }
     }
 
     @Override
     public int getItemCount() {
-        return pembayaran.size();
+        return transaksi.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        MaterialCardView materialCardView;
-        TextView tvBulan, tvNominal, tvStatus, tvTanggal;
+        MaterialCardView cardView;
+        TextView tvBulan, tvNominal, tvStatus, tvTanggal, tvInisial;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            tvBulan = itemView.findViewById(R.id.bulan);
             tvStatus = itemView.findViewById(R.id.status);
-            tvBulan = itemView.findViewById(R.id.namaBulan);
+            tvInisial = itemView.findViewById(R.id.inisial);
             tvNominal = itemView.findViewById(R.id.nominal);
             tvTanggal = itemView.findViewById(R.id.tanggal);
-            materialCardView = itemView.findViewById(R.id.materialCardView);
+            cardView = itemView.findViewById(R.id.cardView);
         }
     }
 }

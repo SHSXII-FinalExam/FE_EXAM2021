@@ -2,9 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.toolbar.MainActivity" >
+    tools:context="com.example.toolbar.MainActivity">
 
-    <item android:id="@+id/action_profile"
+    <item
+        android:id="@+id/action_profile"
         android:icon="@drawable/bg_profilepict"
         android:title=""
         app:showAsAction="ifRoom" />
@@ -12,6 +13,6 @@
     <item
         android:id="@+id/action_refresh"
         android:title="Refresh"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
 
 </menu>

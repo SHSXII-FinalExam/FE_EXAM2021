@@ -1,34 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/detailSPP"
+    android:id="@+id/detail"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="12dp"
     android:layout_marginEnd="12dp"
     android:layout_marginBottom="12dp"
-    app:cardCornerRadius="8dp"
+    android:backgroundTint="@color/grey700"
+    app:cardCornerRadius="16dp"
     app:cardElevation="0dp"
     app:rippleColor="@android:color/transparent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/gradient_red">
+        android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@drawable/bg_card"
-            android:elevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/deleteData"
+            android:id="@+id/ivMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="8dp"
@@ -38,45 +28,47 @@
             android:src="@drawable/ic_more"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white" />
+            app:tint="@color/colorWhite" />
 
         <TextView
-            android:id="@+id/Tahun"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
-            android:fontFamily="@font/avenir_medium"
-            android:text="Tahun"
-            android:textColor="@color/white"
+            android:fontFamily="@font/inter_medium"
+            android:singleLine="true"
+            android:text="Tahun 2019"
+            android:textColor="@color/colorWhite"
             android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/ivMore"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/Nominal"
+            android:id="@+id/tv2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/avenir_medium"
-            android:text="Rp.0,00"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/Tahun"
-            app:layout_constraintTop_toBottomOf="@+id/Tahun" />
+            android:fontFamily="@font/inter_medium"
+            android:text="Rp500.000"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/tv1"
+            app:layout_constraintTop_toBottomOf="@+id/tv1" />
 
         <TextView
-            android:id="@+id/Angkatan"
+            android:id="@+id/tv3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="56dp"
             android:layout_marginBottom="12dp"
-            android:fontFamily="@font/avenir_medium"
-            android:text="Angkatan"
-            android:textColor="@color/white"
-            android:textSize="12sp"
+            android:fontFamily="@font/inter_medium"
+            android:text="Angkatan 29"
+            android:textColor="@color/grey400"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/Tahun"
-            app:layout_constraintTop_toBottomOf="@+id/Nominal" />
+            app:layout_constraintStart_toStartOf="@+id/tv1"
+            app:layout_constraintTop_toBottomOf="@+id/tv2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

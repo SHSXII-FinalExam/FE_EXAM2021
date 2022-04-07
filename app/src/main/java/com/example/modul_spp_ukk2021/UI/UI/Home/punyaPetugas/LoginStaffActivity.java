@@ -17,8 +17,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.view.ViewCompat;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.modul_spp_ukk2021.R;
@@ -26,8 +24,7 @@ import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Model.LoginStaff;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStaffRepository;
 import com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin.HomeAdminActivity;
-import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
-import com.github.captain_miao.optroundcardview.OptRoundCardView;
+import com.example.modul_spp_ukk2021.UI.UI.Splash.OnboardingActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -42,7 +39,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class LoginStaffActivity extends AppCompatActivity {
-    private OptRoundCardView card;
     private SharedPreferences sharedprefs;
     private EditText editUsername, editPassword;
     private LottieAnimationView loadingProgress;
@@ -54,7 +50,6 @@ public class LoginStaffActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_staff);
         sharedprefs = getSharedPreferences("myprefs", Context.MODE_PRIVATE);
 
-        card = findViewById(R.id.card);
         editUsername = findViewById(R.id.username);
         editPassword = findViewById(R.id.password);
         MaterialButton masuk = findViewById(R.id.masuk);
@@ -69,31 +64,32 @@ public class LoginStaffActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginStaffActivity.this, card, ViewCompat.getTransitionName(card));
-        Intent intent = new Intent(LoginStaffActivity.this, LoginChoiceActivity.class);
-        startActivity(intent, options.toBundle());
+        Intent intent = new Intent(LoginStaffActivity.this, OnboardingActivity.class);
+        intent.putExtra("skipBoarding", "skipBoarding");
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             View v = getCurrentFocus();
-            if ( v instanceof EditText) {
+            if (v instanceof EditText) {
                 Rect outRect = new Rect();
                 v.getGlobalVisibleRect(outRect);
-                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
                     v.clearFocus();
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
             }
         }
-        return super.dispatchTouchEvent( event );
+        return super.dispatchTouchEvent(event);
     }
 
     private void validateForm(String username, String password) {
         if (username.isEmpty()) {
-            textInputLayout2.setErrorEnabled(true);
+            textInputLayout.setErrorEnabled(true);
             textInputLayout.setError("Username salah");
             editUsername.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -130,7 +126,7 @@ public class LoginStaffActivity extends AppCompatActivity {
 
         } else {
             loginStaff(username, password);
-            textInputLayout2.setErrorEnabled(false);
+
             loadingProgress.playAnimation();
             loadingProgress.setVisibility(LottieAnimationView.VISIBLE);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -162,7 +158,6 @@ public class LoginStaffActivity extends AppCompatActivity {
                                 sharedprefs.edit().putString("usernameStaff", username).apply();
                                 sharedprefs.edit().putString("passwordStaff", password).apply();
                                 sharedprefs.edit().putString("idStaff", results.get(i).getId_petugas()).apply();
-                                Log.e("DEBUG", "Staff level:" + level);
 
                                 if (level.equals("Petugas")) {
                                     Intent intent = new Intent(LoginStaffActivity.this, HomePetugasActivity.class);
@@ -172,6 +167,7 @@ public class LoginStaffActivity extends AppCompatActivity {
                                     Intent intent = new Intent(LoginStaffActivity.this, HomeAdminActivity.class);
                                     startActivity(intent);
                                 }
+                                Log.e("DEBUG", "Staff level:" + level);
                             }
 
                         } else {

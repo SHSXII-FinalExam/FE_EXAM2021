@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="156dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:backgroundTint="@null"
+        app:rippleColor="@android:color/transparent">
+
+        <com.github.captain_miao.optroundcardview.OptRoundCardView
+            android:id="@+id/optRoundCardView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_belum"
+                android:elevation="2dp"
+                android:fontFamily="@font/inter_medium"
+                android:gravity="center"
+                android:text="Dummy"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                android:translationZ="2dp" />
+        </com.github.captain_miao.optroundcardview.OptRoundCardView>
+
+        <TextView
+            android:id="@+id/bulan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="Bulan"
+            android:textColor="@color/grey700"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/optRoundCardView" />
+
+        <TextView
+            android:id="@+id/nominal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_bold"
+            android:text="Nominal"
+            android:textColor="@color/red500"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/bulan"
+            app:layout_constraintTop_toBottomOf="@+id/bulan" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

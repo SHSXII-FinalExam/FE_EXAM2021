@@ -1,7 +1,7 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,10 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -40,6 +39,7 @@ import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class DataSPPFragment extends Fragment {
     private ApiEndPoints api;
+    private TextView title_count;
     private DataSPPAdapter adapter;
     private RecyclerView recyclerView;
     private LottieAnimationView emptyTransaksi;
@@ -53,6 +53,7 @@ public class DataSPPFragment extends Fragment {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.pa_fragment_data_spp, container, false);
 
+        title_count = view.findViewById(R.id.title_count);
         emptyTransaksi = view.findViewById(R.id.emptyTransaksi);
 
         adapter = new DataSPPAdapter(getActivity(), spp);
@@ -83,7 +84,7 @@ public class DataSPPFragment extends Fragment {
                             loadDataSPP();
 
                         } else {
-                            Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -93,7 +94,7 @@ public class DataSPPFragment extends Fragment {
                         emptyTransaksi.setAnimation(R.raw.nointernet);
                         emptyTransaksi.playAnimation();
                         emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
-                        Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
                         Log.e("DEBUG", "Error: ", t);
                     }
                 });
@@ -111,7 +112,7 @@ public class DataSPPFragment extends Fragment {
             }
         });
 
-        ((HomeAdminActivity) getActivity()).setSPPRefreshListener(new HomeAdminActivity.FragmentRefreshListener() {
+        ((HomeAdminActivity) requireActivity()).setSPPRefreshListener(new HomeAdminActivity.FragmentRefreshListener() {
             @Override
             public void onRefresh() {
                 loadDataSPP();
@@ -123,66 +124,8 @@ public class DataSPPFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Utils.preventTwoClick(v);
-                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity(), R.style.AlertDialogTheme);
-                View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_spp, v.findViewById(R.id.layoutDialogContainer));
-                builder.setView(view);
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-
-                EditText angkatan = view.findViewById(R.id.angkatan_spp);
-                EditText tahun = view.findViewById(R.id.tahun_spp);
-                EditText nominal = view.findViewById(R.id.nominal_spp);
-
-                view.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (angkatan.getText().toString().trim().length() > 0 && tahun.getText().toString().trim().length() > 0 && nominal.getText().toString().trim().length() > 0) {
-                            Call<SPPRepository> call = api.createSPP(angkatan.getText().toString(), tahun.getText().toString(), nominal.getText().toString());
-                            call.enqueue(new Callback<SPPRepository>() {
-                                @Override
-                                public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
-                                    String value = response.body().getValue();
-                                    String message = response.body().getMessage();
-
-                                    if (value.equals("1")) {
-                                        alertDialog.dismiss();
-                                        recyclerView.setVisibility(View.VISIBLE);
-                                        emptyTransaksi.pauseAnimation();
-                                        emptyTransaksi.setVisibility(LottieAnimationView.GONE);
-                                        loadDataSPP();
-
-                                    } else {
-                                        alertDialog.dismiss();
-                                        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<SPPRepository> call, Throwable t) {
-                                    alertDialog.dismiss();
-                                    recyclerView.setVisibility(View.GONE);
-                                    emptyTransaksi.playAnimation();
-                                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
-                                    Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
-                                    Log.e("DEBUG", "Error: ", t);
-                                }
-                            });
-
-                        } else {
-                            Toast.makeText(requireActivity(), "Data belum lengkap, silahkan coba lagi", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-                view.findViewById(R.id.buttonBatal).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialog.dismiss();
-                    }
-                });
-                if (alertDialog.getWindow() != null) {
-                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-                }
+                Intent intent = new Intent(requireActivity(), TambahSPPActivity.class);
+                startActivity(intent);
             }
         });
         return view;
@@ -191,7 +134,7 @@ public class DataSPPFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadDataSPP();
+        cekBundle();
     }
 
     private void runLayoutAnimation(final RecyclerView recyclerView) {
@@ -202,16 +145,60 @@ public class DataSPPFragment extends Fragment {
         recyclerView.scheduleLayoutAnimation();
     }
 
+    private void cekBundle() {
+        if (this.getArguments() != null) {
+            String searchData = this.getArguments().getString("searchData");
+            Call<SPPRepository> call = api.searchSPP(searchData);
+            call.enqueue(new Callback<SPPRepository>() {
+                @Override
+                public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
+                    String value = response.body().getValue();
+                    List<SPP> spp = response.body().getResult();
+
+                    if (value.equals("1")) {
+                        title_count.setText("(" + spp.size() + ")");
+                        recyclerView.setVisibility(View.VISIBLE);
+                        emptyTransaksi.pauseAnimation();
+                        emptyTransaksi.setVisibility(LottieAnimationView.GONE);
+
+                        adapter = new DataSPPAdapter(getActivity(), spp);
+                        recyclerView.setAdapter(adapter);
+                        runLayoutAnimation(recyclerView);
+
+                    } else {
+                        recyclerView.setVisibility(View.GONE);
+                        emptyTransaksi.setAnimation(R.raw.nodata);
+                        emptyTransaksi.playAnimation();
+                        emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<SPPRepository> call, Throwable t) {
+                    recyclerView.setVisibility(View.GONE);
+                    emptyTransaksi.setAnimation(R.raw.nointernet);
+                    emptyTransaksi.playAnimation();
+                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                    Toast.makeText(getContext(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
+                    Log.e("DEBUG", "Error: ", t);
+                }
+            });
+
+        } else {
+            loadDataSPP();
+        }
+    }
+
     public void loadDataSPP() {
-        Call<SPPRepository> call = api.viewDataSPP();
+        Call<SPPRepository> call = api.readSPP();
         call.enqueue(new Callback<SPPRepository>() {
             @Override
             public void onResponse(Call<SPPRepository> call, Response<SPPRepository> response) {
                 String value = response.body().getValue();
-                String message = response.body().getMessage();
                 List<SPP> spp = response.body().getResult();
 
                 if (value.equals("1")) {
+                    title_count.setText("(" + spp.size() + ")");
                     recyclerView.setVisibility(View.VISIBLE);
                     emptyTransaksi.pauseAnimation();
                     emptyTransaksi.setVisibility(LottieAnimationView.GONE);
@@ -225,7 +212,6 @@ public class DataSPPFragment extends Fragment {
                     emptyTransaksi.setAnimation(R.raw.nodata);
                     emptyTransaksi.playAnimation();
                     emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
-                    Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -235,7 +221,7 @@ public class DataSPPFragment extends Fragment {
                 emptyTransaksi.setAnimation(R.raw.nointernet);
                 emptyTransaksi.playAnimation();
                 emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
-                Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
                 Log.e("DEBUG", "Error: ", t);
             }
         });

@@ -18,12 +18,13 @@
 
     <TextView
         android:id="@+id/title"
-        android:fontFamily="@font/avenir_medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:fontFamily="@font/inter_medium"
         android:text="Dummy"
+        android:textColor="@color/colorWhite"
         android:textSize="16sp" />
 
 </LinearLayout>

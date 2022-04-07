@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_layoutblack">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLanjut"
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:backgroundTint="@color/red500"
+        android:fontFamily="@font/inter_bold"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="Lanjut"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="14sp"
+        app:cornerRadius="24dp"
+        app:icon="@drawable/ic_arrow_right"
+        app:iconGravity="end"
+        app:layout_constraintBottom_toBottomOf="@+id/btnStaff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnStaff" />
+
+    <TextView
+        android:id="@+id/tvLewati"
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:fontFamily="@font/inter_bold"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="Lewati"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSiswa"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnSiswa" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnStaff"
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:backgroundTint="@color/grey100"
+        android:fontFamily="@font/inter_bold"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="Staff"
+        android:textAllCaps="false"
+        android:textColor="@color/grey900"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:cornerRadius="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSiswa"
+        app:layout_constraintEnd_toStartOf="@+id/btnSiswa"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnSiswa" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSiswa"
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/red500"
+        android:fontFamily="@font/inter_bold"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="Siswa"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:cornerRadius="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnStaff" />
+
+    <LinearLayout
+        android:id="@+id/layoutOnboardingIndicators"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSiswa"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,15 +17,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.view.ViewCompat;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
-import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
-import com.github.captain_miao.optroundcardview.OptRoundCardView;
+import com.example.modul_spp_ukk2021.UI.UI.Splash.OnboardingActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -38,7 +35,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class LoginSiswaActivity extends AppCompatActivity {
-    private OptRoundCardView card;
     private SharedPreferences sharedprefs;
     private EditText editNISN, editPassword;
     private LottieAnimationView loadingProgress;
@@ -50,7 +46,6 @@ public class LoginSiswaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_siswa);
         sharedprefs = getSharedPreferences("myprefs", Context.MODE_PRIVATE);
 
-        card = findViewById(R.id.card);
         editNISN = findViewById(R.id.nisn);
         editPassword = findViewById(R.id.password);
         MaterialButton masuk = findViewById(R.id.masuk);
@@ -65,9 +60,10 @@ public class LoginSiswaActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginSiswaActivity.this, card, ViewCompat.getTransitionName(card));
-        Intent intent = new Intent(LoginSiswaActivity.this, LoginChoiceActivity.class);
-        startActivity(intent, options.toBundle());
+        Intent intent = new Intent(LoginSiswaActivity.this, OnboardingActivity.class);
+        intent.putExtra("skipBoarding", "skipBoarding");
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     @Override
@@ -89,7 +85,7 @@ public class LoginSiswaActivity extends AppCompatActivity {
 
     private void validateForm(String nisn, String password) {
         if (nisn.length() < 10) {
-            textInputLayout2.setErrorEnabled(true);
+            textInputLayout.setErrorEnabled(true);
             textInputLayout.setError("NISN kurang/salah");
             editNISN.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -126,7 +122,7 @@ public class LoginSiswaActivity extends AppCompatActivity {
 
         } else {
             loginSiswa(nisn, password);
-            textInputLayout2.setErrorEnabled(false);
+
             loadingProgress.playAnimation();
             loadingProgress.setVisibility(LottieAnimationView.VISIBLE);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -153,10 +149,10 @@ public class LoginSiswaActivity extends AppCompatActivity {
                         if (value.equals("1")) {
                             sharedprefs.edit().putString("nisnSiswa", nisn).apply();
                             sharedprefs.edit().putString("passwordSiswa", password).apply();
-                            Log.e("DEBUG", "NISN:" + nisn);
 
                             Intent intent = new Intent(LoginSiswaActivity.this, HomeSiswaActivity.class);
                             startActivity(intent);
+                            Log.e("NISN:", nisn);
 
                         } else {
                             loadingProgress.pauseAnimation();

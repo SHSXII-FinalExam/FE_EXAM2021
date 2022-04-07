@@ -4,16 +4,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +45,7 @@ import com.example.modul_spp_ukk2021.UI.Data.Helper.SimpleItem;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.SpaceItem;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
-import com.example.modul_spp_ukk2021.UI.UI.Splash.LoginChoiceActivity;
+import com.example.modul_spp_ukk2021.UI.UI.Splash.OnboardingActivity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
@@ -58,7 +66,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     private static final int POS_PETUGAS = 2;
     private static final int POS_LOGOUT = 4;
 
-    private Toolbar toolbar;
+    private EditText etSearch;
     private String[] screenTitles;
     private Drawable[] screenIcons;
     private SlidingRootNav slidingRootNav;
@@ -70,18 +78,6 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
 
     public interface FragmentRefreshListener {
         void onRefresh();
-    }
-
-    public FragmentRefreshListener getSPPRefreshListener() {
-        return sppRefreshListener;
-    }
-
-    public FragmentRefreshListener getKelasRefreshListener() {
-        return kelasRefreshListener;
-    }
-
-    public FragmentRefreshListener getPetugasRefreshListener() {
-        return petugasRefreshListener;
     }
 
     public void setPetugasRefreshListener(FragmentRefreshListener fragmentRefreshListener) {
@@ -96,6 +92,18 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
         this.kelasRefreshListener = fragmentRefreshListener;
     }
 
+    public FragmentRefreshListener getSPPRefreshListener() {
+        return sppRefreshListener;
+    }
+
+    public FragmentRefreshListener getKelasRefreshListener() {
+        return kelasRefreshListener;
+    }
+
+    public FragmentRefreshListener getPetugasRefreshListener() {
+        return petugasRefreshListener;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,11 +113,57 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
         username = sharedprefs.getString("usernameStaff", null);
         password = sharedprefs.getString("passwordStaff", null);
 
+        etSearch = findViewById(R.id.etSearch);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 Refreshing();
+            }
+        });
+
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() >= 1) {
+
+                    Bundle b = new Bundle();
+                    if (getKelasRefreshListener() != null) {
+                        Fragment selectedScreen = new DataKelasFragment();
+
+                        b.putString("searchData", s.toString().trim());
+                        selectedScreen.setArguments(b);
+                        showFragment(selectedScreen);
+                    }
+
+                    if (getSPPRefreshListener() != null) {
+                        Fragment selectedScreen = new DataSPPFragment();
+
+                        b.putString("searchData", s.toString().trim());
+                        selectedScreen.setArguments(b);
+                        showFragment(selectedScreen);
+                    }
+
+                    if (getPetugasRefreshListener() != null) {
+                        Fragment selectedScreen = new DataPetugasFragment();
+
+                        b.putString("searchData", s.toString().trim());
+                        selectedScreen.setArguments(b);
+                        showFragment(selectedScreen);
+                    }
+
+                } else {
+                    Refreshing();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
             }
         });
 
@@ -144,6 +198,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     }
 
     public void Refreshing() {
+        etSearch.getText().clear();
         swipeRefreshLayout.setRefreshing(true);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         if (getKelasRefreshListener() != null) {
@@ -168,7 +223,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     }
 
     public void SideNavSetup() {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
@@ -203,23 +258,45 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     @Override
     public void onItemSelected(int position) {
         if (position == POS_KELAS) {
+            etSearch.getText().clear();
+            etSearch.setHint("Cari Nama Kelas");
+            etSearch.setInputType(InputType.TYPE_CLASS_TEXT);
+            setEditTextMaxLength(etSearch, 10);
+
             Fragment selectedScreen = new DataKelasFragment();
             showFragment(selectedScreen);
-            toolbar.setTitle("Data Kelas");
             slidingRootNav.closeMenu();
+            setSPPRefreshListener(null);
+            setPetugasRefreshListener(null);
+
         } else if (position == POS_SPP) {
+            etSearch.getText().clear();
+            etSearch.setHint("Cari Tahun SPP");
+            etSearch.setInputType(InputType.TYPE_CLASS_NUMBER);
+            setEditTextMaxLength(etSearch, 4);
+
             Fragment selectedScreen = new DataSPPFragment();
             showFragment(selectedScreen);
-            toolbar.setTitle("Data SPP");
             slidingRootNav.closeMenu();
+            setKelasRefreshListener(null);
+            setPetugasRefreshListener(null);
+
         } else if (position == POS_PETUGAS) {
+            etSearch.getText().clear();
+            etSearch.setHint("Cari Nama Petugas");
+            etSearch.setInputType(InputType.TYPE_CLASS_TEXT);
+            setEditTextMaxLength(etSearch, 35);
+
             Fragment selectedScreen = new DataPetugasFragment();
             showFragment(selectedScreen);
-            toolbar.setTitle("Data Petugas");
             slidingRootNav.closeMenu();
+            setSPPRefreshListener(null);
+            setKelasRefreshListener(null);
+
         } else if (position == POS_LOGOUT) {
             sharedprefs.edit().clear().apply();
-            Intent intent = new Intent(HomeAdminActivity.this, LoginChoiceActivity.class);
+            Intent intent = new Intent(HomeAdminActivity.this, OnboardingActivity.class);
+            intent.putExtra("skipBoarding", "skipBoarding");
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
@@ -239,6 +316,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
             View view = LayoutInflater.from(this).inflate(R.layout.dialog_profile, findViewById(R.id.layoutDialogContainer));
             builder.setView(view);
             AlertDialog alertDialog = builder.create();
+            alertDialog.show();
 
             ((TextView) view.findViewById(R.id.tvFillNama2)).setText(nama_petugas);
             ((TextView) view.findViewById(R.id.tvLevel)).setText("Staff level : " + rank);
@@ -256,12 +334,34 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
             if (alertDialog.getWindow() != null) {
                 alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
             }
-            alertDialog.show();
 
         } else if (id == R.id.action_refresh) {
             Refreshing();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
+    }
+
+    public void setEditTextMaxLength(EditText editText, int length) {
+        InputFilter[] FilterArray = new InputFilter[1];
+        FilterArray[0] = new InputFilter.LengthFilter(length);
+        editText.setFilters(FilterArray);
     }
 
     private void showFragment(Fragment fragment) {
@@ -277,7 +377,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
                 .build();
         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
 
-        Call<PetugasRepository> call = api.viewDataPetugas(username);
+        Call<PetugasRepository> call = api.readProfilPetugas(username);
         call.enqueue(new Callback<PetugasRepository>() {
             @Override
             public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
@@ -301,10 +401,10 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     @SuppressWarnings("rawtypes")
     private DrawerItem createItemFor(int position) {
         return new SimpleItem(screenIcons[position], screenTitles[position])
-                .withIconTint(color(android.R.color.darker_gray))
-                .withTextTint(color(android.R.color.darker_gray))
-                .withSelectedIconTint(color(R.color.colorPrimary))
-                .withSelectedTextTint(color(R.color.colorPrimary));
+                .withIconTint(color(R.color.grey300))
+                .withTextTint(color(R.color.grey300))
+                .withSelectedIconTint(color(R.color.red500))
+                .withSelectedTextTint(color(R.color.red500));
     }
 
     private String[] loadScreenTitles() {

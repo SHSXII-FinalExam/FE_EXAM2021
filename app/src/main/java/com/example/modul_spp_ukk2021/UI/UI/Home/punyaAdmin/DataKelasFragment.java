@@ -1,23 +1,17 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.PopupMenu;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -45,9 +39,9 @@ import static com.example.modul_spp_ukk2021.UI.DB.baseURL.url;
 
 public class DataKelasFragment extends Fragment {
     private ApiEndPoints api;
+    private TextView title_count;
     private DataKelasAdapter adapter;
     private RecyclerView recyclerView;
-    private String nama_kelas, jurusan_kelas;
     private LottieAnimationView emptyTransaksi;
     private final List<Kelas> kelas = new ArrayList<>();
 
@@ -59,6 +53,7 @@ public class DataKelasFragment extends Fragment {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.pa_fragment_data_kelas, container, false);
 
+        title_count = view.findViewById(R.id.title_count);
         emptyTransaksi = view.findViewById(R.id.emptyTransaksi);
 
         adapter = new DataKelasAdapter(getActivity(), kelas);
@@ -89,7 +84,7 @@ public class DataKelasFragment extends Fragment {
                             loadDataKelas();
 
                         } else {
-                            Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -99,7 +94,7 @@ public class DataKelasFragment extends Fragment {
                         emptyTransaksi.setAnimation(R.raw.nointernet);
                         emptyTransaksi.playAnimation();
                         emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
-                        Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
                         Log.e("DEBUG", "Error: ", t);
                     }
                 });
@@ -129,113 +124,18 @@ public class DataKelasFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Utils.preventTwoClick(v);
-                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity(), R.style.AlertDialogTheme);
-                View view = LayoutInflater.from(getContext()).inflate(R.layout.pa_dialog_tambah_kelas, v.findViewById(R.id.layoutDialogContainer));
-                builder.setView(view);
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-
-                Button nama = view.findViewById(R.id.nama_kelas);
-                EditText angkatan = view.findViewById(R.id.angkatan_kelas);
-                RadioGroup jurusan = view.findViewById(R.id.jurusan_kelas);
-                EditText namanomor = view.findViewById(R.id.namanomor_kelas);
-                TextView namajurusan = view.findViewById(R.id.namajurusan_kelas);
-
-                jurusan.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup radioGroup, int id) {
-                        switch (id) {
-                            case R.id.RPL:
-                                jurusan_kelas = "RPL";
-                                namajurusan.setText(jurusan_kelas);
-                                break;
-                            case R.id.TKJ:
-                                jurusan_kelas = "TKJ";
-                                namajurusan.setText(jurusan_kelas);
-                                break;
-                            default:
-                                jurusan_kelas = null;
-                        }
-                    }
-                });
-
-                nama.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        PopupMenu dropDownMenu = new PopupMenu(getContext(), nama);
-                        dropDownMenu.getMenuInflater().inflate(R.menu.dropdown_kelas, dropDownMenu.getMenu());
-                        dropDownMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                            @Override
-                            public boolean onMenuItemClick(MenuItem menuItem) {
-                                nama.setText(menuItem.getTitle().toString());
-                                nama_kelas = menuItem.getTitle().toString();
-                                return true;
-                            }
-                        });
-                        dropDownMenu.show();
-                    }
-                });
-
-                view.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (nama_kelas != null && jurusan_kelas != null && angkatan.getText().toString().trim().length() > 0) {
-                            Call<KelasRepository> call = api.createKelas(angkatan.getText().toString(), nama_kelas + " " + jurusan_kelas + " " + namanomor.getText().toString(), jurusan_kelas.trim());
-                            call.enqueue(new Callback<KelasRepository>() {
-                                @Override
-                                public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
-                                    String value = response.body().getValue();
-                                    String message = response.body().getMessage();
-
-                                    if (value.equals("1")) {
-                                        alertDialog.dismiss();
-                                        recyclerView.setVisibility(View.VISIBLE);
-                                        emptyTransaksi.pauseAnimation();
-                                        emptyTransaksi.setVisibility(LottieAnimationView.GONE);
-                                        loadDataKelas();
-
-                                    } else {
-                                        alertDialog.dismiss();
-                                        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<KelasRepository> call, Throwable t) {
-                                    alertDialog.dismiss();
-                                    recyclerView.setVisibility(View.GONE);
-                                    emptyTransaksi.setAnimation(R.raw.nointernet);
-                                    emptyTransaksi.playAnimation();
-                                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
-                                    Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
-                                    Log.e("DEBUG", "Error: ", t);
-                                }
-                            });
-
-                        } else {
-                            Toast.makeText(requireActivity(), "Data belum lengkap, silahkan coba lagi", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-                view.findViewById(R.id.buttonBatal).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialog.dismiss();
-                    }
-                });
-                if (alertDialog.getWindow() != null) {
-                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-                }
+                Intent intent = new Intent(requireActivity(), TambahKelasActivity.class);
+                startActivity(intent);
             }
         });
+
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        loadDataKelas();
+        cekBundle();
     }
 
     private void runLayoutAnimation(final RecyclerView recyclerView) {
@@ -246,16 +146,60 @@ public class DataKelasFragment extends Fragment {
         recyclerView.scheduleLayoutAnimation();
     }
 
+    private void cekBundle() {
+        if (this.getArguments() != null) {
+            String searchData = this.getArguments().getString("searchData");
+            Call<KelasRepository> call = api.searchKelas(searchData);
+            call.enqueue(new Callback<KelasRepository>() {
+                @Override
+                public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
+                    String value = response.body().getValue();
+                    List<Kelas> kelas = response.body().getResult();
+
+                    if (value.equals("1")) {
+                        title_count.setText("(" + kelas.size() + ")");
+                        recyclerView.setVisibility(View.VISIBLE);
+                        emptyTransaksi.pauseAnimation();
+                        emptyTransaksi.setVisibility(LottieAnimationView.GONE);
+
+                        adapter = new DataKelasAdapter(getActivity(), kelas);
+                        recyclerView.setAdapter(adapter);
+                        runLayoutAnimation(recyclerView);
+
+                    } else {
+                        recyclerView.setVisibility(View.GONE);
+                        emptyTransaksi.setAnimation(R.raw.nodata);
+                        emptyTransaksi.playAnimation();
+                        emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<KelasRepository> call, Throwable t) {
+                    recyclerView.setVisibility(View.GONE);
+                    emptyTransaksi.setAnimation(R.raw.nointernet);
+                    emptyTransaksi.playAnimation();
+                    emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                    Toast.makeText(getContext(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
+                    Log.e("DEBUG", "Error: ", t);
+                }
+            });
+
+        } else {
+            loadDataKelas();
+        }
+    }
+
     public void loadDataKelas() {
-        Call<KelasRepository> call = api.viewDataKelas();
+        Call<KelasRepository> call = api.readKelas();
         call.enqueue(new Callback<KelasRepository>() {
             @Override
             public void onResponse(Call<KelasRepository> call, Response<KelasRepository> response) {
                 String value = response.body().getValue();
-                String message = response.body().getMessage();
                 List<Kelas> kelas = response.body().getResult();
 
                 if (value.equals("1")) {
+                    title_count.setText("(" + kelas.size() + ")");
                     recyclerView.setVisibility(View.VISIBLE);
                     emptyTransaksi.pauseAnimation();
                     emptyTransaksi.setVisibility(LottieAnimationView.GONE);
@@ -269,7 +213,6 @@ public class DataKelasFragment extends Fragment {
                     emptyTransaksi.setAnimation(R.raw.nodata);
                     emptyTransaksi.playAnimation();
                     emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
-                    Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -279,7 +222,7 @@ public class DataKelasFragment extends Fragment {
                 emptyTransaksi.setAnimation(R.raw.nointernet);
                 emptyTransaksi.playAnimation();
                 emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
-                Toast.makeText(requireActivity(), "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
                 Log.e("DEBUG", "Error: ", t);
             }
         });
