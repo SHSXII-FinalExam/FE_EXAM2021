@@ -27,8 +27,6 @@
 
         <!--Activity Petugas-->
         <activity android:name=".UI.Home.punyaPetugas.LoginPetugasActivity" />
-        <activity android:name=".UI.Home.punyaPetugas.BottomNavigationPetugas" />
-        <activity android:name=".UI.Home.punyaPetugas.KonfirmasiPetugasActivity" />
 
         <!--Activity Admin-->
         <activity android:name=".UI.Home.punyaAdmin.HomeAdminFragment" />
