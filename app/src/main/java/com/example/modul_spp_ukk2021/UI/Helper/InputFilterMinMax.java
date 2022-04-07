@@ -1,80 +1,39 @@
-package com.example.modul_spp_ukk2021.UI.Data.Helper;
+package com.example.modul_spp_ukk2021.UI.Helper;
 
-import android.graphics.drawable.Drawable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.text.InputFilter;
+import android.text.Spanned;
 
-import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Helper.DrawerAdapter;
-import com.example.modul_spp_ukk2021.UI.Helper.DrawerItem;
+public class InputFilterMinMax implements InputFilter {
 
-/**
- * Created by yarolegovich on 25.03.2017.
- */
-class SimpleItem extends DrawerItem<SimpleItem.ViewHolder> {
+    private int min, max; //paramets that you send to class
 
-    private int selectedItemIconTint;
-    private int selectedItemTextTint;
+    public InputFilterMinMax(int min, int max) {
+        this.min = min;
+        this.max = max;
+    }
 
-    private int normalItemIconTint;
-    private int normalItemTextTint;
-
-    private Drawable icon;
-    private String title;
-
-    public SimpleItem(Drawable icon, String title) {
-        this.icon = icon;
-        this.title = title;
+    public InputFilterMinMax(String min, String max) {
+        this.min = Integer.parseInt(min);
+        this.max = Integer.parseInt(max);
     }
 
     @Override
-    public ViewHolder createViewHolder(ViewGroup parent) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v = inflater.inflate(R.layout.container_sidenav, parent, false);
-        return new ViewHolder(v);
-    }
-
-    @Override
-    public void bindViewHolder(ViewHolder holder) {
-        holder.title.setText(title);
-        holder.icon.setImageDrawable(icon);
-
-        holder.title.setTextColor(isChecked ? selectedItemTextTint : normalItemTextTint);
-        holder.icon.setColorFilter(isChecked ? selectedItemIconTint : normalItemIconTint);
-    }
-
-    public SimpleItem withSelectedIconTint(int selectedItemIconTint) {
-        this.selectedItemIconTint = selectedItemIconTint;
-        return this;
-    }
-
-    public SimpleItem withSelectedTextTint(int selectedItemTextTint) {
-        this.selectedItemTextTint = selectedItemTextTint;
-        return this;
-    }
-
-    public SimpleItem withIconTint(int normalItemIconTint) {
-        this.normalItemIconTint = normalItemIconTint;
-        return this;
-    }
-
-    public SimpleItem withTextTint(int normalItemTextTint) {
-        this.normalItemTextTint = normalItemTextTint;
-        return this;
-    }
-
-    static class ViewHolder extends DrawerAdapter.ViewHolder {
-
-        private ImageView icon;
-        private TextView title;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            icon = (ImageView) itemView.findViewById(R.id.icon);
-            title = (TextView) itemView.findViewById(R.id.title);
+    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+        try {
+            //int input = Integer.parseInt(dest.toString() + source.toString());
+            String startString = dest.toString().substring(0, dstart);
+            String insert = source.toString();
+            String endString = dest.toString().substring(dend);
+            String parseThis = startString + insert + endString;
+            int input = Integer.parseInt(parseThis);
+            if (isInRange(min, max, input))
+                return null;
+        } catch (NumberFormatException nfe) {
         }
+        return "";
+    }
+
+    private boolean isInRange(int a, int b, int c) {
+        return b > a ? c >= a && c <= b : c >= b && c <= a;
     }
 }
