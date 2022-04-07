@@ -21,4 +21,9 @@ public class LoginStaff {
     public String getLevel() {
         return level;
     }
+
+    public CharSequence getId_petugas() {
+
+        return null;
+    }
 }
