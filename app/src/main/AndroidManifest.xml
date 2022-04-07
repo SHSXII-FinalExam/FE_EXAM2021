@@ -26,11 +26,8 @@
         <activity android:name=".UI.Home.punyaSiswa.HomeSiswaActivity" />
 
         <!--Activity Petugas-->
-        <activity android:name=".UI.Home.punyaPetugas.LoginPetugasActivity" />
 
         <!--Activity Admin-->
-        <activity android:name=".UI.Home.punyaAdmin.HomeAdminFragment" />
-        <activity android:name=".UI.Home.punyaAdmin.LoginAdminActivity" />
         <activity android:name=".UI.Home.punyaAdmin.DataPetugasActivity" />
         <activity android:name=".UI.Home.punyaAdmin.DataKelasActivity" />
         <activity android:name=".UI.Home.punyaAdmin.DataSPPActivity" />

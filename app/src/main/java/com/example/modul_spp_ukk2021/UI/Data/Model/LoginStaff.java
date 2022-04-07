@@ -1,6 +1,6 @@
 package com.example.modul_spp_ukk2021.UI.Data.Model;
 
-public class LoginStaf {
+public class LoginStaff {
     String username;
     String nama_petugas;
     String password;
