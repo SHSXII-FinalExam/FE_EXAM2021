@@ -66,7 +66,7 @@
         app:rippleColor="#FF6565" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_petugas"
+        android:id="@+id/btn_staff"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -94,7 +94,7 @@
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="@+id/btn_siswa"
         app:layout_constraintStart_toStartOf="@+id/btn_siswa"
-        app:layout_constraintTop_toBottomOf="@+id/btn_petugas"
+        app:layout_constraintTop_toBottomOf="@+id/btn_staff"
         app:rippleColor="#FF6565" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
