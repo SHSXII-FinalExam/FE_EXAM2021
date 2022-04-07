@@ -5,6 +5,7 @@ public class LoginStaff {
     String nama_petugas;
     String password;
     String level;
+    private String id_petugas;
 
     public String getusename() {
         return username;
@@ -22,8 +23,7 @@ public class LoginStaff {
         return level;
     }
 
-    public CharSequence getId_petugas() {
-
-        return null;
+    public String getId_petugas() {
+        return id_petugas;
     }
 }
