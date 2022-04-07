@@ -88,4 +88,5 @@ public interface ApiEndPoints {
 
     Call<PetugasRepository> viewPetugas(String username);
 
+    Call<PembayaranRepository> viewPembayaran(String nisnSiswa);
 }
