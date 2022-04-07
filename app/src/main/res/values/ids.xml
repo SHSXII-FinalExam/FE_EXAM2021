@@ -35,5 +35,4 @@
     <item name="tvFillAlamat" type="id" />
     <item name="tvNIS" type="id" />
     <item name="tvFillNama" type="id" />
-    <item name="recyclerTagihan" type="id">recyclerTagihan</item>
 </resources>

@@ -61,3 +61,9 @@ public class TagihanSiswaAdapter extends RecyclerView.Adapter<TagihanSiswaAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvBulan, tvNominal, tvStatus;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+    }
+}
