@@ -58,7 +58,7 @@ public class HomePetugasActivity extends AppCompatActivity {
 
         logout.setOnClickListener(v -> {
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(HomePetugasActivity.this, logout, ViewCompat.getTransitionName(logout));
-            Intent intent = new Intent(HomePetugasActivity.this, LoginPetugasActivity.class);
+            Intent intent = new Intent(HomePetugasActivity.this, LoginStaffActivity.class);
             startActivity(intent, options.toBundle());
         });
     }

@@ -12,13 +12,13 @@ import com.example.modul_spp_ukk2021.R;
 
 import java.util.List;
 
-public class HomeSiswaAdapter extends RecyclerView.Adapter<HomeSiswaAdapter.ViewHolder> {
+public class HistorySiswaAdapter extends RecyclerView.Adapter<HistorySiswaAdapter.ViewHolder> {
     private List<String> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    HomeSiswaAdapter(Context context, List<String> data) {
+    HistorySiswaAdapter(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }

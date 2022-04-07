@@ -1,12 +1,12 @@
 package com.example.modul_spp_ukk2021.UI.Network;
 
-
 import com.example.modul_spp_ukk2021.UI.Data.Repository.KelasRepository;
-import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
-import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStaffRepository;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.PembayaranRepository;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -16,80 +16,182 @@ import retrofit2.http.POST;
 
 public interface ApiEndPoints {
 
-    @GET("dbReadSiswa.php")
-    Call<SiswaRepository> viewSiswa();
-    @GET("dbReadPetugas.php")
-    Call<PetugasRepository> viewPetugas();
     @FormUrlEncoded
     @POST("dbLoginSiswa.php")
     Call<LoginSiswaRepository> loginSiswa(
             @Field("nisn") String nisn,
             @Field("password") String password);
+
     @FormUrlEncoded
     @POST("dbLoginStaffLevel.php")
-    Call<LoginStafRepository> loginStaf(
+    Call<LoginStaffRepository> loginStaff(
             @Field("username") String username,
             @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("dbReadSiswa.php")
+    Call<SiswaRepository> viewProfile(
+            @Field("nisn") String nisn);
+
+    // [PS] Punya Siswa
+    // Read
     @FormUrlEncoded
     @POST("dbReadTagihan.php")
-    retrofit2.Call<PembayaranRepository> viewTagihan(
+    Call<PembayaranRepository> viewTagihan(
             @Field("nisn") String nisn);
 
     @FormUrlEncoded
     @POST("dbReadHistory.php")
-    retrofit2.Call<PembayaranRepository> viewHistory(
+    Call<PembayaranRepository> viewHistory(
             @Field("nisn") String nisn);
+
+
+    // [PP] Punya Petugas
+    // Read
+    @GET("dbReadAllSiswa.php")
+    Call<SiswaRepository> viewDataSiswa();
+
+    @GET("dbReadPetugas.php")
+    Call<PetugasRepository> viewDataPetugas();
 
     @FormUrlEncoded
     @POST("dbReadPetugas.php")
-    Call<PetugasRepository> viewDataPetugas(
+    Call<PetugasRepository> viewPetugas(
             @Field("username") String username);
-    @GET("dbReadSiswa.php")
-    Call<SiswaRepository> viewDataSiswa();
 
-    Call<PetugasRepository> viewDataPetugas();
+    @FormUrlEncoded
+    @POST("dbReadPembayaran.php")
+    Call<PembayaranRepository> viewPembayaran(
+            @Field("nisn") String nisn);
 
-    Call<SiswaRepository> updateSiswa(String toString, String toString1, String id_kelas, Integer id_spp, String toString2, String toString3, String toString4, String id_petugas);
+    @FormUrlEncoded
+    @POST("dbSearchSiswa.php")
+    Call<SiswaRepository> searchDataSiswa(
+            @Field("search") String search);
 
-    Call<KelasRepository> updateKelas(String id_kelas, String s, String jurusan_kelas, String toString);
+    // Update
+    @FormUrlEncoded
+    @POST("dbUpdatePembayaran.php")
+    Call<PembayaranRepository> updatePembayaran(
+            @Field("id_pembayaran") String id_pembayaran,
+            @Field("jumlah_bayar") String jumlah_bayar,
+            @Field("id_petugas") String id_petugas);
 
-    Call<SPPRepository> viewDataSPPngkatan(String angkatan);
 
-    Call<KelasRepository> deleteKelas(String id_kelas);
+    // [PA] Punya Admin
+    // Create
+    @FormUrlEncoded
+    @POST("dbCreateSiswa.php")
+    Call<SiswaRepository> createSiswa(
+            @Field("nisn") String nisn,
+            @Field("nis") String nis,
+            @Field("nama") String nama,
+            @Field("id_kelas") String id_kelas,
+            @Field("id_spp") Integer id_spp,
+            @Field("alamat") String alamat,
+            @Field("no_telp") String no_telp,
+            @Field("password") String password,
+            @Field("id_petugas") String id_petugas);
 
-    Call<KelasRepository> createKelas(String toString, String s, String trim);
+    @FormUrlEncoded
+    @POST("dbCreateKelas.php")
+    Call<KelasRepository> createKelas(
+            @Field("angkatan") String angkatan,
+            @Field("nama_kelas") String nama_kelas,
+            @Field("jurusan") String jurusan);
 
+    @FormUrlEncoded
+    @POST("dbCreateSPP.php")
+    Call<SPPRepository> createSPP(
+            @Field("angkatan") String angkatan,
+            @Field("tahun") String tahun,
+            @Field("nominal") String nominal);
+
+    @FormUrlEncoded
+    @POST("dbCreatePetugas.php")
+    Call<PetugasRepository> createPetugas(
+            @Field("level") String level,
+            @Field("username") String username,
+            @Field("password") String password,
+            @Field("nama_petugas") String nama_petugas);
+
+    @FormUrlEncoded
+    @POST("dbReadSiswaKelas.php")
+    Call<SiswaRepository> viewDataSiswaKelas(
+            @Field("id_kelas") String id_kelas);
+
+    @FormUrlEncoded
+    @POST("dbReadSPPAngkatan.php")
+    Call<SPPRepository> viewDataSPPAngkatan(
+            @Field("angkatan") String angkatan);
+
+    // Read
+    @GET("dbReadKelas.php")
     Call<KelasRepository> viewDataKelas();
 
-    Call<SiswaRepository> viewDataSiswaKelas(String id_kelas);
-
-    Call<SiswaRepository> searchDataSiswa(String trim);
-
+    @GET("dbReadSPP.php")
     Call<SPPRepository> viewDataSPP();
 
-    Call<PetugasRepository> deletePetugas(String id_petugas);
+    @GET("dbReadAllPetugas.php")
+    Call<PetugasRepository> viewDataAllPetugas();
 
-    Call<PetugasRepository> createPetugas(String petugas, String toString, String toString1, String toString2);
+    // Update
+    @FormUrlEncoded
+    @POST("dbUpdateSiswa.php")
+    Call<SiswaRepository> updateSiswa(
+            @Field("nisn") String nisn,
+            @Field("nama") String nama,
+            @Field("id_kelas") String id_kelas,
+            @Field("id_spp") Integer id_spp,
+            @Field("alamat") String alamat,
+            @Field("no_telp") String no_telp,
+            @Field("password") String password,
+            @Field("id_petugas") String id_petugas);
 
-    Call<PetugasRepository> updatePetugas(String id_petugas, String petugas, String toString, String toString1, String toString2);
+    @FormUrlEncoded
+    @POST("dbUpdateKelas.php")
+    Call<KelasRepository> updateKelas(
+            @Field("id_kelas") String id_kelas,
+            @Field("nama_kelas") String nama_kelas,
+            @Field("jurusan") String jurusan,
+            @Field("angkatan") String angkatan);
 
-    Call<SPPRepository> viewDataSPPAngkatan(String angkatan);
+    @FormUrlEncoded
+    @POST("dbUpdateSPP.php")
+    Call<SPPRepository> updateSPP(
+            @Field("id_spp") Integer id_spp,
+            @Field("nominal") String nominal);
 
-    Call<SiswaRepository> createSiswa(String toString, String toString1, String toString2, String id_kelas, Integer id_spp, String toString3, String toString4, String toString5, String id_petugas);
+    @FormUrlEncoded
+    @POST("dbUpdatePetugas.php")
+    Call<PetugasRepository> updatePetugas(
+            @Field("id_petugas") String id_petugas,
+            @Field("level") String level,
+            @Field("username") String username,
+            @Field("password") String password,
+            @Field("nama_petugas") String nama_petugas);
 
-    Call<SiswaRepository> deleteSiswa(String nisn);
+    // Delete
+    @FormUrlEncoded
+    @POST("dbDeleteSiswa.php")
+    Call<SiswaRepository> deleteSiswa(
+            @Field("nisn") String nisn);
 
-    Call<SPPRepository> updateSPP(Integer id_spp, String toString);
+    @FormUrlEncoded
+    @POST("dbDeleteKelas.php")
+    Call<KelasRepository> deleteKelas(
+            @Field("id_kelas") String id_kelas);
 
-    Call<SPPRepository> createSPP(String toString, String toString1, String toString2);
+    @FormUrlEncoded
+    @POST("dbDeleteSPP.php")
+    Call<SPPRepository> deleteSPP(
+            @Field("id_spp") Integer id_spp);
 
-    Call<SPPRepository> deleteSPP(Integer id_spp);
+    @FormUrlEncoded
+    @POST("dbDeletePetugas.php")
+    Call<PetugasRepository> deletePetugas(
+            @Field("id_petugas") String id_petugas);
 
-    Call<PetugasRepository> viewPetugas(String username);
-
-    Call<PembayaranRepository> viewPembayaran(String nisnSiswa);
-
-    Call<PembayaranRepository> updatePembayaran(String id_pembayaran, String toString, String id_petugas);
-
+    Call<PetugasRepository> viewDataPetugas(String username);
 
 }

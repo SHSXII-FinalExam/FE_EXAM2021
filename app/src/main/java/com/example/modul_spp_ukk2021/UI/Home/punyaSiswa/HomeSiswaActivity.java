@@ -16,8 +16,8 @@ import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 
-public class HomeSiswaActivity extends AppCompatActivity implements HomeSiswaAdapter.ItemClickListener {
-    HomeSiswaAdapter adapter;
+public class HomeSiswaActivity extends AppCompatActivity implements HistorySiswaAdapter.ItemClickListener {
+    HistorySiswaAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class HomeSiswaActivity extends AppCompatActivity implements HomeSiswaAda
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.recyclerHomeSiswa);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new HomeSiswaAdapter(this, animalNames);
+        adapter = new HistorySiswaAdapter(this, animalNames);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
