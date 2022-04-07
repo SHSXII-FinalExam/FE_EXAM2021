@@ -31,7 +31,7 @@
         android:layout_marginTop="28dp"
         android:layout_marginEnd="18dp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Halo Alfian"
+        android:text="Halo Gregorius"
         android:textAlignment="viewEnd"
         android:textColor="@color/black"
         android:textSize="18sp"
