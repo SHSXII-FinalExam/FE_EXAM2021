@@ -3,99 +3,41 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/activity_bottom_navigation.xml" value="0.264" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/activity_form_siswa.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/activity_home_siswa.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/activity_login_choice.xml" value="0.2" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/activity_login_petugasadmin.xml" value="0.1" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/activity_login_staff.xml" value="0.2" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_data_kelas_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_data_petugas_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_fragment_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_fragment_data_siswa.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_tambah_spp.xml" value="0.12" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/container_data_siswa.xml" value="0.4" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/container_nama_tagihan.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/container_tahun.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/data_spp_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/fragment_home_admin.xml" value="0.23854166666666668" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/petugas_home_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/menu/bottom_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/home.xml" value="0.19635416666666666" />
         <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/arrow_left.xml" value="0.164" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/bg_profilepict.xml" value="0.1345" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/bg_ticket.xml" value="0.1345" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/button.xml" value="0.164" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/chevron_down.xml" value="0.164" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/container.xml" value="0.164" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/container2.xml" value="0.164" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/container3.xml" value="0.164" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/data_kelasimage.xml" value="0.1345" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/data_petugasimage.xml" value="0.1345" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/data_sppimage.xml" value="0.1345" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/ic_add.xml" value="0.1" />
+        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/arrow_left.xml" value="0.1" />
+        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/chevron_down.xml" value="0.1" />
+        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/container.xml" value="0.1" />
+        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/container2.xml" value="0.1" />
+        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/container3.xml" value="0.1" />
         <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/ic_arrow.xml" value="0.1" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/ic_balance.xml" value="0.1" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.1" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/ic_baseline_chat_24.xml" value="0.1" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/ic_baseline_history_24.xml" value="0.1" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/ic_feed.xml" value="0.1" />
         <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/ic_search.xml" value="0.164" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/logo.xml" value="0.1345" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/search.xml" value="0.1" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/shape.xml" value="0.1" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/shape2.xml" value="0.1" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/font/avenir_demi.xml" value="0.234375" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/font/avenir_medium.xml" value="0.234375" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/font/poppins_light.xml" value="0.1" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/font/poppins_semibold.xml" value="0.1712962962962963" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_bottom_navigation.xml" value="0.1" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_data_kelas.xml" value="0.15555555555555556" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_data_petugas.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_data_spp.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_generate_laporan.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_home_siswa.xml" value="0.22" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_konfirmasi_admin.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_konfirmasi_petugas.xml" value="0.25" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_kurang_bayar.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_login_choice.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_login_petugasadmin.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_login_siswa.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_login_staff.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_main.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_splash.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/admin_____________________________________________.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/admin_activity_data_siswa.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/admin_activity_data_spp.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/admin_container_data_siswa.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/admin_home_activity.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/admin_tambah_kelas.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/admin_tambah_petugas.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/admin_tambah_siswa.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/admin_tambah_spp.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/container_data_petugas.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/container_data_siswa.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/container_data_spp.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/container_data_tagihan.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/container_nama_tagihan.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/container_tahun.xml" value="0.18" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/fragment_chats.xml" value="0.2" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/fragment_data_siswa.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/fragment_home_admin.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/fragment_home_petugas.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/fragment_status.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/home_admin.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/input_data_admin.xml" value="0.14" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/pa_container_data_kelas.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/pa_dialog_tambah_kelas.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/pa_dialog_tambah_siswa.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/pa_dialog_view_kelas.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/pa_dialog_view_siswa.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/petugas_activity_data_pembayaran.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/petugas_activity_home.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/petugas_container_data_pembayaran.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/menu/bottom_menu.xml" value="0.19010416666666666" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/menu/bottom_navigation.xml" value="0.19010416666666666" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/menu/dropdown_kelas.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/menu/kelas_menu.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/menu/menu_customcard.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
-        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
+        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/ic_search.xml" value="0.1" />
+        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/input_data_.xml" value="0.1" />
+        <entry key="..\:/Users/HP/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/admin_container_data_kelas.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.403125" />
         <entry key="..\:/Users/user/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable/ic_round_arrow_back_ios_24.xml" value="0.403125" />
         <entry key="..\:/Users/user/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/activity_main.xml" value="0.5" />
       </map>
     </option>
-  </component>
-  <component name="EntryPointsManager">
-    <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="retrofit2.http.FormUrlEncoded" />
-      <item index="1" class="java.lang.String" itemvalue="retrofit2.http.GET" />
-    </list>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
