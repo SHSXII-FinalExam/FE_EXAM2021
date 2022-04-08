@@ -11,11 +11,15 @@
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/activity_login_siswa.xml" value="0.23854166666666668" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/activity_login_staff.xml" value="0.2" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/activity_splash.xml" value="0.2" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_activity_data_kelas.xml" value="0.25416666666666665" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_activity_data_siswa.xml" value="0.14010416666666667" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_activity_data_spp.xml" value="0.23125" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_container_data_siswa.xml" value="0.23125" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_data_kelas_activity.xml" value="0.25416666666666665" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_data_petugas_activity.xml" value="0.25416666666666665" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_fragment_activity.xml" value="0.25416666666666665" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_fragment_data_siswa.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_home_activity.xml" value="0.25416666666666665" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_tambah_siswa.xml" value="0.203125" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_tambah_spp.xml" value="0.12" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/container_data_siswa.xml" value="0.4" />
@@ -23,7 +27,10 @@
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/container_tahun.xml" value="0.25416666666666665" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/data_spp_activity.xml" value="0.25416666666666665" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/fragment_home_admin.xml" value="0.23854166666666668" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/petugas_activity_pembayaran.xml" value="0.23125" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/petugas_home_activity.xml" value="0.25416666666666665" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/petugas_home_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/siswa_home_activity.xml" value="0.20199275362318841" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/menu/bottom_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/DKID/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/layout/home.xml" value="0.19635416666666666" />
         <entry key="..\:/Users/user/Documents/GitHub/Modul-SPP_UKK2021/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.403125" />
