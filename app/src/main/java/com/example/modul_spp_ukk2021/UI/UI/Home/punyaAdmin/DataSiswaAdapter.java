@@ -81,7 +81,7 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
             Utils.preventTwoClick(v);
             PopupMenu popup = new PopupMenu(context, v, Gravity.END, R.attr.popupMenuStyle, 0);
             MenuInflater inflater = popup.getMenuInflater();
-            inflater.inflate(R.menu.menu_customcard, popup.getMenu());
+            inflater.inflate(R.menu.menu_container, popup.getMenu());
 
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
@@ -93,10 +93,10 @@ public class DataSiswaAdapter extends RecyclerView.Adapter<DataSiswaAdapter.View
                         intent.putExtra("nisn", siswa.getNisn());
                         intent.putExtra("nis", siswa.getNis());
                         intent.putExtra("nama", siswa.getNama());
-                        intent.putExtra("id_kelas", siswa.getId_kelas());
                         intent.putExtra("alamat", siswa.getAlamat());
                         intent.putExtra("ponsel", siswa.getNo_telp());
 
+                        intent.putExtra("id_kelas", siswa.getId_kelas());
                         intent.putExtra("angkatan", siswa.getAngkatan());
                         intent.putExtra("nama_kelas", siswa.getNama_kelas());
                         context.startActivity(intent);

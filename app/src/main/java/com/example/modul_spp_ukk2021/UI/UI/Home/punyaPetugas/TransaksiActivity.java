@@ -1,6 +1,5 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,7 +10,6 @@ import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.text.InputFilter;
@@ -35,6 +33,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -51,6 +50,7 @@ import com.example.modul_spp_ukk2021.UI.Data.Repository.TransaksiRepository;
 import com.github.captain_miao.optroundcardview.OptRoundCardView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -113,9 +113,7 @@ public class TransaksiActivity extends AppCompatActivity {
             }
         });
 
-        back.setOnClickListener(v -> {
-            onBackPressed();
-        });
+        back.setOnClickListener(v -> onBackPressed());
 
         refresh.setOnClickListener(v -> {
             Utils.preventTwoClick(v);
@@ -148,6 +146,10 @@ public class TransaksiActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        process.setAnimation(R.raw.loading);
+        process.playAnimation();
+        process.setVisibility(LottieAnimationView.VISIBLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         loadDataPembayaran();
     }
 
@@ -192,6 +194,10 @@ public class TransaksiActivity extends AppCompatActivity {
                     Toast.makeText(TransaksiActivity.this, message, Toast.LENGTH_SHORT).show();
                 }
 
+                process.pauseAnimation();
+                process.setVisibility(LottieAnimationView.GONE);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -207,14 +213,18 @@ public class TransaksiActivity extends AppCompatActivity {
             public void onFailure(Call<TransaksiRepository> call, Throwable t) {
                 recyclerView.setVisibility(View.GONE);
 
+                emptyTransaksi.setAnimation(R.raw.nointernet);
+                emptyTransaksi.playAnimation();
+                emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+
                 if (swipeRefreshLayout.isRefreshing()) {
                     swipeRefreshLayout.setRefreshing(false);
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
 
-                emptyTransaksi.setAnimation(R.raw.nointernet);
-                emptyTransaksi.playAnimation();
-                emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+                process.pauseAnimation();
+                process.setVisibility(LottieAnimationView.GONE);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 Toast.makeText(TransaksiActivity.this, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
                 Log.e("DEBUG", "Error: ", t);
             }
@@ -228,6 +238,7 @@ public class TransaksiActivity extends AppCompatActivity {
         final AlertDialog alertDialog = builder.create();
 
         TextView maxInput = view.findViewById(R.id.maxInput);
+        TextView tagihan = view.findViewById(R.id.tagihan);
         EditText jumlah_bayar = view.findViewById(R.id.jumlahBayar);
 
         Locale localeID = new Locale("in", "ID");
@@ -235,21 +246,19 @@ public class TransaksiActivity extends AppCompatActivity {
         format.setMaximumFractionDigits(0);
 
         if (kurang_bayar == 0) {
+            tagihan.setText("Tagihan    : " + format.format(nominal));
             maxInput.setText("Max Input: " + format.format(nominal));
             jumlah_bayar.setFilters(new InputFilter[]{new InputFilterMinMax("0", nominal.toString())});
         } else {
-            maxInput.setText("Max Input: " + format.format(kurang_bayar));
+            tagihan.setText("Tagihan : " + format.format(nominal));
+            maxInput.setText("Kurang  : " + format.format(kurang_bayar));
+            jumlah_bayar.setHint("Max input." + kurang_bayar);
             jumlah_bayar.setFilters(new InputFilter[]{new InputFilterMinMax("0", kurang_bayar.toString())});
         }
 
         view.findViewById(R.id.buttonKirim).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                alertDialog.dismiss();
-                process.setAnimation(R.raw.loading);
-                process.playAnimation();
-                process.setVisibility(LottieAnimationView.VISIBLE);
-
                 Call<TransaksiRepository> call = api.updateTransaksi(id_pembayaran, jumlah_bayar.getText().toString(), id_petugas);
                 call.enqueue(new Callback<TransaksiRepository>() {
                     @Override
@@ -258,6 +267,7 @@ public class TransaksiActivity extends AppCompatActivity {
                         String message = response.body().getMessage();
 
                         if (value.equals("1")) {
+                            alertDialog.dismiss();
                             process.setAnimation(R.raw.success);
                             process.playAnimation();
                             process.setVisibility(LottieAnimationView.VISIBLE);
@@ -358,6 +368,13 @@ public class TransaksiActivity extends AppCompatActivity {
             }
         });
 
+        view.findViewById(R.id.clear).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
         if (alertDialog.getWindow() != null) {
             alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         }
@@ -397,7 +414,7 @@ public class TransaksiActivity extends AppCompatActivity {
         this.id_pembayaran = id_pembayaran;
 
         ConstraintLayout layoutToPdf = view.findViewById(R.id.layoutDialog);
-        view.findViewById(R.id.buttonDownload).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.btnDownload).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss();
@@ -438,9 +455,16 @@ public class TransaksiActivity extends AppCompatActivity {
         document.finishPage(page);
 
         // write the document content
-        File file = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/" + id_pembayaran + ".pdf");
+        String filename = id_pembayaran + ".pdf";
+        String destination = getExternalFilesDir(null) + "/";
+        File dir = new File(destination);
+
         try {
+            File file = new File(destination, filename);
             document.writeTo(new FileOutputStream(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Log.v("PdfError", e.toString());
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, "Something wrong: " + e.toString(), Toast.LENGTH_LONG).show();
@@ -451,18 +475,22 @@ public class TransaksiActivity extends AppCompatActivity {
     }
 
     private void openPdf() {
-        File file = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/" + id_pembayaran + ".pdf");
-        if (file.exists()) {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            Uri uri = Uri.fromFile(file);
-            intent.setDataAndType(uri, "application/pdf");
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        String filename = id_pembayaran + ".pdf";
+        String destination = getExternalFilesDir(null) + "/";
+        File pdfFile = new File(destination + "/" + filename);
 
+        if (pdfFile.exists()) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            Uri mURI = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", pdfFile);
+            intent.setDataAndType(mURI, "application/pdf");
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_GRANT_READ_URI_PERMISSION);
             try {
                 startActivity(intent);
-            } catch (ActivityNotFoundException e) {
-                Toast.makeText(this, "Tidak ada aplikasi pembuka pdf...", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        } else {
+            Toast.makeText(this, "The file not exists! ", Toast.LENGTH_SHORT).show();
         }
     }
 }

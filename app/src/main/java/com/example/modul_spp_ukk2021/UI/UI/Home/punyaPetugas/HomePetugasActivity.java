@@ -91,10 +91,10 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
 
         nama = findViewById(R.id.nama);
         level = findViewById(R.id.level);
-        tagihan_count = findViewById(R.id.siswa_count);
         lottieAnim = findViewById(R.id.lottieAnim);
-        loadingProgress = findViewById(R.id.loadingProgress);
         searchSiswa = findViewById(R.id.searchSiswa);
+        tagihan_count = findViewById(R.id.siswa_count);
+        loadingProgress = findViewById(R.id.loadingProgress);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 
         recyclerView = findViewById(R.id.recyclerSiswa);
@@ -265,7 +265,7 @@ public class HomePetugasActivity extends AppCompatActivity implements DrawerAdap
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar, menu);
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
         return true;
     }
 

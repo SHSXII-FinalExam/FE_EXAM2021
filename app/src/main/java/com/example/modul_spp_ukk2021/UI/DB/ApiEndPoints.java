@@ -1,8 +1,6 @@
 package com.example.modul_spp_ukk2021.UI.DB;
 
 import com.example.modul_spp_ukk2021.UI.Data.Repository.KelasRepository;
-import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
-import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStaffRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.TransaksiRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.SPPRepository;
@@ -17,23 +15,23 @@ import retrofit2.http.POST;
 public interface ApiEndPoints {
     @FormUrlEncoded
     @POST("dbLoginSiswa.php")
-    Call<LoginSiswaRepository> loginSiswa(
+    Call<SiswaRepository> loginSiswa(
             @Field("nisn") String nisn,
             @Field("password") String password);
 
     @FormUrlEncoded
     @POST("dbLoginStaffLevel.php")
-    Call<LoginStaffRepository> loginStaff(
+    Call<PetugasRepository> loginStaff(
             @Field("username") String username,
             @Field("password") String password);
 
+    // [PS] Punya Siswa
+    // Read
     @FormUrlEncoded
     @POST("dbReadSiswa.php")
     Call<SiswaRepository> readProfilSiswa(
             @Field("nisn") String nisn);
 
-    // [PS] Punya Siswa
-    // Read
     @FormUrlEncoded
     @POST("dbReadTagihan.php")
     Call<TransaksiRepository> readTagihan(

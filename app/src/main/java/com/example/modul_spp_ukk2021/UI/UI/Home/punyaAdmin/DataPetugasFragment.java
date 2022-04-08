@@ -2,7 +2,6 @@ package com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,11 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -27,12 +24,10 @@ import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.Utils;
 import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
 import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
-import com.example.modul_spp_ukk2021.UI.UI.Home.punyaPetugas.TransaksiActivity;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -117,7 +112,7 @@ public class DataPetugasFragment extends Fragment {
             }
         });
 
-        ((HomeAdminActivity) getActivity()).setPetugasRefreshListener(new HomeAdminActivity.FragmentRefreshListener() {
+        ((HomeAdminActivity) requireActivity()).setPetugasRefreshListener(new HomeAdminActivity.FragmentRefreshListener() {
             @Override
             public void onRefresh() {
                 loadDataPetugas();

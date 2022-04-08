@@ -54,10 +54,10 @@ public class DataSiswaActivity extends AppCompatActivity {
     private ApiEndPoints api;
     private DataSiswaAdapter adapter;
     private RecyclerView recyclerView;
-    private LottieAnimationView emptyTransaksi;
     private String id_kelas, nama_kelas, angkatan;
     private SwipeRefreshLayout swipeRefreshLayout;
     private final List<Siswa> siswa = new ArrayList<>();
+    private LottieAnimationView emptyTransaksi, loadingProgress;
 
     public DataSiswaActivity() {
     }
@@ -74,6 +74,7 @@ public class DataSiswaActivity extends AppCompatActivity {
         ImageView IvBack = findViewById(R.id.back);
         ImageView IvRefresh = findViewById(R.id.refresh);
         emptyTransaksi = findViewById(R.id.emptyTransaksi);
+        loadingProgress = findViewById(R.id.loadingProgress);
         EditText SearchSiswa = findViewById(R.id.searchSiswa);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 
@@ -96,9 +97,7 @@ public class DataSiswaActivity extends AppCompatActivity {
             }
         });
 
-        IvBack.setOnClickListener(v -> {
-            onBackPressed();
-        });
+        IvBack.setOnClickListener(v -> onBackPressed());
 
         IvRefresh.setOnClickListener(v -> {
             Utils.preventTwoClick(v);
@@ -197,6 +196,11 @@ public class DataSiswaActivity extends AppCompatActivity {
                             emptyTransaksi.setAnimation(R.raw.nointernet);
                             emptyTransaksi.playAnimation();
                             emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
+
+                            loadingProgress.pauseAnimation();
+                            loadingProgress.setVisibility(LottieAnimationView.GONE);
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            Toast.makeText(DataSiswaActivity.this, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
                             Log.e("DEBUG", "Error: ", t);
                         }
                     });
@@ -228,6 +232,9 @@ public class DataSiswaActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        loadingProgress.playAnimation();
+        loadingProgress.setVisibility(LottieAnimationView.VISIBLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         loadDataSiswa();
     }
 
@@ -297,6 +304,10 @@ public class DataSiswaActivity extends AppCompatActivity {
                     emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
                     Toast.makeText(DataSiswaActivity.this, message, Toast.LENGTH_SHORT).show();
                 }
+
+                loadingProgress.pauseAnimation();
+                loadingProgress.setVisibility(LottieAnimationView.GONE);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
 
             @Override
@@ -305,7 +316,11 @@ public class DataSiswaActivity extends AppCompatActivity {
                 emptyTransaksi.setAnimation(R.raw.nointernet);
                 emptyTransaksi.playAnimation();
                 emptyTransaksi.setVisibility(LottieAnimationView.VISIBLE);
-                Toast.makeText(DataSiswaActivity.this, "Gagal koneksi sistem, silahkan coba lagi..." + " [" + t.toString() + "]", Toast.LENGTH_LONG).show();
+
+                loadingProgress.pauseAnimation();
+                loadingProgress.setVisibility(LottieAnimationView.GONE);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                Toast.makeText(DataSiswaActivity.this, "Gagal koneksi sistem, silahkan coba lagi...", Toast.LENGTH_LONG).show();
                 Log.e("DEBUG", "Error: ", t);
             }
         });

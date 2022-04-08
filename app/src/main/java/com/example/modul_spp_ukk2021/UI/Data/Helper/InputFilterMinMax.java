@@ -5,7 +5,8 @@ import android.text.Spanned;
 
 public class InputFilterMinMax implements InputFilter {
 
-    private int min, max; //paramets that you send to class
+    private final int min;
+    private final int max;
 
     public InputFilterMinMax(int min, int max) {
         this.min = min;
@@ -28,7 +29,7 @@ public class InputFilterMinMax implements InputFilter {
             int input = Integer.parseInt(parseThis);
             if (isInRange(min, max, input))
                 return null;
-        } catch (NumberFormatException nfe) {
+        } catch (NumberFormatException ignored) {
         }
         return "";
     }

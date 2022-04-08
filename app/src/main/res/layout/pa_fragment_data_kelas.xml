@@ -80,7 +80,7 @@
         app:iconTint="@color/red900"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle" />
+        app:shapeAppearanceOverlay="@style/ButtonCircle" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/emptyTransaksi"

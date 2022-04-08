@@ -1,5 +1,6 @@
 package com.example.modul_spp_ukk2021.UI.UI.Home.punyaSiswa;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -16,6 +17,7 @@ class PagerAdapter extends FragmentPagerAdapter {
         super(fm);
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int i) {
         return fragmentList.get(i);

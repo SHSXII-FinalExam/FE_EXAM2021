@@ -45,10 +45,10 @@
                 android:id="@+id/dataSiswa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/avenir_medium"
+                android:fontFamily="@font/inter_bold"
                 android:text="Data Siswa"
                 android:textColor="@color/colorWhite"
-                android:textSize="20sp"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="@+id/back"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -135,7 +135,7 @@
                 app:iconTint="@color/red900"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle" />
+                app:shapeAppearanceOverlay="@style/ButtonCircle" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/emptyTransaksi"
@@ -152,5 +152,21 @@
                 app:lottie_rawRes="@raw/nointernet" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loadingProgress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/material_grey"
+        android:elevation="1dp"
+        android:translationZ="1dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

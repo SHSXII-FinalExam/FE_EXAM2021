@@ -21,8 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
-import com.example.modul_spp_ukk2021.UI.Data.Model.LoginStaff;
-import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginStaffRepository;
+import com.example.modul_spp_ukk2021.UI.Data.Model.Petugas;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.PetugasRepository;
 import com.example.modul_spp_ukk2021.UI.UI.Home.punyaAdmin.HomeAdminActivity;
 import com.example.modul_spp_ukk2021.UI.UI.Splash.OnboardingActivity;
 import com.google.android.material.button.MaterialButton;
@@ -140,13 +140,13 @@ public class LoginStaffActivity extends AppCompatActivity {
                 .build();
         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
 
-        Call<LoginStaffRepository> call = api.loginStaff(username, password);
-        call.enqueue(new Callback<LoginStaffRepository>() {
+        Call<PetugasRepository> call = api.loginStaff(username, password);
+        call.enqueue(new Callback<PetugasRepository>() {
             @Override
-            public void onResponse(Call<LoginStaffRepository> call, Response<LoginStaffRepository> response) {
+            public void onResponse(Call<PetugasRepository> call, Response<PetugasRepository> response) {
                 String value = response.body().getValue();
                 String message = response.body().getMessage();
-                List<LoginStaff> results = response.body().getResult();
+                List<Petugas> results = response.body().getResult();
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -181,7 +181,7 @@ public class LoginStaffActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<LoginStaffRepository> call, Throwable t) {
+            public void onFailure(Call<PetugasRepository> call, Throwable t) {
                 loadingProgress.pauseAnimation();
                 loadingProgress.setVisibility(LottieAnimationView.GONE);
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);

@@ -93,7 +93,7 @@ public class TambahKelasActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 PopupMenu dropDownMenu = new PopupMenu(TambahKelasActivity.this, namakelas);
-                dropDownMenu.getMenuInflater().inflate(R.menu.dropdown_kelas, dropDownMenu.getMenu());
+                dropDownMenu.getMenuInflater().inflate(R.menu.menu_kelas, dropDownMenu.getMenu());
                 dropDownMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {

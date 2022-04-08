@@ -37,6 +37,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Data.Helper.DrawerAdapter;
@@ -71,6 +72,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     private Drawable[] screenIcons;
     private SlidingRootNav slidingRootNav;
     private SharedPreferences sharedprefs;
+    private LottieAnimationView loadingProgress;
     private SwipeRefreshLayout swipeRefreshLayout;
     private boolean doubleBackToExitPressedOnce = false;
     private String username, password, nama_petugas, rank;
@@ -114,6 +116,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
         password = sharedprefs.getString("passwordStaff", null);
 
         etSearch = findViewById(R.id.etSearch);
+        loadingProgress = findViewById(R.id.loadingProgress);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -173,6 +176,9 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
     @Override
     public void onResume() {
         super.onResume();
+        loadingProgress.playAnimation();
+        loadingProgress.setVisibility(LottieAnimationView.VISIBLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         loadProfil();
     }
 
@@ -304,7 +310,7 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar, menu);
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
         return true;
     }
 
@@ -388,11 +394,18 @@ public class HomeAdminActivity extends AppCompatActivity implements DrawerAdapte
                     for (int i = 0; i < results.size(); i++) {
                         nama_petugas = results.get(i).getNama_petugas();
                     }
+
+                    loadingProgress.pauseAnimation();
+                    loadingProgress.setVisibility(LottieAnimationView.GONE);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
             }
 
             @Override
             public void onFailure(Call<PetugasRepository> call, Throwable t) {
+                loadingProgress.pauseAnimation();
+                loadingProgress.setVisibility(LottieAnimationView.GONE);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 Log.e("DEBUG", "Error: ", t);
             }
         });

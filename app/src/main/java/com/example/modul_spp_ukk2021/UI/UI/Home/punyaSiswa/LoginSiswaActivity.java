@@ -21,7 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.modul_spp_ukk2021.R;
 import com.example.modul_spp_ukk2021.UI.DB.ApiEndPoints;
-import com.example.modul_spp_ukk2021.UI.Data.Repository.LoginSiswaRepository;
+import com.example.modul_spp_ukk2021.UI.Data.Repository.SiswaRepository;
 import com.example.modul_spp_ukk2021.UI.UI.Splash.OnboardingActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
@@ -136,10 +136,10 @@ public class LoginSiswaActivity extends AppCompatActivity {
                 .build();
         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
 
-        Call<LoginSiswaRepository> call = api.loginSiswa(nisn, password);
-        call.enqueue(new Callback<LoginSiswaRepository>() {
+        Call<SiswaRepository> call = api.loginSiswa(nisn, password);
+        call.enqueue(new Callback<SiswaRepository>() {
             @Override
-            public void onResponse(Call<LoginSiswaRepository> call, Response<LoginSiswaRepository> response) {
+            public void onResponse(Call<SiswaRepository> call, Response<SiswaRepository> response) {
                 String value = response.body().getValue();
                 String message = response.body().getMessage();
 
@@ -165,7 +165,7 @@ public class LoginSiswaActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<LoginSiswaRepository> call, Throwable t) {
+            public void onFailure(Call<SiswaRepository> call, Throwable t) {
                 loadingProgress.pauseAnimation();
                 loadingProgress.setVisibility(LottieAnimationView.GONE);
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);

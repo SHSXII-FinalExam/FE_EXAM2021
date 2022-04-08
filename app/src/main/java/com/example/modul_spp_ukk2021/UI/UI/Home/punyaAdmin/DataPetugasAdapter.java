@@ -80,7 +80,7 @@ public class DataPetugasAdapter extends RecyclerView.Adapter<DataPetugasAdapter.
             Utils.preventTwoClick(v);
             PopupMenu popup = new PopupMenu(context, v, Gravity.END, R.attr.popupMenuStyle, 0);
             MenuInflater inflater = popup.getMenuInflater();
-            inflater.inflate(R.menu.menu_customcard, popup.getMenu());
+            inflater.inflate(R.menu.menu_container, popup.getMenu());
 
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override

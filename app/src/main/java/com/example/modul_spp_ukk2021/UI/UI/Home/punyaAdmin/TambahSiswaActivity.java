@@ -49,7 +49,7 @@ public class TambahSiswaActivity extends AppCompatActivity {
     private Integer id_spp;
     private ApiEndPoints api;
     private LottieAnimationView loadingProgress;
-    private String id_petugas, id_kelas, nama_kelas, angkatan;
+    private String id_petugas, id_kelas;
     private EditText nama, nisn, nis, kelas, alamat, ponsel, password;
     private TextInputLayout boxNama, boxNisn, boxNis, boxKelas, boxAlamat, boxPonsel, boxPassword;
 
@@ -60,8 +60,8 @@ public class TambahSiswaActivity extends AppCompatActivity {
         SharedPreferences sharedprefs = getSharedPreferences("myprefs", Context.MODE_PRIVATE);
         id_petugas = sharedprefs.getString("idStaff", null);
         id_kelas = getIntent().getStringExtra("id_kelas");
-        nama_kelas = getIntent().getStringExtra("nama_kelas");
-        angkatan = getIntent().getStringExtra("angkatan");
+        String angkatan = getIntent().getStringExtra("angkatan");
+        String nama_kelas = getIntent().getStringExtra("nama_kelas");
 
         nama = findViewById(R.id.nama);
         nisn = findViewById(R.id.nisn);
@@ -116,6 +116,8 @@ public class TambahSiswaActivity extends AppCompatActivity {
                 } else {
                     btnSpp.setEnabled(false);
                     btnSpp.setText("SPP Kosong");
+                    kirim.setEnabled(false);
+                    kirim.setBackgroundColor(ContextCompat.getColor(TambahSiswaActivity.this, R.color.red200));
                     Toast.makeText(TambahSiswaActivity.this, message, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -142,35 +144,21 @@ public class TambahSiswaActivity extends AppCompatActivity {
             }
         });
 
-//        if (getIntent().getStringExtra("nisn") != null) {
-//            title.setText("Edit Data Siswa");
-//        nisn.setEnabled(false);
-//        nis.setEnabled(false);
+        if (getIntent().getStringExtra("nisn") != null) {
+            title.setText("Edit Data Siswa");
+            nisn.setEnabled(false);
+            nis.setEnabled(false);
+            nisn.setTextColor(ContextCompat.getColor(this, R.color.grey400));
+            nis.setTextColor(ContextCompat.getColor(this, R.color.grey400));
 
-//            nama_siswa.setText(siswa.getNama());
-//            NISN_siswa.setText(siswa.getNisn());
-//            NIS_siswa.setText(siswa.getNis());
-//            tvKelas.setText("Kelas                  : " + nama_kelas);
-//            alamat_siswa.setText(siswa.getAlamat());
-//            ponsel_siswa.setText(siswa.getNo_telp());
-//            password_siswa.setHint("New password");
-//
-//            id = getIntent().getIntExtra("id", 0);
-//            tahun.setText(getIntent().getStringExtra("tahun"));
-//            nominal.setText(getIntent().getStringExtra("nominal"));
-//            angkatan.setText(getIntent().getStringExtra("angkatan"));
-//            tahun.setTextColor(ContextCompat.getColor(this, R.color.grey400));
-//            angkatan.setTextColor(ContextCompat.getColor(this, R.color.grey400));
-//
-//        intent.putExtra("nisn", siswa.getNisn());
-//        intent.putExtra("nis", siswa.getNis());
-//        intent.putExtra("nama", siswa.getNama());
-//        intent.putExtra("id_kelas", siswa.getId_kelas());
-//        intent.putExtra("alamat", siswa.getAlamat());
-//        intent.putExtra("ponsel", siswa.getNo_telp());
-//        intent.putExtra("angkatan", siswa.getAngkatan());
-//        intent.putExtra("nama_kelas", siswa.getNama_kelas());
-//        }
+            nisn.setText(getIntent().getStringExtra("nisn"));
+            nis.setText(getIntent().getStringExtra("nis"));
+            nama.setText(getIntent().getStringExtra("nama"));
+            kelas.setText(nama_kelas);
+            alamat.setText(getIntent().getStringExtra("alamat"));
+            ponsel.setText(getIntent().getStringExtra("ponsel"));
+            password.setHint("Buat password baru");
+        }
 
         kembali.setOnClickListener(v -> onBackPressed());
         kirim.setOnClickListener(new View.OnClickListener() {

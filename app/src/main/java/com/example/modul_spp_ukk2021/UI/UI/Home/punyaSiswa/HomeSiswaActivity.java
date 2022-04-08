@@ -241,7 +241,7 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar, menu);
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
         return true;
     }
 
@@ -259,7 +259,7 @@ public class HomeSiswaActivity extends AppCompatActivity implements DrawerAdapte
             ((TextView) view.findViewById(R.id.tvNIS)).setText("NIS                    : " + tvNIS);
             ((TextView) view.findViewById(R.id.tvKelas)).setText("Kelas                 : " + tvKelas);
             ((TextView) view.findViewById(R.id.tvFillAlamat)).setText(tvFillAlamat);
-            ((TextView) view.findViewById(R.id.tvNoTelp)).setText("Nomor Ponsel : " + tvNoTelp);
+            ((TextView) view.findViewById(R.id.tvNoTelp)).setText("Nomor Ponsel  : " + tvNoTelp);
             ((TextView) view.findViewById(R.id.tvPassword)).setText("Password          : " + passwordSiswa);
 
             view.findViewById(R.id.clear).setOnClickListener(new View.OnClickListener() {

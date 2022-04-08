@@ -30,59 +30,27 @@
     </style>
 
     <!-- Etc -->
-    <style name="BoardingFullscreen" parent="Theme.ModulSPP_UKK2021">
-        <item name="android:navigationBarColor">@color/red900</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+    <style name="ButtonCircle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 
     <style name="OverflowMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
         <item name="android:overlapAnchor">false</item>
     </style>
 
-    <style name="ShapeAppearanceOverlay.MyApp.Button.Circle" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
+    <style name="BoardingFullscreen" parent="Theme.ModulSPP_UKK2021">
+        <item name="android:navigationBarColor">@color/red900</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="MineCustomTabText" parent="TextAppearance.Design.Tab">
+    <style name="CustomTabLayout" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">14sp</item>
         <item name="textAllCaps">false</item>
         <item name="android:fontFamily">@font/inter_medium</item>
     </style>
 
-    <style name="EditText" parent="">
-        <item name="colorPrimary">@color/colorNeutral</item>
-    </style>
-
-    <style name="ToolbarText" parent="@style/TextAppearance.MaterialComponents.Headline6">
-        <item name="fontFamily">@font/inter_medium</item>
-        <item name="android:fontFamily">@font/inter_medium</item>
-        <item name="android:textSize">16sp</item>
-    </style>
-
     <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
-    </style>
-
-    <style name="MyTextInputLayout" parent="Base.Widget.MaterialComponents.TextInputLayout">
-        <item name="android:colorBackground">@android:color/black</item>
-        <item name="android:textColorHint">@color/red500</item>
-        <item name="android:paddingStart">16dp</item>
-        <item name="android:paddingEnd">16dp</item>
-        <item name="android:colorControlActivated">@android:color/black</item>
-        <item name="android:colorControlNormal">@android:color/black</item>
-        <item name="android:colorControlHighlight">@android:color/black</item>
-        <item name="android:backgroundTint">@android:color/black</item>
-        <item name="android:colorAccent">@android:color/black</item>
-    </style>
-
-    <style name="MyTextInputEditText" parent="ThemeOverlay.MaterialComponents.TextInputEditText">
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:colorBackground">@android:color/black</item>
-        <item name="android:colorControlActivated">@android:color/black</item>
-        <item name="android:colorControlNormal">@android:color/black</item>
-        <item name="android:colorControlHighlight">@android:color/black</item>
-        <item name="android:backgroundTint">@android:color/black</item>
-        <item name="android:colorAccent">@android:color/black</item>
     </style>
 </resources>
