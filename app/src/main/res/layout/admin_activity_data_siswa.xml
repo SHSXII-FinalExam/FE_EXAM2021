@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/back"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginStart="24dp"
@@ -24,10 +24,10 @@
         android:text="Data Siswa"
         android:textColor="#121212"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/imageView"
+        app:layout_constraintBottom_toBottomOf="@id/back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/imageView" />
+        app:layout_constraintTop_toTopOf="@id/back" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/search_bar"

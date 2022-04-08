@@ -8,12 +8,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.modul_spp_ukk2021.R;
-import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Repository.LoginSiswaRepository;
+import com.example.modul_spp_ukk2021.UI.Network.ApiEndPoints;
 import com.example.modul_spp_ukk2021.UI.Splash.LoginChoiceActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
@@ -24,26 +27,20 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.modul_spp_ukk2021.UI.Network.baseURL.url;
-
 public class LoginSiswaActivity extends AppCompatActivity {
     private EditText edtNISN, edtPassword;
-    TextInputLayout textInputLayout2;
+    private TextInputLayout textInputLayout2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_siswa);
 
-        LoginForm();
-    }
-
-    private void LoginForm() {
         edtNISN = findViewById(R.id.login_SiswaNISN);
         edtPassword = findViewById(R.id.login_siswaPass);
-        MaterialButton btnSignInSiswa = findViewById(R.id.signin_siswa);
         ImageView btnBack = findViewById(R.id.back);
         textInputLayout2 = findViewById(R.id.textInputLayout2);
+        MaterialButton btnSignInSiswa = findViewById(R.id.signin_siswa);
 
         btnSignInSiswa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +54,6 @@ public class LoginSiswaActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginSiswaActivity.this, LoginChoiceActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -67,9 +63,9 @@ public class LoginSiswaActivity extends AppCompatActivity {
         String password = edtPassword.getText().toString().trim();
 
         if (nisn.length() < 10) {
-            edtNISN.setError("NISN kosong/salah");
+            edtNISN.setError("NISN Kurang, silahkan coba lagi...");
         } else if (password.isEmpty()) {
-            edtPassword.setError("Password kosong/salah");
+            edtPassword.setError("Password Kurang, silahkan coba lagi...");
             textInputLayout2.setEndIconVisible(false);
 
             edtPassword.addTextChangedListener(new TextWatcher() {
@@ -88,27 +84,30 @@ public class LoginSiswaActivity extends AppCompatActivity {
             });
 
         } else {
-            loadDataPembayaran(nisn, password);
+            loginSiswa(nisn, password);
         }
     }
 
-    private void loadDataPembayaran(String nisn, String password) {
+    private void loginSiswa(String nisn, String password) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiEndPoints api = retrofit.create(ApiEndPoints.class);
+
         Call<LoginSiswaRepository> call = api.loginSiswa(nisn, password);
         call.enqueue(new Callback<LoginSiswaRepository>() {
             @Override
             public void onResponse(Call<LoginSiswaRepository> call, Response<LoginSiswaRepository> response) {
                 String value = response.body().getValue();
+                String message = response.body().getMessage();
 
                 if (value.equals("1")) {
                     Intent intent = new Intent(LoginSiswaActivity.this, HomeSiswaActivity.class);
                     intent.putExtra("nisnSiswa", nisn);
                     startActivity(intent);
-                    finish();
+                } else {
+                    Toast.makeText(LoginSiswaActivity.this, message, Toast.LENGTH_LONG).show();
                 }
             }
 

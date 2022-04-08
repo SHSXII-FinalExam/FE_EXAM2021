@@ -8,11 +8,15 @@
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/activity_home_siswa.xml" value="0.25416666666666665" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/activity_login_choice.xml" value="0.2" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/activity_login_petugasadmin.xml" value="0.1" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/activity_login_siswa.xml" value="0.23854166666666668" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/activity_login_staff.xml" value="0.2" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/activity_splash.xml" value="0.2" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_activity_data_siswa.xml" value="0.14010416666666667" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_data_kelas_activity.xml" value="0.25416666666666665" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_data_petugas_activity.xml" value="0.25416666666666665" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_fragment_activity.xml" value="0.25416666666666665" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_fragment_data_siswa.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_tambah_siswa.xml" value="0.203125" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/admin_tambah_spp.xml" value="0.12" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/container_data_siswa.xml" value="0.4" />
         <entry key="..\:/Android-Studio-Projects/Modul-SPP_UKK2021/app/src/main/res/layout/container_nama_tagihan.xml" value="0.25416666666666665" />
