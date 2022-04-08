@@ -19,7 +19,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="40dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="Halo Gregorius"
+            android:text="Halo Alfian"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"

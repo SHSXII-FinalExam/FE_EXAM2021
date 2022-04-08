@@ -23,7 +23,7 @@
             android:layout_marginStart="24dp"
             android:fontFamily="@font/poppins_medium"
             android:maxEms="7"
-            android:text="Dummy"
+            android:text="Alfian Nurditariyono"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/status"
