@@ -1,48 +1,28 @@
 package com.example.modul_spp_ukk2021.UI.Splash;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.modul_spp_ukk2021.R;
+import com.google.android.material.button.MaterialButton;
 
 public class SplashActivity extends AppCompatActivity {
-    SharedPreferences loginPreference;
-    String MY_PREF = "my_pref";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-        loginPreference = getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
+        setContentView(R.layout.activity_splash_screen);
 
-        if (loginPreference.getString("tag", "notok").equals("notok")) {
-            SharedPreferences.Editor edit = loginPreference.edit();
-            edit.putString("tag", "ok");
-            edit.apply();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(SplashActivity.this, LoginChoiceActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            }, 2000);
-
-        } else if (loginPreference.getString("tag", null).equals("ok")) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(SplashActivity.this, LoginChoiceActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            }, 2000);
-        }
-
+        MaterialButton btnSplash = findViewById(R.id.btnSplash);
+        btnSplash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SplashActivity.this, LoginChoiceActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
